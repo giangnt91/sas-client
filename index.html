@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>SAS Crm</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+    <!-- Material Dashboard CSS -->
+    <link rel="stylesheet" href="assets/css/material-dashboard.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <base href="/dev/SAS/SAS-crm/">
+    <!-- <base href="/"> -->
+
+</head>
+
+<body ng-app="SAScrm">
+
+    <!-- Our Website Content Goes Here -->
+    <div ng-include='"templates/header.html"'></div>
+    <div ng-include='"templates/leftmenu.html"'></div>
+    <div ng-view></div>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/jquery.min.js"></script>
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap-material-design.min.js"></script>
+
+
+    <!-- datatable -->
+    <!-- <script src="assets/js/jquery.dataTables.min.js"></script> -->
+    <!-- <script src="assets/js/bootstrap-table.js"></script> -->
+    <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css">
+    <script src="javascripts/jquery.dataTables.min.js"></script>
+
+    <!--  Notifications Plugin, full documentation here: http://bootstrap-notify.remabledesigns.com/    -->
+    <script src="assets/js/plugins/bootstrap-notify.js"></script>
+
+    <!--  Charts Plugin, full documentation here: https://gionkunz.github.io/chartist-js/ -->
+    <script src="assets/js/plugins/chartist.min.js"></script>
+
+    <!-- Plugin for Scrollbar documentation here: https://github.com/utatti/perfect-scrollbar -->
+    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
+    <!-- Demo init -->
+    <script src="assets/demo/demo.js"></script>
+
+    <!-- Material Dashboard Core initialisations of plugins and Bootstrap Material Design Library -->
+    <script src="assets/js/material-dashboard.js?v=2.1.0"></script>
+
+    <!-- Vendor: Angular, followed by our custom Javascripts -->
+    <script src="javascripts/angular-1-4-2.min.js"></script>
+    <script src="javascripts/angular-route-1-2-18.min.js"></script>
+    <script src="javascripts/ng-tags-input.min.js"></script>
+    <script src="node_modules/ng-dialog/js/ngDialog.min.js"></script>
+    <link rel="stylesheet" href="node_modules/ng-dialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="node_modules/ng-dialog/css/ngDialog-theme-default.min.css">
+
+    <!-- Our Website Javascripts -->
+    <script src="center/service.js"></script>
+    <script src="center/main.js"></script>
+    <script src="center/controller.js"></script>
+    <script src="center/controller/home.js"></script>
+    <script src="center/notifi.js"></script>
+    <script src="center/controller/setup.js"></script>
+    <script src="center/controller/Statistics.js"></script>
+    <script src="bower_components/angular-socket-io/socket.min.js"></script>
+
+</body>
+
+</html>

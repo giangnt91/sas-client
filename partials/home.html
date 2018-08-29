@@ -1,0 +1,83 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="material-datatables">
+                            <table id="hometable" class="table table-striped cell-border table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Time</th>
+                                        <th>ID</th>
+                                        <th>Họ</th>
+                                        <th>Tên</th>
+                                        <th>Giới tính</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Trạng thái</th>
+                                        <th>Nhân viên</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tiger Nixon</td>
+                                        <td>System Architect</td>
+                                        <td>Edinburgh</td>
+                                        <td>61</td>
+                                        <td>2011/04/25</td>
+                                        <td>2011/04/25</td>
+                                        <td>2011/04/25</td>
+                                        <td>2011/04/25</td>
+                                        <td>2011/04/25</td>
+                                        <td>dasd98 a0s9d</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#hometable').DataTable();
+        // $('#datatables').DataTable({
+        //     "pagingType": "full_numbers",
+        //     "lengthMenu": [
+        //         [10, 25, 50, -1],
+        //         [10, 25, 50, "All"]
+        //     ],
+        //     responsive: true,
+        //     language: {
+        //         search: "_INPUT_",
+        //         searchPlaceholder: "Search records",
+        //     }
+        // });
+
+        // var table = $('#datatable').DataTable();
+
+        //     // Edit record
+        //     table.on('click', '.edit', function () {
+        //         $tr = $(this).closest('tr');
+        //         var data = table.row($tr).data();
+        //         alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+        //     });
+
+        //     // Delete a record
+        //     table.on('click', '.remove', function (e) {
+        //         $tr = $(this).closest('tr');
+        //         table.row($tr).remove().draw();
+        //         e.preventDefault();
+        //     });
+
+        //     //Like record
+        //     table.on('click', '.like', function () {
+        //         alert('You clicked on Like button');
+        //     });
+    });
+</script>

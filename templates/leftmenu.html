@@ -1,0 +1,76 @@
+<div id="si" ng-controller="MenuCtrl" class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+        <a href="#" class="simple-text logo-normal">
+            SAS TELESALES
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item" ng-click="go_home()"  ng-class="{'active': isactive === 1}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">dashboard</i>
+                    <p>Tất cả</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_notcalled()"  ng-class="{'active': isactive === 2}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">call</i>
+                    <p>Chưa gọi (0)</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_recall()"  ng-class="{'active': isactive === 3}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">call_received</i>
+                    <p>Gọi lại</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_schedule()"  ng-class="{'active': isactive === 4}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">schedule</i>
+                    <p>Hẹn chưa đến</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_notreg()"  ng-class="{'active': isactive === 5}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">category</i>
+                    <p>Đến chưa đăng ký</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_send()"  ng-class="{'active': isactive === 6}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">trending_flat</i>
+                    <p>Đã chuyển</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_calendar()"  ng-class="{'active': isactive === 7}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">notifications</i>
+                    <p>Lịch hẹn</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_statistics()"  ng-class="{'active': isactive === 8}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">bar_chart</i>
+                    <p>Thống kê</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_setup()"  ng-class="{'active': isactive === 9}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">settings</i>
+                    <p>Setup</p>
+                </a>
+            </li>
+            <!-- <li class="nav-item active-pro ">
+              <a class="nav-link" href="./upgrade.html">
+                  <i class="material-icons">unarchive</i>
+                  <p>Upgrade to PRO</p>
+              </a>
+          </li> -->
+        </ul>
+    </div>
+</div>
