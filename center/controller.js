@@ -1,22 +1,56 @@
-var sas = angular.module('SASController', ['ngRoute', 'btford.socket-io', 'ngDialog']);
+var sas = angular.module('SASController', ['ngRoute', 'btford.socket-io', 'ngDialog', 'angular-md5']);
 sas
-    .controller('AuthCtrl', function ($location, $scope, ngDialog, $timeout, Notifi) {
+    .controller('AuthCtrl', function ($location, $scope, $rootScope, ngDialog, $timeout, Notifi, DataServices, md5) {
 
         $scope.login = function () {
-            // ngDialog.open({ 
-            //     template: 'templates/loading.html',
-            //     className: 'ngdialog-theme-default',
-            //     paint: true,
-            //     showClose: false,
-            //     closeByDocument: false,
-            //     closeByEscape: false
-            //  });
-
             if ($scope.username === undefined || $scope.username === '' || $scope.password === undefined || $scope.password === '') {
                 Notifi._error('Please enter Username and Password');
                 return;
             } else {
-                $location.path('/home');
+                ngDialog.open({
+                    template: 'templates/loading.html',
+                    className: 'ngdialog-theme-default',
+                    paint: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });
+                let pass = md5.createHash($scope.username + $scope.password);
+                DataServices.signIn($scope.username, pass).then(function (repsonse) {
+                    var data_result = repsonse.data;
+                    if (data_result.error_code === 0) {
+                        $timeout(function () {
+                            if (data_result.auth.Role[0].id === 1 || data_result.auth.Role[0].id === 0) {
+                                ngDialog.close();
+                                $rootScope.auth = data_result.auth;
+                                localStorage.setItem('Auth', JSON.stringify(data_result.auth));
+                                Notifi._success('Đăng nhập thành công');
+                                $location.path('/home');
+                            } else {
+                                alert('dang lam trang marketing')
+                            }
+                        }, 1500);
+                    } if (data_result.error_code === 1) {
+                        $timeout(function () {
+                            ngDialog.close();
+                            Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại.');
+                            return;
+                        }, 1500)
+                    } if (data_result.error_code === 2) {
+                        $timeout(function () {
+                            ngDialog.close();
+                            Notifi._error('Username hoặc Password không chính xác.');
+                            return;
+                        }, 1500)
+                    } if (data_result.error_code === 3) {
+                        $timeout(function () {
+                            ngDialog.close();
+                            Notifi._error('Tài khoản chưa được đăng ký.');
+                            return;
+                        }, 1500)
+                    }
+                })
+
             }
         }
     })

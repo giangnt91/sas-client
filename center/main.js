@@ -1,4 +1,4 @@
-angular.module('SAScrm', ['ngRoute', 'SASController'])
+angular.module('SAScrm', ['ngRoute', 'SASController', 'SASService'])
     .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider
 

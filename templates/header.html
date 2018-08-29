@@ -7,6 +7,10 @@
                     <i class="material-icons">person_add</i>
                     <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm học viên</h4>
                 </a>
+                <a class="navbar-brand" href="" data-toggle="modal" data-target="#user">
+                    <i class="material-icons">face</i>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm User</h4>
+                </a>
             </div>
             <div class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav">
@@ -16,7 +20,7 @@
                             <p class="d-lg-none d-md-block">
                                 Account
                             </p>
-                            Nguyễn Văn A
+                            {{auth.Fullname}}
                         </a>
                     </li>
                     <li class="nav-item">
@@ -34,3 +38,4 @@
 <!-- modal -->
 <div ng-include='"templates/changepass.html"'></div>
 <div ng-include='"templates/add.html"'></div>
+<div ng-include='"templates/user.html"'></div>
