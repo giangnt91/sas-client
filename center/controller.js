@@ -79,21 +79,21 @@ sas
 
         // go recall
         $scope.go_recall = function () {
-            $location.path('/home');
+            $location.path('/recall');
             $scope.isactive = 3;
             localStorage.setItem('isactive', $scope.isactive);
         }
 
         // go schedule 
         $scope.go_schedule = function () {
-            $location.path('/home');
+            $location.path('/schedule');
             $scope.isactive = 4;
             localStorage.setItem('isactive', $scope.isactive);
         }
 
-        // go notreg
-        $scope.go_notreg = function () {
-            $location.path('/home');
+        // go unreg
+        $scope.go_unreg = function () {
+            $location.path('/unreg');
             $scope.isactive = 5;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -107,7 +107,7 @@ sas
 
         // go calendar
         $scope.go_calendar = function () {
-            $location.path('/home');
+            $location.path('/calendar');
             $scope.isactive = 7;
             localStorage.setItem('isactive', $scope.isactive);
         }
