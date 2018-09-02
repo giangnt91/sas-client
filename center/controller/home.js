@@ -12,12 +12,340 @@ sas
             return parts[2] + '/' + parts[1] + '/' + parts[0];
         }
 
+        // giới tính
+        $scope.Sex = [
+            {
+                name: 'Chọn',
+                value: null
+            },
+            {
+                name: 'Nam',
+                value: 1
+            },
+            {
+                name: 'Nữ',
+                value: 0
+            }
+        ];
+
+        // địa chỉ
+        $scope.Address = [
+            {
+                name: 'Chọn',
+                value: null
+            }, {
+                name: 'Quận 1',
+                value: 1
+            }, {
+                name: 'Quận 2',
+                value: 2
+            }, {
+                name: 'Quận 3',
+                value: 3
+            }, {
+                name: 'Quận 4',
+                value: 4
+            }, {
+                name: 'Quận 5',
+                value: 5
+            }, {
+                name: 'Quận 6',
+                value: 6
+            }, {
+                name: 'Quận 7',
+                value: 7
+            }, {
+                name: 'Quận 8',
+                value: 8
+            }, {
+                name: 'Quận 9',
+                value: 9
+            }, {
+                name: 'Quận 10',
+                value: 10
+            }, {
+                name: 'Quận 11',
+                value: 11
+            }, {
+                name: 'Quận 12',
+                value: 12
+            }, {
+                name: 'Quận Thủ Đức',
+                value: 13
+            }, {
+                name: 'Quận Gò Vấp',
+                value: 14
+            }, {
+                name: 'Quận Bình Thạnh',
+                value: 15
+            }, {
+                name: 'Quận Tân Bình',
+                value: 16
+            }, {
+                name: 'Quận Tân Phú',
+                value: 17
+            }, {
+                name: 'Quận Phú Nhuận',
+                value: 18
+            }, {
+                name: 'Quận Bình Tân',
+                value: 19
+            }, {
+                name: 'Huyện Củ Chi',
+                value: 20
+            }, {
+                name: 'Huyện Hóc Môn',
+                value: 21
+            }, {
+                name: 'Huyện Bình Chánh',
+                value: 22
+            }, {
+                name: 'Huyện Nhà Bè',
+                value: 23
+            }, {
+                name: 'Huyện Cần Giờ',
+                value: 24
+            }, {
+                name: 'Đồng Nai',
+                value: 25
+            }, {
+                name: 'Bình Dương',
+                value: 26
+            }, {
+                name: 'Đà Nẵng',
+                value: 27
+            }, {
+                name: 'Khác',
+                value: 28
+            }
+        ]
+
+        // cơ sở
+        $scope.Center = [
+            {
+                name: 'Chọn',
+                value: null
+            }, {
+                name: 'Bạch Đằng',
+                value: 1
+            }, {
+                name: 'Lạc Long Quân',
+                value: 2
+            }, {
+                name: 'Bác Ái',
+                value: 3
+            }, {
+                name: 'Lê Hồng Phong',
+                value: 4
+            }, {
+                name: 'Trần Thị Nghỉ',
+                value: 5
+            }, {
+                name: 'Trần Bình Trọng',
+                value: 6
+            }, {
+                name: '79 DIS 7',
+                value: 7
+            }, {
+                name: 'Tây Thạnh',
+                value: 8
+            }, {
+                name: 'Trần Khánh Dư',
+                value: 9
+            }, {
+                name: 'Bàu Cát',
+                value: 10
+            }, {
+                name: 'Lý Chiêu Hoàng',
+                value: 11
+            }, {
+                name: 'Hoa Lan',
+                value: 12
+            }, {
+                name: 'Lê Văn Việt',
+                value: 13
+            }, {
+                name: 'Phạm Thị Tánh',
+                value: 14
+            }, {
+                name: 'Đại Lộ Bình Dương',
+                value: 15
+            }, {
+                name: 'Chánh Nghĩa',
+                value: 16
+            }, {
+                name: 'Biên Hòa',
+                value: 17
+            }, {
+                name: 'Đà Nẵng',
+                value: 18
+            }, {
+                name: 'Thanh Khê',
+                value: 19
+            }, {
+                name: 'Hà Huy Giáp',
+                value: 20
+            }, {
+                name: 'Điện Biên Phủ',
+                value: 21
+            }, {
+                name: 'Trần Văn Hoài CT',
+                value: 22
+            }, {
+                name: '30/4 CT',
+                value: 23
+            }, {
+                name: 'Tân Sơn Nhì',
+                value: 24
+            }
+        ]
+
+        // trạng thái
+        $scope.Status = [
+            {
+                name: 'Chọn',
+                value: null
+            },
+            {
+                name: 'Chưa đăng ký',
+                value: 0
+            },
+            {
+                name: 'Không tiềm năng',
+                value: 1
+            },
+            {
+                name: 'Đến chưa đăng ký',
+                value: 2
+            },
+            {
+                name: 'Đã đăng ký',
+                value: 3
+            }
+        ]
+
+        // giờ hẹn
+        $scope.Appointment_time = [
+            {
+                name: 'Chọn',
+                value: null
+            },
+            {
+                name: '8.00',
+                value: 1
+            },
+            {
+                name: '8.30',
+                value: 2
+            },
+            {
+                name: '9.00',
+                value: 3
+            },
+            {
+                name: '9.30',
+                value: 4
+            },
+            {
+                name: '10.00',
+                value: 5
+            },
+            {
+                name: '10.30',
+                value: 6
+            },
+            {
+                name: '11.00',
+                value: 7
+            },
+            {
+                name: '11.30',
+                value: 8
+            },
+            {
+                name: '12.00',
+                value: 9
+            },
+            {
+                name: '12.30',
+                value: 10
+            },
+            {
+                name: '13.00',
+                value: 11
+            },
+            {
+                name: '13.30',
+                value: 12
+            },
+            {
+                name: '14.00',
+                value: 13
+            },
+            {
+                name: '14.30',
+                value: 14
+            },
+            {
+                name: '15.00',
+                value: 15
+            },
+            {
+                name: '15.30',
+                value: 16
+            },
+            {
+                name: '16.00',
+                value: 17
+            },
+            {
+                name: '16.30',
+                value: 18
+            },
+            {
+                name: '17.00',
+                value: 19
+            },
+            {
+                name: '17.30',
+                value: 20
+            },
+            {
+                name: '18.00',
+                value: 21
+            },
+            {
+                name: '18.30',
+                value: 22
+            },
+            {
+                name: '19.00',
+                value: 23
+            },
+            {
+                name: '19.30',
+                value: 24
+            },
+            {
+                name: '20.00',
+                value: 25
+            },
+            {
+                name: '20.30',
+                value: 26
+            },
+            {
+                name: '21.00',
+                value: 27
+            }
+        ];
+
         // lấy danh sách học viên
         function getStudent(username, role) {
             DataServices.Getall(username, role).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.student;
-
+                    
                     $scope.newdtOptions = DTOptionsBuilder.newOptions()
                         .withDisplayLength(10)
                         .withOption('bLengthChange', true)
@@ -29,8 +357,52 @@ sas
             });
         }
 
+        // tạo học viên mới từ thêm bạn
+        function CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
+            DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager).then(function (response) {
+                if (response.data.error_code === 0) {
+                    getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+                    $scope.friendId = response.data._id;
+                    update_student($scope._details);
+                    Notifi._success('Tạo học viên thành công.');
+                } else {
+                    Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
+                }
+            })
+        }
+
+        // tạo học viên bình thường
+        function Cstudent(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
+            DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager).then(function (response) {
+                if (response.data.error_code === 0) {
+                    getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+                    Notifi._success('Tạo học viên thành công.');
+                } else {
+                    Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
+                }
+            })
+        }
+
+
         // cập nhật thông tin học viên
         function update_student(student) {
+            if ($scope.friendId !== undefined) {
+                let new_friend = {
+                    id: $scope.friendId,
+                    name: $scope._fullname
+                }
+
+                if (student.ListFriend !== null) {
+                    var listfriend = student.ListFriend;
+                    listfriend.push(new_friend);
+                }else{
+                    var listfriend = [];
+                    listfriend.push(new_friend);
+                }
+
+                student.ListFriend = listfriend;
+            }
+
             DataServices.UpStudent(student).then(function (response) {
                 if (response.data.error_code === 0) {
                     getStudent($rootScope.auth.Username, $rootScope.auth.Role);
@@ -452,6 +824,27 @@ sas
                             $scope.selectedTime = $scope.Appointment_time[0];
                         }
 
+                        // kiểm tra giờ gọi lại và ngày gọi lại
+                        if ($scope._details.Time_recall !== null) {
+                            if ($scope._details.Time_recall[0].day !== null) {
+                                $('#dngaygoilai').val(convertshow($scope._details.Time_recall[0].day));
+                            } else {
+                                $('#dngaygoilai').val(null);
+                            }
+                        } else {
+                            $('#dngaygoilai').val(null);
+                        }
+
+                        if (element.Time_recall !== null) {
+                            for (let i = 0; i < $scope.Appointment_time.length; i++) {
+                                if ($scope.Appointment_time[i].value === element.Time_recall[0].time[0].id) {
+                                    $scope.selectedTime2 = $scope.Appointment_time[i];
+                                }
+                            }
+                        } else {
+                            $scope.selectedTime2 = $scope.Appointment_time[0];
+                        }
+
                         // kiểm tra 3 check box
                         if (element.Appointment_1st === false) {
                             $scope.st1 = false;
@@ -478,7 +871,7 @@ sas
                 $('#detail').modal('show');
             }
 
-            // cập nhật thông tin 1 học viên
+            // cập nhật thông tin học viên 1
             $scope.up_detail = function () {
 
                 // kiểm tra ngày báo danh
@@ -513,7 +906,7 @@ sas
                 update_student($scope._details);
             }
 
-            // cập nhật thông tin 2 học viên
+            // cập nhật thông tin học viên 2
             $scope.up_detail_2 = function () {
 
                 // kiểm tra ngày hẹn
@@ -559,6 +952,53 @@ sas
 
             }
 
+            // cập nhật thông tin học viên 3
+            $scope.up_detail_3 = function () {
+                var _tmpday = $('#dngaygoilai').val();
+                var _day = null;
+                var tmpTime;
+                if ($scope._details.Time_recall !== null) {
+                    // kiểm tra ngày hẹn
+                    if (_tmpday !== '') {
+                        $scope._details.Time_recall[0].day = convertup(_tmpday);
+                    }
+
+                    // kiểm tra giờ hẹn
+                    if ($scope.selectedTime2 !== null) {
+                        tmpTime = [
+                            {
+                                id: $scope.selectedTime2.value,
+                                name: $scope.selectedTime2.name
+                            }
+                        ]
+                        $scope._details.Time_recall[0].time = tmpTime;
+                    }
+                } else {
+                    if (_tmpday !== '') {
+                        _day = convertup(_tmpday);
+                    }
+
+                    if ($scope.selectedTime2 !== null) {
+                        tmpTime = [
+                            {
+                                id: $scope.selectedTime2.value,
+                                name: $scope.selectedTime2.name
+                            }
+                        ]
+                    }
+
+                    var time_recall = [
+                        {
+                            day: _day,
+                            time: tmpTime
+                        }
+                    ]
+
+                    $scope._details.Time_recall = time_recall;
+                }
+                update_student($scope._details);
+            }
+
             // kiểm tra checkbox
             $scope.check1st = function (value) {
                 $scope._details.Appointment_1st = value;
@@ -573,6 +1013,119 @@ sas
             $scope.checkunreg = function (value) {
                 $scope._details.unregistered = value;
                 update_student($scope._details);
+            }
+
+            // Thêm bạn
+            $scope.addfriend = function (id) {
+                $scope.addNote = "Bạn của học viên " + id;
+                $('#add2').modal('show');
+            }
+
+            $scope.addnewfromaddFriend = function (data) {
+                var _tmpregday = $('#adddayreg').val();
+                var _tmpdayhen = $('#addngayhen').val();
+                var _manager = [{
+                    id: $scope.auth.Username,
+                    name: $scope.auth.Fullname
+                }]
+                if (data === undefined ||
+                    data.fullname === undefined ||
+                    data.email === undefined ||
+                    data.phone === undefined ||
+                    $scope.addselectedSex === undefined ||
+                    $scope.addselectedAddress === undefined ||
+                    _tmpregday === '' ||
+                    $scope.addNote === undefined ||
+                    $scope.addselectedCenter === undefined ||
+                    $scope.addselectedStatus === undefined ||
+                    _tmpdayhen === '' ||
+                    $scope.addselectedTime === undefined
+                ) {
+                    Notifi._error('Nhập đầy đủ thông tin để tạo user.')
+                    return;
+                } else {
+                    $scope._fullname = data.fullname;
+                    let regday = convertup(_tmpregday);
+                    let henday = convertup(_tmpdayhen);
+                    let tmp_sex = [{
+                        id: $scope.addselectedSex.value,
+                        name: $scope.addselectedSex.name
+                    }]
+                    let tmp_address = [{
+                        id: $scope.addselectedAddress.value,
+                        name: $scope.addselectedAddress.name
+                    }]
+                    let tmp_center = [{
+                        id: $scope.addselectedCenter.value,
+                        name: $scope.addselectedCenter.name
+                    }]
+                    let tmp_status = [{
+                        id: $scope.addselectedStatus.value,
+                        name: $scope.addselectedStatus.name
+                    }]
+                    let tmp_time = [{
+                        id: $scope.addselectedTime.value,
+                        name: $scope.addselectedTime.name
+                    }]
+
+                    CstudentF(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
+                }
+            }
+
+            // Thêm học viên mới
+            $scope.maddselectedSex = $scope.Sex[0];
+            $scope.maddselectedAddress = $scope.Address[0];
+            $scope.maddselectedCenter = $scope.Center[0];
+            $scope.maddselectedStatus = $scope.Status[0];
+            $scope.maddselectedTime = $scope.Appointment_time[0];
+            $scope.AddStudent = function (data) {
+                var _tmpregday = $('#madddayreg').val();
+                var _tmpdayhen = $('#maddngayhen').val();
+                var _manager = [{
+                    id: $scope.auth.Username,
+                    name: $scope.auth.Fullname
+                }]
+                if (data === undefined ||
+                    data.fullname === undefined ||
+                    data.email === undefined ||
+                    data.phone === undefined ||
+                    $scope.maddselectedSex === undefined ||
+                    $scope.maddselectedAddress === undefined ||
+                    _tmpregday === '' ||
+                    $scope.maddNote === undefined ||
+                    $scope.maddselectedCenter === undefined ||
+                    $scope.maddselectedStatus === undefined ||
+                    _tmpdayhen === '' ||
+                    $scope.maddselectedTime === undefined
+                ) {
+                    Notifi._error('Nhập đầy đủ thông tin để tạo user.')
+                    return;
+                } else {
+                    let regday = convertup(_tmpregday);
+                    let henday = convertup(_tmpdayhen);
+                    let tmp_sex = [{
+                        id: $scope.maddselectedSex.value,
+                        name: $scope.maddselectedSex.name
+                    }]
+                    let tmp_address = [{
+                        id: $scope.maddselectedAddress.value,
+                        name: $scope.maddselectedAddress.name
+                    }]
+                    let tmp_center = [{
+                        id: $scope.maddselectedCenter.value,
+                        name: $scope.maddselectedCenter.name
+                    }]
+                    let tmp_status = [{
+                        id: $scope.maddselectedStatus.value,
+                        name: $scope.maddselectedStatus.name
+                    }]
+                    let tmp_time = [{
+                        id: $scope.maddselectedTime.value,
+                        name: $scope.maddselectedTime.name
+                    }]
+
+                    Cstudent(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
+                }
             }
 
             // thay đổi mật khẩu

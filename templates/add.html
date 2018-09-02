@@ -1,237 +1,145 @@
-<!-- Modal -->
-<div ng-controller="HomeCtrl" class="modal fade" id="add" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-add" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
-                    Học Viên</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="padding-top: 5px">
-                <div class="row">
-                    <div class="card m-10">
-                        <div class="card-body card-add">
-                            <form name="loginform">
-                                <div class="row">
-                                    <div class="col-lg-2 p-0">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend add">
-                                                    <label for="fullname">Họ tên</label>
+<!-- Modal Thêm Học Viên-->
+<div class="modal fade" id="add" ng-controller="HomeCtrl" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-add m-3-top" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
+                        Học Viên</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding-top: 5px">
+                    <div class="row">
+                        <div class="card m-10">
+                            <div class="card-body card-add">
+                                <form name="loginform">
+                                    <div class="row">
+                                        <div class="col-lg-2 p-0">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend add">
+                                                        <label for="fullname">Họ tên</label>
+                                                    </div>
+                                                    <input type="text" class="form-control" ng-model="data.fullname" id="name" required>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.name" id="name" required>
-                                                <!-- <input type="text" class="form-control" ng-model="data.fullname" id="fullname" required style="width: 10%; margin-left: 10px;"> -->
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="email">Email</label>
-                                                <input type="text" class="form-control" ng-model="data.email" id="email" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="phone">Số DT</label>
-                                                <input type="number" class="form-control" ng-model="data.phone" id="phone" required>
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text">
-                                                        <a href="">
-                                                            <i class="material-icons" style="color:#00BCD4; margin-top: -20px;border: 1px solid; border-radius: 5px;">call</i>
-                                                        </a>
-                                                    </span>
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="email">Email</label>
+                                                    <input type="text" class="form-control" ng-model="data.email" id="email" required>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="sex">Giới tính</label>
-                                                <select id="sex" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">Nam</option>
-                                                    <option value="0">Nữ</option>
-                                                </select>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="phone">Số DT</label>
+                                                    <input type="number" class="form-control" ng-model="data.phone" id="phone" required>
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <a href="">
+                                                                <i class="material-icons" style="color:#00BCD4; margin-top: -20px;border: 1px solid; border-radius: 5px;">call</i>
+                                                            </a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="sex">Giới tính</label>
+                                                    <select class="form-control" ng-model="maddselectedSex" ng-options="option.name for option in Sex">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="address">Địa chỉ</label>
+                                                    <select class="form-control" ng-model="maddselectedAddress" ng-options="option.name for option in Address">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="dayreg">Ngày đăng ký</label>
+                                                    <input type="date" class="form-control datetimepicker" id="madddayreg" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <label for="note">Ghi chú</label>
+                                                <textarea class="form-control" rows="5" ng-model="maddNote" id="note"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 p-0">
+                                            <div class="form-group">
+                                                <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="AddStudent(data)">Thêm
+                                                    mới
+                                                </button>
+                                                <button class="btn btn-info btn-block">SMS</button>
+                                                <button class="btn btn-info btn-block">Email</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="address">Địa chỉ</label>
-                                                <select id="address" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">Quận 1</option>
-                                                    <option value="2">Quận 2</option>
-                                                    <option value="3">Quận 3</option>
-                                                    <option value="4">Quận 4</option>
-                                                    <option value="5">Quận 5</option>
-                                                    <option value="6">Quận 6</option>
-                                                    <option value="7">Quận 7</option>
-                                                    <option value="8">Quận 8</option>
-                                                    <option value="9">Quận 9</option>
-                                                    <option value="10">Quận 10</option>
-                                                    <option value="11">Quận 11</option>
-                                                    <option value="12">Quận 12</option>
-                                                    <option value="td">Quận Thủ Đức</option>
-                                                    <option value="gv">Quận Gò Vấp</option>
-                                                    <option value="bta">Quận Bình Thạnh</option>
-                                                    <option value="tb">Quận Tân Bình</option>
-                                                    <option value="tp">Quận Tân Phú</option>
-                                                    <option value="pn">Quận Phú Nhuận</option>
-                                                    <option value="bt">Quận Bình Tân</option>
-                                                    <option value="ct">Huyện Củ Chi</option>
-                                                    <option value="hm">Huyện Hóc Môn</option>
-                                                    <option value="bc">Huyện Bình Chánh</option>
-                                                    <option value="nb">Huyện Nhà Bè</option>
-                                                    <option value="cg">Huyện Cần Giờ</option>
-                                                    <option value="dn">Đồng Nai</option>
-                                                    <option value="bd">Bình Dương</option>
-                                                    <option value="dna">Đà Nẵng</option>
-                                                    <option value="#">Khác</option>
-                                                </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="card m-10">
+                            <div class="card-body">
+                                <form name="loginform">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="coso">Cơ sở</label>
+                                                    <select class="form-control" ng-model="maddselectedCenter" ng-options="option.name for option in Center">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="trangthai">Trạng thái</label>
+                                                    <select class="form-control" ng-model="maddselectedStatus" ng-options="option.name for option in Status">
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="dayreg">Ngày đăng ký</label>
-                                                <input type="date" class="form-control datetimepicker" ng-model="data.dayreg" id="dayreg" required>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="ngayhen">Ngày hẹn</label>
+                                                    <input type="date" class="form-control" id="maddngayhen" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group add">
+                                                    <label for="giohen">Giờ hẹn</label>
+                                                    <select class="form-control" ng-model="maddselectedTime" ng-options="option.name for option in Appointment_time">
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="note">Ghi chú</label>
-                                            <textarea class="form-control" rows="5" id="note"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-1 p-0">
-                                        <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;">Thêm
-                                                mới
+                                        <div class="col-lg-4">
+                                            <button type="button" class="btn btn-lg btn-warning btn-block top-65">Thêm mới và
+                                                chuyển
                                             </button>
-                                            <button class="btn btn-info btn-block">SMS</button>
-                                            <button class="btn btn-info btn-block">Email</button>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="card m-10">
-                        <div class="card-body">
-                            <form name="loginform">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="coso">Cơ sở</label>
-                                                <select id="coso" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option value="bd">Bạch Đằng</option>
-                                                    <option value="llq">Lạc Long Quân</option>
-                                                    <option value="ba">Bác Ái</option>
-                                                    <option value="lhp">Lê Hồng Phong</option>
-                                                    <option value="ttn">Trần Thị Nghỉ</option>
-                                                    <option value="tbt">Trần Bình Trọng</option>
-                                                    <option value="79">79 DIS 7</option>
-                                                    <option value="tt">Tây Thạnh</option>
-                                                    <option value="tkd">Trần Khánh Dư</option>
-                                                    <option value="bc">Bàu Cát</option>
-                                                    <option value="lch">Lý Chiêu Hoàng</option>
-                                                    <option value="hl">Hoa Lan</option>
-                                                    <option value="lvv">Lê Văn Việt</option>
-                                                    <option value="ptt">Phạm Thị Tánh</option>
-                                                    <option value="dlbd">Đại Lộ Bình Dương</option>
-                                                    <option value="cn">Chánh Nghĩa</option>
-                                                    <option value="bh">Biên Hòa</option>
-                                                    <option value="dn">Đà Nẵng</option>
-                                                    <option value="tk">Thanh Khê</option>
-                                                    <option value="hhg">Hà Huy Giáp</option>
-                                                    <option value="dbp">Điện Biên Phủ</option>
-                                                    <option value="tvh">Trần Văn Hoài CT</option>
-                                                    <option value="30">30/4 CT</option>
-                                                    <option value="tsn">Tân Sơn Nhì</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="trangthai">Trạng thái</label>
-                                                <select id="trangthai" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">Chưa đăng ký</option>
-                                                    <option value="2">Không tiềm năng</option>
-                                                    <option value="3">Đến chưa đăng ký</option>
-                                                    <option value="4">Đã đăng ký</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="ngayhen">Ngày hẹn</label>
-                                                <input type="date" class="form-control" ng-model="data.ngayhen" id="ngayhen" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="giohen">Giờ hẹn</label>
-                                                <select id="giohen" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option value="">8.00</option>
-                                                    <option value="">8.30</option>
-                                                    <option value="">9.00</option>
-                                                    <option value="">9.30</option>
-                                                    <option value="">10.00</option>
-                                                    <option value="">10.30</option>
-                                                    <option value="">11.00</option>
-                                                    <option value="">11.30</option>
-                                                    <option value="">12.00</option>
-                                                    <option value="">12.30</option>
-                                                    <option value="">13.00</option>
-                                                    <option value="">13.30</option>
-                                                    <option value="">14.00</option>
-                                                    <option value="">14.30</option>
-                                                    <option value="">15.00</option>
-                                                    <option value="">15.30</option>
-                                                    <option value="">16.00</option>
-                                                    <option value="">16.30</option>
-                                                    <option value="">17.00</option>
-                                                    <option value="">17.30</option>
-                                                    <option value="">18.00</option>
-                                                    <option value="">18.30</option>
-                                                    <option value="">19.00</option>
-                                                    <option value="">19.30</option>
-                                                    <option value="">20.00</option>
-                                                    <option value="">20.30</option>
-                                                    <option value="">21.00</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <button type="button" class="btn btn-lg btn-primary btn-block top-65">Thêm mới và
-                                            chuyển
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
             </div>
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
         </div>
     </div>
-</div>

@@ -38,6 +38,24 @@ angular.module('SASService', [])
             },
 
             //Api Student
+            CstudentF: function (Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
+                parameter = {
+                    Fullname: Fullname,
+                    Email: Email,
+                    Phone: Phone,
+                    Sex: Sex,
+                    Address: Address,
+                    Regday: Regday,
+                    Note: Note,
+                    Center: Center,
+                    Appointment_day: Appointment_day,
+                    Appointment_time: Appointment_time,
+                    Status_student: Status_student,
+                    Manager: Manager
+                }
+                url = api_gateway_url + '/cstudent';
+                return $http.post(url, parameter, header);
+            },
             Getall: function (Username, Role) {
                 parameter = JSON.stringify({
                     Username: Username,
