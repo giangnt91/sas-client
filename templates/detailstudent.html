@@ -1,11 +1,11 @@
 <!-- Modal -->
-<div ng-controller="HomeCtrl" class="modal fade" id="add" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+<div ng-controller="HomeCtrl" class="modal fade" id="detail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-add" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
-                    Học Viên</h4>
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
+                    Tin Chi Tiết Học Viên {{_details._id}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -22,14 +22,13 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="fullname">Họ tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.name" id="name" required>
-                                                <!-- <input type="text" class="form-control" ng-model="data.fullname" id="fullname" required style="width: 10%; margin-left: 10px;"> -->
+                                                <input type="text" class="form-control" ng-model="_details.Fullname" id="dname">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="email">Email</label>
-                                                <input type="text" class="form-control" ng-model="data.email" id="email" required>
+                                                <input type="text" class="form-control" ng-model="_details.Email" id="demail">
                                             </div>
                                         </div>
                                     </div>
@@ -37,7 +36,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="phone">Số DT</label>
-                                                <input type="number" class="form-control" ng-model="data.phone" id="phone" required>
+                                                <input type="text" class="form-control" ng-model="_details.Phone" id="dphone">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <a href="">
@@ -50,10 +49,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="sex">Giới tính</label>
-                                                <select id="sex" class="form-control">
-                                                    <option selected>Choose...</option>
-                                                    <option value="1">Nam</option>
-                                                    <option value="0">Nữ</option>
+                                                <select class="form-control" ng-model="selectedSex" ng-options="option.name for option in Sex">
                                                 </select>
                                             </div>
                                         </div>
@@ -62,7 +58,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="address">Địa chỉ</label>
-                                                <select id="address" class="form-control">
+                                                <!-- <select id="daddress" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option value="1">Quận 1</option>
                                                     <option value="2">Quận 2</option>
@@ -92,26 +88,28 @@
                                                     <option value="bd">Bình Dương</option>
                                                     <option value="dna">Đà Nẵng</option>
                                                     <option value="#">Khác</option>
-                                                </select>
+                                                </select> -->
+
+                                                <select class="form-control" ng-model="selectedAddress" ng-options="option.name for option in Address">
+                                                    </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group add">
-                                                <label for="dayreg">Ngày đăng ký</label>
-                                                <input type="date" class="form-control datetimepicker" ng-model="data.dayreg" id="dayreg" required>
+                                                <label for="dayreg">Ngày Báo Danh</label>
+                                                <input type="date" class="form-control" id="dayreg2">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="note">Ghi chú</label>
-                                            <textarea class="form-control" rows="5" id="note"></textarea>
+                                            <textarea class="form-control" rows="5" ng-model="_details.Note" id="dnote"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-1 p-0">
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;">Thêm
-                                                mới
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="up_detail()">Cập Nhật
                                             </button>
                                             <button class="btn btn-info btn-block">SMS</button>
                                             <button class="btn btn-info btn-block">Email</button>
@@ -132,7 +130,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="coso">Cơ sở</label>
-                                                <select id="coso" class="form-control">
+                                                <select id="dcoso" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option value="bd">Bạch Đằng</option>
                                                     <option value="llq">Lạc Long Quân</option>
@@ -164,7 +162,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="trangthai">Trạng thái</label>
-                                                <select id="trangthai" class="form-control">
+                                                <select id="dtrangthai" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option value="1">Chưa đăng ký</option>
                                                     <option value="2">Không tiềm năng</option>
@@ -178,13 +176,13 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="ngayhen">Ngày hẹn</label>
-                                                <input type="date" class="form-control" ng-model="data.ngayhen" id="ngayhen" required>
+                                                <input type="date" class="form-control" ng-model="data.ngayhen" id="dngayhen" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="giohen">Giờ hẹn</label>
-                                                <select id="giohen" class="form-control">
+                                                <select id="dgiohen" class="form-control">
                                                     <option selected>Choose...</option>
                                                     <option value="">8.00</option>
                                                     <option value="">8.30</option>

@@ -8,7 +8,7 @@ sas
 
                 }, {
                         type: 'danger',
-                        timer: 3000,
+                        timer: 2000,
                         placement: {
                             from: from,
                             align: align
@@ -22,7 +22,7 @@ sas
 
                 }, {
                         type: 'success',
-                        timer: 3000,
+                        timer: 2000,
                         placement: {
                             from: from,
                             align: align
