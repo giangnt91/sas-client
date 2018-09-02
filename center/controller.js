@@ -26,6 +26,7 @@ sas
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
                                 Notifi._success('Đăng nhập thành công');
                                 $location.path('/home');
+                                location.reload(true);
                             } else {
                                 alert('dang lam trang marketing')
                             }
