@@ -346,7 +346,7 @@ sas
                 if (response.data.error_code === 0) {
                     $scope.list_student = [];
                     response.data.student.forEach(element => {
-                        if(element.Appointment_not_1st === false){
+                        if(element.Appointment_not_1st === true){
                             $scope.list_student.push(element);
                         }
                     });
