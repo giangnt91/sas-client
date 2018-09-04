@@ -1172,18 +1172,19 @@ sas
                     data.phone === undefined ||
                     $scope.maddselectedSex === undefined ||
                     $scope.maddselectedAddress === undefined ||
-                    _tmpregday === '' ||
-                    $scope.maddNote === undefined ||
-                    $scope.maddselectedCenter === undefined ||
-                    $scope.maddselectedStatus === undefined ||
-                    _tmpdayhen === '' ||
-                    $scope.maddselectedTime === undefined
+                    _tmpregday === ''
                 ) {
                     Notifi._error('Nhập đầy đủ thông tin để tạo user.')
                     return;
                 } else {
+
                     let regday = convertup(_tmpregday);
-                    let henday = convertup(_tmpdayhen);
+                    
+                    var tmp_center;
+                    var tmp_status;
+                    var henday;
+                    var tmp_time;
+
                     let tmp_sex = [{
                         id: $scope.maddselectedSex.value,
                         name: $scope.maddselectedSex.name
@@ -1192,20 +1193,48 @@ sas
                         id: $scope.maddselectedAddress.value,
                         name: $scope.maddselectedAddress.name
                     }]
-                    let tmp_center = [{
-                        id: $scope.maddselectedCenter.value,
-                        name: $scope.maddselectedCenter.name
-                    }]
-                    let tmp_status = [{
-                        id: $scope.maddselectedStatus.value,
-                        name: $scope.maddselectedStatus.name
-                    }]
-                    let tmp_time = [{
-                        id: $scope.maddselectedTime.value,
-                        name: $scope.maddselectedTime.name
-                    }]
 
-                    Cstudent(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
+                    if ($scope.maddselectedCenter !== undefined) {
+                        tmp_center = [{
+                            id: $scope.maddselectedCenter.value,
+                            name: $scope.maddselectedCenter.name
+                        }]
+                    } else {
+                        tmp_center = null;
+                    }
+
+                    if ($scope.maddselectedStatus !== undefined) {
+                        tmp_status = [{
+                            id: $scope.maddselectedStatus.value,
+                            name: $scope.maddselectedStatus.name
+                        }]
+                    } else {
+                        tmp_status = {
+                            id: 0,
+                            name: 'Chưa đăng ký'
+                        }
+                    }
+
+                    if ($scope.maddselectedTime !== undefined) {
+                        tmp_time = [{
+                            id: $scope.maddselectedTime.value,
+                            name: $scope.maddselectedTime.name
+                        }]
+                    }else{
+                        tmp_time = null;
+                    }
+
+                    if(_tmpdayhen !== ''){
+                        henday = convertup(_tmpdayhen);
+                    }else{
+                        henday = null;
+                    }
+                    
+                    if($scope.maddNote === undefined || $scope.maddNote === ''){
+                        $scope.maddNote = null;
+                    }
+
+                    Cstudent(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.maddNote, tmp_center, henday, tmp_time, tmp_status, _manager);
                 }
             }
         }

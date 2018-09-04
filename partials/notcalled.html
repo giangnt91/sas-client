@@ -315,7 +315,7 @@
                         <div class="card-body card-add">
                             <form name="loginform">
                                 <div class="row">
-                                    <div class="col-lg-2 p-0">
+                                    <div class="col-lg-3 p-0">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
@@ -331,7 +331,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="phone">Số DT</label>
@@ -353,7 +353,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="address">Địa chỉ</label>
@@ -366,12 +366,6 @@
                                                 <label for="dayreg">Ngày đăng ký</label>
                                                 <input type="date" class="form-control datetimepicker" id="adddayreg" required>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="note">Ghi chú</label>
-                                            <textarea class="form-control" rows="5" ng-model="addNote" id="note2"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-1 p-0">
@@ -414,7 +408,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="ngayhen">Ngày hẹn</label>
-                                                <input type="date" class="form-control" id="addngayhen" required>
+                                                <input type="date" class="form-control" id="addngayhen">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -426,9 +420,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <button type="button" class="btn btn-lg btn-warning btn-block top-65">Thêm mới và
-                                            chuyển
-                                        </button>
+                                        <div class="form-group">
+                                            <label for="note">Ghi chú</label>
+                                            <textarea class="form-control" rows="5" ng-model="addNote" id="note2"></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -437,9 +432,9 @@
                 </div>
             </div>
             <!-- <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
         </div>
     </div>
 </div>
