@@ -235,111 +235,111 @@ sas
                 value: null
             },
             {
-                name: '8.00',
+                name: '8:00',
                 value: 1
             },
             {
-                name: '8.30',
+                name: '8:30',
                 value: 2
             },
             {
-                name: '9.00',
+                name: '9:00',
                 value: 3
             },
             {
-                name: '9.30',
+                name: '9:30',
                 value: 4
             },
             {
-                name: '10.00',
+                name: '10:00',
                 value: 5
             },
             {
-                name: '10.30',
+                name: '10:30',
                 value: 6
             },
             {
-                name: '11.00',
+                name: '11:00',
                 value: 7
             },
             {
-                name: '11.30',
+                name: '11:30',
                 value: 8
             },
             {
-                name: '12.00',
+                name: '12:00',
                 value: 9
             },
             {
-                name: '12.30',
+                name: '12:30',
                 value: 10
             },
             {
-                name: '13.00',
+                name: '13:00',
                 value: 11
             },
             {
-                name: '13.30',
+                name: '13:30',
                 value: 12
             },
             {
-                name: '14.00',
+                name: '14:00',
                 value: 13
             },
             {
-                name: '14.30',
+                name: '14:30',
                 value: 14
             },
             {
-                name: '15.00',
+                name: '15:00',
                 value: 15
             },
             {
-                name: '15.30',
+                name: '15:30',
                 value: 16
             },
             {
-                name: '16.00',
+                name: '16:00',
                 value: 17
             },
             {
-                name: '16.30',
+                name: '16:30',
                 value: 18
             },
             {
-                name: '17.00',
+                name: '17:00',
                 value: 19
             },
             {
-                name: '17.30',
+                name: '17:30',
                 value: 20
             },
             {
-                name: '18.00',
+                name: '18:00',
                 value: 21
             },
             {
-                name: '18.30',
+                name: '18:30',
                 value: 22
             },
             {
-                name: '19.00',
+                name: '19:00',
                 value: 23
             },
             {
-                name: '19.30',
+                name: '19:30',
                 value: 24
             },
             {
-                name: '20.00',
+                name: '20:00',
                 value: 25
             },
             {
-                name: '20.30',
+                name: '20:30',
                 value: 26
             },
             {
-                name: '21.00',
+                name: '21:00',
                 value: 27
             }
         ];
@@ -350,11 +350,11 @@ sas
                 if (response.data.error_code === 0) {
                     $scope.list_student = [];
                     response.data.student.forEach(element => {
-                        if(element.Status_student[0].id === 2){
+                        if (element.Status_student[0].id === 2) {
                             $scope.list_student.push(element);
                         }
                     });
-                    
+
                     $scope.newdtOptions = DTOptionsBuilder.newOptions()
                         .withDisplayLength(10)
                         .withOption('bLengthChange', true)
@@ -404,7 +404,7 @@ sas
                 if (student.ListFriend !== null) {
                     var listfriend = student.ListFriend;
                     listfriend.push(new_friend);
-                }else{
+                } else {
                     var listfriend = [];
                     listfriend.push(new_friend);
                 }
@@ -457,7 +457,7 @@ sas
                     });
                 }
             })
-            
+
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
 
             // thông tin chi tiết của học viên
@@ -686,111 +686,111 @@ sas
                         value: null
                     },
                     {
-                        name: '8.00',
+                        name: '8:00',
                         value: 1
                     },
                     {
-                        name: '8.30',
+                        name: '8:30',
                         value: 2
                     },
                     {
-                        name: '9.00',
+                        name: '9:00',
                         value: 3
                     },
                     {
-                        name: '9.30',
+                        name: '9:30',
                         value: 4
                     },
                     {
-                        name: '10.00',
+                        name: '10:00',
                         value: 5
                     },
                     {
-                        name: '10.30',
+                        name: '10:30',
                         value: 6
                     },
                     {
-                        name: '11.00',
+                        name: '11:00',
                         value: 7
                     },
                     {
-                        name: '11.30',
+                        name: '11:30',
                         value: 8
                     },
                     {
-                        name: '12.00',
+                        name: '12:00',
                         value: 9
                     },
                     {
-                        name: '12.30',
+                        name: '12:30',
                         value: 10
                     },
                     {
-                        name: '13.00',
+                        name: '13:00',
                         value: 11
                     },
                     {
-                        name: '13.30',
+                        name: '13:30',
                         value: 12
                     },
                     {
-                        name: '14.00',
+                        name: '14:00',
                         value: 13
                     },
                     {
-                        name: '14.30',
+                        name: '14:30',
                         value: 14
                     },
                     {
-                        name: '15.00',
+                        name: '15:00',
                         value: 15
                     },
                     {
-                        name: '15.30',
+                        name: '15:30',
                         value: 16
                     },
                     {
-                        name: '16.00',
+                        name: '16:00',
                         value: 17
                     },
                     {
-                        name: '16.30',
+                        name: '16:30',
                         value: 18
                     },
                     {
-                        name: '17.00',
+                        name: '17:00',
                         value: 19
                     },
                     {
-                        name: '17.30',
+                        name: '17:30',
                         value: 20
                     },
                     {
-                        name: '18.00',
+                        name: '18:00',
                         value: 21
                     },
                     {
-                        name: '18.30',
+                        name: '18:30',
                         value: 22
                     },
                     {
-                        name: '19.00',
+                        name: '19:00',
                         value: 23
                     },
                     {
-                        name: '19.30',
+                        name: '19:30',
                         value: 24
                     },
                     {
-                        name: '20.00',
+                        name: '20:00',
                         value: 25
                     },
                     {
-                        name: '20.30',
+                        name: '20:30',
                         value: 26
                     },
                     {
-                        name: '21.00',
+                        name: '21:00',
                         value: 27
                     }
                 ];
@@ -992,7 +992,7 @@ sas
                     $scope._details.Appointment_time = tmpTime;
                 }
 
-                 // kiểm tra sale
+                // kiểm tra sale
                 //  if($scope.selectedManager !== null){
                 //     var tmpManager = [
                 //         {
