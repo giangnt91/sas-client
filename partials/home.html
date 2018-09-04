@@ -303,7 +303,159 @@
     </div>
 </div>
 
-<!-- Modal Thêm Học Viên-->
+<!-- Modal Thêm Học Viên header-->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-add m-3-top" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
+                    Học Viên</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+                <div class="row">
+                    <div class="card m-10">
+                        <div class="card-body card-add">
+                            <form name="loginform">
+                                <div class="row">
+                                    <div class="col-lg-3 p-0">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="fullname">Họ tên</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="data.fullname" id="name" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="email">Email</label>
+                                                <input type="text" class="form-control" ng-model="data.email" id="email" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="phone">Số DT</label>
+                                                <input type="number" class="form-control" ng-model="data.phone" id="phone" required>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <a href="">
+                                                            <i class="material-icons" style="color:#00BCD4; margin-top: -20px;border: 1px solid; border-radius: 5px;">call</i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="sex">Giới tính</label>
+                                                <select class="form-control" ng-model="maddselectedSex" ng-options="option.name for option in Sex">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="address">Địa chỉ</label>
+                                                <select class="form-control" ng-model="maddselectedAddress" ng-options="option.name for option in Address">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="dayreg">Ngày đăng ký</label>
+                                                <input type="date" class="form-control datetimepicker" id="madddayreg" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <label for="note">Ghi chú</label>
+                                                <textarea class="form-control" rows="5" ng-model="maddNote" id="note"></textarea>
+                                            </div>
+                                        </div> -->
+                                    <div class="col-lg-1 p-0">
+                                        <div class="form-group">
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="AddStudent(data)">Thêm
+                                                mới
+                                            </button>
+                                            <button class="btn btn-info btn-block">SMS</button>
+                                            <button class="btn btn-info btn-block">Email</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="card m-10">
+                        <div class="card-body">
+                            <form name="loginform">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="coso">Cơ sở</label>
+                                                <select class="form-control" ng-model="maddselectedCenter" ng-options="option.name for option in Center">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="trangthai">Trạng thái</label>
+                                                <select class="form-control" ng-model="maddselectedStatus" ng-options="option.name for option in Status">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="ngayhen">Ngày hẹn</label>
+                                                <input type="date" class="form-control" id="maddngayhen">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group add">
+                                                <label for="giohen">Giờ hẹn</label>
+                                                <select class="form-control" ng-model="maddselectedTime" ng-options="option.name for option in Appointment_time">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="note">Ghi chú</label>
+                                            <textarea class="form-control" rows="5" ng-model="maddNote" id="note"></textarea>
+                                        </div>
+                                        <!-- <button type="button" class="btn btn-lg btn-warning btn-block top-65">Thêm mới và
+                                                chuyển
+                                            </button> -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Thêm Học Viên 2 -->
 <div class="modal fade" id="add2" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-add m-3-top" role="document">
         <div class="modal-content">
@@ -439,6 +591,106 @@
             <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thêm User -->
+<div class="modal fade" id="user" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
+                    User
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+                <div class="row">
+                    <div class="card m-10">
+                        <div class="card-body card-add">
+                            <form name="loginform">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="uname">Username</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="data.uname" id="uname" required>
+                                            </div>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="ufullname">Họ tên</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="data.ufullname" id="ufullname" required>
+                                            </div>
+
+                                            <div class="input-group add">
+                                                <label for="uemail">Email</label>
+                                                <input type="text" class="form-control" ng-model="data.uemail" id="uemail" required>
+                                            </div>
+
+                                            <div class="input-group add">
+                                                <label for="uphone">Số DT</label>
+                                                <input type="number" class="form-control" ng-model="data.uphone" id="uphone" required>
+                                            </div>
+
+                                            <div class="input-group add">
+                                                <label for="urole">Phân quyền</label>
+                                                <select id="urole" class="form-control" ng-model="data.urole">
+                                                    <option selected>Choose...</option>
+                                                    <option value="1">Telesale</option>
+                                                    <option value="2">Marketing</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)"> <i
+                                        class="material-icons">send</i> Tạo User</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cập nhật User-->
+<div class="modal fade top-150" id="update" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Nhập Mật Khẩu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="passform">
+                    <div class="form-group">
+                        <input type="password" class="form-control" ng-model="oldpass" id="oldpassword" placeholder="Mật khẩu cũ" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" ng-model="newpass" id="newpassword" placeholder="Mật khẩu mới" required>
+                    </div>
+                </form>
+                <button type="button" class="btn btn-info btn-block" ng-click="update()">Xác Nhận</button>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
             </div> -->
         </div>
     </div>

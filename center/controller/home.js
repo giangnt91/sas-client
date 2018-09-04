@@ -1082,7 +1082,22 @@ sas
                 update_student($scope._details);
             }
 
-            // Thêm bạn
+            // Cập nhật user header
+            $scope.updateheaderUser = function(){
+                $('#update').modal('show');
+            }
+
+            // Thêm user header
+            $scope.addheaderUser = function(){
+                $('#user').modal('show');
+            }
+
+            // Thêm bạn header
+            $scope.addheader = function(){
+                $('#add').modal('show');
+            }
+
+            // Thêm bạn 2
             $scope.addfriend = function (id) {
                 $scope.addNote = "Bạn của học viên " + id;
                 $('#add2').modal('show');

@@ -3,11 +3,11 @@
     <nav class="navbar navbar-expand-lg navbar-brand navbar-absolute fixed-top ">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="" data-toggle="modal" data-target="#add">
+                <a class="navbar-brand" href="" ng-click="addheader()">
                     <i class="material-icons">person_add</i>
                     <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm học viên</h4>
                 </a>
-                <a class="navbar-brand" href="" data-toggle="modal" data-target="#user">
+                <a class="navbar-brand" href="" ng-click="addheaderUser()">
                     <i class="material-icons">face</i>
                     <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm User</h4>
                 </a>
@@ -15,7 +15,7 @@
             <div class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="" data-toggle="modal" data-target="#update">
+                        <a class="nav-link" href="" ng-click="updateheaderUser()">
                             <i class="material-icons">person</i>
                             <p class="d-lg-none d-md-block">
                                 Account
@@ -34,8 +34,9 @@
         </div>
     </nav>
     <!-- End Navbar -->
+    
 </div>
 <!-- modal -->
 <div ng-include='"templates/update.html"'></div>
-<div ng-include='"templates/add.html"'></div>
+<!-- <div ng-include='"templates/add.html"'></div> -->
 <div ng-include='"templates/user.html"'></div>
