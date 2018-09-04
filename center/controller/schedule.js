@@ -12,6 +12,12 @@ sas
             return parts[2] + '/' + parts[1] + '/' + parts[0];
         }
 
+        // so sánh ngày tháng
+        function compareDay(x) {
+            var parts = x.split("/");
+            return parts[2] + '' + parts[1] + '' + parts[0];
+        }
+
         // giới tính
         $scope.Sex = [
             {
@@ -344,14 +350,35 @@ sas
             }
         ];
 
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = yyyy + '' + mm + '' + dd;
+
         // lấy danh sách học viên
         function getStudent(username, role) {
             DataServices.Getall(username, role).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = [];
                     response.data.student.forEach(element => {
-                        if (element.Appointment_not_1st === true) {
-                            $scope.list_student.push(element);
+                        if (element.Appointment_day !== null) {
+                            _day = parseInt(compareDay(element.Appointment_day));
+                            if (parseInt(today) - _day > 0) {
+                                if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
+                                    $scope.list_student.push(element);
+                                }
+                            }
+
                         }
                     });
 
@@ -915,13 +942,19 @@ sas
                 $('#detail').modal('show');
             }
 
-            // cập nhật thông tin học viên 1
+            // gọi lại
+            $scope.recall = function () {
+                $scope._details.Recall = true;
+                update_student($scope._details);
+            }
+
+            // cập nhật thông tin học viên
             $scope.up_detail = function () {
 
                 // kiểm tra ngày báo danh
-                let _tmpday = $('#dayreg2').val();
-                if (_tmpday !== '') {
-                    $scope._details.Regday2 = convertup(_tmpday);
+                let _tmpdaybd = $('#dayreg2').val();
+                if (_tmpdaybd !== '') {
+                    $scope._details.Regday2 = convertup(_tmpdaybd);
                 }
 
                 // kiểm tra địa chỉ
@@ -946,12 +979,6 @@ sas
                     ]
                     $scope._details.Sex = tmpSex;
                 }
-
-                update_student($scope._details);
-            }
-
-            // cập nhật thông tin học viên 2
-            $scope.up_detail_2 = function () {
 
                 // kiểm tra ngày hẹn
                 let _tmpday = $('#dngayhen').val();
@@ -992,12 +1019,22 @@ sas
                     $scope._details.Appointment_time = tmpTime;
                 }
 
-                update_student($scope._details);
+                // kiểm tra sale
+                //  if($scope.selectedManager !== null){
+                //     var tmpManager = [
+                //         {
+                //             id: $scope.selectedManager.Username,
+                //             name: $scope.selectedManager.Fullname
+                //         }
+                //     ]
+                //     $scope._details.Manager = tmpManager;
+                // }
 
+                update_student($scope._details);
             }
 
-            // cập nhật thông tin học viên 3
-            $scope.up_detail_3 = function () {
+            // cập nhật thông tin học viên 2
+            $scope.up_detail_2 = function () {
                 var _tmpday = $('#dngaygoilai').val();
                 var _day = null;
                 var tmpTime;
