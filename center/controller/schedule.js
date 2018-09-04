@@ -1115,19 +1115,19 @@ sas
                     data.phone === undefined ||
                     $scope.addselectedSex === undefined ||
                     $scope.addselectedAddress === undefined ||
-                    _tmpregday === '' ||
-                    $scope.addNote === undefined ||
-                    $scope.addselectedCenter === undefined ||
-                    $scope.addselectedStatus === undefined ||
-                    _tmpdayhen === '' ||
-                    $scope.addselectedTime === undefined
+                    _tmpregday === ''
                 ) {
                     Notifi._error('Nhập đầy đủ thông tin để tạo user.')
                     return;
                 } else {
                     $scope._fullname = data.fullname;
+                    var henday;
+                    var tmp_center;
+                    var tmp_status;
+                    var tmp_time;
+
                     let regday = convertup(_tmpregday);
-                    let henday = convertup(_tmpdayhen);
+
                     let tmp_sex = [{
                         id: $scope.addselectedSex.value,
                         name: $scope.addselectedSex.name
@@ -1136,77 +1136,20 @@ sas
                         id: $scope.addselectedAddress.value,
                         name: $scope.addselectedAddress.name
                     }]
-                    let tmp_center = [{
-                        id: $scope.addselectedCenter.value,
-                        name: $scope.addselectedCenter.name
-                    }]
-                    let tmp_status = [{
-                        id: $scope.addselectedStatus.value,
-                        name: $scope.addselectedStatus.name
-                    }]
-                    let tmp_time = [{
-                        id: $scope.addselectedTime.value,
-                        name: $scope.addselectedTime.name
-                    }]
 
-                    CstudentF(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
-                }
-            }
-
-            // Thêm học viên mới
-            $scope.maddselectedSex = $scope.Sex[0];
-            $scope.maddselectedAddress = $scope.Address[0];
-            $scope.maddselectedCenter = $scope.Center[0];
-            $scope.maddselectedStatus = $scope.Status[0];
-            $scope.maddselectedTime = $scope.Appointment_time[0];
-            $scope.AddStudent = function (data) {
-                var _tmpregday = $('#madddayreg').val();
-                var _tmpdayhen = $('#maddngayhen').val();
-                var _manager = [{
-                    id: $scope.auth.Username,
-                    name: $scope.auth.Fullname
-                }]
-                if (data === undefined ||
-                    data.fullname === undefined ||
-                    data.email === undefined ||
-                    data.phone === undefined ||
-                    $scope.maddselectedSex === undefined ||
-                    $scope.maddselectedAddress === undefined ||
-                    _tmpregday === ''
-                ) {
-                    Notifi._error('Nhập đầy đủ thông tin để tạo user.')
-                    return;
-                } else {
-
-                    let regday = convertup(_tmpregday);
-                    
-                    var tmp_center;
-                    var tmp_status;
-                    var henday;
-                    var tmp_time;
-
-                    let tmp_sex = [{
-                        id: $scope.maddselectedSex.value,
-                        name: $scope.maddselectedSex.name
-                    }]
-                    let tmp_address = [{
-                        id: $scope.maddselectedAddress.value,
-                        name: $scope.maddselectedAddress.name
-                    }]
-
-                    if ($scope.maddselectedCenter !== undefined) {
+                    if ($scope.addselectedCenter !== undefined) {
                         tmp_center = [{
-                            id: $scope.maddselectedCenter.value,
-                            name: $scope.maddselectedCenter.name
+                            id: $scope.addselectedCenter.value,
+                            name: $scope.addselectedCenter.name
                         }]
                     } else {
                         tmp_center = null;
                     }
 
-                    if ($scope.maddselectedStatus !== undefined) {
+                    if ($scope.addselectedStatus !== undefined) {
                         tmp_status = [{
-                            id: $scope.maddselectedStatus.value,
-                            name: $scope.maddselectedStatus.name
+                            id: $scope.addselectedStatus.value,
+                            name: $scope.addselectedStatus.name
                         }]
                     } else {
                         tmp_status = {
@@ -1215,26 +1158,27 @@ sas
                         }
                     }
 
-                    if ($scope.maddselectedTime !== undefined) {
+                    if (_tmpdayhen !== '') {
+                        henday = convertup(_tmpdayhen);
+                    } else {
+                        henday = null;
+                    }
+
+                    if ($scope.addselectedTime !== undefined) {
                         tmp_time = [{
-                            id: $scope.maddselectedTime.value,
-                            name: $scope.maddselectedTime.name
+                            id: $scope.addselectedTime.value,
+                            name: $scope.addselectedTime.name
                         }]
-                    }else{
+                    } else {
                         tmp_time = null;
                     }
 
-                    if(_tmpdayhen !== ''){
-                        henday = convertup(_tmpdayhen);
-                    }else{
-                        henday = null;
-                    }
-                    
-                    if($scope.maddNote === undefined || $scope.maddNote === ''){
-                        $scope.maddNote = null;
+
+                    if ($scope.addNote === undefined || $scope.addNote === '') {
+                        $scope.addNote = null;
                     }
 
-                    Cstudent(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.maddNote, tmp_center, henday, tmp_time, tmp_status, _manager);
+                    CstudentF(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
                 }
             }
         }
