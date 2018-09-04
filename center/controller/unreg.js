@@ -1,5 +1,5 @@
 sas
-    .controller('UnregCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, $filter) {
+    .controller('UnregCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
         // hiển thị ngày tháng
         function convertshow(x) {
             var parts = x.split("/");
@@ -221,6 +221,10 @@ sas
             {
                 name: 'Đã đăng ký',
                 value: 3
+            },
+            {
+                name: 'Hủy',
+                value: 4
             }
         ]
 
@@ -346,7 +350,7 @@ sas
                 if (response.data.error_code === 0) {
                     $scope.list_student = [];
                     response.data.student.forEach(element => {
-                        if(element.unregistered === true){
+                        if(element.Status_student[0].id === 2){
                             $scope.list_student.push(element);
                         }
                     });
@@ -423,6 +427,37 @@ sas
         if (!$rootScope.auth) {
             $location.path('/login');
         } else {
+
+            // auto notify
+            Thesocket.on('alert', function (list_user) {
+                var last_time = localStorage.getItem('lasttime');
+                var last_id = 0;
+                if (list_user.length > 0) {
+                    list_user.forEach(element => {
+                        if (element.user === $rootScope.auth.Username) {
+                            if (element.time !== last_time) {
+                                localStorage.setItem('lasttime', element.time);
+                                DataServices.GetforNotif($rootScope.auth.Username, $rootScope.auth.Role, element.time, element.day).then(function (response) {
+                                    if (response.data.error_code === 0) {
+                                        var notify = response.data.student;
+                                        if (notify.length > 0) {
+                                            if (last_id !== 1) {
+                                                notify.forEach(el => {
+                                                    Notifi._notifi(
+                                                        'Học viên ' + el.Fullname + '<br> có ID ' + el._id + '<br> cần được liên hệ vào lúc ' + element.time
+                                                    )
+                                                });
+                                                last_id = 1;
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            })
+            
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
 
             // thông tin chi tiết của học viên
@@ -637,6 +672,10 @@ sas
                     {
                         name: 'Đã đăng ký',
                         value: 3
+                    },
+                    {
+                        name: 'Hủy',
+                        value: 4
                     }
                 ]
 
@@ -876,13 +915,19 @@ sas
                 $('#detail').modal('show');
             }
 
-            // cập nhật thông tin học viên 1
+            // gọi lại
+            $scope.recall = function () {
+                $scope._details.Recall = true;
+                update_student($scope._details);
+            }
+
+            // cập nhật thông tin học viên
             $scope.up_detail = function () {
 
                 // kiểm tra ngày báo danh
-                let _tmpday = $('#dayreg2').val();
-                if (_tmpday !== '') {
-                    $scope._details.Regday2 = convertup(_tmpday);
+                let _tmpdaybd = $('#dayreg2').val();
+                if (_tmpdaybd !== '') {
+                    $scope._details.Regday2 = convertup(_tmpdaybd);
                 }
 
                 // kiểm tra địa chỉ
@@ -907,12 +952,6 @@ sas
                     ]
                     $scope._details.Sex = tmpSex;
                 }
-
-                update_student($scope._details);
-            }
-
-            // cập nhật thông tin học viên 2
-            $scope.up_detail_2 = function () {
 
                 // kiểm tra ngày hẹn
                 let _tmpday = $('#dngayhen').val();
@@ -953,12 +992,22 @@ sas
                     $scope._details.Appointment_time = tmpTime;
                 }
 
-                update_student($scope._details);
+                 // kiểm tra sale
+                //  if($scope.selectedManager !== null){
+                //     var tmpManager = [
+                //         {
+                //             id: $scope.selectedManager.Username,
+                //             name: $scope.selectedManager.Fullname
+                //         }
+                //     ]
+                //     $scope._details.Manager = tmpManager;
+                // }
 
+                update_student($scope._details);
             }
 
-            // cập nhật thông tin học viên 3
-            $scope.up_detail_3 = function () {
+            // cập nhật thông tin học viên 2
+            $scope.up_detail_2 = function () {
                 var _tmpday = $('#dngaygoilai').val();
                 var _day = null;
                 var tmpTime;

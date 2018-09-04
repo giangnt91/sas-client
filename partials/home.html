@@ -48,7 +48,7 @@
 <!-- Modal Chi Tiết Học Viên-->
 <div class="modal fade" id="detail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-add m-3-top" role="document">
+    <div class="modal-dialog modal-add" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
@@ -116,13 +116,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="note">Ghi chú</label>
                                             <textarea class="form-control" rows="5" ng-model="_details.Note" id="dnote"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-lg-1 p-0">
+                                    <!-- <div class="col-lg-1 p-0">
                                         <div class="form-group">
                                             <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="up_detail()">Cập
                                                 Nhật
@@ -130,7 +130,7 @@
                                             <button class="btn btn-info btn-block">SMS</button>
                                             <button class="btn btn-info btn-block">Email</button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </form>
                         </div>
@@ -158,6 +158,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- ng-class="{'col-lg-4' : auth.Role[0].id === 0 , 'col-lg-5' : auth.Role[0].id === 1 }" -->
                                     <div class="col-lg-5">
                                         <div class="form-group">
                                             <div class="input-group add">
@@ -173,18 +174,33 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- <div class="col-lg-2" ng-if="auth.Role[0].id === 0">
+                                        <div class="input-group add">
+                                            <label for="giohen">Sale</label>
+                                            <select class="form-control" ng-model="selectedManager" ng-options="option.Username for option in users">
+                                            </select>
+                                        </div>
+                                    </div> -->
                                     <div class="col-lg-2">
-                                        <button type="button" class="btn btn-lg btn-warning btn-block top-65" ng-click="up_detail_2()">
+                                        <!-- <button type="button" class="btn btn-lg btn-warning btn-block top-65" ng-click="up_detail_2()">
                                             Cập nhật
-                                        </button>
+                                        </button> -->
+                                        <div class="form-group">
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="up_detail()">Cập
+                                                Nhật
+                                            </button>
+                                            <button class="btn btn-info btn-block">SMS</button>
+                                            <button class="btn btn-info btn-block">Email</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
+                        <h6 class="text-muted text-center">gọi lại ngày: <b>{{_details.Time_recall[0].day}}</b> lúc: <b>{{_details.Time_recall[0].time[0].name}}</b></h6>
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="card m-3">
                         <div class="card-body">
                             <form name="loginform">
@@ -230,30 +246,23 @@
                         </div>
                         <small class="text-muted text-center">gọi lại ngày: <b>{{_details.Time_recall[0].day}}</b> lúc: <b>{{_details.Time_recall[0].time[0].name}}</b></small>
                     </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-4">
-                        <button type="button" class="btn btn-block btn-lg btn-primary" ng-click="addfriend(_details._id)">Thêm
-                            bạn
-                        </button>
-                    </div>
-                    <div class="col-4">
-                        <button type="button" class="btn btn-block btn-lg btn-success" ng-disabled="auth.Username !== _details.Manager[0].id" data-toggle="modal"
-                            data-target="#time">Gọi lại thời gian</button>
-                    </div>
-                    <div class="col-4">
-                        <button type="button" class="btn btn-block btn-lg btn-warning">Gọi lại sau</button>
-                    </div>
-
-                </div>
+                </div> -->
 
             </div>
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
+            <div class="modal-footer" style="border-top: none; padding-top: 0">
+                <div class="col-4">
+                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-disabled="auth.Username !== _details.Manager[0].id" ng-click="addfriend(_details._id)">Thêm
+                        bạn
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-block btn-lg btn-success" ng-disabled="auth.Username !== _details.Manager[0].id" data-toggle="modal"
+                        data-target="#time">Gọi lại thời gian</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-disabled="auth.Username !== _details.Manager[0].id" ng-click="recall()">Gọi lại sau</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -288,7 +297,7 @@
                         </div>
                     </div>
                 </form>
-                <button type="button" class="btn btn-info btn-block" ng-click="up_detail_3()">Xác Nhận</button>
+                <button type="button" class="btn btn-info btn-block" ng-click="up_detail_2()">Xác Nhận</button>
             </div>
         </div>
     </div>

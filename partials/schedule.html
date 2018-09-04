@@ -238,7 +238,7 @@
                     <div class="row">
     
                         <div class="col-4">
-                            <button type="button" class="btn btn-block btn-lg btn-primary" ng-click="addfriend(_details._id)">Thêm
+                            <button type="button" class="btn btn-block btn-lg btn-primary" ng-disabled="auth.Username !== _details.Manager[0].id" ng-click="addfriend(_details._id)">Thêm
                                 bạn
                             </button>
                         </div>
@@ -247,7 +247,7 @@
                                 data-target="#time">Gọi lại thời gian</button>
                         </div>
                         <div class="col-4">
-                            <button type="button" class="btn btn-block btn-lg btn-warning">Gọi lại sau</button>
+                            <button type="button" ng-disabled="auth.Username !== _details.Manager[0].id" class="btn btn-block btn-lg btn-warning">Gọi lại sau</button>
                         </div>
     
                     </div>

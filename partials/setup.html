@@ -13,20 +13,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
+                            <tr ng-repeat="content in users">
+                                <td class="text-center">{{$index + 1}}</td>
                                 <td class="text-center">
                                     <div class="togglebutton">
                                         <label>
-                                            <input type="checkbox" checked="">
+                                            <input type="checkbox" ng-model="check" ng-checked="content.Status_user[0].id === 1" ng-change="ChangeStatus(content, check)">
                                             <span class="toggle"></span>
                                         </label>
                                     </div>
                                 </td>
-                                <td class="text-center">Develop</td>
+                                <td class="text-center">{{content.Fullname}}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-info btn-round">
-                                        <!-- <i class="material-icons">favorite</i> -->
+                                    <button class="btn btn-info btn-round" ng-click="Share(content)">
                                         Chuyển tất cả học viên
                                     </button>
                                 </td>

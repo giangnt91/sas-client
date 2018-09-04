@@ -1,7 +1,7 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        var api_gateway_url = 'http://35.240.165.98:191';
-        // var api_gateway_url = 'http://localhost:191';
+        // var api_gateway_url = 'http://35.240.165.98:191';
+        var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
@@ -36,6 +36,25 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/update';
                 return $http.post(url, parameter, header)
             },
+            GetallUser: function () {
+                url = api_gateway_url + '/getuserbysup';
+                return $http.post(url, parameter, header);
+            },
+            UpdateStatus: function (_id, value) {
+                parameter = JSON.stringify({
+                    _id: _id,
+                    value: value
+                });
+                url = api_gateway_url + '/upstatus';
+                return $http.post(url, parameter, header);
+            },
+            ShareStudent: function (detail) {
+                parameter = JSON.stringify({
+                    detail: detail
+                });
+                url = api_gateway_url + '/sharestudent';
+                return $http.post(url, parameter, header);
+            },
 
             //Api Student
             CstudentF: function (Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
@@ -64,6 +83,16 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/getall';
                 return $http.post(url, parameter, header);
             },
+            GetforNotif: function(Username, Role, Time, Day){
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Role: Role,
+                    Time,
+                    Day
+                });
+                url = api_gateway_url + '/getfornof';
+                return $http.post(url, parameter, header);
+            },
             UpStudent: function (detail) {
                 parameter = JSON.stringify({
                     detail: detail
@@ -73,3 +102,12 @@ angular.module('SASService', [])
             }
         }
     })
+    .factory('Thesocket', function (socketFactory) {
+        // var api_gateway_url = 'http://35.240.165.98:191';
+        var api_gateway_url = 'http://localhost:191';
+        var socketConnection = io.connect(api_gateway_url);
+        var socket = socketFactory({
+            ioSocket: socketConnection
+        });
+        return socket;
+    });

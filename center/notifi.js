@@ -28,6 +28,20 @@ sas
                             align: align
                         }
                     });
+            },        
+            _notifi: function (sms, from, align) {
+                $.notify({
+                    icon: "call",
+                    message: sms
+
+                }, {
+                        type: 'warning',
+                        timer: 1800000,
+                        placement: {
+                            from: from,
+                            align: 'center'
+                        }
+                    });
             }
         }
     });

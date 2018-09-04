@@ -1,5 +1,5 @@
 sas
-    .controller('ScheduleCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, $filter) {
+    .controller('ScheduleCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
         // hiển thị ngày tháng
         function convertshow(x) {
             var parts = x.split("/");
@@ -221,6 +221,10 @@ sas
             {
                 name: 'Đã đăng ký',
                 value: 3
+            },
+            {
+                name: 'Hủy',
+                value: 4
             }
         ]
 
@@ -423,6 +427,37 @@ sas
         if (!$rootScope.auth) {
             $location.path('/login');
         } else {
+
+            // auto notify
+            Thesocket.on('alert', function (list_user) {
+                var last_time = localStorage.getItem('lasttime');
+                var last_id = 0;
+                if (list_user.length > 0) {
+                    list_user.forEach(element => {
+                        if (element.user === $rootScope.auth.Username) {
+                            if (element.time !== last_time) {
+                                localStorage.setItem('lasttime', element.time);
+                                DataServices.GetforNotif($rootScope.auth.Username, $rootScope.auth.Role, element.time, element.day).then(function (response) {
+                                    if (response.data.error_code === 0) {
+                                        var notify = response.data.student;
+                                        if (notify.length > 0) {
+                                            if (last_id !== 1) {
+                                                notify.forEach(el => {
+                                                    Notifi._notifi(
+                                                        'Học viên ' + el.Fullname + '<br> có ID ' + el._id + '<br> cần được liên hệ vào lúc ' + element.time
+                                                    )
+                                                });
+                                                last_id = 1;
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            })
+            
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
 
             // thông tin chi tiết của học viên
@@ -637,6 +672,10 @@ sas
                     {
                         name: 'Đã đăng ký',
                         value: 3
+                    },
+                    {
+                        name: 'Hủy',
+                        value: 4
                     }
                 ]
 

@@ -1,6 +1,6 @@
 var sas = angular.module('SASController', ['ngRoute', 'btford.socket-io', 'datatables', 'ngDialog', 'angular-md5']);
 sas
-    .controller('AuthCtrl', function ($location, $scope, $rootScope, ngDialog, $timeout, Notifi, DataServices, md5) {
+    .controller('AuthCtrl', function ($location, $scope, $rootScope, ngDialog, $timeout, Notifi, DataServices, md5, Thesocket) {
 
         $scope.login = function () {
             if ($scope.username === undefined || $scope.username === '' || $scope.password === undefined || $scope.password === '') {
@@ -24,11 +24,13 @@ sas
                                 ngDialog.close();
                                 $rootScope.auth = data_result.auth;
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
-                                Notifi._success('Đăng nhập thành công');
+                                // Notifi._success('Đăng nhập thành công');
+                                Thesocket.emit('connection');
+
                                 $location.path('/home');
                                 location.reload(true);
                             } else {
-                                alert('dang lam trang marketing')
+                                alert('marketing')
                             }
                         }, 1500);
                     } if (data_result.error_code === 1) {
@@ -47,6 +49,12 @@ sas
                         $timeout(function () {
                             ngDialog.close();
                             Notifi._error('Tài khoản chưa được đăng ký.');
+                            return;
+                        }, 1500)
+                    } if (data_result.error_code === 4) {
+                        $timeout(function () {
+                            ngDialog.close();
+                            Notifi._error('Tài khoản đang tạm khóa liên hệ Admin để kích hoạt.');
                             return;
                         }, 1500)
                     }
@@ -73,7 +81,7 @@ sas
 
         // go notcalled
         $scope.go_notcalled = function () {
-            $location.path('/home');
+            $location.path('/notcall');
             $scope.isactive = 2;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -101,7 +109,7 @@ sas
 
         // go send
         $scope.go_send = function () {
-            $location.path('/home');
+            $location.path('/send');
             $scope.isactive = 6;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -115,14 +123,16 @@ sas
 
         // go statistics
         $scope.go_statistics = function () {
-            $location.path('/statistics');
+            alert('Trang đang hoàn thiện vui lòng quay lại sau.')
+            // $location.path('/statistics');
             $scope.isactive = 8;
             localStorage.setItem('isactive', $scope.isactive);
         }
 
         // go setup
         $scope.go_setup = function () {
-            $location.path('/setup');
+            // $location.path('/setup');
+            alert('Trang đang hoàn thiện vui lòng quay lại sau.')
             $scope.isactive = 9;
             localStorage.setItem('isactive', $scope.isactive);
         }

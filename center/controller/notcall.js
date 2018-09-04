@@ -1,5 +1,5 @@
 sas
-    .controller('RecallCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
+    .controller('NotcallCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
         // hiển thị ngày tháng
         function convertshow(x) {
             var parts = x.split("/");
@@ -350,11 +350,11 @@ sas
                 if (response.data.error_code === 0) {
                     $scope.list_student = [];
                     response.data.student.forEach(element => {
-                        if(element.Recall === true){
+                        if (element.Isupdate === false) {
                             $scope.list_student.push(element);
                         }
                     });
-                    
+
                     $scope.newdtOptions = DTOptionsBuilder.newOptions()
                         .withDisplayLength(10)
                         .withOption('bLengthChange', true)
@@ -404,7 +404,7 @@ sas
                 if (student.ListFriend !== null) {
                     var listfriend = student.ListFriend;
                     listfriend.push(new_friend);
-                }else{
+                } else {
                     var listfriend = [];
                     listfriend.push(new_friend);
                 }
@@ -457,7 +457,7 @@ sas
                     });
                 }
             })
-            
+
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
 
             // thông tin chi tiết của học viên
@@ -992,16 +992,6 @@ sas
                     $scope._details.Appointment_time = tmpTime;
                 }
 
-                 // kiểm tra sale
-                //  if($scope.selectedManager !== null){
-                //     var tmpManager = [
-                //         {
-                //             id: $scope.selectedManager.Username,
-                //             name: $scope.selectedManager.Fullname
-                //         }
-                //     ]
-                //     $scope._details.Manager = tmpManager;
-                // }
 
                 update_student($scope._details);
             }
