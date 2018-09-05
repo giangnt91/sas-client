@@ -126,14 +126,14 @@
                                         </div>
                                     </div>
                                     <!-- <div class="col-lg-1 p-0">
-                                    <div class="form-group">
-                                        <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="up_detail()">Cập
-                                            Nhật
-                                        </button>
-                                        <button class="btn btn-info btn-block">SMS</button>
-                                        <button class="btn btn-info btn-block">Email</button>
-                                    </div>
-                                </div> -->
+                                        <div class="form-group">
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="up_detail()">Cập
+                                                Nhật
+                                            </button>
+                                            <button class="btn btn-info btn-block">SMS</button>
+                                            <button class="btn btn-info btn-block">Email</button>
+                                        </div>
+                                    </div> -->
                                 </div>
                             </form>
                         </div>
@@ -161,6 +161,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- ng-class="{'col-lg-4' : auth.Role[0].id === 0 , 'col-lg-5' : auth.Role[0].id === 1 }" -->
                                     <div class="col-lg-5">
                                         <div class="form-group">
                                             <div class="input-group add">
@@ -176,12 +177,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- <div class="col-lg-2" ng-if="auth.Role[0].id === 0">
+                                        <div class="input-group add">
+                                            <label for="giohen">Sale</label>
+                                            <select class="form-control" ng-model="selectedManager" ng-options="option.Username for option in users">
+                                            </select>
+                                        </div>
+                                    </div> -->
                                     <div class="col-lg-2">
                                         <!-- <button type="button" class="btn btn-lg btn-warning btn-block top-65" ng-click="up_detail_2()">
-                                        Cập nhật
-                                    </button> -->
+                                            Cập nhật
+                                        </button> -->
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="up_detail()">Cập
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-disabled="_details.Status_student[0].id === 3" ng-click="up_detail()">Cập
                                                 Nhật
                                             </button>
                                             <button class="btn btn-info btn-block">SMS</button>
@@ -194,55 +202,6 @@
                         <h6 class="text-muted text-center">gọi lại ngày: <b>{{_details.Time_recall[0].day}}</b> lúc: <b>{{_details.Time_recall[0].time[0].name}}</b></h6>
                     </div>
                 </div>
-
-                <!-- <div class="row">
-                <div class="card m-3">
-                    <div class="card-body">
-                        <form name="loginform">
-                            <div class="row">
-                                <div class="col-4 checkstudent">
-                                    <div class="form-check">
-                                        <label class="form-check-label lbstudent">
-                                            <input class="form-check-input" id="1st" type="checkbox" value="" ng-model="st1" ng-disabled="auth.Username !== _details.Manager[0].id"
-                                                ng-change="check1st(st1)">                                                Đã
-                                            hẹn lần 1
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-4 checkstudent">
-                                    <div class="form-check">
-                                        <label class="form-check-label lbstudent">
-                                            <input class="form-check-input" id="not1st" type="checkbox" value="" ng-model="not1st" ng-disabled="auth.Username !== _details.Manager[0].id"
-                                                ng-change="checknot1st(not1st)">                                                Hẹn
-                                            chưa đến (lần 1)
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-4 checkstudent">
-                                    <div class="form-check">
-                                        <label class="form-check-label lbstudent">
-                                            <input class="form-check-input" id="unreg" type="checkbox" value="" ng-model="unreg" ng-disabled="auth.Username !== _details.Manager[0].id"
-                                                ng-change="checkunreg(unreg)">                                                Đến
-                                            chưa đăng ký
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <small class="text-muted text-center">gọi lại ngày: <b>{{_details.Time_recall[0].day}}</b> lúc: <b>{{_details.Time_recall[0].time[0].name}}</b></small>
-                </div>
-            </div> -->
-
             </div>
             <div class="modal-footer" style="border-top: none; padding-top: 0">
                 <div class="col-4">
@@ -251,11 +210,11 @@
                     </button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-success" ng-disabled="auth.Username !== _details.Manager[0].id" data-toggle="modal"
+                    <button type="button" class="btn btn-block btn-lg btn-success" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3" data-toggle="modal"
                         data-target="#time">Gọi lại thời gian</button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-disabled="auth.Username !== _details.Manager[0].id" ng-click="recall()">Gọi lại sau</button>
+                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3" ng-click="recall()">Gọi lại sau</button>
                 </div>
             </div>
         </div>

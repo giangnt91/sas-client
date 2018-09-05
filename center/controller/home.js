@@ -360,7 +360,7 @@ sas
             DataServices.Getall(username, role).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.student;
-
+                    
                     $scope.newdtOptions = DTOptionsBuilder.newOptions()
                         .withDisplayLength(10)
                         .withOption('bLengthChange', true)
@@ -1083,17 +1083,17 @@ sas
             }
 
             // Cập nhật user header
-            $scope.updateheaderUser = function(){
+            $scope.updateheaderUser = function () {
                 $('#update').modal('show');
             }
 
             // Thêm user header
-            $scope.addheaderUser = function(){
+            $scope.addheaderUser = function () {
                 $('#user').modal('show');
             }
 
             // Thêm bạn header
-            $scope.addheader = function(){
+            $scope.addheader = function () {
                 $('#add').modal('show');
             }
 
