@@ -1,7 +1,7 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        // var api_gateway_url = 'http://35.240.165.98:191';
-        var api_gateway_url = 'http://localhost:191';
+        var api_gateway_url = 'http://35.240.165.98:191';
+        // var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
@@ -83,7 +83,7 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/getall';
                 return $http.post(url, parameter, header);
             },
-            GetforNotif: function(Username, Role, Time, Day){
+            GetforNotif: function (Username, Role, Time, Day) {
                 parameter = JSON.stringify({
                     Username: Username,
                     Role: Role,
@@ -99,12 +99,23 @@ angular.module('SASService', [])
                 });
                 url = api_gateway_url + '/upstudent';
                 return $http.post(url, parameter, header);
+            },
+            Search: function (Appointment_day, Appointment_day2, Appointment_time, Appointment_time2, Center) {
+                parameter = JSON.stringify({
+                    Appointment_day: Appointment_day,
+                    Appointment_day2: Appointment_day2,
+                    Appointment_time: Appointment_time,
+                    Appointment_time2: Appointment_time2,
+                    Center: Center
+                });
+                url = api_gateway_url + '/search';
+                return $http.post(url, parameter, header);
             }
         }
     })
     .factory('Thesocket', function (socketFactory) {
-        // var api_gateway_url = 'http://35.240.165.98:191';
-        var api_gateway_url = 'http://localhost:191';
+        var api_gateway_url = 'http://35.240.165.98:191';
+        // var api_gateway_url = 'http://localhost:191';
         var socketConnection = io.connect(api_gateway_url);
         var socket = socketFactory({
             ioSocket: socketConnection

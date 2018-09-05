@@ -5,6 +5,67 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="material-datatables">
+
+                                    <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-lg-8">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="input-group add">
+                                                                    <label for="Sdayhen">Từ Ngày</label>
+                                                                    <input type="date" class="form-control" id="Sdayhen">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="input-group add">
+                                                                    <label for="Sdayhen2">Đến Ngày</label>
+                                                                    <input type="date" class="form-control" id="Sdayhen2">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="input-group add">
+                                                                    <label for="giohen">Từ Giờ</label>
+                                                                    <select class="form-control" ng-model="SselectedTime" ng-options="option.name for option in Appointment_time">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="input-group add">
+                                                                    <label for="giohen">Đến Giờ</label>
+                                                                    <select class="form-control" ng-model="SselectedTime2" ng-options="option.name for option in Appointment_time">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="input-group add">
+                                                            <label for="coso">Cơ sở</label>
+                                                            <select class="form-control" ng-model="SselectedCenter" ng-change="searchCenter()" ng-options="option.name for option in Center">
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group add">
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <a href="#" class="btn btn-info btn-block" style="margin-left: 20px" ng-click="Searchwith()">
+                                                                        <i class="material-icons">search</i> Tìm Kiếm
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <a href="#" class="btn btn-default btn-block" ng-click="Clear()">
+                                                                        <i class="material-icons">clear_all</i> Clear
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                 <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover">
                                     <thead>
                                         <tr>

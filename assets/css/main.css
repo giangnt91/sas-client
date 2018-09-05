@@ -55,6 +55,11 @@
     border: 1px solid #E4E4E4 !important;
     border-radius: 3px !important;
     width: 16em;
+    /* display: none; */
+}
+
+.main-panel > .content{
+    margin-top: 29px !important;
 }
 
 thead {

@@ -344,6 +344,86 @@ sas
             }
         ];
 
+        // custom tìm kiếm
+        $scope.SselectedCenter = $scope.Center[0];
+        $scope.SselectedTime = $scope.Appointment_time[0];
+        $scope.SselectedTime2 = $scope.Appointment_time[0];
+
+        $scope.Searchwith = function () {
+            var stime;
+            var stime2;
+            var scenter;
+            var dayhen;
+            var dayhen2;
+
+            var _dayhen = $('#Sdayhen').val();
+            var _dayhen2 = $('#Sdayhen2').val();
+
+            if (_dayhen !== '') {
+                dayhen = convertup(_dayhen);
+            } else {
+                dayhen = '';
+            }
+
+            if (_dayhen2 !== '') {
+                dayhen2 = convertup(_dayhen2);
+            } else {
+                dayhen2 = '';
+            }
+
+            if ($scope.SselectedTime !== null) {
+                if ($scope.SselectedTime.value !== null) {
+                    stime = $scope.SselectedTime.value;
+                }else{
+                    stime = 1;
+                }
+
+            } else {
+                stime = 1;
+            }
+
+            if ($scope.SselectedTime2 !== null) {
+                if ($scope.SselectedTime2.value !== null) {
+                    stime2 = $scope.SselectedTime2.value;
+                }else{
+                    stime2 = 27;
+                }
+
+            } else {
+                stime2 = 27;
+            }
+
+            if ($scope.SselectedCenter !== null) {
+                if($scope.SselectedCenter.value !== null){
+                    scenter = $scope.SselectedCenter.value;
+                }else{
+                    scenter = null;
+                }
+                
+            } else {
+                scenter = null;
+            }
+
+            DataServices.Search(dayhen, dayhen2, stime, stime2, scenter).then(function (response) {
+                if (response.data.error_code === 0) {
+                    $scope.list_student = response.data.students;
+                    Notifi._success('Lọc dữ liệu thành công');
+                } else if (response.data.error_code === 1) {
+                    Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại')
+                } else if (response.data.error_code === 2) {
+                    Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm')
+                }
+            })
+
+        }
+
+        $scope.Clear = function(){
+            $scope.SselectedCenter = $scope.Center[0];
+            $scope.SselectedTime = $scope.Appointment_time[0];
+            $scope.SselectedTime2 = $scope.Appointment_time[0];
+            getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+        }
+
         // lấy danh sách học viên
         function getStudent(username, role) {
             DataServices.Getall(username, role).then(function (response) {
