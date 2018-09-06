@@ -57,7 +57,9 @@
     width: 16em;
     /* display: none; */
 }
-
+.padlr-14{
+    padding: 10px 14px !important;
+}
 .chartcard{
     margin-top: 0px !important;
     padding-top: 30px;

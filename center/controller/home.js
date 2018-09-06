@@ -1,5 +1,6 @@
 sas
     .controller('HomeCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
+
         // hiển thị ngày tháng
         function convertshow(x) {
             var parts = x.split("/");
@@ -385,7 +386,7 @@ sas
             if ($scope.SselectedTime !== null) {
                 if ($scope.SselectedTime.value !== null) {
                     stime = $scope.SselectedTime.value;
-                }else{
+                } else {
                     stime = 1;
                 }
 
@@ -396,7 +397,7 @@ sas
             if ($scope.SselectedTime2 !== null) {
                 if ($scope.SselectedTime2.value !== null) {
                     stime2 = $scope.SselectedTime2.value;
-                }else{
+                } else {
                     stime2 = 27;
                 }
 
@@ -405,12 +406,12 @@ sas
             }
 
             if ($scope.SselectedCenter !== null) {
-                if($scope.SselectedCenter.value !== null){
+                if ($scope.SselectedCenter.value !== null) {
                     scenter = $scope.SselectedCenter.value;
-                }else{
+                } else {
                     scenter = null;
                 }
-                
+
             } else {
                 scenter = null;
             }
@@ -428,7 +429,7 @@ sas
 
         }
 
-        $scope.Clear = function(){
+        $scope.Clear = function () {
             $scope.SselectedCenter = $scope.Center[0];
             $scope.SselectedTime = $scope.Appointment_time[0];
             $scope.SselectedTime2 = $scope.Appointment_time[0];
@@ -1071,6 +1072,20 @@ sas
                             name: $scope.selectedStatus.name
                         }
                     ]
+                    if ($scope.selectedStatus.value === 3) {
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1;
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm
+                        }
+                        today = dd + '/' + mm + '/' + yyyy;
+                        $scope._details.Dayenrollment = today;
+                    }
                     $scope._details.Status_student = tmpStatus;
                 }
 

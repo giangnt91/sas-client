@@ -110,6 +110,15 @@ angular.module('SASService', [])
                 });
                 url = api_gateway_url + '/search';
                 return $http.post(url, parameter, header);
+            },
+            GetforcharDefault: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/chartdefault';
+                return $http.post(url, parameter, header);
             }
         }
     })

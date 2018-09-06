@@ -5,37 +5,37 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item" ng-class="{'active': isactive === 1}" ng-click="tq()">
-                            <a class="nav-link" href="#">Tổng quan</a>
+                            <a class="nav-link padlr-14" href="#">Tổng quan</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 2}" ng-click="cg()">
-                            <a class="nav-link" href="#">Chưa gọi</a>
+                            <a class="nav-link padlr-14" href="#">Chưa gọi</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 3}" ng-click="gl()">
-                            <a class="nav-link" href="#">Gọi lại</a>
+                            <a class="nav-link padlr-14" href="#">Gọi lại</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 4}" ng-click="tl()">
-                            <a class="nav-link" href="#">Tỷ lệ</a>
+                            <a class="nav-link padlr-14" href="#">Tỷ lệ</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 5}" ng-click="hcd()">
-                            <a class="nav-link" href="#">Hẹn chưa đến</a>
+                            <a class="nav-link padlr-14" href="#">Hẹn chưa đến</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 6}" ng-click="dcdk()">
-                            <a class="nav-link" href="#">Đến chưa đăng ký</a>
+                            <a class="nav-link padlr-14" href="#">Đến chưa đăng ký</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 7}" ng-click="cdk()">
-                            <a class="nav-link" href="#">Chưa đăng ký</a>
+                            <a class="nav-link padlr-14" href="#">Chưa đăng ký</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 8}" ng-click="ktn()">
-                            <a class="nav-link" href="#">Không tiềm năng</a>
+                            <a class="nav-link padlr-14" href="#">Không tiềm năng</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 9}" ng-click="h()">
-                            <a class="nav-link" href="#">Hủy</a>
+                            <a class="nav-link padlr-14" href="#">Hủy</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 10}" ng-click="lh()">
-                            <a class="nav-link" href="#">Lịch hẹn</a>
+                            <a class="nav-link padlr-14" href="#">Lịch hẹn</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 11}" ng-click="cn()">
-                            <a class="nav-link" href="#">Cá nhân</a>
+                            <a class="nav-link padlr-14" href="#">Cá nhân</a>
                         </li>
                     </ul>
                 </div>
@@ -45,9 +45,28 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="card chartcard">
+                    <div class="row padlr-14">
+                        <div class="col-lg-4 text-center">
+                            <div class="input-group add">
+                                <label for="fromd">Từ</label>
+                                <input type="date" class="form-control" id="fromd">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="input-group add">
+                                <label for="tod">Đến</label>
+                                <input type="date" class="form-control" id="tod">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <button type="button" class="btn btn-primary btn-block" ng-click="fillbyday()">Lọc</button>
+
+                        </div>
+                    </div>
+
                     <center>
-                        <canvas id="bar" ng-show="isactive === 1" height="400" width="1000" class="chart chart-bar" chart-data="data" chart-labels="labels">
-                        chart-series="series"
+                        <canvas id="bar" chart-series="series" ng-show="isactive === 1" height="400" chart-s width="1000" class="chart chart-bar" chart-data="data"
+                            chart-labels="labels1">
                         </canvas>
                     </center>
 

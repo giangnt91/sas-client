@@ -109,13 +109,12 @@
 
 
 <!-- Modal Chi Tiết Học Viên-->
-<div class="modal fade" id="detail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="detail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-add" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
-                    Tin Chi Tiết Học Viên {{_details._id}}</h4>
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">
+                    Thông Tin Chi Tiết Học Viên {{_details._id}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -249,7 +248,7 @@
                                             Cập nhật
                                         </button> -->
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-disabled="_details.Status_student[0].id === 3"
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-disabled="_details.Status_student[0].id === 3 || auth.Username !== _details.Manager[0].id"
                                                 ng-click="up_detail()">Cập Nhật
                                             </button>
                                             <button class="btn btn-info btn-block">SMS</button>

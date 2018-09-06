@@ -1058,6 +1058,20 @@ sas
                             name: $scope.selectedStatus.name
                         }
                     ]
+                    if ($scope.selectedStatus.value === 3) {
+                        var today = new Date();
+                        var dd = today.getDate();
+                        var mm = today.getMonth() + 1;
+                        var yyyy = today.getFullYear();
+                        if (dd < 10) {
+                            dd = '0' + dd
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm
+                        }
+                        today = dd + '/' + mm + '/' + yyyy;
+                        $scope._details.Dayenrollment = today;
+                    }
                     $scope._details.Status_student = tmpStatus;
                 }
 
