@@ -1,4 +1,4 @@
-var sas = angular.module('SASController', ['ngRoute', 'btford.socket-io', 'datatables', 'ngDialog', 'angular-md5']);
+var sas = angular.module('SASController', ['ngRoute', 'btford.socket-io', 'datatables', 'ngDialog', 'angular-md5', 'chart.js']);
 sas
     .controller('AuthCtrl', function ($location, $scope, $rootScope, ngDialog, $timeout, Notifi, DataServices, md5, Thesocket) {
 
