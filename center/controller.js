@@ -123,16 +123,15 @@ sas
 
         // go statistics
         $scope.go_statistics = function () {
-            alert('Trang đang hoàn thiện vui lòng quay lại sau.')
-            // $location.path('/statistics');
+            // alert('Trang đang hoàn thiện vui lòng quay lại sau.')
+            $location.path('/statistics');
             $scope.isactive = 8;
             localStorage.setItem('isactive', $scope.isactive);
         }
 
         // go setup
         $scope.go_setup = function () {
-            // $location.path('/setup');
-            alert('Trang đang hoàn thiện vui lòng quay lại sau.')
+            $location.path('/setup');
             $scope.isactive = 9;
             localStorage.setItem('isactive', $scope.isactive);
         }
