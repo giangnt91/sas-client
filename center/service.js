@@ -100,9 +100,9 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/upstudent';
                 return $http.post(url, parameter, header);
             },
+
+            // Tìm kiếm
             SearchH: function (Regday, Regday2, Status, Center) {
-                console.log(Regday)
-                console.log(Regday2)
                 parameter = JSON.stringify({
                     Regday: Regday,
                     Regday2: Regday2,
@@ -112,6 +112,16 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchhome';
                 return $http.post(url, parameter, header);
             },
+            SearchN: function(Regday, Regday2){
+                parameter = JSON.stringify({
+                    Regday: Regday,
+                    Regday2: Regday2
+                });
+                url = api_gateway_url + '/searchnotcall';
+                return $http.post(url, parameter, header);
+            },
+            // kết thúc
+
             // lấy dữ liệu cho chart
             GetforchartDefault: function (Username, Fromday, Today) {
                 parameter = JSON.stringify({
