@@ -222,10 +222,6 @@ sas
             {
                 name: 'Đã đăng ký',
                 value: 3
-            },
-            {
-                name: 'Hủy',
-                value: 4
             }
         ]
 
@@ -357,66 +353,54 @@ sas
         }
 
         // custom tìm kiếm
-        $scope.SselectedCenter = $scope.Center[0];
-        $scope.SselectedTime = $scope.Appointment_time[0];
-        $scope.SselectedTime2 = $scope.Appointment_time[0];
+        $scope.HCenter = $scope.Center[0];
+        $scope.HStatus = $scope.Status[0];
 
         $scope.Searchwith = function () {
-            var stime;
-            var stime2;
-            var scenter;
-            var dayhen;
-            var dayhen2;
+            var HStatus;
+            var hregday;
+            var hregday2;
+            var HCenter;
 
-            var _dayhen = $('#Sdayhen').val();
-            var _dayhen2 = $('#Sdayhen2').val();
+            var _hregday = $('#hregday').val();
+            var _hregday2 = $('#hregday2').val();
 
-            if (_dayhen !== '') {
-                dayhen = convertup(_dayhen);
-            } else {
-                dayhen = '';
+            if (_hregday === '') {
+                hregday = null;
+            }else{
+                hregday = _hregday;
             }
 
-            if (_dayhen2 !== '') {
-                dayhen2 = convertup(_dayhen2);
-            } else {
-                dayhen2 = '';
+            if (_hregday2 === '') {
+                hregday2 = null;
+            }else{
+                hregday2 = _hregday2;
             }
 
-            if ($scope.SselectedTime !== null) {
-                if ($scope.SselectedTime.value !== null) {
-                    stime = $scope.SselectedTime.value;
+
+            if ($scope.HCenter !== null) {
+                if ($scope.HCenter.value !== null) {
+                    HCenter = $scope.HCenter.value;
                 } else {
-                    stime = 1;
+                    HCenter = null;
                 }
 
             } else {
-                stime = 1;
+                HCenter = null;
             }
 
-            if ($scope.SselectedTime2 !== null) {
-                if ($scope.SselectedTime2.value !== null) {
-                    stime2 = $scope.SselectedTime2.value;
+            if ($scope.HStatus !== null) {
+                if ($scope.HStatus.value !== null) {
+                    HStatus = $scope.HStatus.value;
                 } else {
-                    stime2 = 27;
+                    HStatus = null;
                 }
 
             } else {
-                stime2 = 27;
+                HStatus = null;
             }
 
-            if ($scope.SselectedCenter !== null) {
-                if ($scope.SselectedCenter.value !== null) {
-                    scenter = $scope.SselectedCenter.value;
-                } else {
-                    scenter = null;
-                }
-
-            } else {
-                scenter = null;
-            }
-
-            DataServices.Search(dayhen, dayhen2, stime, stime2, scenter).then(function (response) {
+            DataServices.SearchH(hregday, hregday2, HCenter, HStatus).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');
@@ -430,9 +414,8 @@ sas
         }
 
         $scope.Clear = function () {
-            $scope.SselectedCenter = $scope.Center[0];
-            $scope.SselectedTime = $scope.Appointment_time[0];
-            $scope.SselectedTime2 = $scope.Appointment_time[0];
+            $scope.HCenter = $scope.Center[0];
+            $scope.HStatus = $scope.Appointment_time[0];
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
         }
 

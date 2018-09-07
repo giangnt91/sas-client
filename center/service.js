@@ -100,15 +100,16 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/upstudent';
                 return $http.post(url, parameter, header);
             },
-            Search: function (Appointment_day, Appointment_day2, Appointment_time, Appointment_time2, Center) {
+            SearchH: function (Regday, Regday2, Status, Center) {
+                console.log(Regday)
+                console.log(Regday2)
                 parameter = JSON.stringify({
-                    Appointment_day: Appointment_day,
-                    Appointment_day2: Appointment_day2,
-                    Appointment_time: Appointment_time,
-                    Appointment_time2: Appointment_time2,
+                    Regday: Regday,
+                    Regday2: Regday2,
+                    Status: Status,
                     Center: Center
                 });
-                url = api_gateway_url + '/search';
+                url = api_gateway_url + '/searchhome';
                 return $http.post(url, parameter, header);
             },
             // lấy dữ liệu cho chart

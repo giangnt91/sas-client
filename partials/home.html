@@ -13,52 +13,48 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="input-group add">
-                                                        <label for="Sdayhen">Từ Ngày</label>
-                                                        <input type="date" class="form-control" id="Sdayhen">
+                                                        <label for="hregday">Từ Ngày</label>
+                                                        <input type="date" class="form-control" id="hregday">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group add">
-                                                        <label for="Sdayhen2">Đến Ngày</label>
-                                                        <input type="date" class="form-control" id="Sdayhen2">
+                                                        <label for="hregday">Đến Ngày</label>
+                                                        <input type="date" class="form-control" id="hregday2">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="input-group add">
-                                                        <label for="giohen">Từ Giờ</label>
-                                                        <select class="form-control" ng-model="SselectedTime" ng-options="option.name for option in Appointment_time">
+                                                        <label for="coso">Cơ sở</label>
+                                                        <select class="form-control" ng-model="HCenter" ng-options="option.name for option in Center">
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group add">
-                                                        <label for="giohen">Đến Giờ</label>
-                                                        <select class="form-control" ng-model="SselectedTime2" ng-options="option.name for option in Appointment_time">
+                                                        <label for="trangthai">Trạng thái</label>
+                                                        <select class="form-control" ng-model="HStatus" ng-options="option.name for option in Status">
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="input-group add">
-                                                <label for="coso">Cơ sở</label>
-                                                <select class="form-control" ng-model="SselectedCenter" ng-change="searchCenter()" ng-options="option.name for option in Center">
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-lg-11">
+                                                    <a href="#" class="btn btn-info btn-block" style="margin-left: 20px"
+                                                        ng-click="Searchwith()">
+                                                        <i class="material-icons">search</i> Tìm Kiếm
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="input-group add">
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <a href="#" class="btn btn-info btn-block" style="margin-left: 20px" ng-click="Searchwith()">
-                                                            <i class="material-icons">search</i> Tìm Kiếm
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <a href="#" class="btn btn-default btn-block" ng-click="Clear()">
-                                                            <i class="material-icons">clear_all</i> Clear
-                                                        </a>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="col-lg-11">
+                                                    <a href="#" class="btn btn-default btn-block" style="margin-left: 20px" ng-click="Clear()">
+                                                        <i class="material-icons">clear_all</i> Clear
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -68,7 +64,8 @@
 
 
 
-                            <table datatable="ng" dt-options="newdtOptions" dt-instance="dtInstance" cellpadding="0" class="table table-striped cell-border table-hover">
+                            <table datatable="ng" dt-options="newdtOptions" dt-instance="dtInstance" cellpadding="0"
+                                class="table table-striped cell-border table-hover">
                                 <thead>
                                     <tr>
                                         <th>STT</th>
@@ -109,7 +106,8 @@
 
 
 <!-- Modal Chi Tiết Học Viên-->
-<div class="modal fade" id="detail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="detail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-add" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -248,7 +246,8 @@
                                             Cập nhật
                                         </button> -->
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-disabled="_details.Status_student[0].id === 3 || auth.Username !== _details.Manager[0].id"
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;"
+                                                ng-disabled="_details.Status_student[0].id === 3 || auth.Username !== _details.Manager[0].id"
                                                 ng-click="up_detail()">Cập Nhật
                                             </button>
                                             <button class="btn btn-info btn-block">SMS</button>
@@ -264,7 +263,8 @@
             </div>
             <div class="modal-footer" style="border-top: none; padding-top: 0">
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-disabled="auth.Username !== _details.Manager[0].id" ng-click="addfriend(_details._id)">Thêm
+                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-disabled="auth.Username !== _details.Manager[0].id"
+                        ng-click="addfriend(_details._id)">Thêm
                         bạn
                     </button>
                 </div>
@@ -318,7 +318,8 @@
 </div>
 
 <!-- Modal Thêm Học Viên header-->
-<div class="modal fade" id="add" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-add m-3-top" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -340,13 +341,15 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="fullname">Họ tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.fullname" id="name" required>
+                                                <input type="text" class="form-control" ng-model="data.fullname" id="name"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="email">Email</label>
-                                                <input type="text" class="form-control" ng-model="data.email" id="email" required>
+                                                <input type="text" class="form-control" ng-model="data.email" id="email"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -354,7 +357,8 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="phone">Số DT</label>
-                                                <input type="number" class="form-control" ng-model="data.phone" id="phone" required>
+                                                <input type="number" class="form-control" ng-model="data.phone" id="phone"
+                                                    required>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <a href="">
@@ -383,7 +387,8 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="dayreg">Ngày đăng ký</label>
-                                                <input type="date" class="form-control datetimepicker" id="madddayreg" required>
+                                                <input type="date" class="form-control datetimepicker" id="madddayreg"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -395,7 +400,8 @@
                                         </div> -->
                                     <div class="col-lg-1 p-0">
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="AddStudent(data)">Thêm
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;"
+                                                ng-click="AddStudent(data)">Thêm
                                                 mới
                                             </button>
                                             <button class="btn btn-info btn-block">SMS</button>
@@ -469,7 +475,8 @@
 
 
 <!-- Modal Thêm Học Viên 2 -->
-<div class="modal fade" id="add2" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add2" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-add m-3-top" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -491,13 +498,15 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="fullname">Họ tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.fullname" id="name2" required>
+                                                <input type="text" class="form-control" ng-model="data.fullname" id="name2"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="email">Email</label>
-                                                <input type="text" class="form-control" ng-model="data.email" id="email2" required>
+                                                <input type="text" class="form-control" ng-model="data.email" id="email2"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -505,7 +514,8 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="phone">Số DT</label>
-                                                <input type="number" class="form-control" ng-model="data.phone" id="phone2" required>
+                                                <input type="number" class="form-control" ng-model="data.phone" id="phone2"
+                                                    required>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <a href="">
@@ -534,13 +544,15 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="dayreg">Ngày đăng ký</label>
-                                                <input type="date" class="form-control datetimepicker" id="adddayreg" required>
+                                                <input type="date" class="form-control datetimepicker" id="adddayreg"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-1 p-0">
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="addnewfromaddFriend(data)">Thêm
+                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;"
+                                                ng-click="addnewfromaddFriend(data)">Thêm
                                                 mới
                                             </button>
                                             <button class="btn btn-info btn-block">SMS</button>
@@ -610,7 +622,8 @@
 </div>
 
 <!-- Modal Thêm User -->
-<div class="modal fade" id="user" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="user" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -633,24 +646,28 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="uname">Username</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.uname" id="uname" required>
+                                                <input type="text" class="form-control" ng-model="data.uname" id="uname"
+                                                    required>
                                             </div>
 
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
                                                     <label for="ufullname">Họ tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.ufullname" id="ufullname" required>
+                                                <input type="text" class="form-control" ng-model="data.ufullname" id="ufullname"
+                                                    required>
                                             </div>
 
                                             <div class="input-group add">
                                                 <label for="uemail">Email</label>
-                                                <input type="text" class="form-control" ng-model="data.uemail" id="uemail" required>
+                                                <input type="text" class="form-control" ng-model="data.uemail" id="uemail"
+                                                    required>
                                             </div>
 
                                             <div class="input-group add">
                                                 <label for="uphone">Số DT</label>
-                                                <input type="number" class="form-control" ng-model="data.uphone" id="uphone" required>
+                                                <input type="number" class="form-control" ng-model="data.uphone" id="uphone"
+                                                    required>
                                             </div>
 
                                             <div class="input-group add">
@@ -666,8 +683,8 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)"> <i
-                                        class="material-icons">send</i> Tạo User</button>
+                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)">
+                                    <i class="material-icons">send</i> Tạo User</button>
 
                             </form>
                         </div>
@@ -692,10 +709,12 @@
             <div class="modal-body">
                 <form name="passform">
                     <div class="form-group">
-                        <input type="password" class="form-control" ng-model="oldpass" id="oldpassword" placeholder="Mật khẩu cũ" required>
+                        <input type="password" class="form-control" ng-model="oldpass" id="oldpassword" placeholder="Mật khẩu cũ"
+                            required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" ng-model="newpass" id="newpassword" placeholder="Mật khẩu mới" required>
+                        <input type="password" class="form-control" ng-model="newpass" id="newpassword" placeholder="Mật khẩu mới"
+                            required>
                     </div>
                 </form>
                 <button type="button" class="btn btn-info btn-block" ng-click="update()">Xác Nhận</button>
