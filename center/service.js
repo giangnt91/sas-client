@@ -112,12 +112,23 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchhome';
                 return $http.post(url, parameter, header);
             },
-            SearchN: function(Regday, Regday2){
+            SearchN: function (Regday, Regday2) {
                 parameter = JSON.stringify({
                     Regday: Regday,
                     Regday2: Regday2
                 });
                 url = api_gateway_url + '/searchnotcall';
+                return $http.post(url, parameter, header);
+            },
+            SearchR: function (Retime, Retime2, Reday, Reday2, Sale) {
+                parameter = JSON.stringify({
+                    Retime: Retime,
+                    Retime2: Retime2,
+                    Reday: Reday,
+                    Reday2: Reday2,
+                    Sale: Sale
+                });
+                url = api_gateway_url + '/searchrecall';
                 return $http.post(url, parameter, header);
             },
             // kết thúc
