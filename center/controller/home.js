@@ -759,10 +759,6 @@ sas
                     {
                         name: 'Đã đăng ký',
                         value: 3
-                    },
-                    {
-                        name: 'Hủy',
-                        value: 4
                     }
                 ]
 

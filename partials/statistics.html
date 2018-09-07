@@ -13,7 +13,7 @@
                         <li class="nav-item" ng-class="{'active': isactive === 3}" ng-click="gl()">
                             <a class="nav-link padlr-14" href="#">Gọi lại</a>
                         </li>
-                        <li class="nav-item" ng-class="{'active': isactive === 4}" ng-click="tl()">
+                        <li class="nav-item" ng-class="{'active': isactive === 4}" ng-click="_tl()">
                             <a class="nav-link padlr-14" href="#">Tỷ lệ</a>
                         </li>
                         <li class="nav-item" ng-class="{'active': isactive === 5}" ng-click="hcd()">
@@ -28,15 +28,15 @@
                         <li class="nav-item" ng-class="{'active': isactive === 8}" ng-click="ktn()">
                             <a class="nav-link padlr-14" href="#">Không tiềm năng</a>
                         </li>
-                        <li class="nav-item" ng-class="{'active': isactive === 9}" ng-click="h()">
+                        <!-- <li class="nav-item" ng-class="{'active': isactive === 9}" ng-click="h()">
                             <a class="nav-link padlr-14" href="#">Hủy</a>
-                        </li>
-                        <li class="nav-item" ng-class="{'active': isactive === 10}" ng-click="lh()">
+                        </li> -->
+                        <li class="nav-item" ng-class="{'active': isactive === 9}" ng-click="_lh()">
                             <a class="nav-link padlr-14" href="#">Lịch hẹn</a>
                         </li>
-                        <li class="nav-item" ng-class="{'active': isactive === 11}" ng-click="cn()">
+                        <!-- <li class="nav-item" ng-class="{'active': isactive === 11}" ng-click="cn()">
                             <a class="nav-link padlr-14" href="#">Cá nhân</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -64,12 +64,113 @@
                         </div>
                     </div>
 
+                    <!-- Tổng quan -->
                     <center>
-                        <canvas id="bar" chart-series="series" ng-show="isactive === 1" height="400" chart-s width="1000" class="chart chart-bar" chart-data="data"
-                            chart-labels="labels1">
+                        <canvas id="bar" chart-series="series" ng-show="isactive === 1" height="400" chart-s width="1000" class="chart chart-bar"
+                            chart-data="data" chart-labels="labels1">
                         </canvas>
                     </center>
 
+                    <!-- Chưa gọi -->
+                    <center>
+                        <canvas id="bar" chart-series="series2" ng-show="isactive === 2" height="400" chart-s width="1000" class="chart chart-bar"
+                            chart-data="data2" chart-labels="labels2">
+                        </canvas>
+                    </center>
+
+                    <!-- Gọi lại -->
+                    <center>
+                        <canvas id="bar" chart-series="series3" ng-show="isactive === 3" height="400" chart-s width="1000" class="chart chart-bar"
+                            chart-data="data3" chart-labels="labels3">
+                        </canvas>
+                    </center>
+
+                    <!-- Tỷ lệ -->
+                    <div class="material-datatables" ng-show="isactive === 4">
+                        <table cellpadding="0" class="table table-striped cell-border table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Nhân Viên</th>
+                                    <th>Online</th>
+                                    <th>Đã hẹn lần 1 <br/>( % trên online )
+                                    </th>
+                                    <th>Hẹn lần 1 chưa đến<br/>( % trên đã hẹn lần 1 )
+                                    </th>
+                                    <th>Đến chưa đăng ký <br/>( % trên online )
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="content in tl">
+                                    <td>{{$index +1}}</td>
+                                    <td>{{content[0].Fullname}}</td>
+                                    <td>{{content[0].On.length}} </td>
+                                    <td>{{content[0].App.length}} ({{(content[0].App.length / content[0].On.length)*100}}
+                                        %)
+                                    </td>
+                                    <td>{{content[0].Notapp.length}} ({{(content[0].Notapp.length / content[0].App.length)*100}}
+                                        %)
+                                    </td>
+                                    <td>{{content[0].Notreg.length}} ({{(content[0].Notreg.length / content[0].On.length)*100}}
+                                        %)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Hẹn chưa đến -->
+                    <center>
+                        <canvas id="bar" chart-series="series5" ng-show="isactive === 5" height="400" chart-s width="1000" class="chart chart-bar"
+                            chart-data="data5" chart-labels="labels5">
+                        </canvas>
+                    </center>
+
+                    <!-- Đến chưa đăng ký -->
+                    <center>
+                        <canvas id="bar" chart-series="series6" ng-show="isactive === 6" height="400" chart-s width="1000" class="chart chart-bar"
+                            chart-data="data6" chart-labels="labels6">
+                        </canvas>
+                    </center>
+
+                    <!-- Chưa đăng ký -->
+                    <center>
+                        <canvas id="bar" chart-series="series7" ng-show="isactive === 7" height="400" chart-s width="1000" class="chart chart-bar"
+                            chart-data="data7" chart-labels="labels7">
+                        </canvas>
+                    </center>
+
+                    <!-- Không tiềm năng -->
+                    <center>
+                        <canvas id="bar" chart-series="series8" ng-show="isactive === 8" height="400" chart-s width="1000" class="chart chart-bar"
+                            chart-data="data8" chart-labels="labels8">
+                        </canvas>
+                    </center>
+
+                    <!-- Lịch hẹn -->
+                    <div class="material-datatables" ng-show="isactive === 9">
+                        <table cellpadding="0" class="table table-striped cell-border table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Nhân Viên</th>
+                                    <th>Học viên hẹn</th>
+                                    <th>Đã đăng ký</th>
+                                    <th>Đến chưa đăng ký</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="content in lh">
+                                    <td>{{$index +1}}</td>
+                                    <td>{{content[0].Fullname}}</td>
+                                    <td>{{content[0].DH.length}} </td>
+                                    <td>{{content[0].Ddk.length}}</td>
+                                    <td>{{content[0].Dcdk.length}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

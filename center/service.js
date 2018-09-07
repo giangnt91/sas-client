@@ -111,13 +111,86 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/search';
                 return $http.post(url, parameter, header);
             },
-            GetforcharDefault: function (Username, Fromday, Today) {
+            // lấy dữ liệu cho chart
+            GetforchartDefault: function (Username, Fromday, Today) {
                 parameter = JSON.stringify({
                     Username: Username,
                     Fromday: Fromday,
                     Today: Today
                 })
                 url = api_gateway_url + '/chartdefault';
+                return $http.post(url, parameter, header);
+            },
+            GetforchartNotcall: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/chartnotcall';
+                return $http.post(url, parameter, header);
+            },
+            GetforchartRecall: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/chartrecall';
+                return $http.post(url, parameter, header);
+            },
+            Gettl: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/charttl';
+                return $http.post(url, parameter, header);
+            },
+            GetforchartHcd: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/charthcd';
+                return $http.post(url, parameter, header);
+            },
+            GetforchartDcdk: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/chartdcdk';
+                return $http.post(url, parameter, header);
+            },
+            GetforchartCdk: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/chartcdk';
+                return $http.post(url, parameter, header);
+            },
+            GetforchartKtn: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/chartktn';
+                return $http.post(url, parameter, header);
+            },
+            Getlh: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/chartlh';
                 return $http.post(url, parameter, header);
             }
         }
