@@ -59,7 +59,7 @@
                     <p>Thống kê</p>
                 </a>
             </li>
-            <li class="nav-item" ng-click="go_setup()" ng-class="{'active': isactive === 9}">
+            <li class="nav-item" ng-click="go_setup()" ng-if="auth.Role[0].id === 0" ng-class="{'active': isactive === 9}">
                 <a class="nav-link" href="">
                     <i class="material-icons">settings</i>
                     <p>Setup</p>

@@ -1,5 +1,14 @@
 sas
     .controller('HomeCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
+        // go manager
+        $scope.go_manageruser = function () {
+            $location.path('/manageruser');
+        }
+        
+        $scope.go_managergroup = function(){
+            $location.path('/managergroup');
+        }
+
 
         // hiển thị ngày tháng
         function convertshow(x) {
@@ -367,13 +376,13 @@ sas
 
             if (_hregday === '') {
                 hregday = null;
-            }else{
+            } else {
                 hregday = _hregday;
             }
 
             if (_hregday2 === '') {
                 hregday2 = null;
-            }else{
+            } else {
                 hregday2 = _hregday2;
             }
 

@@ -16,14 +16,16 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/signin';
                 return $http.post(url, parameter, header);
             },
-            signUp: function (Username, Password, Fullname, Email, Phone, Role) {
+            signUp: function (Username, Password, Fullname, Email, Phone, Birthday, Role, Zone) {
                 parameter = JSON.stringify({
                     Username: Username,
                     Password: Password,
                     Fullname: Fullname,
                     Email: Email,
                     Phone: Phone,
+                    Birthday: Birthday,
                     Role: Role,
+                    Zone: Zone
                 });
                 url = api_gateway_url + '/signup';
                 return $http.post(url, parameter, header);
@@ -36,8 +38,38 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/update';
                 return $http.post(url, parameter, header)
             },
+            UpdateUser: function (_detail) {
+                parameter = JSON.stringify({
+                    _detail: _detail
+                });
+                url = api_gateway_url + '/updateUser';
+                return $http.post(url, parameter, header)
+            },
+            DeleteUser: function (_id) {
+                parameter = JSON.stringify({
+                    _id: _id
+                })
+                url = api_gateway_url + '/deleteuser';
+                return $http.post(url, parameter, header);
+            },
+            Resetpass: function (_id, new_pass) {
+                parameter = JSON.stringify({
+                    _id: _id,
+                    new_pass: new_pass
+                })
+                url = api_gateway_url + '/resetuser';
+                return $http.post(url, parameter, header);
+            },
             GetallUser: function () {
                 url = api_gateway_url + '/getuserbysup';
+                return $http.post(url, parameter, header);
+            },
+            GetUserforGroup: function (Username, Role) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Role: Role
+                })
+                url = api_gateway_url + '/getuserforgroup';
                 return $http.post(url, parameter, header);
             },
             UpdateStatus: function (_id, value) {
@@ -53,6 +85,21 @@ angular.module('SASService', [])
                     detail: detail
                 });
                 url = api_gateway_url + '/sharestudent';
+                return $http.post(url, parameter, header);
+            },
+
+            // Groups
+            Cgroup: function (Name, Gtype, Leader) {
+                parameter = JSON.stringify({
+                    Name: Name,
+                    Gtype: Gtype,
+                    Leader: Leader
+                });
+                url = api_gateway_url + '/cgroup';
+                return $http.post(url, parameter, header);
+            },
+            GetallGgroup: function () {
+                url = api_gateway_url + '/allgroup';
                 return $http.post(url, parameter, header);
             },
 

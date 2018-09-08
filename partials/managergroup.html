@@ -1,0 +1,118 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row top-10">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#user">
+                                                    <i class="material-icons">border_color</i> Tạo Group
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="material-datatables top-10">
+                            <table datatable="ng" dt-options="newdtOptions" dt-instance="dtInstance" cellpadding="0"
+                                class="table table-striped cell-border table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên Group</th>
+                                        <th>Loại Group</th>
+                                        <th>Tên Leader</th>
+                                        <th>Id Sheet</th>
+                                        <!-- <th>Action</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="content in AllGroups" style="cursor:pointer" ng-click="detail(content._id)">
+                                        <td class="text-center">{{$index +1}}</td>
+                                        <td>{{content.Name}}</td>
+                                        <td>{{content.Gtype[0].name}}</td>
+                                        <td>{{content.Leader[0].name}}</td>
+                                        <td ng-if="content.Sheet !== null">8098098098098</td>
+                                        <td ng-if="content.Sheet === null"></td>
+                                        <!-- <td>
+                                            <a href="" class="btn cbtn cbtn-left btn-primary btn-sm" data-tooltip="{{content.Manager[0].name}}">{{content.Manager[0].id}}</a>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal tạo group -->
+<div class="modal fade" id="user" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
+                    Group
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+                <div class="row">
+                    <div class="card m-10">
+                        <div class="card-body card-add">
+                            <form name="loginform">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="mfullname">Chọn Loại Group</label>
+                                                </div>
+                                                <select id="group" class="form-control" ng-model="group" ng-change="getUserforchange()" ng-options="option.name for option in Groups">
+                                                </select>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="groupname">Tên Group</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="groupname" id="groupname"
+                                                    required>
+                                            </div>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="Leader">Chọn Leader</label>
+                                                </div>
+                                                <select id="Leader" class="form-control" ng-disabled="group.id === null" ng-model="Leader" ng-options="option.name for option in Leaders">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="createGroup()">
+                                    <i class="material-icons">send</i> Tạo User</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
