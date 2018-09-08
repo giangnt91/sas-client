@@ -382,6 +382,8 @@ sas
         }
 
         $scope.Clear = function(){
+            $('#nregday').val(null);
+            $('#nregday2').val(null);
             $scope.SselectedCenter = $scope.Center[0];
             $scope.SselectedTime = $scope.Appointment_time[0];
             $scope.SselectedTime2 = $scope.Appointment_time[0];

@@ -439,7 +439,9 @@ sas
         }
 
         $scope.Clear = function () {
-            $scope.Ssale = $scope.users[0];
+            $('#Sregday').val(null);
+            $('#Sregday2').val(null);
+            $scope.Ssale = $scope.Users[0];
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
         }
 

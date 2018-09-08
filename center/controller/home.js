@@ -414,6 +414,8 @@ sas
         }
 
         $scope.Clear = function () {
+            $('#hregday').val(null);
+            $('#hregday2').val(null);
             $scope.HCenter = $scope.Center[0];
             $scope.HStatus = $scope.Status[0];
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);

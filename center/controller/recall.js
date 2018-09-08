@@ -445,6 +445,8 @@ sas
         }
 
         $scope.Clear = function () {
+            $('#Reday').val(null);
+            $('#Reday2').val(null);
             $scope.Sale = $scope.Users[0];
             $scope.Retime = $scope.Appointment_time[0];
             $scope.Retime2 = $scope.Appointment_time[0];
