@@ -150,6 +150,15 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchunreg';
                 return $http.post(url, parameter, header);
             },
+            SearchS: function (Regday, Regday2, Sale) {
+                parameter = JSON.stringify({
+                    Regday: Regday,
+                    Regday2: Regday2,
+                    Sale: Sale
+                })
+                url = api_gateway_url + '/searchsend';
+                return $http.post(url, parameter, header);
+            },
             // kết thúc
 
             // lấy dữ liệu cho chart

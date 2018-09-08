@@ -345,66 +345,65 @@ sas
         ];
 
         // custom tìm kiếm
-        $scope.SselectedCenter = $scope.Center[0];
-        $scope.SselectedTime = $scope.Appointment_time[0];
-        $scope.SselectedTime2 = $scope.Appointment_time[0];
+        function getUsers() {
+            DataServices.GetallUser().then(function (response) {
+                if (response.data.error_code === 0) {
+                    var _result = response.data.users;
+                    if (_result.length > 0) {
+                        $scope.Users = [{
+                            id: null,
+                            name: 'Chọn'
+                        }];
+                        _result.forEach(element => {
+                            if (element.Role[0].id === 1) {
+                                let user = {
+                                    id: element.Username,
+                                    name: element.Fullname
+                                }
+                                $scope.Users.push(user);
+                            }
+                        });
+                    }
+                }
+            })
+        }
+        getUsers();
 
+        $timeout(function () {
+            $scope.Sesale = $scope.Users[0];
+        }, 500)
         $scope.Searchwith = function () {
-            var stime;
-            var stime2;
-            var scenter;
-            var dayhen;
-            var dayhen2;
+            var Sesale;
+            var Seregday;
+            var Seregday2;
 
-            var _dayhen = $('#Sdayhen').val();
-            var _dayhen2 = $('#Sdayhen2').val();
+            var _Seregday = $('#Seregday').val();
+            var _Seregday2 = $('#Seregday2').val();
 
-            if (_dayhen !== '') {
-                dayhen = convertup(_dayhen);
+            if (_Seregday !== '') {
+                Seregday = _Seregday;
             } else {
-                dayhen = '';
+                Seregday = null;
             }
 
-            if (_dayhen2 !== '') {
-                dayhen2 = convertup(_dayhen2);
+            if (_Seregday2 !== '') {
+                Seregday2 = _Seregday2;
             } else {
-                dayhen2 = '';
+                Seregday2 = null;
             }
 
-            if ($scope.SselectedTime !== null) {
-                if ($scope.SselectedTime.value !== null) {
-                    stime = $scope.SselectedTime.value;
-                }else{
-                    stime = 1;
+            if ($scope.Sesale !== null) {
+                if ($scope.Sesale.id !== null) {
+                    Sesale = $scope.Sesale.id;
+                } else {
+                    Sesale = null;
                 }
 
             } else {
-                stime = 1;
+                Sesale = null;
             }
 
-            if ($scope.SselectedTime2 !== null) {
-                if ($scope.SselectedTime2.value !== null) {
-                    stime2 = $scope.SselectedTime2.value;
-                }else{
-                    stime2 = 27;
-                }
-
-            } else {
-                stime2 = 27;
-            }
-
-            if ($scope.SselectedCenter !== null) {
-                if($scope.SselectedCenter.value !== null){
-                    scenter = $scope.SselectedCenter.value;
-                }else{
-                    scenter = null;
-                }
-                
-            } else {
-                scenter = null;
-            }
-
-            DataServices.Search(dayhen, dayhen2, stime, stime2, scenter).then(function (response) {
+            DataServices.SearchS(Seregday, Seregday2, Sesale).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');
@@ -417,10 +416,10 @@ sas
 
         }
 
-        $scope.Clear = function(){
-            $scope.SselectedCenter = $scope.Center[0];
-            $scope.SselectedTime = $scope.Appointment_time[0];
-            $scope.SselectedTime2 = $scope.Appointment_time[0];
+        $scope.Clear = function () {
+            $('#Seregday').val(null);
+            $('#Seregday2').val(null);
+            $scope.Sesale = $scope.Users[0];
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
         }
 
@@ -759,121 +758,121 @@ sas
                     }
                 ]
 
-// giờ hẹn
-$scope.Appointment_time = [
-    {
-        name: 'Chọn',
-        value: null
-    },
-    {
-        name: '8:00',
-        value: 1
-    },
-    {
-        name: '8:30',
-        value: 2
-    },
-    {
-        name: '9:00',
-        value: 3
-    },
-    {
-        name: '9:30',
-        value: 4
-    },
-    {
-        name: '10:00',
-        value: 5
-    },
-    {
-        name: '10:30',
-        value: 6
-    },
-    {
-        name: '11:00',
-        value: 7
-    },
-    {
-        name: '11:30',
-        value: 8
-    },
-    {
-        name: '12:00',
-        value: 9
-    },
-    {
-        name: '12:30',
-        value: 10
-    },
-    {
-        name: '13:00',
-        value: 11
-    },
-    {
-        name: '13:30',
-        value: 12
-    },
-    {
-        name: '14:00',
-        value: 13
-    },
-    {
-        name: '14:30',
-        value: 14
-    },
-    {
-        name: '15:00',
-        value: 15
-    },
-    {
-        name: '15:30',
-        value: 16
-    },
-    {
-        name: '16:00',
-        value: 17
-    },
-    {
-        name: '16:30',
-        value: 18
-    },
-    {
-        name: '17:00',
-        value: 19
-    },
-    {
-        name: '17:30',
-        value: 20
-    },
-    {
-        name: '18:00',
-        value: 21
-    },
-    {
-        name: '18:30',
-        value: 22
-    },
-    {
-        name: '19:00',
-        value: 23
-    },
-    {
-        name: '19:30',
-        value: 24
-    },
-    {
-        name: '20:00',
-        value: 25
-    },
-    {
-        name: '20:30',
-        value: 26
-    },
-    {
-        name: '21:00',
-        value: 27
-    }
-];
+                // giờ hẹn
+                $scope.Appointment_time = [
+                    {
+                        name: 'Chọn',
+                        value: null
+                    },
+                    {
+                        name: '8:00',
+                        value: 1
+                    },
+                    {
+                        name: '8:30',
+                        value: 2
+                    },
+                    {
+                        name: '9:00',
+                        value: 3
+                    },
+                    {
+                        name: '9:30',
+                        value: 4
+                    },
+                    {
+                        name: '10:00',
+                        value: 5
+                    },
+                    {
+                        name: '10:30',
+                        value: 6
+                    },
+                    {
+                        name: '11:00',
+                        value: 7
+                    },
+                    {
+                        name: '11:30',
+                        value: 8
+                    },
+                    {
+                        name: '12:00',
+                        value: 9
+                    },
+                    {
+                        name: '12:30',
+                        value: 10
+                    },
+                    {
+                        name: '13:00',
+                        value: 11
+                    },
+                    {
+                        name: '13:30',
+                        value: 12
+                    },
+                    {
+                        name: '14:00',
+                        value: 13
+                    },
+                    {
+                        name: '14:30',
+                        value: 14
+                    },
+                    {
+                        name: '15:00',
+                        value: 15
+                    },
+                    {
+                        name: '15:30',
+                        value: 16
+                    },
+                    {
+                        name: '16:00',
+                        value: 17
+                    },
+                    {
+                        name: '16:30',
+                        value: 18
+                    },
+                    {
+                        name: '17:00',
+                        value: 19
+                    },
+                    {
+                        name: '17:30',
+                        value: 20
+                    },
+                    {
+                        name: '18:00',
+                        value: 21
+                    },
+                    {
+                        name: '18:30',
+                        value: 22
+                    },
+                    {
+                        name: '19:00',
+                        value: 23
+                    },
+                    {
+                        name: '19:30',
+                        value: 24
+                    },
+                    {
+                        name: '20:00',
+                        value: 25
+                    },
+                    {
+                        name: '20:30',
+                        value: 26
+                    },
+                    {
+                        name: '21:00',
+                        value: 27
+                    }
+                ];
 
                 $scope.list_student.forEach(element => {
                     if (element._id === id) {
@@ -1086,7 +1085,7 @@ $scope.Appointment_time = [
                     $scope._details.Appointment_time = tmpTime;
                 }
 
-                 // kiểm tra sale
+                // kiểm tra sale
                 //  if($scope.selectedManager !== null){
                 //     var tmpManager = [
                 //         {
