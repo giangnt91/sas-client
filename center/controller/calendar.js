@@ -341,66 +341,65 @@ sas
         ];
 
         // custom tìm kiếm
-        $scope.SselectedCenter = $scope.Center[0];
-        $scope.SselectedTime = $scope.Appointment_time[0];
-        $scope.SselectedTime2 = $scope.Appointment_time[0];
+        function getUsers() {
+            DataServices.GetallUser().then(function (response) {
+                if (response.data.error_code === 0) {
+                    var _result = response.data.users;
+                    if (_result.length > 0) {
+                        $scope.Users = [{
+                            id: null,
+                            name: 'Chọn'
+                        }];
+                        _result.forEach(element => {
+                            if (element.Role[0].id === 1) {
+                                let user = {
+                                    id: element.Username,
+                                    name: element.Fullname
+                                }
+                                $scope.Users.push(user);
+                            }
+                        });
+                    }
+                }
+            })
+        }
+        getUsers();
 
+        $timeout(function () {
+            $scope.Csale = $scope.Users[0];
+        }, 500)
         $scope.Searchwith = function () {
-            var stime;
-            var stime2;
-            var scenter;
-            var dayhen;
-            var dayhen2;
+            var Csale;
+            var Cday;
+            var Cday2;
 
-            var _dayhen = $('#Sdayhen').val();
-            var _dayhen2 = $('#Sdayhen2').val();
+            var _Cday = $('#Cday').val();
+            var _Cday2 = $('#Cday2').val();
 
-            if (_dayhen !== '') {
-                dayhen = convertup(_dayhen);
+            if (_Cday !== '') {
+                Cday = _Cday;
             } else {
-                dayhen = '';
+                Cday = null;
             }
 
-            if (_dayhen2 !== '') {
-                dayhen2 = convertup(_dayhen2);
+            if (_Cday2 !== '') {
+                Cday2 = _Cday2;
             } else {
-                dayhen2 = '';
+                Cday2 = null;
             }
 
-            if ($scope.SselectedTime !== null) {
-                if ($scope.SselectedTime.value !== null) {
-                    stime = $scope.SselectedTime.value;
-                }else{
-                    stime = 1;
+            if ($scope.Csale !== null) {
+                if ($scope.Csale.id !== null) {
+                    Csale = $scope.Csale.id;
+                } else {
+                    Csale = null;
                 }
 
             } else {
-                stime = 1;
+                Csale = null;
             }
 
-            if ($scope.SselectedTime2 !== null) {
-                if ($scope.SselectedTime2.value !== null) {
-                    stime2 = $scope.SselectedTime2.value;
-                }else{
-                    stime2 = 27;
-                }
-
-            } else {
-                stime2 = 27;
-            }
-
-            if ($scope.SselectedCenter !== null) {
-                if($scope.SselectedCenter.value !== null){
-                    scenter = $scope.SselectedCenter.value;
-                }else{
-                    scenter = null;
-                }
-                
-            } else {
-                scenter = null;
-            }
-
-            DataServices.Search(dayhen, dayhen2, stime, stime2, scenter).then(function (response) {
+            DataServices.SearchC(Cday, Cday2, Csale).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');
@@ -413,10 +412,10 @@ sas
 
         }
 
-        $scope.Clear = function(){
-            $scope.SselectedCenter = $scope.Center[0];
-            $scope.SselectedTime = $scope.Appointment_time[0];
-            $scope.SselectedTime2 = $scope.Appointment_time[0];
+        $scope.Clear = function () {
+            $scope.Csale = $scope.Users[0];
+            $('#Cday').val(null);
+            $('#Cday2').val(null);
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
         }
 

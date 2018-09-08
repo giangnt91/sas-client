@@ -57,7 +57,7 @@ angular.module('SASService', [])
             },
 
             //Api Student
-            CstudentF: function (Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
+            CstudentF: function (Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
                 parameter = {
                     Fullname: Fullname,
                     Email: Email,
@@ -68,6 +68,7 @@ angular.module('SASService', [])
                     Note: Note,
                     Center: Center,
                     Appointment_day: Appointment_day,
+                    Appointment_dayiso: Appointment_dayiso,
                     Appointment_time: Appointment_time,
                     Status_student: Status_student,
                     Manager: Manager
@@ -157,6 +158,15 @@ angular.module('SASService', [])
                     Sale: Sale
                 })
                 url = api_gateway_url + '/searchsend';
+                return $http.post(url, parameter, header);
+            },
+            SearchC: function (Cday, Cday2, Sale) {
+                parameter = JSON.stringify({
+                    Cday: Cday,
+                    Cday2: Cday2,
+                    Sale: Sale
+                })
+                url = api_gateway_url + '/searchcalendar';
                 return $http.post(url, parameter, header);
             },
             // kết thúc

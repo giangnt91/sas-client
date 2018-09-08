@@ -474,8 +474,8 @@ sas
         }
 
         // tạo học viên mới từ thêm bạn
-        function CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
-            DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager).then(function (response) {
+        function CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
+            DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
                 if (response.data.error_code === 0) {
                     getStudent($rootScope.auth.Username, $rootScope.auth.Role);
                     $scope.friendId = response.data._id;
@@ -486,19 +486,6 @@ sas
                 }
             })
         }
-
-        // tạo học viên bình thường
-        function Cstudent(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
-            DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager).then(function (response) {
-                if (response.data.error_code === 0) {
-                    getStudent($rootScope.auth.Username, $rootScope.auth.Role);
-                    Notifi._success('Tạo học viên thành công.');
-                } else {
-                    Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
-                }
-            })
-        }
-
 
         // cập nhật thông tin học viên
         function update_student(student) {
@@ -1064,6 +1051,7 @@ sas
                 let _tmpday = $('#dngayhen').val();
                 if (_tmpday !== '') {
                     $scope._details.Appointment_day = convertup(_tmpday);
+                    $scope._details.Appointment_dayiso = _tmpday;
                 }
 
                 // kiểm tra cơ sở
@@ -1216,6 +1204,7 @@ sas
                 } else {
                     $scope._fullname = data.fullname;
                     var henday;
+                    var hendayiso;
                     var tmp_center;
                     var tmp_status;
                     var tmp_time;
@@ -1254,8 +1243,10 @@ sas
 
                     if (_tmpdayhen !== '') {
                         henday = convertup(_tmpdayhen);
+                        hendayiso = _tmpdayhen;
                     } else {
                         henday = null;
+                        hendayiso = null;
                     }
 
                     if ($scope.addselectedTime !== undefined) {
@@ -1272,7 +1263,7 @@ sas
                         $scope.addNote = null;
                     }
 
-                    CstudentF(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
+                    CstudentF(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, hendayiso, tmp_time, tmp_status, _manager);
                 }
             }
         }
