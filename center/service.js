@@ -131,6 +131,15 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchrecall';
                 return $http.post(url, parameter, header);
             },
+            SearchSch: function (Regday, Regday2, Sale) {
+                parameter = JSON.stringify({
+                    Regday: Regday,
+                    Regday2: Regday2,
+                    Sale: Sale
+                })
+                url = api_gateway_url + '/searchschedule';
+                return $http.post(url, parameter, header);
+            },
             // kết thúc
 
             // lấy dữ liệu cho chart
