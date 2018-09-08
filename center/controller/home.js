@@ -415,7 +415,7 @@ sas
 
         $scope.Clear = function () {
             $scope.HCenter = $scope.Center[0];
-            $scope.HStatus = $scope.Appointment_time[0];
+            $scope.HStatus = $scope.Status[0];
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
         }
 

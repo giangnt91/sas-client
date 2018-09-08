@@ -102,12 +102,12 @@ angular.module('SASService', [])
             },
 
             // Tìm kiếm
-            SearchH: function (Regday, Regday2, Status, Center) {
+            SearchH: function (Regday, Regday2, Center, Status) {
                 parameter = JSON.stringify({
                     Regday: Regday,
                     Regday2: Regday2,
-                    Status: Status,
-                    Center: Center
+                    Center: Center,
+                    Status: Status
                 });
                 url = api_gateway_url + '/searchhome';
                 return $http.post(url, parameter, header);
