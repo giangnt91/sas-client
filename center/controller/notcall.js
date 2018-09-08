@@ -368,7 +368,7 @@ sas
                 nregday2 = _nregday2;
             }
 
-            DataServices.SearchN(nregday, nregday2).then(function (response) {
+            DataServices.SearchN(nregday, nregday2, $rootScope.auth.Username).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');

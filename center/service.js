@@ -112,10 +112,11 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchhome';
                 return $http.post(url, parameter, header);
             },
-            SearchN: function (Regday, Regday2) {
+            SearchN: function (Regday, Regday2, Username) {
                 parameter = JSON.stringify({
                     Regday: Regday,
-                    Regday2: Regday2
+                    Regday2: Regday2,
+                    Username: Username
                 });
                 url = api_gateway_url + '/searchnotcall';
                 return $http.post(url, parameter, header);
@@ -138,6 +139,15 @@ angular.module('SASService', [])
                     Sale: Sale
                 })
                 url = api_gateway_url + '/searchschedule';
+                return $http.post(url, parameter, header);
+            },
+            SearchUn: function (Regday, Regday2, Username) {
+                parameter = JSON.stringify({
+                    Regday: Regday,
+                    Regday2: Regday2,
+                    Username: Username
+                })
+                url = api_gateway_url + '/searchunreg';
                 return $http.post(url, parameter, header);
             },
             // kết thúc
