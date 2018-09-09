@@ -300,14 +300,14 @@
                                                 <input type="date" class="form-control" id="mday">
                                             </div>
 
-                                            <div class="input-group add" ng-if="auth.Role[0].id === 0">
+                                            <div class="input-group add" ng-show="auth.Role[0].id === 0">
                                                 <label for="mrole">Phân quyền</label>
                                                 <select id="mrole" class="form-control" ng-model="mrole" ng-change="getgroupforrole()"
                                                     ng-options="option.value for option in _Role">
                                                 </select>
                                             </div>
 
-                                            <div class="input-group add" ng-if="auth.Role[0].id === 0">
+                                            <div class="input-group add" ng-show="auth.Role[0].id === 0">
                                                 <label for="mgroup">Chọn group</label>
                                                 <select id="mgroup" class="form-control" ng-disabled="mrole.id === null"
                                                     ng-model="mgroup" ng-options="option.Name for option in GroupSignup">

@@ -31,7 +31,7 @@
                                         <th>Tên Group</th>
                                         <th>Loại Group</th>
                                         <th>Tên Leader</th>
-                                        <th>Id Sheet</th>
+                                        <th>Liên kết Sheet Của Marketing</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -42,7 +42,11 @@
                                         <td>{{content.Gtype[0].name}}</td>
                                         <td>{{content.Leader[0].name}}</td>
                                         <td ng-if="content.Sheet !== null">
-                                            <a href="" ng-repeat="s in content.Sheet">{{s.id}} <br></a>
+                                            <a href="" ng-repeat="s in content.Sheet">
+                                              <span ng-if="s.group === null">{{s.name}}</span>  
+                                              <span ng-if="s.group !== null">{{s.name}} - {{s.group}}</span>
+                                              <br>
+                                            </a>
                                         </td>
                                         <td ng-if="content.Sheet === null"></td>
                                         <td class="td-actions text-center">

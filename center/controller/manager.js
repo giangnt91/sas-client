@@ -37,8 +37,8 @@ sas
             }
 
             $scope.cn = false;
-            $scope.hide = function(){
-               $scope.cn = true;
+            $scope.hide = function () {
+                $scope.cn = true;
             }
 
             // view detail telesale
@@ -452,13 +452,13 @@ sas
             if ($scope.group.id !== null) {
                 if ($scope.group.id === 1) {
                     $scope.Users.forEach(element => {
-                        if (element.role === 1) {
+                        if (element.role === 1 && element.Leader === false) {
                             $scope.Leaders.push(element);
                         }
                     });
                 } else {
                     $scope.Users.forEach(element => {
-                        if (element.role === 2) {
+                        if (element.role === 2 && element.Leader === false) {
                             $scope.Leaders.push(element);
                         }
                     });
@@ -500,6 +500,14 @@ sas
 
                 DataServices.Cgroup($scope.groupname, Gtype, _leader).then(function (response) {
                     if (response.data.error_code === 0) {
+                        if (_leader !== null) {
+                            let Zone = [{
+                                id: response.data.message,
+                                name: $scope.groupname,
+                                Gtype: Gtype
+                            }]
+                            DataServices.UpdateZoneUser(Zone, _leader.id).then(function (response) { })
+                        }
                         Getallgroup();
                         Notifi._success('Tạo nhóm thành công');
                         $scope.Leader = '';
