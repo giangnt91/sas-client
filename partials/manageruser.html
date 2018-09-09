@@ -111,55 +111,73 @@
                                                 <input type="text" class="form-control" ng-model="_detailGroup.Leader[0].name"
                                                     disabled>
                                             </div>
+                                            <div class="input-group add">
+                                                <label>Các liên kết Sheet hiện tại</label>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4" ng-repeat="content in _detailGroup.Sheet">
+                                                    <p ng-if="content.group !== null">{{content.name}} -
+                                                        {{content.group}}</p>
+                                                    <p ng-if="content.group === null">{{content.name}}</p>
+                                                </div>
+                                            </div>
 
-                                            <form>
-                                                <h6>Chọn Sheet Của Group</h6>
 
-                                                <div class="row">
-                                                    <div class="col-lg-4" ng-repeat="content in Groupter">
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input"
-                                                                    ng-disabled="Makerts.length > 0" ng-model="check"
-                                                                    ng-change="ChangeCheckGMk(content, check)" type="checkbox"
-                                                                    value="">
-                                                                {{content.Name}}
-                                                                <span class="form-check-sign">
-                                                                    <span class="check"></span>
-                                                                </span>
-                                                            </label>
+
+                                            <div class="collapse" id="collapseExample">
+                                                <form>
+                                                    <h6>Chọn Sheet Của Group</h6>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-4" ng-repeat="content in Groupter">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" ng-disabled="Makerts.length > 0"
+                                                                        ng-model="check" ng-change="ChangeCheckGMk(content, check)"
+                                                                        type="checkbox" value="">
+                                                                    {{content.Name}}
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                            </form>
-                                            <br />
-                                            <form>
-                                                <h6>Hoặc chọn Sheet Của Makerter</h6>
+                                                </form>
+                                                <br />
+                                                <form>
+                                                    <h6>Hoặc chọn Sheet Của Makerter</h6>
 
-                                                <div class="row">
-                                                    <div class="col-lg-4" ng-repeat="content in Sheeter">
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" ng-disabled="Groupmk.length > 0"
-                                                                    ng-model="check" ng-change="ChangeCheckMk(content, check)"
-                                                                    type="checkbox" value="">
-                                                                {{content.Fullname}}
-                                                                <span class="form-check-sign">
-                                                                    <span class="check"></span>
-                                                                </span>
-                                                            </label>
+                                                    <div class="row">
+                                                        <div class="col-lg-4" ng-repeat="content in Sheeter">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" ng-disabled="Groupmk.length > 0"
+                                                                        ng-model="check" ng-change="ChangeCheckMk(content, check)"
+                                                                        type="checkbox" value="">
+                                                                    {{content.Fullname}}
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
 
                                         </div>
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-lg btn-info btn-block" ng-click="UpdateSheetForGroup()">
-                                    <i class="material-icons">send</i> Cập Nhật</button>
+                                <button ng-if="!cn" class="btn btn-lg btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample"
+                                    aria-expanded="false" aria-controls="collapseExample" ng-click="hide()">
+                                    Cập Nhật Google Sheet ID
+                                </button>
+
+                                <button ng-if="cn" type="button" class="btn btn-lg btn-info btn-block" ng-click="UpdateSheetForGroup()">
+                                    <i class="material-icons">send</i> Gửi</button>
 
                             </form>
                         </div>

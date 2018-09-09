@@ -36,6 +36,11 @@ sas
                 $('#gdetailmakerting').modal('show');
             }
 
+            $scope.cn = false;
+            $scope.hide = function(){
+               $scope.cn = true;
+            }
+
             // view detail telesale
             $scope.getdetailtele = function () {
                 $scope.AllGroups.forEach(element => {
@@ -43,7 +48,7 @@ sas
                         $scope._detailGroup = element;
                     }
                 });
-                
+
 
                 //lấy danh sách các user makerting có sheetid
                 $scope.Sheeter = [];
@@ -114,7 +119,8 @@ sas
                     $scope.Makerts.forEach(element => {
                         let tmp = {
                             name: element.Fullname,
-                            id: element.SheetID[0].id
+                            id: element.SheetID[0].id,
+                            group: null
                         }
                         Sheet_list.push(tmp);
                     });
@@ -127,7 +133,7 @@ sas
                                 let tmp = {
                                     name: s.Fullname,
                                     id: s.SheetID[0].id,
-                                    // group: s.
+                                    group: g.Name
                                 }
                                 Sheet_list.push(tmp);
                             }
