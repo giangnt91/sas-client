@@ -14,6 +14,9 @@
                                                 <button class="btn btn-warning" data-toggle="modal" data-target="#user">
                                                     <i class="material-icons">border_color</i> Tạo User
                                                 </button>
+                                                <button class="btn btn-info" data-toggle="modal" data-target="#gdetail">
+                                                    <i class="material-icons">border_color</i> Thông Tin Group
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -62,6 +65,146 @@
     </div>
 </div>
 
+<!-- modal thông tin group -->
+<div class="modal fade" id="gdetail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
+                    Tin Group
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+                <div class="row">
+                    <div class="card m-10">
+                        <div class="card-body card-add">
+                            <form name="loginform">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="musername">Tên</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="data.musername" id="musername"
+                                                    disabled>
+                                            </div>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="mfullname">Loại</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="data.mfullname" id="mfullname"
+                                                    disabled>
+                                            </div>
+
+                                            <div class="input-group add">
+                                                <label for="memail">Leader</label>
+                                                <input type="text" class="form-control" ng-model="data.memail" id="memail"
+                                                    disabled>
+                                            </div>
+
+                                            <form>
+                                                <h5>Chọn Sheet Của Group:</h5>
+
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                Option one is this
+                                                                <span class="form-check-sign">
+                                                                    <span class="check"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                Option one is this
+                                                                <span class="form-check-sign">
+                                                                    <span class="check"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                Option one is this
+                                                                <span class="form-check-sign">
+                                                                    <span class="check"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                            <br/>
+                                            <form>
+                                                <h5>Chọn Sheet Của Makerter:</h5>
+
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                Option one is this
+                                                                <span class="form-check-sign">
+                                                                    <span class="check"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                Option one is this
+                                                                <span class="form-check-sign">
+                                                                    <span class="check"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-check">
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="checkbox" value="">
+                                                                Option one is this
+                                                                <span class="form-check-sign">
+                                                                    <span class="check"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)">
+                                    <i class="material-icons">send</i> Cập Nhật</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- modal tạo user -->
 <div class="modal fade" id="user" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
@@ -117,14 +260,14 @@
                                                 <input type="date" class="form-control" id="mday">
                                             </div>
 
-                                            <div class="input-group add">
+                                            <div class="input-group add" ng-if="auth.Role[0].id === 0">
                                                 <label for="mrole">Phân quyền</label>
                                                 <select id="mrole" class="form-control" ng-model="mrole" ng-change="getgroupforrole()"
                                                     ng-options="option.value for option in _Role">
                                                 </select>
                                             </div>
 
-                                            <div class="input-group add">
+                                            <div class="input-group add" ng-if="auth.Role[0].id === 0">
                                                 <label for="mgroup">Chọn group</label>
                                                 <select id="mgroup" class="form-control" ng-disabled="mrole.id === null"
                                                     ng-model="mgroup" ng-options="option.Name for option in GroupSignup">
@@ -197,14 +340,14 @@
                                                 <input type="date" class="form-control" id="upday">
                                             </div>
 
-                                            <div class="input-group add">
+                                            <div class="input-group add" ng-if="auth.Role[0].id === 0">
                                                 <label for="uprole">Phân quyền</label>
                                                 <select id="uprole" class="form-control" ng-model="uprole" ng-change="changeforupdate()"
                                                     ng-options="option.value for option in _Role">
                                                 </select>
                                             </div>
 
-                                            <div class="input-group add">
+                                            <div class="input-group add" ng-if="auth.Role[0].id === 0">
                                                 <label for="upgroup">Chọn group</label>
                                                 <select id="upgroup" class="form-control" ng-disabled="uprole.id === null"
                                                     ng-model="mgroup" ng-options="option.Name for option in GroupUpdate">
@@ -261,7 +404,8 @@
             <div class="modal-body">
                 <p>Bạn có chắc chắn reset mật khẩu cho <b style="text-decoration: underline;">{{ruser.Fullname}}</b> có
                     Username là
-                    <b style="text-decoration: underline;">{{ruser.Username}}</b> về mặc định là: <b style="text-decoration: underline;">12345678</b> ?</p>
+                    <b style="text-decoration: underline;">{{ruser.Username}}</b> về mặc định là: <b style="text-decoration: underline;">12345678</b>
+                    ?</p>
             </div>
             <div class="modal-footer" style="padding: 5px">
                 <button type="button" class="btn btn-primary" ng-click="Re(ruser)">Chấp nhận</button>

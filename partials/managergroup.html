@@ -12,7 +12,7 @@
                                     <div class="col-lg-12">
                                         <div class="row">
                                             <div class="col-lg-8">
-                                                <button class="btn btn-primary" data-toggle="modal" data-target="#user">
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#group">
                                                     <i class="material-icons">border_color</i> Tạo Group
                                                 </button>
                                             </div>
@@ -32,7 +32,7 @@
                                         <th>Loại Group</th>
                                         <th>Tên Leader</th>
                                         <th>Id Sheet</th>
-                                        <!-- <th>Action</th> -->
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,11 +41,19 @@
                                         <td>{{content.Name}}</td>
                                         <td>{{content.Gtype[0].name}}</td>
                                         <td>{{content.Leader[0].name}}</td>
-                                        <td ng-if="content.Sheet !== null">8098098098098</td>
+                                        <td ng-if="content.Sheet !== null">
+                                            <a href="" ng-repeat="s in content.Sheet">{{s.id}} <br></a>
+                                        </td>
                                         <td ng-if="content.Sheet === null"></td>
-                                        <!-- <td>
-                                            <a href="" class="btn cbtn cbtn-left btn-primary btn-sm" data-tooltip="{{content.Manager[0].name}}">{{content.Manager[0].id}}</a>
-                                        </td> -->
+                                        <td class="td-actions text-center">
+                                            <button type="button" rel="tooltip" class="btn btn-success" ng-click="OpeneditGroup(content)">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+
+                                            <button type="button" rel="tooltip" class="btn btn-danger" ng-click="Opendelg(content)">
+                                                <i class="material-icons">close</i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -60,7 +68,7 @@
 
 
 <!-- modal tạo group -->
-<div class="modal fade" id="user" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="group" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -84,7 +92,8 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="mfullname">Chọn Loại Group</label>
                                                 </div>
-                                                <select id="group" class="form-control" ng-model="group" ng-change="getUserforchange()" ng-options="option.name for option in Groups">
+                                                <select id="group" class="form-control" ng-model="group" ng-change="getUserforchange()"
+                                                    ng-options="option.name for option in Groups">
                                                 </select>
                                             </div>
                                             <div class="input-group">
@@ -99,7 +108,8 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="Leader">Chọn Leader</label>
                                                 </div>
-                                                <select id="Leader" class="form-control" ng-disabled="group.id === null" ng-model="Leader" ng-options="option.name for option in Leaders">
+                                                <select id="Leader" class="form-control" ng-disabled="group.id === null"
+                                                    ng-model="Leader" ng-options="option.name for option in Leaders">
                                                 </select>
                                             </div>
                                         </div>
@@ -112,6 +122,88 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal cập nhật group -->
+<div class="modal fade" id="upgroup" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Cập Nhật
+                    Group
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+                <div class="row">
+                    <div class="card m-10">
+                        <div class="card-body card-add">
+                            <form name="loginform">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="mfullname">Chọn Loại Group</label>
+                                                </div>
+                                                <select id="upgroup" class="form-control" ng-model="upgroup" ng-change="getUserforupchange()"
+                                                    ng-options="option.name for option in Groups">
+                                                </select>
+                                            </div>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="upgroupname">Tên Group</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="upgroupname" id="upgroupname"
+                                                    required>
+                                            </div>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="Leader">Chọn Leader</label>
+                                                </div>
+                                                <select id="upLeader" class="form-control" ng-disabled="upgroup.id === null"
+                                                    ng-model="upLeader" ng-options="option.name for option in upLeaders">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="UpdateGroup()">
+                                    <i class="material-icons">send</i> Cập nhật</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal comfirm xóa -->
+<div class="modal fade" id="delgroup" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn xóa Group <b style="text-decoration: underline;">{{delg.Name}}</b> có ID là
+                    <b style="text-decoration: underline;">{{delg._id}}</b> khỏi cơ sở dữ liệu của hệ thống ?</p>
+            </div>
+            <div class="modal-footer" style="padding: 5px">
+                <button type="button" class="btn btn-primary" ng-click="Delg(delg._id)">Chấp nhận</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
             </div>
         </div>
     </div>

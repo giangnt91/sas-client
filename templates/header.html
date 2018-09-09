@@ -7,7 +7,7 @@
                         <i class="material-icons">person_add</i>
                         <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm học viên</h4>
                     </a>
-                    <a class="navbar-brand" href="" ng-click="go_manageruser()" ng-if="auth.Role[0].id === 0">
+                    <a class="navbar-brand" href="" ng-click="go_manageruser()" ng-if="auth.Role[0].id === 0 || auth.Leader === true">
                         <i class="material-icons">face</i>
                         <h4 class="title" style="display:inline-block; vertical-align: text-top;">Quản lý Users</h4>
                     </a>

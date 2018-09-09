@@ -45,6 +45,21 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/updateUser';
                 return $http.post(url, parameter, header)
             },
+            UpdateZoneUser: function(Zone, _id){
+                parameter = JSON.stringify({
+                    Zone: Zone,
+                    _id: _id
+                });
+                url = api_gateway_url + '/updatezoneUser';
+                return $http.post(url, parameter, header)
+            },
+            Updatermleader: function(_id){
+                parameter = JSON.stringify({
+                    _id: _id
+                });
+                url = api_gateway_url + '/updatermleader';
+                return $http.post(url, parameter, header)
+            },
             DeleteUser: function (_id) {
                 parameter = JSON.stringify({
                     _id: _id
@@ -64,9 +79,13 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/getuserbysup';
                 return $http.post(url, parameter, header);
             },
-            GetUserforGroup: function (Username, Role) {
+            GetallUSerforGroup: function () {
+                url = api_gateway_url + '/getallusergroup';
+                return $http.post(url, parameter, header);
+            },
+            GetUserforGroup: function (id, Role) {
                 parameter = JSON.stringify({
-                    Username: Username,
+                    id: id,
                     Role: Role
                 })
                 url = api_gateway_url + '/getuserforgroup';
@@ -102,7 +121,20 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/allgroup';
                 return $http.post(url, parameter, header);
             },
-
+            DelGroup: function (_id) {
+                parameter = JSON.stringify({
+                    _id: _id
+                })
+                url = api_gateway_url + '/delgroup';
+                return $http.post(url, parameter, header);
+            },
+            UpGroup: function(group){
+                parameter = JSON.stringify({
+                    group: group
+                })
+                url = api_gateway_url + '/upgroup';
+                return $http.post(url, parameter, header);
+            },
             //Api Student
             CstudentF: function (Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
                 parameter = {

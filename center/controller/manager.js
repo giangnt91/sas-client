@@ -19,7 +19,7 @@ sas
 
             // lấy danh sách user
             function getUsers() {
-                DataServices.GetUserforGroup($rootScope.auth.Username, $rootScope.auth.Role).then(function (response) {
+                DataServices.GetUserforGroup($rootScope.auth.Zone[0].id, $rootScope.auth.Role).then(function (response) {
                     if (response.data.error_code === 0) {
                         $scope.Users = response.data.users;
                     }
@@ -67,6 +67,15 @@ sas
 
             $scope.signup = function (data) {
                 var mday = $('#mday').val();
+                if ($rootScope.auth.Role[0].id !== 0) {
+                    $scope.mrole = $rootScope.auth.Role[0];
+                    $scope.mgroup = {
+                        _id: $rootScope.auth.Zone[0].id,
+                        Name: $rootScope.auth.Zone[0].name,
+                        Gtype: $rootScope.auth.Zone[0].Gtype
+                    };
+                }
+
                 if (data === undefined ||
                     data.musername === undefined ||
                     data.musername === '' ||
@@ -244,13 +253,13 @@ sas
 
     .controller('ManagerGroupCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
         function getUsers() {
-            DataServices.GetallUser().then(function (response) {
+            DataServices.GetallUSerforGroup().then(function (response) {
                 if (response.data.error_code === 0) {
                     var _result = response.data.users;
                     if (_result.length > 0) {
                         $scope.Users = [];
                         _result.forEach(element => {
-                            if (element.Role[0].id === 1) {
+                            if (element.Role[0].id !== 0) {
                                 let user = {
                                     id: element.Username,
                                     name: element.Fullname,
@@ -357,4 +366,138 @@ sas
             }
         }
 
+        // cập nhật group
+
+        $scope.getUserforupchange = function () {
+            $scope.upLeaders = [];
+            if ($scope.upgroup.id !== null) {
+                if ($scope.upgroup.id === 1) {
+                    $scope.Users.forEach(element => {
+                        if (element.role === 1) {
+                            $scope.upLeaders.push(element);
+                        }
+                    });
+                } else {
+                    $scope.Users.forEach(element => {
+                        if (element.role === 2) {
+                            $scope.upLeaders.push(element);
+                        }
+                    });
+                }
+            }
+        }
+
+        $scope.OpeneditGroup = function (_detail) {
+            $scope.update_g = _detail;
+            $scope.Groups.forEach(element => {
+                if (_detail.Gtype[0].id === element.id) {
+                    $scope.upgroup = element;
+                    $scope.upLeaders = [];
+                    if ($scope.upgroup.id !== null) {
+                        if ($scope.upgroup.id === 1) {
+                            $scope.Users.forEach(element => {
+                                if (element.role === 1) {
+                                    $scope.upLeaders.push(element);
+                                }
+                            });
+                        } else {
+                            $scope.Users.forEach(element => {
+                                if (element.role === 2) {
+                                    $scope.upLeaders.push(element);
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+
+            if (_detail.Leader !== null) {
+                $scope.upLeader = _detail.Leader[0];
+                $scope.upLeaders.forEach(element => {
+                    if (element.id === $scope.upLeader.id) {
+                        $scope.upLeader = element;
+                    }
+                });
+            } else {
+                $scope.upLeader = null;
+            }
+
+            $scope.upgroupname = _detail.Name;
+            $scope.upGroup = _detail;
+            $('#upgroup').modal('show');
+        }
+
+        $scope.UpdateGroup = function () {
+            if ($scope.upgroup.id !== $scope.update_g.Gtype[0].id) {
+                if ($scope.upgroup.id !== null) {
+                    $scope.update_g.Gtype[0] = {
+                        id: $scope.upgroup.id,
+                        name: $scope.upgroup.name
+                    }
+                }
+            }
+
+            if ($scope.upgroupname !== $scope.update_g.Name) {
+                if ($scope.upgroupname !== '') {
+                    $scope.update_g.Name = $scope.upgroupname;
+                }
+            }
+
+            if ($scope.upLeader !== null) {
+                if ($scope.update_g.Leader !== null) {
+                    if ($scope.upLeader.id !== $scope.update_g.Leader[0].id) {
+                        var pre_leader = $scope.update_g.Leader[0].id;
+                        $scope.update_g.Leader[0] = {
+                            id: $scope.upLeader.id,
+                            name: $scope.upLeader.name
+                        }
+                    }
+                } else {
+                    $scope.update_g.Leader = [{
+                        id: $scope.upLeader.id,
+                        name: $scope.upLeader.name
+                    }]
+                }
+
+                var Zone = [
+                    {
+                        id: $scope.update_g._id,
+                        name: $scope.update_g.Name,
+                        Gtype: $scope.update_g.Gtype
+                    }
+                ]
+            }
+
+            DataServices.UpGroup($scope.update_g).then(function (response) {
+                if (response.data.error_code === 0) {
+                    DataServices.UpdateZoneUser(Zone, $scope.update_g.Leader[0].id).then(function (response) { })
+                    if (pre_leader !== null) {
+                        DataServices.Updatermleader(pre_leader).then(function (response) { })
+                    }
+                    Getallgroup();
+                    Notifi._success('Cập nhật thông tin thành công');
+                    $('#upgroup').modal('hide');
+                } else {
+                    Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại sau');
+                }
+            })
+        }
+
+        // xóa group
+        $scope.Opendelg = function (_detail) {
+            $scope.delg = _detail;
+            $('#delgroup').modal('show');
+        }
+
+        $scope.Delg = function (_id) {
+            DataServices.DelGroup(_id).then(function (response) {
+                if (response.data.error_code === 0) {
+                    Getallgroup();
+                    Notifi._success('Xóa group thành công');
+                    $('#delgroup').modal('hide');
+                } else {
+                    Notifi._error('Có lỗi trong quá trình xử lý dữ liệu vui lòng thử lại');
+                }
+            })
+        }
     })

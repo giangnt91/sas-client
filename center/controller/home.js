@@ -1179,7 +1179,7 @@ sas
             }
 
             // Thêm bạn header
-            $scope.addheader = function () {
+            $rootScope.addheader = function () {
                 $('#add').modal('show');
             }
 
