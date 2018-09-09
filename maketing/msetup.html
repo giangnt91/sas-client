@@ -1,0 +1,118 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row top-10">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <button class="btn btn-info" data-toggle="modal" data-target="#addform">
+                                                    <i class="material-icons">border_color</i> Thêm Form Mới
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">STT</th>
+                                    <th class="text-center">Trạng thái</th>
+                                    <th class="text-center">Tên Form</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="content in Markets">
+                                    <td class="text-center">{{$index + 1}}</td>
+                                    <td class="text-center">
+                                        <div class="togglebutton">
+                                            <label>
+                                                {{content.Leader}}
+                                                <input type="checkbox" ng-model="check" ng-disabled="" ng-checked="content.SheetID[0].isready === true"
+                                                    ng-click="ChangeSheet(content, check)">
+                                                <span class="toggle"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">{{content.Fullname}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal tạo form -->
+<div class="modal fade" id="addform" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
+                    Form Mới
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+                <div class="row">
+                    <div class="card m-10">
+                        <div class="card-body card-add">
+                            <form name="loginform">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="formname">Tên Form</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="data.formname" id="formname"
+                                                    placeholder="Tên Form sẽ không thể sửa và xóa sau đó" required>
+                                            </div>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="spreadsheet">Spreadsheet</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="data.spreadsheet" id="spreadsheet"
+                                                    placeholder="ID của google Spreadsheet" required>
+                                            </div>
+
+                                            <div class="input-group add">
+                                                <label for="urlads">Url ads</label>
+                                                <input type="text" class="form-control" ng-model="data.urlads" id="urlads">
+                                            </div>
+
+                                            <div class="input-group add">
+                                                <label for="fnote">Ghi chú</label>
+                                                <textarea class="form-control" rows="5" ng-model="data.fnote" id="fnote"></textarea>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="createForm(data)">
+                                    <i class="material-icons">send</i> Tạo Form</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

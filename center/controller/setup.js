@@ -12,7 +12,7 @@ sas
                     Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
                 }
             });
-
+            
             $scope.ChangeStatus = function (data, check) {
                 DataServices.UpdateStatus(data._id, check).then(function (repsonse) {
                     if (repsonse.data.error_code === 0) {

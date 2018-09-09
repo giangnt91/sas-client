@@ -1,0 +1,85 @@
+sas
+    .controller('MsetupCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
+        // check exit user
+        $rootScope.auth = JSON.parse(localStorage.getItem('Auth'));
+        if (!$rootScope.auth) {
+            $location.path('/login');
+        } else {
+            // lấy danh sách form từ danh sách user
+            function getUsers() {
+                DataServices.GetallUSerforGroup().then(function (repsonse) {
+                    if (repsonse.data.error_code === 0) {
+                        if (repsonse.data.users.length > 0) {
+                            _result = repsonse.data.users;
+                            $scope.Markets = [];
+                            _result.forEach(element => {
+                                if (element.Role[0].id === 2 && element.SheetID !== null) {
+                                    $scope.Markets.push(element);
+                                }
+                            });
+                        }
+                    } else {
+                        // Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+                    }
+                });
+            }
+            getUsers();
+
+            $scope.createForm = function (data) {
+                if (data === undefined || data.formname === undefined || data.formname === '' || data.spreadsheet === undefined || data.spreadsheet === '') {
+                    Notifi._error('Vui lòng nhập tên form và id spreadsheet để tạo form');
+                    return
+                } else {
+
+                    let urlads;
+                    let fnote;
+                    if (data.urlads !== undefined && data.urlads !== '') {
+                        urlads = data.urlads;
+                    } else {
+                        urlads = null;
+                    }
+
+                    if (data.fnote !== '' && data.fnote !== undefined) {
+                        fnote = data.fnote;
+                    } else {
+                        fnote = null;
+                    }
+
+                    $rootScope.auth.SheetID = [{
+                        name: data.formname,
+                        id: data.spreadsheet,
+                        urlads: urlads,
+                        note: fnote,
+                        isready: true
+                    }]
+
+                    DataServices.UpdateUser($rootScope.auth).then(function (response) {
+                        if (response.data.error_code === 0) {
+                            getUsers();
+                            Notifi._success('Tạo Form thành công');
+                            $('#addform').modal('hide');
+                            data.formname = '';
+                            data.spreadsheet = '';
+                            data.urlads = '';
+                            data.fnote = '';
+                        } else {
+                            Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
+                        }
+                    })
+                }
+            }
+
+            $scope.ChangeSheet = function (data, check) {
+                if (check === undefined) {
+                    check === false;
+                }
+                DataServices.UpdateSheetStatus(data._id, check).then(function (repsonse) {
+                    if (repsonse.data.error_code === 0) {
+                        Notifi._success('Cập nhật thông tin thành công');
+                    } else {
+                        Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+                    }
+                })
+            }
+        }
+    })

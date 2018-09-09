@@ -6,6 +6,26 @@ sas
             $location.path('/login');
         } else {
 
+            // view detail makert
+            $scope.getdetailmakert = function () {
+                $scope.AllGroups.forEach(element => {
+                    if (element._id === $rootScope.auth.Zone[0].id) {
+                        $scope._lead = element.Leader[0].name;
+                    }
+                });
+                $('#gdetailmakerting').modal('show');
+            }
+
+            // view detail
+            $scope.getdetailtele = function () {
+                $scope.AllGroups.forEach(element => {
+                    if (element._id === $rootScope.auth.Zone[0].id) {
+                        $scope._lead = element.Leader[0].name;
+                    }
+                });
+                $('#gdetail').modal('show');
+            }
+
             // lấy tất cả các group
             function Getallgroup() {
                 DataServices.GetallGgroup().then(function (response) {

@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg navbar-brand navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="" ng-click="addheader()">
+                    <a class="navbar-brand" href="" ng-click="addheader()" ng-if="auth.Role[0].id !== 2">
                         <i class="material-icons">person_add</i>
                         <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm học viên</h4>
                     </a>

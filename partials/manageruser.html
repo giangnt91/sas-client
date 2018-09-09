@@ -14,8 +14,13 @@
                                                 <button class="btn btn-warning" data-toggle="modal" data-target="#user">
                                                     <i class="material-icons">border_color</i> Tạo User
                                                 </button>
-                                                <button class="btn btn-info" data-toggle="modal" data-target="#gdetail">
+                                                <button class="btn btn-info" ng-click="getdetailtele()"
+                                                    ng-if="auth.Role[0].id === 1">
                                                     <i class="material-icons">border_color</i> Thông Tin Group
+                                                </button>
+                                                <button class="btn btn-info" ng-click="getdetailmakert()"
+                                                    ng-if="auth.Role[0].id === 2">
+                                                    <i class="material-icons">search</i> Thông Tin Group
                                                 </button>
                                             </div>
                                         </div>
@@ -40,7 +45,8 @@
                                     <tr ng-repeat="content in Users" style="cursor:pointer" ng-click="detail(content._id)">
                                         <td class="text-center">{{$index +1}}</td>
                                         <td>{{content.Fullname}}</td>
-                                        <td>{{content.Role[0].name}}</td>
+                                        <td ng-if="content.Leader === false">{{content.Role[0].name}}</td>
+                                        <td ng-if="content.Leader === true">Leader</td>
                                         <td>{{content.Zone[0].name}}</td>
                                         <td class="td-actions text-center">
                                             <button type="button" rel="tooltip" class="btn btn-success" ng-click="OpeneditUser(content)">
@@ -65,7 +71,7 @@
     </div>
 </div>
 
-<!-- modal thông tin group -->
+<!-- modal thông tin group telesale-->
 <div class="modal fade" id="gdetail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -90,7 +96,7 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="musername">Tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.musername" id="musername"
+                                                <input type="text" class="form-control" ng-model="auth.Zone[0].name"
                                                     disabled>
                                             </div>
 
@@ -98,13 +104,13 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="mfullname">Loại</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.mfullname" id="mfullname"
+                                                <input type="text" class="form-control" ng-model="auth.Zone[0].Gtype[0].name"
                                                     disabled>
                                             </div>
 
                                             <div class="input-group add">
                                                 <label for="memail">Leader</label>
-                                                <input type="text" class="form-control" ng-model="data.memail" id="memail"
+                                                <input type="text" class="form-control" ng-model="_lead"
                                                     disabled>
                                             </div>
 
@@ -148,7 +154,7 @@
                                                 </div>
 
                                             </form>
-                                            <br/>
+                                            <br />
                                             <form>
                                                 <h5>Chọn Sheet Của Makerter:</h5>
 
@@ -194,8 +200,66 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)">
+                                <button type="button" class="btn btn-lg btn-info btn-block">
                                     <i class="material-icons">send</i> Cập Nhật</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal thông tin group gdetailmakerting-->
+<div class="modal fade" id="gdetailmakerting" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
+                    Tin Group
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+                <div class="row">
+                    <div class="card m-10">
+                        <div class="card-body card-add">
+                            <form name="loginform">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="gtelename">Tên</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="auth.Zone[0].name" id="gtelename"
+                                                    disabled>
+                                            </div>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend add">
+                                                    <label for="gtype">Loại</label>
+                                                </div>
+                                                <input type="text" class="form-control" ng-model="auth.Zone[0].Gtype[0].name" id="gtype"
+                                                    disabled>
+                                            </div>
+
+                                            <div class="input-group add">
+                                                <label for="_lead">Leader</label>
+                                                <input type="text" class="form-control" ng-model="_lead" id="_lead"
+                                                    disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+<!-- 
+                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)">
+                                    <i class="material-icons">send</i> Cập Nhật</button> -->
 
                             </form>
                         </div>

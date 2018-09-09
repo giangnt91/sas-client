@@ -45,7 +45,7 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/updateUser';
                 return $http.post(url, parameter, header)
             },
-            UpdateZoneUser: function(Zone, _id){
+            UpdateZoneUser: function (Zone, _id) {
                 parameter = JSON.stringify({
                     Zone: Zone,
                     _id: _id
@@ -53,7 +53,7 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/updatezoneUser';
                 return $http.post(url, parameter, header)
             },
-            Updatermleader: function(_id){
+            Updatermleader: function (_id) {
                 parameter = JSON.stringify({
                     _id: _id
                 });
@@ -99,6 +99,14 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/upstatus';
                 return $http.post(url, parameter, header);
             },
+            UpdateSheetStatus: function (_id, value) {
+                parameter = JSON.stringify({
+                    _id: _id,
+                    value: value
+                });
+                url = api_gateway_url + '/upsheetstatus';
+                return $http.post(url, parameter, header);
+            },
             ShareStudent: function (detail) {
                 parameter = JSON.stringify({
                     detail: detail
@@ -128,11 +136,24 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/delgroup';
                 return $http.post(url, parameter, header);
             },
-            UpGroup: function(group){
+            UpGroup: function (group) {
                 parameter = JSON.stringify({
                     group: group
                 })
                 url = api_gateway_url + '/upgroup';
+                return $http.post(url, parameter, header);
+            },
+            GetallMakerting: function () {
+                url = api_gateway_url + '/getallmakerting';
+                return $http.post(url, parameter, header);
+            },
+            GettqMakert: function (Username, Fromday, Today) {
+                parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/gettqmakert';
                 return $http.post(url, parameter, header);
             },
             //Api Student
@@ -335,8 +356,8 @@ angular.module('SASService', [])
         }
     })
     .factory('Thesocket', function (socketFactory) {
-        var api_gateway_url = 'http://35.240.165.98:191';
-        // var api_gateway_url = 'http://localhost:191';
+        // var api_gateway_url = 'http://35.240.165.98:191';
+        var api_gateway_url = 'http://localhost:191';
         var socketConnection = io.connect(api_gateway_url);
         var socket = socketFactory({
             ioSocket: socketConnection

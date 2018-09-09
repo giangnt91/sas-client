@@ -30,7 +30,12 @@ sas
                                 $location.path('/home');
                                 location.reload(true);
                             } else {
-                                alert('marketing')
+                                ngDialog.close();
+                                $rootScope.auth = data_result.auth;
+                                localStorage.setItem('Auth', JSON.stringify(data_result.auth));
+                                // Notifi._success('Đăng nhập thành công');
+                                Thesocket.emit('connection');
+                                $location.path('/makerting');
                             }
                         }, 1500);
                     } if (data_result.error_code === 1) {
@@ -63,13 +68,23 @@ sas
             }
         }
     })
-    .controller('MenuCtrl', function ($location, $scope) {
+    .controller('MenuCtrl', function ($location, $scope, $rootScope) {
+        $rootScope.auth = JSON.parse(localStorage.getItem('Auth'));
+        if (!$rootScope.auth) {
+            $location.path('/login');
+        }
         var active = localStorage.getItem('isactive');
         if (active === null) {
-            $scope.isactive = 1;
+            if ($rootScope.auth.Role[0].id === 2) {
+                $scope.isactive = 10;
+            } else {
+                $scope.isactive = 1;
+            }
+
         } else {
             $scope.isactive = parseInt(active);
         }
+
 
 
         // go home
@@ -133,6 +148,27 @@ sas
         $scope.go_setup = function () {
             $location.path('/setup');
             $scope.isactive = 9;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+
+
+        // makerting
+
+        $scope.go_thongke = function () {
+            $location.path('/makerting');
+            $scope.isactive = 10;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+
+        $scope.go_danhsach = function () {
+            $location.path('/list');
+            $scope.isactive = 11;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+
+        $scope.go_msetup = function () {
+            $location.path('/msetup');
+            $scope.isactive = 12;
             localStorage.setItem('isactive', $scope.isactive);
         }
     })
