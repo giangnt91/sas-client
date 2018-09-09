@@ -53,7 +53,7 @@ sas
                 //lấy danh sách các user makerting có sheetid
                 $scope.Sheeter = [];
                 $scope.UsersMK.forEach(element => {
-                    if (element.SheetID !== null) {
+                    if (element.SheetID !== null && element.SheetID[0].isready === true) {
                         $scope.Sheeter.push(element);
                     }
                 });
@@ -61,7 +61,7 @@ sas
                 // lấy danh sách các group có makerting cho sheetid
                 $scope.Groupter = [];
                 $scope.UsersMK.forEach(element => {
-                    if (element.SheetID !== null) {
+                    if (element.SheetID !== null && element.SheetID[0].isready === true) {
                         $scope.AllGroups.forEach(gelement => {
                             if (gelement._id === element.Zone[0].id) {
                                 if ($scope.Groupter.length > 0) {
