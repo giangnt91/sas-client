@@ -6,24 +6,144 @@ sas
             $location.path('/login');
         } else {
 
+            // lấy danh user marketing
+            function getUsersMK() {
+                DataServices.GetallUSerforGroup().then(function (response) {
+                    if (response.data.error_code === 0) {
+                        var _result = response.data.users;
+                        if (_result.length > 0) {
+                            $scope.UsersMK = [];
+                            _result.forEach(element => {
+                                if (element.Role[0].id === 2) {
+                                    $scope.UsersMK.push(element);
+                                }
+                            });
+                        }
+                    }
+                })
+            }
+            getUsersMK();
+
             // view detail makert
             $scope.getdetailmakert = function () {
+                // lấy leader name
                 $scope.AllGroups.forEach(element => {
                     if (element._id === $rootScope.auth.Zone[0].id) {
                         $scope._lead = element.Leader[0].name;
                     }
                 });
+
                 $('#gdetailmakerting').modal('show');
             }
 
-            // view detail
+            // view detail telesale
             $scope.getdetailtele = function () {
                 $scope.AllGroups.forEach(element => {
                     if (element._id === $rootScope.auth.Zone[0].id) {
-                        $scope._lead = element.Leader[0].name;
+                        $scope._detailGroup = element;
                     }
                 });
+                
+
+                //lấy danh sách các user makerting có sheetid
+                $scope.Sheeter = [];
+                $scope.UsersMK.forEach(element => {
+                    if (element.SheetID !== null) {
+                        $scope.Sheeter.push(element);
+                    }
+                });
+
+                // lấy danh sách các group có makerting cho sheetid
+                $scope.Groupter = [];
+                $scope.UsersMK.forEach(element => {
+                    if (element.SheetID !== null) {
+                        $scope.AllGroups.forEach(gelement => {
+                            if (gelement._id === element.Zone[0].id) {
+                                if ($scope.Groupter.length > 0) {
+                                    $scope.Groupter.forEach(el => {
+                                        if (el._id !== element.Zone[0].id) {
+                                            $scope.Groupter.push(gelement);
+                                        }
+                                    });
+                                } else {
+                                    $scope.Groupter.push(gelement);
+                                }
+                            }
+                        });
+                    }
+                });
+
                 $('#gdetail').modal('show');
+            }
+
+            // cập nhật link sheet cho group của tele
+
+            // lấy danh sách các makerter dc chọn
+            $scope.Makerts = [];
+            $scope.ChangeCheckMk = function (data, check) {
+                if (check === true) {
+                    $scope.Makerts.push(data)
+                } else {
+                    $scope.Makerts.forEach(function (element, index) {
+                        if (element._id === data._id) {
+                            $scope.Makerts.splice(index, 1);
+                        }
+                    });
+                }
+            }
+
+            // lấy danh sách các group được chọn
+            $scope.Groupmk = [];
+            $scope.ChangeCheckGMk = function (data, check) {
+                if (check === true) {
+                    $scope.Groupmk.push(data)
+                } else {
+                    $scope.Groupmk.forEach(function (element, index) {
+                        if (element._id === data._id) {
+                            $scope.Groupmk.splice(index, 1);
+                        }
+                    });
+                }
+            }
+
+
+            // cập nhật sheet list cho group telesale
+            $scope.UpdateSheetForGroup = function () {
+                let Sheet_list = [];
+                if ($scope.Makerts.length > 0) {
+                    $scope.Makerts.forEach(element => {
+                        let tmp = {
+                            name: element.Fullname,
+                            id: element.SheetID[0].id
+                        }
+                        Sheet_list.push(tmp);
+                    });
+                }
+
+                if ($scope.Groupmk.length > 0) {
+                    $scope.Groupmk.forEach(g => {
+                        $scope.Sheeter.forEach(s => {
+                            if (s.Zone[0].id === g._id) {
+                                let tmp = {
+                                    name: s.Fullname,
+                                    id: s.SheetID[0].id,
+                                    // group: s.
+                                }
+                                Sheet_list.push(tmp);
+                            }
+                        });
+                    });
+                }
+
+                $scope._detailGroup.Sheet = Sheet_list;
+
+                DataServices.UpGroup($scope._detailGroup).then(function (response) {
+                    if (response.data.error_code === 0) {
+                        Notifi._success('Cập nhật thông tin thành công');
+                    } else {
+                        Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại sau');
+                    }
+                })
             }
 
             // lấy tất cả các group

@@ -14,12 +14,10 @@
                                                 <button class="btn btn-warning" data-toggle="modal" data-target="#user">
                                                     <i class="material-icons">border_color</i> Tạo User
                                                 </button>
-                                                <button class="btn btn-info" ng-click="getdetailtele()"
-                                                    ng-if="auth.Role[0].id === 1">
+                                                <button class="btn btn-info" ng-click="getdetailtele()" ng-if="auth.Role[0].id === 1">
                                                     <i class="material-icons">border_color</i> Thông Tin Group
                                                 </button>
-                                                <button class="btn btn-info" ng-click="getdetailmakert()"
-                                                    ng-if="auth.Role[0].id === 2">
+                                                <button class="btn btn-info" ng-click="getdetailmakert()" ng-if="auth.Role[0].id === 2">
                                                     <i class="material-icons">search</i> Thông Tin Group
                                                 </button>
                                             </div>
@@ -110,41 +108,22 @@
 
                                             <div class="input-group add">
                                                 <label for="memail">Leader</label>
-                                                <input type="text" class="form-control" ng-model="_lead"
+                                                <input type="text" class="form-control" ng-model="_detailGroup.Leader[0].name"
                                                     disabled>
                                             </div>
 
                                             <form>
-                                                <h5>Chọn Sheet Của Group:</h5>
+                                                <h6>Chọn Sheet Của Group</h6>
 
                                                 <div class="row">
-                                                    <div class="col-lg-4">
+                                                    <div class="col-lg-4" ng-repeat="content in Groupter">
                                                         <div class="form-check">
                                                             <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
-                                                                Option one is this
-                                                                <span class="form-check-sign">
-                                                                    <span class="check"></span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
-                                                                Option one is this
-                                                                <span class="form-check-sign">
-                                                                    <span class="check"></span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
-                                                                Option one is this
+                                                                <input class="form-check-input"
+                                                                    ng-disabled="Makerts.length > 0" ng-model="check"
+                                                                    ng-change="ChangeCheckGMk(content, check)" type="checkbox"
+                                                                    value="">
+                                                                {{content.Name}}
                                                                 <span class="form-check-sign">
                                                                     <span class="check"></span>
                                                                 </span>
@@ -156,36 +135,16 @@
                                             </form>
                                             <br />
                                             <form>
-                                                <h5>Chọn Sheet Của Makerter:</h5>
+                                                <h6>Hoặc chọn Sheet Của Makerter</h6>
 
                                                 <div class="row">
-                                                    <div class="col-lg-4">
+                                                    <div class="col-lg-4" ng-repeat="content in Sheeter">
                                                         <div class="form-check">
                                                             <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
-                                                                Option one is this
-                                                                <span class="form-check-sign">
-                                                                    <span class="check"></span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
-                                                                Option one is this
-                                                                <span class="form-check-sign">
-                                                                    <span class="check"></span>
-                                                                </span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
-                                                                Option one is this
+                                                                <input class="form-check-input" ng-disabled="Groupmk.length > 0"
+                                                                    ng-model="check" ng-change="ChangeCheckMk(content, check)"
+                                                                    type="checkbox" value="">
+                                                                {{content.Fullname}}
                                                                 <span class="form-check-sign">
                                                                     <span class="check"></span>
                                                                 </span>
@@ -193,14 +152,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </form>
 
                                         </div>
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-lg btn-info btn-block">
+                                <button type="button" class="btn btn-lg btn-info btn-block" ng-click="UpdateSheetForGroup()">
                                     <i class="material-icons">send</i> Cập Nhật</button>
 
                             </form>
@@ -245,8 +203,8 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="gtype">Loại</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="auth.Zone[0].Gtype[0].name" id="gtype"
-                                                    disabled>
+                                                <input type="text" class="form-control" ng-model="auth.Zone[0].Gtype[0].name"
+                                                    id="gtype" disabled>
                                             </div>
 
                                             <div class="input-group add">
@@ -257,7 +215,7 @@
                                         </div>
                                     </div>
                                 </div>
-<!-- 
+                                <!-- 
                                 <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)">
                                     <i class="material-icons">send</i> Cập Nhật</button> -->
 

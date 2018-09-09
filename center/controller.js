@@ -36,6 +36,7 @@ sas
                                 // Notifi._success('Đăng nhập thành công');
                                 Thesocket.emit('connection');
                                 $location.path('/makerting');
+                                location.reload(true);
                             }
                         }, 1500);
                     } if (data_result.error_code === 1) {
