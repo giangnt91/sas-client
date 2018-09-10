@@ -1189,7 +1189,10 @@ sas
 
             // Cập nhật user header
             $scope.updateheaderUser = function () {
-                $('#update').modal('show');
+                $location.path('/home');
+                $timeout(function () {
+                    $('#update').modal('show');
+                }, 500)
             }
 
             // Thêm user header
@@ -1199,7 +1202,11 @@ sas
 
             // Thêm bạn header
             $rootScope.addheader = function () {
-                $('#add').modal('show');
+                $location.path('/home');
+                $timeout(function () {
+                    $('#add').modal('show');
+                }, 500)
+
             }
 
             // Thêm bạn 2
@@ -1381,6 +1388,7 @@ sas
 
             // thay đổi mật khẩu
             $scope.update = function () {
+
                 if ($scope.oldpass == undefined || $scope.oldpass === '') {
                     Notifi._error('Vui lòng nhập đúng mật khẩu cũ.');
                     return;
@@ -1405,7 +1413,12 @@ sas
                                     $scope.newpass = '';
                                 }
                             })
-                            $('#chagepas').modal('hide');
+                            $timeout(function () {
+                                $location.path('/login');
+                                window.location.reload(true);
+                            }, 1500)
+
+                            // $('#chagepas').modal('hide');    
                         }
                     } else {
                         Notifi._error('Mật khẩu cũ không đúng vui lòng thử lại.')

@@ -1,7 +1,7 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        // var api_gateway_url = 'http://35.240.165.98:191';
-        var api_gateway_url = 'http://localhost:191';
+        var api_gateway_url = 'http://35.240.165.98:191';
+        // var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
@@ -105,13 +105,6 @@ angular.module('SASService', [])
                     value: value
                 });
                 url = api_gateway_url + '/upsheetstatus';
-                return $http.post(url, parameter, header);
-            },
-            Rmsheet: function (_id) {
-                parameter = JSON.stringify({
-                    _id: _id
-                });
-                url = api_gateway_url + '/rmsheet';
                 return $http.post(url, parameter, header);
             },
             ShareStudent: function (detail) {
@@ -377,8 +370,8 @@ angular.module('SASService', [])
         }
     })
     .factory('Thesocket', function (socketFactory) {
-        // var api_gateway_url = 'http://35.240.165.98:191';
-        var api_gateway_url = 'http://localhost:191';
+        var api_gateway_url = 'http://35.240.165.98:191';
+        // var api_gateway_url = 'http://localhost:191';
         var socketConnection = io.connect(api_gateway_url);
         var socket = socketFactory({
             ioSocket: socketConnection

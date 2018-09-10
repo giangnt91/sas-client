@@ -20,7 +20,7 @@ sas
                                 });
                             } else {
                                 _result.forEach(element => {
-                                    if (element.Username === $rootScope.auth.Username && element.SheetID !== null) {
+                                    if (element.Username === $rootScope.auth.Username && element.SheetID !== null && element.SheetID.length > 0) {
                                         $scope.Markets.push(element);
                                     }
                                 });
@@ -82,11 +82,6 @@ sas
                 if (check === undefined) {
                     check === false;
                 }
-                // if(check === false){
-                //     DataServices.Rmsheet(data._id).then(function(response){
-                //         console.log(repsonse.data)
-                //     })
-                // }
                 DataServices.UpdateSheetStatus(data._id, check).then(function (repsonse) {
                     if (repsonse.data.error_code === 0) {
                         Notifi._success('Cập nhật thông tin thành công');
