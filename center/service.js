@@ -107,6 +107,13 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/upsheetstatus';
                 return $http.post(url, parameter, header);
             },
+            Rmsheet: function (_id) {
+                parameter = JSON.stringify({
+                    _id: _id
+                });
+                url = api_gateway_url + '/rmsheet';
+                return $http.post(url, parameter, header);
+            },
             ShareStudent: function (detail) {
                 parameter = JSON.stringify({
                     detail: detail

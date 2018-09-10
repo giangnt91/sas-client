@@ -12,11 +12,20 @@ sas
                         if (repsonse.data.users.length > 0) {
                             _result = repsonse.data.users;
                             $scope.Markets = [];
-                            _result.forEach(element => {
-                                if (element.Role[0].id === 2 && element.SheetID !== null) {
-                                    $scope.Markets.push(element);
-                                }
-                            });
+                            if ($rootScope.auth.Role[0].id === 0) {
+                                _result.forEach(element => {
+                                    if (element.Role[0].id === 2 && element.SheetID !== null) {
+                                        $scope.Markets.push(element);
+                                    }
+                                });
+                            } else {
+                                _result.forEach(element => {
+                                    if (element.Username === $rootScope.auth.Username && element.SheetID !== null) {
+                                        $scope.Markets.push(element);
+                                    }
+                                });
+                            }
+
                         }
                     } else {
                         // Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
@@ -73,6 +82,11 @@ sas
                 if (check === undefined) {
                     check === false;
                 }
+                // if(check === false){
+                //     DataServices.Rmsheet(data._id).then(function(response){
+                //         console.log(repsonse.data)
+                //     })
+                // }
                 DataServices.UpdateSheetStatus(data._id, check).then(function (repsonse) {
                     if (repsonse.data.error_code === 0) {
                         Notifi._success('Cập nhật thông tin thành công');

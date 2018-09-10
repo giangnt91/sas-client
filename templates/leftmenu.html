@@ -1,16 +1,16 @@
 <div id="si" ng-controller="MenuCtrl" class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
 
     <div class="logo">
-        <a href="#" class="simple-text logo-normal" ng-if="auth.Role[0].id === 1">
-            SAS TELESALES
+        <a href="#" class="simple-text logo-normal" style="margin-top: -10px;" ng-if="auth.Role[0].id === 1">
+            <img src="assets/img/logo.png" width="100%" alt="">
         </a>
 
-        <a href="#" class="simple-text logo-normal" ng-if="auth.Role[0].id === 2">
-            SAS MAKERTING
+        <a href="#" class="simple-text logo-normal" style="margin-top: -10px;" ng-if="auth.Role[0].id === 2">
+            <img src="assets/img/logo.png" width="100%" alt="">
         </a>
 
-        <a href="#" class="simple-text logo-normal" ng-if="auth.Role[0].id === 0">
-            SAS
+        <a href="#" class="simple-text logo-normal" style="margin-top: -10px;" ng-if="auth.Role[0].id === 0">
+            <img src="assets/img/logo.png" width="100%" alt="">
         </a>
     </div>
     <div class="sidebar-wrapper" style="padding-bottom: 0px" ng-if="auth.Role[0].id === 1 || pageId === 1">
