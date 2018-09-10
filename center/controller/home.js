@@ -4,8 +4,8 @@ sas
         $scope.go_manageruser = function () {
             $location.path('/manageruser');
         }
-        
-        $scope.go_managergroup = function(){
+
+        $scope.go_managergroup = function () {
             $location.path('/managergroup');
         }
 
@@ -537,7 +537,26 @@ sas
                         }
                     });
                 }
+            });
+
+
+            // auto duplicate
+            Thesocket.on('duplicate', function (list_duplicate) {
+                var last_id = localStorage.getItem('last_id');;
+                if (list_duplicate.length > 0) {
+                    list_duplicate.forEach(element => {
+                        if (element.teleid === $rootScope.auth.Username) {
+                            localStorage.setItem('last_id', element.teleid);
+                            if (last_id !== element.teleid) {
+                                Notifi._notifi(
+                                    'Học viên ' + element.student + '<br> có số điện thoại ' + element.stphone + '<br> đã được đăng ký vào lúc ' + element.pretime + ' <br> bởi ' + element.prename + ' có Username là ' + element.preid
+                                )
+                            }
+                        }
+                    });
+                }
             })
+            // end
 
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
             // getSale($rootScope.auth.Username);

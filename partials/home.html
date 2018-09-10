@@ -112,7 +112,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">
-                    Thông Tin Chi Tiết Học Viên {{_details._id}}</h4>
+                    Thông Tin Chi Tiết Học Viên {{_details._id}}  <span class="badge  badge-danger" ng-if="_details.Duplicate !== null">Học Viên bị trùng với TeleSale {{_details.Duplicate[0].prename}} có username là {{_details.Duplicate[0].preid}}</span></h4>
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

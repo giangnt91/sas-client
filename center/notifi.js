@@ -31,7 +31,7 @@ sas
             },        
             _notifi: function (sms, from, align) {
                 $.notify({
-                    icon: "call",
+                    icon: "info",
                     message: sms
 
                 }, {
