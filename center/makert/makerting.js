@@ -33,6 +33,23 @@ sas
             }
             Getallgroup();
 
+            // thông báo trùng
+            Thesocket.on('mkduplicate', function (list_duplicate) {
+
+                var last_id = localStorage.getItem('last_id');
+                list_duplicate.forEach(element => {
+                    if (element.mketer === $rootScope.auth.Username) {
+                        localStorage.setItem('last_id', element.mketer);
+                        if (last_id !== element.mketer) {
+                            Notifi._notifi(
+                                'Học viên ' + element.student + '<br> có số điện thoại ' + element.stphone + '<br> đã được đăng ký vào lúc ' + element.pretime + ' <br> bởi ' + element.premname + ' có username ' + element.premid
+                            )
+                        }
+                    }
+                });
+            })
+            //
+
             function tongquan() {
                 getAllmakert();
 

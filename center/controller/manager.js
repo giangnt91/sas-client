@@ -119,6 +119,7 @@ sas
                     $scope.Makerts.forEach(element => {
                         let tmp = {
                             name: element.Fullname,
+                            muser: element.Username,
                             id: element.SheetID[0].id,
                             group: null
                         }
@@ -132,6 +133,7 @@ sas
                             if (s.Zone[0].id === g._id) {
                                 let tmp = {
                                     name: s.Fullname,
+                                    muser: s.Username,
                                     id: s.SheetID[0].id,
                                     group: g.Name
                                 }
@@ -145,6 +147,7 @@ sas
 
                 DataServices.UpGroup($scope._detailGroup).then(function (response) {
                     if (response.data.error_code === 0) {
+                        $scope.cn = false;
                         Notifi._success('Cập nhật thông tin thành công');
                     } else {
                         Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại sau');
