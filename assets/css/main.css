@@ -57,6 +57,10 @@
     width: 16em;
     /* display: none; */
 }
+.doc h4{
+    color: red;
+    font-weight: bolder;
+}
 .padlr-14{
     padding: 10px 21px !important;
 }

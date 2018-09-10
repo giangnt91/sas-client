@@ -34,7 +34,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="input-group add">
                                                         <label for="mform">Form</label>
-                                                        <select class="form-control" ng-model="mform"
+                                                        <select class="form-control" ng-disabled="auth.Role[0].id !== 0" ng-model="mform"
                                                             ng-options="option.name for option in Markets">
                                                         </select>
                                                     </div>

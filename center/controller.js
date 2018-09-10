@@ -191,9 +191,21 @@ sas
             localStorage.setItem('isactive', $scope.isactive);
         }
 
+        $scope.go_doc = function () {
+            $location.path('/doc');
+            $scope.isactive = 12;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+
+        $scope.go_hd = function () {
+            $location.path('/tutorial');
+            $scope.isactive = 13;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+
         $scope.go_msetup = function () {
             $location.path('/msetup');
-            $scope.isactive = 12;
+            $scope.isactive = 14;
             localStorage.setItem('isactive', $scope.isactive);
         }
     })
