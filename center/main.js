@@ -18,7 +18,7 @@ angular.module('SAScrm', ['ngRoute', 'SASController', 'SASService'])
             .when("/managergroup", { templateUrl: "partials/managergroup.html", controller: "ManagerGroupCtrl" })
 
             // makerting
-            .when("/makerting", { templateUrl: "maketing/default.html", controller: "MakertingCtrl" })
+            .when("/marketing", { templateUrl: "maketing/default.html", controller: "MakertingCtrl" })
             .when("/msetup", { templateUrl: "maketing/msetup.html", controller: "MsetupCtrl" })
 
             // else 404

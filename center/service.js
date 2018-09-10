@@ -147,9 +147,11 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/getallmakerting';
                 return $http.post(url, parameter, header);
             },
-            GettqMakert: function (Username, Fromday, Today) {
+            GettqMakert: function (Role, Username, Fullname, Fromday, Today) {
                 parameter = JSON.stringify({
+                    Role: Role,
                     Username: Username,
+                    Fullname: Fullname,
                     Fromday: Fromday,
                     Today: Today
                 })

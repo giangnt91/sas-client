@@ -26,7 +26,7 @@
                                                 <div class="col-lg-4">
                                                     <div class="input-group add">
                                                         <label for="mgroup">Groups</label>
-                                                        <select class="form-control" ng-model="mgroup" ng-options="option.Name for option in AllGroups">
+                                                        <select class="form-control" ng-model="mgroup" ng-disabled="auth.Role[0].id !== 0" ng-options="option.Name for option in AllGroups">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -36,7 +36,7 @@
                                             <div class="row">
                                                 <div class="col-lg-11">
                                                     <a href="#" class="btn btn-info btn-block" style="margin-left: 20px"
-                                                        ng-click="Searchwith()">
+                                                        ng-click="Search_mk()">
                                                         <i class="material-icons">search</i> Xem
                                                     </a>
                                                 </div>
@@ -49,8 +49,8 @@
                             <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover text-center">
                                 <thead>
                                     <tr>
-                                        <th>STT</th>
-                                        <th>ID</th>
+                                        <th>Stt</th>
+                                        <th>Id</th>
                                         <th>Họ Tên</th>
                                         <th>Online <br> (Đã cộng hủy trừ trùng)</th>
                                         <th>Đăng ký học</th>
@@ -60,15 +60,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="content in Makertings" style="cursor:pointer" ng-click="detail(content._id)">
+                                    <tr ng-repeat="content in _Makerting" style="cursor:pointer">
                                         <td class="text-center">{{$index +1}}</td>
-                                        <td>{{content.Username}}</td>
-                                        <td>{{content.Fullname}}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td ng-bind="content.User"></td>
+                                        <td ng-bind="content.Name"></td>
+                                        <td ng-bind="content.On"></td>
+                                        <td ng-bind="content.Reg.length"></td>
+                                        <td>{{content.Reg.length / content.On *100}} %</td>
+                                        <td ng-bind="content.Dup.length"></td>
+                                        <td ng-bind="content.Ktn.length"></td>
                                     </tr>
                                 </tbody>
                             </table>

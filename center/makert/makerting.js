@@ -9,6 +9,28 @@ sas
                 DataServices.GetallMakerting().then(function (response) {
                     if (response.data.error_code === 0) {
                         $scope.Makertings = response.data.makert;
+                        $scope._Makerting = [];
+                        if ($scope.auth.Role[0].id === 0) {
+                            $scope.Makertings.forEach(element => {
+                                DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null).then(function (response) {
+                                    if (response.data.error_code === 0) {
+                                        $scope._Makerting.push(response.data.mkt);
+                                    }
+                                })
+                            });
+                        } else {
+                            DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, null, null).then(function (response) {
+                                if (response.data.error_code === 0) {
+                                    $scope._Makerting.push(response.data.mkt);
+                                }
+                            })
+                        }
+
+                        $scope.newdtOptions = DTOptionsBuilder.newOptions()
+                            .withDisplayLength(10)
+                            .withOption('bLengthChange', true)
+                            .withOption('iDisplayLength', 10)
+                            .withDOM('Zlfrtip')
                     }
                 })
             }
@@ -50,11 +72,21 @@ sas
             })
             //
 
-            function tongquan() {
-                getAllmakert();
 
+            //filter theo ngày tháng và group
+            $scope.Search_mk = function () {
                 let _fromday = $('#mkday').val();
                 let _today = $('#mkday2').val();
+                let list_mk = [];
+                if ($scope.mgroup.id !== null) {
+                    $scope.Makertings.forEach(element => {
+                        if ($scope.mgroup._id === element.Zone[0].id) {
+                            list_mk.push(element);
+                        }
+                    });
+                } else {
+                    list_mk = $scope.Makertings;
+                }
 
                 if (_fromday === '') {
                     _fromday = null
@@ -64,24 +96,26 @@ sas
                     _today = null
                 }
 
-                $scope.tbMakerting = [];
-                $scope.Makertings.forEach(element => {
-                    DataServices.GettqMakert(element.Username, _fromday, _today).then(function (response) {
+                $scope._Makerting = [];
+                if ($scope.auth.Role[0].id === 0) {
+                    list_mk.forEach(element => {
+                        DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null).then(function (response) {
+                            if (response.data.error_code === 0) {
+                                $scope._Makerting.push(response.data.mkt);
+                            }
+                        })
+                    });
+                } else {
+                    DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, null, null).then(function (response) {
                         if (response.data.error_code === 0) {
-                            $scope.tbMakerting.push(response.data.mk);
-
-                            $scope.newdtOptions = DTOptionsBuilder.newOptions()
-                                .withDisplayLength(10)
-                                .withOption('bLengthChange', true)
-                                .withOption('iDisplayLength', 10)
-                                .withDOM('Zlfrtip')
+                            $scope._Makerting.push(response.data.mkt);
                         }
                     })
-                });
+                }
+
             }
-            $timeout(function () {
-                tongquan();
-            }, 500)
+
 
         }
+
     })

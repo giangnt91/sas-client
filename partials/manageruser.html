@@ -336,7 +336,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Cập Nhật
                     User
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -380,14 +380,14 @@
                                                 <input type="date" class="form-control" id="upday">
                                             </div>
 
-                                            <div class="input-group add" ng-if="auth.Role[0].id === 0">
+                                            <div class="input-group add" ng-show="auth.Role[0].id === 0">
                                                 <label for="uprole">Phân quyền</label>
                                                 <select id="uprole" class="form-control" ng-model="uprole" ng-change="changeforupdate()"
                                                     ng-options="option.value for option in _Role">
                                                 </select>
                                             </div>
 
-                                            <div class="input-group add" ng-if="auth.Role[0].id === 0">
+                                            <div class="input-group add" ng-show="auth.Role[0].id === 0">
                                                 <label for="upgroup">Chọn group</label>
                                                 <select id="upgroup" class="form-control" ng-disabled="uprole.id === null"
                                                     ng-model="mgroup" ng-options="option.Name for option in GroupUpdate">

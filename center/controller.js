@@ -20,7 +20,15 @@ sas
                     var data_result = repsonse.data;
                     if (data_result.error_code === 0) {
                         $timeout(function () {
-                            if (data_result.auth.Role[0].id === 1 || data_result.auth.Role[0].id === 0) {
+                            if (data_result.auth.Role[0].id === 0) {
+                                ngDialog.close();
+                                $rootScope.auth = data_result.auth;
+                                localStorage.setItem('Auth', JSON.stringify(data_result.auth));
+                                // Notifi._success('Đăng nhập thành công');
+                                Thesocket.emit('connection');
+                                $('#choose').modal('show');
+                            }
+                            if (data_result.auth.Role[0].id === 1) {
                                 ngDialog.close();
                                 $rootScope.auth = data_result.auth;
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
@@ -29,13 +37,13 @@ sas
 
                                 $location.path('/home');
                                 location.reload(true);
-                            } else {
+                            } else if (data_result.auth.Role[0].id === 2) {
                                 ngDialog.close();
                                 $rootScope.auth = data_result.auth;
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
                                 // Notifi._success('Đăng nhập thành công');
                                 Thesocket.emit('connection');
-                                $location.path('/makerting');
+                                $location.path('/marketing');
                                 location.reload(true);
                             }
                         }, 1500);
@@ -66,10 +74,20 @@ sas
                     }
                 })
 
+                //choose page
+                $scope.choosepage = function (id) {
+                    if (id === 1) {
+                        $location.path('/home');
+                        location.reload(true);
+                    } else {
+                        $location.path('/marketing');
+                        location.reload(true);
+                    }
+                }
             }
         }
     })
-    .controller('MenuCtrl', function ($location, $scope, $rootScope) {
+    .controller('MenuCtrl', function ($location, $scope, $rootScope, $routeParams) {
         $rootScope.auth = JSON.parse(localStorage.getItem('Auth'));
         if (!$rootScope.auth) {
             $location.path('/login');
@@ -81,11 +99,17 @@ sas
             } else {
                 $scope.isactive = 1;
             }
-
         } else {
             $scope.isactive = parseInt(active);
         }
 
+        if(window.location.href.includes('home')){
+            $scope.pageId = 1;
+            $scope.isactive = 1;
+        }else{
+            $scope.pageId = 2;
+            $scope.isactive = 10;
+        }
 
 
         // go home
@@ -156,7 +180,7 @@ sas
         // makerting
 
         $scope.go_thongke = function () {
-            $location.path('/makerting');
+            $location.path('/marketing');
             $scope.isactive = 10;
             localStorage.setItem('isactive', $scope.isactive);
         }

@@ -142,8 +142,9 @@ sas
                         });
                     });
                 }
-
-                $scope._detailGroup.Sheet = Sheet_list;
+                if(Sheet_list.length > 0){
+                    $scope._detailGroup.Sheet = Sheet_list;
+                }
 
                 DataServices.UpGroup($scope._detailGroup).then(function (response) {
                     if (response.data.error_code === 0) {
@@ -315,7 +316,7 @@ sas
                         $scope.changeforupdate();
                     }
                 });
-                $scope.AllGroups.forEach(element => {
+                $scope.GroupUpdate.forEach(element => {
                     if (element._id === detail.Zone[0].id) {
                         $scope.mgroup = element;
                     }
