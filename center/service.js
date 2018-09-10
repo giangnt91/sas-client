@@ -186,6 +186,18 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/getall';
                 return $http.post(url, parameter, header);
             },
+            GetallQuery: function (Role, Username, Fromday, Today, _status, form) {
+                parameter = JSON.stringify({
+                    Role: Role,
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today,
+                    _status: _status,
+                    form: form
+                });
+                url = api_gateway_url + '/getallquery';
+                return $http.post(url, parameter, header)
+            },
             GetforNotif: function (Username, Role, Time, Day) {
                 parameter = JSON.stringify({
                     Username: Username,

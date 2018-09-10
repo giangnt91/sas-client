@@ -1,0 +1,241 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="material-datatables">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="input-group add">
+                                                        <label for="mkday">Từ Ngày</label>
+                                                        <input type="date" class="form-control" id="mkday">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="input-group add">
+                                                        <label for="mkday2">Đến Ngày</label>
+                                                        <input type="date" class="form-control" id="mkday2">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="input-group add">
+                                                        <label for="mgroup">Groups</label>
+                                                        <select class="form-control" ng-model="mgroup" ng-disabled="auth.Role[0].id !== 0"
+                                                            ng-options="option.Name for option in AllGroups">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="row">
+                                                <div class="col-lg-11">
+                                                    <a href="#" class="btn btn-info btn-block" style="margin-left: 20px"
+                                                        ng-click="Search_mk()">
+                                                        <i class="material-icons">search</i> Xem
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Stt</th>
+                                        <th>Time</th>
+                                        <th>Họ Tên</th>
+                                        <th>Ghi chú</th>
+                                        <th>Tele</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="content in all_students" style="cursor:pointer" ng-click="view(content)">
+                                        <td class="text-center">{{$index +1}}</td>
+                                        <td>{{content.Regtime}} {{content.Regday}}</td>
+                                        <td ng-bind="content.Fullname"></td>
+                                        <td ng-bind="content.Note"></td>
+                                        <td ng-bind="content.Manager[0].id"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Chi Tiết Học Viên-->
+<div class="modal fade" id="mdetail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">
+                    Thông Tin Chi Tiết Học Viên</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+                <div class="row">
+                    <div class="card m-3">
+                        <div class="card-body card-add">
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">Time</label>
+                                            </div>
+                                            <input type="text" class="form-control" value="{{_details.Regtime}} {{_details.Regday}}"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">ID</label>
+                                            </div>
+                                            <input type="text" class="form-control" value="{{_details._id}}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">Họ tên</label>
+                                            </div>
+                                            <input type="text" class="form-control" ng-model="_details.Fullname"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">Giới tính</label>
+                                            </div>
+                                            <input type="text" class="form-control" ng-if="_details.Sex !== null"
+                                                ng-model="_details.Sex[0].name" disabled>
+                                            <input type="text" class="form-control" ng-if="_details.Sex === null" value="Chưa cập nhật"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">SĐT</label>
+                                            </div>
+                                            <input type="text" class="form-control" ng-model="_details.Phone" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">Email</label>
+                                            </div>
+                                            <input type="text" class="form-control" ng-model="_details.Email" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">Địa Chỉ</label>
+                                            </div>
+                                            <input type="text" class="form-control" ng-model="_details.Address"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">Ghi Chú</label>
+                                            </div>
+                                            <input type="text" class="form-control" ng-model="_details.Note" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend add">
+                                                <label for="fullname">Trạng Thái</label>
+                                            </div>
+                                            <input type="text" class="form-control" ng-model="_details.Status_student[0].name"
+                                                id="dname" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" ng-if="_details.Duplicate !== null"
+                                data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                Xem Trùng
+                            </button>
+
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    <table class="table text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>SDT</th>
+                                                <th>Marketer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{_details.Duplicate[0].pretime}}</td>
+                                                <td>{{_details.Phone}}</td>
+                                                <td>{{_details.Duplicate[0].premid}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{_details.Regtime}} {{_details.Regday}}</td>
+                                                <td>{{_details.Phone}}</td>
+                                                <td>{{_details.Manager[0].mname}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
