@@ -26,7 +26,7 @@
                                                 <div class="col-lg-4">
                                                     <div class="input-group add">
                                                         <label for="Ssale">Sale</label>
-                                                        <select class="form-control" ng-model="Ssale" ng-options="option.name for option in Users">
+                                                        <select class="form-control" ng-model="Ssale" ng-disabled="auth.Role[0].id !== 0" ng-options="option.name for option in Users">
                                                         </select>
                                                     </div>
                                                 </div>

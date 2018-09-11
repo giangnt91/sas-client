@@ -252,8 +252,10 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchrecall';
                 return $http.post(url, parameter, header);
             },
-            SearchSch: function (Regday, Regday2, Sale) {
+            SearchSch: function (Role, Username, Regday, Regday2, Sale) {
                 parameter = JSON.stringify({
+                    Role: Role,
+                    Username: Username,
                     Regday: Regday,
                     Regday2: Regday2,
                     Sale: Sale

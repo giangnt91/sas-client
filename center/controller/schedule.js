@@ -425,7 +425,7 @@ sas
                 Ssale = null;
             }
 
-            DataServices.SearchSch(Sregday, Sregday2, Ssale).then(function (response) {
+            DataServices.SearchSch($rootScope.auth.Role, $rootScope.auth.Username, Sregday, Sregday2, Ssale).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');
