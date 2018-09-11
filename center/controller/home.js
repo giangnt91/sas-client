@@ -1407,16 +1407,24 @@ sas
                                     $scope.oldpass = '';
                                     $scope.newpass = '';
                                     $('#update').modal('hide');
+
+                                    $timeout(function () {
+                                        alert('Đăng nhập lại để mật khẩu mới có hiệu lực !');
+                                        $location.path('/login');
+                                    }, 500)
+
+
                                 } else {
                                     Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại sau');
                                     $scope.oldpass = '';
                                     $scope.newpass = '';
                                 }
                             })
-                            $timeout(function () {
-                                $location.path('/login');
-                                window.location.reload(true);
-                            }, 1500)
+
+                            // $timeout(function () {
+                            //     $location.path('/login');
+                            //     window.location.reload(true);
+                            // }, 1500)
 
                             // $('#chagepas').modal('hide');    
                         }
