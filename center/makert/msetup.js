@@ -80,7 +80,7 @@ sas
 
             $scope.ChangeSheet = function (data, check) {
                 if (check === undefined) {
-                    check === false;
+                    check = false;
                 }
                 DataServices.UpdateSheetStatus(data._id, check).then(function (repsonse) {
                     if (repsonse.data.error_code === 0) {
