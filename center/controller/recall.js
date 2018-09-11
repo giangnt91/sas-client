@@ -431,7 +431,7 @@ sas
                 Sale = null;
             }
 
-            DataServices.SearchR(Retime, Retime2, Reday, Reday2, Sale).then(function (response) {
+            DataServices.SearchR($rootScope.auth.Role, $rootScope.auth.Username, Retime, Retime2, Reday, Reday2, Sale).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');
@@ -459,7 +459,7 @@ sas
                 if (response.data.error_code === 0) {
                     $scope.list_student = [];
                     response.data.student.forEach(element => {
-                        if (element.Recall === true) {
+                        if (element.Recall === true || element.Time_recall !== null) {
                             $scope.list_student.push(element);
                         }
                     });

@@ -44,7 +44,7 @@
                                         <div class="col-lg-4">
                                             <div class="input-group add">
                                                 <label for="coso">Sale</label>
-                                                <select class="form-control" ng-model="Sale" ng-options="option.name for option in Users">
+                                                <select class="form-control" ng-model="Sale" ng-disabled="auth.Role[0].id !== 0" ng-options="option.name for option in Users">
                                                 </select>
                                             </div>
                                             <div class="input-group add">
