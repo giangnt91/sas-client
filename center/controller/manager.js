@@ -142,7 +142,7 @@ sas
                         });
                     });
                 }
-                if(Sheet_list.length > 0){
+                if (Sheet_list.length > 0) {
                     $scope._detailGroup.Sheet = Sheet_list;
                 }
 
@@ -455,17 +455,22 @@ sas
             $scope.Leaders = [];
             if ($scope.group.id !== null) {
                 if ($scope.group.id === 1) {
-                    $scope.Users.forEach(element => {
-                        if (element.role === 1 && element.Leader === false) {
-                            $scope.Leaders.push(element);
-                        }
-                    });
+                    if ($scope.Users !== undefined) {
+                        $scope.Users.forEach(element => {
+                            if (element.role === 1 && element.Leader === false) {
+                                $scope.Leaders.push(element);
+                            }
+                        });
+                    }
                 } else {
-                    $scope.Users.forEach(element => {
-                        if (element.role === 2 && element.Leader === false) {
-                            $scope.Leaders.push(element);
-                        }
-                    });
+                    if ($scope.Users !== undefined) {
+                        $scope.Users.forEach(element => {
+                            if (element.role === 2 && element.Leader === false) {
+                                $scope.Leaders.push(element);
+                            }
+                        });
+                    }
+
                 }
             }
         }
@@ -530,17 +535,22 @@ sas
             $scope.upLeaders = [];
             if ($scope.upgroup.id !== null) {
                 if ($scope.upgroup.id === 1) {
-                    $scope.Users.forEach(element => {
-                        if (element.role === 1) {
-                            $scope.upLeaders.push(element);
-                        }
-                    });
+                    if ($scope.Users !== undefined) {
+                        $scope.Users.forEach(element => {
+                            if (element.role === 1) {
+                                $scope.upLeaders.push(element);
+                            }
+                        });
+                    }
+
                 } else {
-                    $scope.Users.forEach(element => {
-                        if (element.role === 2) {
-                            $scope.upLeaders.push(element);
-                        }
-                    });
+                    if ($scope.Users !== undefined) {
+                        $scope.Users.forEach(element => {
+                            if (element.role === 2) {
+                                $scope.upLeaders.push(element);
+                            }
+                        });
+                    }
                 }
             }
         }
@@ -559,11 +569,14 @@ sas
                                 }
                             });
                         } else {
-                            $scope.Users.forEach(element => {
-                                if (element.role === 2) {
-                                    $scope.upLeaders.push(element);
-                                }
-                            });
+                            if ($scope.Users !== undefined) {
+                                $scope.Users.forEach(element => {
+                                    if (element.role === 2) {
+                                        $scope.upLeaders.push(element);
+                                    }
+                                });
+                            }
+
                         }
                     }
                 }
@@ -628,7 +641,10 @@ sas
 
             DataServices.UpGroup($scope.update_g).then(function (response) {
                 if (response.data.error_code === 0) {
-                    DataServices.UpdateZoneUser(Zone, $scope.update_g.Leader[0].id).then(function (response) { })
+                    if ($scope.update_g.Leader !== null) {
+                        DataServices.UpdateZoneUser(Zone, $scope.update_g.Leader[0].id).then(function (response) { })
+                    }
+
                     if (pre_leader !== null) {
                         DataServices.Updatermleader(pre_leader).then(function (response) { })
                     }
