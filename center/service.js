@@ -1,7 +1,7 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        // var api_gateway_url = 'http://35.240.165.98:191';
-        var api_gateway_url = 'http://localhost:191';
+        var api_gateway_url = 'http://35.240.165.98:191';
+        // var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
@@ -273,8 +273,10 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchunreg';
                 return $http.post(url, parameter, header);
             },
-            SearchS: function (Regday, Regday2, Sale) {
+            SearchS: function (Role, Username, Regday, Regday2, Sale) {
                 parameter = JSON.stringify({
+                    Role: Role,
+                    Username: Username,
                     Regday: Regday,
                     Regday2: Regday2,
                     Sale: Sale

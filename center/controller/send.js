@@ -403,7 +403,7 @@ sas
                 Sesale = null;
             }
 
-            DataServices.SearchS(Seregday, Seregday2, Sesale).then(function (response) {
+            DataServices.SearchS($rootScope.auth.Role, $rootScope.auth.Username, Seregday, Seregday2, Sesale).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');
