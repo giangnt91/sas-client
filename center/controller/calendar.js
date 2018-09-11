@@ -399,7 +399,7 @@ sas
                 Csale = null;
             }
 
-            DataServices.SearchC(Cday, Cday2, Csale).then(function (response) {
+            DataServices.SearchC($rootScope.auth.Role, $rootScope.auth.Username, Cday, Cday2, Csale).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');
