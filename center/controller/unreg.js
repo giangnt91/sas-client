@@ -368,7 +368,7 @@ sas
                 Uregday2 = null;
             }
 
-            DataServices.SearchUn(Uregday, Uregday2, $rootScope.auth.Username).then(function (response) {
+            DataServices.SearchUn($rootScope.auth.Role, Uregday, Uregday2, $rootScope.auth.Username).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.list_student = response.data.students;
                     Notifi._success('Lọc dữ liệu thành công');

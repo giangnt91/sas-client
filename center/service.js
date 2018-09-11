@@ -263,8 +263,9 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchschedule';
                 return $http.post(url, parameter, header);
             },
-            SearchUn: function (Regday, Regday2, Username) {
+            SearchUn: function (Role, Regday, Regday2, Username) {
                 parameter = JSON.stringify({
+                    Role: Role,
                     Regday: Regday,
                     Regday2: Regday2,
                     Username: Username
