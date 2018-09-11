@@ -229,8 +229,9 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/searchhome';
                 return $http.post(url, parameter, header);
             },
-            SearchN: function (Regday, Regday2, Username) {
+            SearchN: function (Role, Regday, Regday2, Username) {
                 parameter = JSON.stringify({
+                    Role: Role,
                     Regday: Regday,
                     Regday2: Regday2,
                     Username: Username
