@@ -217,8 +217,10 @@ angular.module('SASService', [])
             },
 
             // Tìm kiếm
-            SearchH: function (Regday, Regday2, Center, Status) {
+            SearchH: function (Role, Username, Regday, Regday2, Center, Status) {
                 parameter = JSON.stringify({
+                    Role: Role,
+                    Username: Username,
                     Regday: Regday,
                     Regday2: Regday2,
                     Center: Center,

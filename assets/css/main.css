@@ -1,9 +1,13 @@
 .sas {
     margin: 0 auto;
-    color: #0080c3;
+    color: #2981C4;
     font-family: 'Times New Roman', Times, serif;
     font-size: 2em;
     font-weight: bold;
+}
+
+.sas-color{
+    color: #2981C4 !important;
 }
 
 .login-content {
