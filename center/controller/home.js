@@ -1493,8 +1493,23 @@ sas
                 $location.path('/login');
             }
 
-            // SMS Service
+            // Điện thoại
+            $scope.openPhoneTab = function () {
+                var top = window.screen.height - 300;
+                top = top > 0 ? top / 2 : 0;
 
+                var left = window.screen.width - 400;
+                left = left > 0 ? left / 2 : 0;
+
+                let url = 'http://sascall.slk.vn/?phone=' + $rootScope.auth.Phone + '&user=' + $rootScope.auth.Username + '&pass=' + $rootScope.auth.Password
+                var uploadWin = window.open(url, "Upload Chapter content", "width=540,height=540" + ",top=" + top + ",left=" + left);
+                uploadWin.moveTo(left, top);
+                uploadWin.focus();
+
+                // window.open(url, '_blank', 'height=440,width=540');
+            }
+
+            // SMS Service
             function change_alias(alias) {
                 var str = alias;
                 str = str.toLowerCase();

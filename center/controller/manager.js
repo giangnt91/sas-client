@@ -674,6 +674,9 @@ sas
         $scope.Delg = function (_id) {
             DataServices.DelGroup(_id).then(function (response) {
                 if (response.data.error_code === 0) {
+                    DataServices.Rmgroupofuser(_id).then(function(res){
+                        console.log(response.data)
+                    })
                     Getallgroup();
                     Notifi._success('Xóa group thành công');
                     $('#delgroup').modal('hide');

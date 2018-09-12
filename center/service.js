@@ -114,6 +114,13 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/sharestudent';
                 return $http.post(url, parameter, header);
             },
+            Rmgroupofuser: function (_id) {
+                parameter = JSON.stringify({
+                    _id: _id
+                })
+                url = api_gateway_url + '/rmgroupofuser';
+                return $http.post(url, parameter, header);
+            },
 
             // Groups
             Cgroup: function (Name, Gtype, Leader) {
