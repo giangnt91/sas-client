@@ -43,6 +43,15 @@
     color: #6c757d;
 }
 
+.btn-add-new {
+    margin-top: 64px !important;
+}
+
+.btn-update {
+    margin-top: 38px !important;
+    padding-left: 17px !important;
+}
+
 .sms-nd {
     border: 0.5px solid rgba(31, 172, 227, .7);
     border-radius: 10px;

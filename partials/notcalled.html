@@ -6,44 +6,45 @@
                     <div class="card-body">
                         <div class="material-datatables">
 
-                                <div class="row">
-                                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-lg-8">
                                             <div class="row">
-                                                <div class="col-lg-8">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="input-group add">
-                                                                <label for="nregday">Từ Ngày</label>
-                                                                <input type="date" class="form-control" id="nregday">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="input-group add">
-                                                                <label for="nregday">Đến Ngày</label>
-                                                                <input type="date" class="form-control" id="nregday2">
-                                                            </div>
-                                                        </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-group add">
+                                                        <label for="nregday">Từ Ngày</label>
+                                                        <input type="date" class="form-control" id="nregday">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-6">
                                                     <div class="input-group add">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <a href="#" class="btn btn-info btn-block" style="margin-left: 20px" ng-click="Searchwith()">
-                                                                    <i class="material-icons">search</i> Tìm Kiếm
-                                                                </a>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <a href="#" class="btn btn-default btn-block" ng-click="Clear()">
-                                                                    <i class="material-icons">clear_all</i> Clear
-                                                                </a>
-                                                            </div>
-                                                        </div>
+                                                        <label for="nregday">Đến Ngày</label>
+                                                        <input type="date" class="form-control" id="nregday2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="input-group add">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <a href="#" class="btn btn-info btn-block" style="margin-left: 20px"
+                                                            ng-click="Searchwith()">
+                                                            <i class="material-icons">search</i> Tìm Kiếm
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <a href="#" class="btn btn-default btn-block" ng-click="Clear()">
+                                                            <i class="material-icons">clear_all</i> Clear
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
 
                             <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover">
                                 <thead>
@@ -229,11 +230,12 @@
                                             Cập nhật
                                         </button> -->
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-disabled="_details.Status_student[0].id === 3" ng-click="up_detail()">Cập
+                                            <button class="btn btn-warning btn-block btn-lg btn-update" ng-disabled="_details.Status_student[0].id === 3"
+                                                ng-click="up_detail()">Cập
                                                 Nhật
                                             </button>
-                                            <button class="btn btn-info btn-block">SMS</button>
-                                            <button class="btn btn-info btn-block">Email</button>
+                                            <button class="btn btn-info btn-block" ng-click="showsms()">SMS</button>
+                                            <!-- <button class="btn btn-info btn-block">Email</button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -245,16 +247,18 @@
             </div>
             <div class="modal-footer" style="border-top: none; padding-top: 0">
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-disabled="auth.Username !== _details.Manager[0].id" ng-click="addfriend(_details._id)">Thêm
+                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-disabled="auth.Username !== _details.Manager[0].id"
+                        ng-click="addfriend(_details._id)">Thêm
                         bạn
                     </button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-success" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3" data-toggle="modal"
-                        data-target="#time">Gọi lại thời gian</button>
+                    <button type="button" class="btn btn-block btn-lg btn-success" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3"
+                        data-toggle="modal" data-target="#time">Gọi lại thời gian</button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3" ng-click="recall()">Gọi lại sau</button>
+                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3"
+                        ng-click="recall()">Gọi lại sau</button>
                 </div>
             </div>
         </div>
@@ -298,7 +302,8 @@
 </div>
 
 <!-- Modal Thêm Học Viên-->
-<div class="modal fade" id="add2" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add2" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-add m-3-top" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -320,13 +325,15 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="fullname">Họ tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.fullname" id="name2" required>
+                                                <input type="text" class="form-control" ng-model="data.fullname" id="name2"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="email">Email</label>
-                                                <input type="text" class="form-control" ng-model="data.email" id="email2" required>
+                                                <input type="text" class="form-control" ng-model="data.email" id="email2"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
@@ -334,7 +341,8 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="phone">Số DT</label>
-                                                <input type="number" class="form-control" ng-model="data.phone" id="phone2" required>
+                                                <input type="number" class="form-control" ng-model="data.phone" id="phone2"
+                                                    required>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <a href="">
@@ -363,17 +371,19 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="dayreg">Ngày đăng ký</label>
-                                                <input type="date" class="form-control datetimepicker" id="adddayreg" required>
+                                                <input type="date" class="form-control datetimepicker" id="adddayreg"
+                                                    required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-1 p-0">
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="addnewfromaddFriend(data)">Thêm
+                                            <button class="btn btn-warning btn-block btn-lg btn-add-new" style="padding-left: 17px;"
+                                                ng-click="addnewfromaddFriend(data)">Thêm
                                                 mới
                                             </button>
-                                            <button class="btn btn-info btn-block">SMS</button>
-                                            <button class="btn btn-info btn-block">Email</button>
+                                            <!-- <button class="btn btn-info btn-block">SMS</button>
+                                            <button class="btn btn-info btn-block">Email</button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -440,84 +450,84 @@
 
 <!-- Modal SMS -->
 <div class="modal fade" id="sms3" tabindex="-1" role="dialog" data-backdrop="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="display: block">
-                    <h4 class="modal-title text-center" id="exampleModalLabel">SMS</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 10px; margin-top: -41px;">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form name="passform">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="input-group add">
-                                    <input type="text" class="form-control" ng-model="_phone">
-                                </div>
-                            </div>
-                            <div class="col-lg-12 pre-scrollable sms-scroll" style="margin-top:10px; margin-bottom: 10px; height: 300px">
-                                <p class="sms-send" ng-repeat="dt in content.SMS">
-                                   <span style="display: block; border-bottom: 1px solid rgba(240, 240, 240, .9)">{{dt.SMS}}</span> 
-                                    <span class="sms-status text-left">{{dt.Time}}</span>
-                                    <span class="sms-status text-right" style="float:right">{{dt._Status}}</span>
-                                </p>
-    
-                                <h4 class="text-center" style="color: rgba(240, 240, 240, .9);" ng-if="content.SMS === null">Chưa
-                                    có tin nhắn nào
-                                    được gửi cho học viên này</h4>
-    
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="input-group add">
-                                    <textarea class="form-control sms-nd" rows="5" ng-model="nd_sms_mau"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block">
+                <h4 class="modal-title text-center" id="exampleModalLabel">SMS</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 10px; margin-top: -41px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="passform">
                     <div class="row">
-                        <div class="col-lg-3">
-                            <button type="button" class="btn btn-primary btn-block" style="padding-left: 18px" ng-click="GetMau()">SMS
-                                Mẫu</button>
+                        <div class="col-lg-12">
+                            <div class="input-group add">
+                                <input type="text" class="form-control" ng-model="_phone">
+                            </div>
                         </div>
-                        <div class="col-lg-6">
-                            <button type="button" class="btn btn-info btn-block" ng-click="send(data)">Gửi Tin</button>
+                        <div class="col-lg-12 pre-scrollable sms-scroll" style="margin-top:10px; margin-bottom: 10px; height: 300px">
+                            <p class="sms-send" ng-repeat="dt in content.SMS">
+                                <span style="display: block; border-bottom: 1px solid rgba(240, 240, 240, .9)">{{dt.SMS}}</span>
+                                <span class="sms-status text-left">{{dt.Time}}</span>
+                                <span class="sms-status text-right" style="float:right">{{dt._Status}}</span>
+                            </p>
+
+                            <h4 class="text-center" style="color: rgba(240, 240, 240, .9);" ng-if="content.SMS === null">Chưa
+                                có tin nhắn nào
+                                được gửi cho học viên này</h4>
+
                         </div>
-                        <div class="col-lg-3">
-                            <button type="button" class="btn btn-warning btn-block" ng-click="clear_sms()">Xóa</button>
+                        <div class="col-lg-12">
+                            <div class="input-group add">
+                                <textarea class="form-control sms-nd" rows="5" ng-model="nd_sms_mau"></textarea>
+                            </div>
                         </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <button type="button" class="btn btn-primary btn-block" style="padding-left: 18px" ng-click="GetMau()">SMS
+                            Mẫu</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button type="button" class="btn btn-info btn-block" ng-click="send(data)">Gửi Tin</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="button" class="btn btn-warning btn-block" ng-click="clear_sms()">Xóa</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Modal SMS Mẫu -->
-    <div class="modal fade" id="smsmau3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tin Nhắn Mẫu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table cellpadding="0" class="table cell-border table-hover" style="font-size: 14px">
-                        <thead>
-                            <tr class="text-center">
-                                <th>Chủ Đề</th>
-                                <th>Nội Dung</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="content in Mau" style="cursor:pointer" ng-click="chonmau(content)">
-                                <td style="width: 200px">{{content.Title}}</td>
-                                <td>{{content.SMS}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+</div>
+
+<!-- Modal SMS Mẫu -->
+<div class="modal fade" id="smsmau3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tin Nhắn Mẫu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table cellpadding="0" class="table cell-border table-hover" style="font-size: 14px">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Chủ Đề</th>
+                            <th>Nội Dung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="content in Mau" style="cursor:pointer" ng-click="chonmau(content)">
+                            <td style="width: 200px">{{content.Title}}</td>
+                            <td>{{content.SMS}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
