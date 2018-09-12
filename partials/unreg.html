@@ -448,3 +448,87 @@
         </div>
     </div>
 </div>
+
+<!-- Modal SMS -->
+<div class="modal fade" id="sms7" tabindex="-1" role="dialog" data-backdrop="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="display: block">
+                    <h4 class="modal-title text-center" id="exampleModalLabel">SMS</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 10px; margin-top: -41px;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="passform">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="input-group add">
+                                    <input type="text" class="form-control" ng-model="_phone">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 pre-scrollable sms-scroll" style="margin-top:10px; margin-bottom: 10px; height: 300px">
+                                <p class="sms-send" ng-repeat="dt in content.SMS">
+                                   <span style="display: block; border-bottom: 1px solid rgba(240, 240, 240, .9)">{{dt.SMS}}</span> 
+                                    <span class="sms-status text-left">{{dt.Time}}</span>
+                                    <span class="sms-status text-right" style="float:right">{{dt._Status}}</span>
+                                </p>
+    
+                                <h4 class="text-center" style="color: rgba(240, 240, 240, .9);" ng-if="content.SMS === null">Chưa
+                                    có tin nhắn nào
+                                    được gửi cho học viên này</h4>
+    
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="input-group add">
+                                    <textarea class="form-control sms-nd" rows="5" ng-model="nd_sms_mau"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <button type="button" class="btn btn-primary btn-block" style="padding-left: 18px" ng-click="GetMau()">SMS
+                                Mẫu</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-info btn-block" ng-click="send(data)">Gửi Tin</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="button" class="btn btn-warning btn-block" ng-click="clear_sms()">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal SMS Mẫu -->
+    <div class="modal fade" id="smsmau7" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tin Nhắn Mẫu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table cellpadding="0" class="table cell-border table-hover" style="font-size: 14px">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Chủ Đề</th>
+                                <th>Nội Dung</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="content in Mau" style="cursor:pointer" ng-click="chonmau(content)">
+                                <td style="width: 200px">{{content.Title}}</td>
+                                <td>{{content.SMS}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

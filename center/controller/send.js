@@ -1289,7 +1289,7 @@ sas
                 $scope.content = data;
                 $scope._phone = data.Phone;
                 get_sms();
-                $('#sms').modal('show');
+                $('#sms6').modal('show');
             }
 
             $scope.send = function (data) {
@@ -1434,13 +1434,13 @@ sas
 
 
             $scope.GetMau = function () {
-                $('#smsmau').modal('show');
+                $('#smsmau6').modal('show');
             }
 
             $scope.chonmau = function (data) {
                 let tmp_nd = data.SMS;
                 $scope.nd_sms_mau = replace_sms_string(tmp_nd);
-                $('#smsmau').modal('hide');
+                $('#smsmau6').modal('hide');
             }
             
         }
