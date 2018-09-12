@@ -1114,6 +1114,7 @@ sas
                     $scope._details.Appointment_time = tmpTime;
                 }
 
+                
                 // kiểm tra sale
                 //  if($scope.selectedManager !== null){
                 //     var tmpManager = [

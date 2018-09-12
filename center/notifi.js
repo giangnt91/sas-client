@@ -28,7 +28,8 @@ sas
                             align: align
                         }
                     });
-            },        
+                $.playSound('assets/sound/circles.m4r');
+            },
             _notifi: function (sms, from, align) {
                 $.notify({
                     icon: "info",
@@ -42,6 +43,7 @@ sas
                             align: 'center'
                         }
                     });
+                $.playSound('assets/sound/circles.m4r');
             }
         }
     });
