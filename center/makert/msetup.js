@@ -15,13 +15,17 @@ sas
                             if ($rootScope.auth.Role[0].id === 0) {
                                 _result.forEach(element => {
                                     if (element.Role[0].id === 2 && element.SheetID !== null) {
-                                        $scope.Markets.push(element);
+                                        if (element.SheetID.length > 0) {
+                                            $scope.Markets.push(element);
+                                        }
                                     }
                                 });
                             } else {
                                 _result.forEach(element => {
-                                    if (element.Username === $rootScope.auth.Username && element.SheetID !== null && element.SheetID.length > 0) {
-                                        $scope.Markets.push(element);
+                                    if (element.Username === $rootScope.auth.Username && element.SheetID !== null) {
+                                        if (element.SheetID.length > 0) {
+                                            $scope.Markets.push(element);
+                                        }
                                     }
                                 });
                             }

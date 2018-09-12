@@ -1,7 +1,7 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        var api_gateway_url = 'http://35.240.165.98:191';
-        // var api_gateway_url = 'http://localhost:191';
+        // var api_gateway_url = 'http://35.240.165.98:191';
+        var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
@@ -377,6 +377,23 @@ angular.module('SASService', [])
                     Today: Today
                 })
                 url = api_gateway_url + '/chartlh';
+                return $http.post(url, parameter, header);
+            },
+            GetSMSDemo: function () {
+                url = api_gateway_url + '/getsms';
+                return $http.post(url, parameter, header);
+            }
+        }
+    })
+    .factory('SMSService', function ($http) {
+        var parameter;
+        var header = { header: { 'X-Requested-With': 'XMLHttpRequest' } };
+        return {
+            SendSMS: function (sdt, noidung) {
+                url = 'center/getsms.php';
+                parameter = {
+                    smsurl: 'http://cloudsms.vietguys.biz:8088/api/?u=SAS-Center&pwd=wcs8z&from=SAS.edu.vn&phone=' + sdt + '&sms=' + noidung
+                }
                 return $http.post(url, parameter, header);
             }
         }

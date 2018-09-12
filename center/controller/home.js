@@ -1,5 +1,5 @@
 sas
-    .controller('HomeCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
+    .controller('HomeCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket, SMSService, $http) {
         // go manager
         $scope.go_manageruser = function () {
             $location.path('/manageruser');
@@ -1488,5 +1488,121 @@ sas
                 localStorage.clear();
                 $location.path('/login');
             }
+
+            // SMS Service
+
+            function get_day() {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+
+                if (dd < 10) {
+                    dd = '0' + dd
+                }
+
+                if (mm < 10) {
+                    mm = '0' + mm
+                }
+
+                today = dd + '/' + mm + '/' + yyyy;
+                return today;
+            }
+
+
+            function get_time() {
+                var time = new Date();
+                let tmp = (time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+                return tmp;
+            }
+
+
+            $scope.showsms = function (data) {
+                $scope.content = data;
+                $scope._phone = data.Phone;
+                get_sms();
+                $('#sms').modal('show');
+            }
+
+            $scope.send = function (data) {
+                SMSService.SendSMS($scope.content.Phone, $scope.nd_sms_mau).then(function (repsonse) {
+                    if (repsonse.data < 0) {
+                       h = get_time();
+                       d = get_day();
+                    } else {
+
+                    }
+                })
+            }
+
+            $scope.clear_sms = function () {
+                $scope.nd_sms_mau = '';
+            }
+
+            // định nghĩa thay từ khóa trong tin nhắn mẫu
+            let gioi_tinh = '#@gioitinh';
+            let _name = '#@name';
+            let thoigiantest = '#@thoigiantest';
+            let coso = '#@coso';
+            let thoigiantest2 = '#@thoigiantest2';
+
+            function replace_sms_string(nd) {
+                for (let i = 0; i < nd.length; i++) {
+                    nd = nd.replace(_name, $scope._details.Fullname);
+
+                    if ($scope._details.Sex !== null) {
+                        if ($scope._details.Sex[0].id === 1) {
+                            nd = nd.replace(gioi_tinh, 'Anh')
+                        }
+                        if ($scope._details.Sex[0].id === 2) {
+                            nd = nd.replace(gioi_tinh, 'Chị')
+                        }
+
+                    } else {
+                        nd = nd.replace(gioi_tinh, 'Anh/Chị');
+                    }
+
+                    if ($scope._details.Appointment_time !== null) {
+                        nd = nd.replace(thoigiantest, $scope._details.Appointment_time[0].name)
+                    } else {
+                        nd = nd.replace(thoigiantest, 'thời gian thích hợp')
+                    }
+
+                    if ($scope._details.Appointment_day !== null) {
+                        nd = nd.replace(thoigiantest2, $scope._details.Appointment_day)
+                    } else {
+                        nd = nd.replace(thoigiantest2, 'thời gian thích hợp')
+                    }
+
+                    if ($scope._details.Center !== null) {
+                        nd = nd.replace(coso, $scope._details.Center[0].name)
+                    } else {
+                        nd = nd.replace(coso, 'trung tâm SAS gần nhất')
+                    }
+                }
+
+                return nd;
+            }
+
+            function get_sms() {
+                DataServices.GetSMSDemo().then(function (response) {
+                    if (response.data.error_code === 0) {
+                        $scope.Mau = response.data.sms;
+                        $scope.nd_sms_mau = replace_sms_string($scope.Mau[0].SMS);
+                    }
+                })
+            }
+
+
+            $scope.GetMau = function () {
+                $('#smsmau').modal('show');
+            }
+
+            $scope.chonmau = function (data) {
+                let tmp_nd = data.SMS;
+                $scope.nd_sms_mau = replace_sms_string(tmp_nd);
+                $('#smsmau').modal('hide');
+            }
+
         }
     })

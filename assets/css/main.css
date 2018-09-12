@@ -6,8 +6,49 @@
     font-weight: bold;
 }
 
-.sas-color{
+.sas-color {
     color: #2981C4 !important;
+}
+
+/*
+ *  STYLE 11
+ */
+
+.sms-scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(31, 172, 277, 0.3);
+    background-color: #F5F5F5;
+}
+
+.sms-scroll::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.sms-scroll::-webkit-scrollbar-thumb {
+    background-color: #1FACE3;
+}
+
+.sms-send {
+    font-size: 14px;
+    border: 1px solid #1FACE3;
+    padding: 6px;
+    border-radius: 11px;
+    margin-top: 10px;
+    margin-bottom: 1px;
+}
+
+.sms-status {
+    display: block;
+    font-size: 80%;
+    color: #6c757d;
+}
+
+.sms-nd {
+    border: 0.5px solid rgba(31, 172, 227, .7);
+    border-radius: 10px;
+    border-bottom: none;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .login-content {
@@ -41,7 +82,7 @@
     margin: 3px !important;
 }
 
-.m-3-top{
+.m-3-top {
     margin-top: 3px !important;
 }
 
@@ -49,31 +90,34 @@
     max-width: 1280px;
 }
 
-.material-datatables select{
+.material-datatables select {
     width: 75px !important;
     border: none !important;
     -webkit-appearance: menulist !important;
 }
 
-.material-datatables input[type=search]{
+.material-datatables input[type=search] {
     border: 1px solid #E4E4E4 !important;
     border-radius: 3px !important;
     width: 16em;
     /* display: none; */
 }
-.doc h4{
+
+.doc h4 {
     color: red;
     font-weight: bolder;
 }
-.padlr-14{
+
+.padlr-14 {
     padding: 10px 21px !important;
 }
-.chartcard{
+
+.chartcard {
     margin-top: 0px !important;
     padding-top: 30px;
 }
 
-.main-panel > .content{
+.main-panel>.content {
     margin-top: 29px !important;
 }
 

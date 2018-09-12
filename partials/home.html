@@ -52,7 +52,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-11">
-                                                    <a href="#" class="btn btn-default btn-block" style="margin-left: 20px" ng-click="Clear()">
+                                                    <a href="#" class="btn btn-default btn-block" style="margin-left: 20px"
+                                                        ng-click="Clear()">
                                                         <i class="material-icons">clear_all</i> Clear
                                                     </a>
                                                 </div>
@@ -112,7 +113,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">
-                    Thông Tin Chi Tiết Học Viên {{_details._id}}  <span class="badge  badge-danger" ng-if="_details.Duplicate !== null">Học Viên bị trùng với TeleSale {{_details.Duplicate[0].prename}} có username là {{_details.Duplicate[0].preid}}</span></h4>
+                    Thông Tin Chi Tiết Học Viên {{_details._id}} <span class="badge  badge-danger" ng-if="_details.Duplicate !== null">Học
+                        Viên bị trùng với TeleSale {{_details.Duplicate[0].prename}} có username là
+                        {{_details.Duplicate[0].preid}}</span></h4>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -183,15 +186,6 @@
                                             <textarea class="form-control" rows="5" ng-model="_details.Note" id="dnote"></textarea>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-lg-1 p-0">
-                                        <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;" ng-click="up_detail()">Cập
-                                                Nhật
-                                            </button>
-                                            <button class="btn btn-info btn-block">SMS</button>
-                                            <button class="btn btn-info btn-block">Email</button>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </form>
                         </div>
@@ -235,23 +229,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-lg-2" ng-if="auth.Role[0].id === 0">
-                                        <div class="input-group add">
-                                            <label for="giohen">Sale</label>
-                                            <select class="form-control" ng-model="selectedManager" ng-options="option.Username for option in users">
-                                            </select>
-                                        </div>
-                                    </div> -->
                                     <div class="col-lg-2">
-                                        <!-- <button type="button" class="btn btn-lg btn-warning btn-block top-65" ng-click="up_detail_2()">
-                                            Cập nhật
-                                        </button> -->
                                         <div class="form-group">
                                             <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;"
                                                 ng-disabled="_details.Status_student[0].id === 3 || auth.Username !== _details.Manager[0].id"
                                                 ng-click="up_detail()">Cập Nhật
                                             </button>
-                                            <button class="btn btn-info btn-block">SMS</button>
+                                            <button class="btn btn-info btn-block" ng-click="showsms(_details)">SMS</button>
                                             <button class="btn btn-info btn-block">Email</button>
                                         </div>
                                     </div>
@@ -393,12 +377,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label for="note">Ghi chú</label>
-                                                <textarea class="form-control" rows="5" ng-model="maddNote" id="note"></textarea>
-                                            </div>
-                                        </div> -->
                                     <div class="col-lg-1 p-0">
                                         <div class="form-group">
                                             <button class="btn btn-warning btn-block btn-lg" style="padding-left: 17px;"
@@ -456,9 +434,6 @@
                                             <label for="note">Ghi chú</label>
                                             <textarea class="form-control" rows="5" ng-model="maddNote" id="note"></textarea>
                                         </div>
-                                        <!-- <button type="button" class="btn btn-lg btn-warning btn-block top-65">Thêm mới và
-                                                chuyển
-                                            </button> -->
                                     </div>
                                 </div>
                             </form>
@@ -466,10 +441,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
         </div>
     </div>
 </div>
@@ -724,6 +695,101 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 
             </div> -->
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal SMS -->
+<div class="modal fade" id="sms" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block">
+                <h4 class="modal-title text-center" id="exampleModalLabel">SMS</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="height: 10px; margin-top: -41px;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="passform">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="input-group add">
+                                <input type="text" class="form-control" ng-model="_phone">
+                            </div>
+                        </div>
+                        <div class="col-lg-12 pre-scrollable sms-scroll" style="margin-top:10px; margin-bottom: 10px; height: 300px">
+                            <p class="sms-send">
+                                SAS xin moi chi DAO den tham gia kiem tra trinh do va nhan tu van chi tiet ve khoa hoc
+                                vao luc 19h ngay 06/09/2018 tai dia chi 84 Tay Thanh,p Tay Thanh, Q.Tan Phu. Neu gap
+                                kho khan trong viec tim duong, vui long lien he hotline 0903622994 - 0906322995. Tham
+                                khao dia chi trung tam tai https://goo.gl/4yQceW. Chuc chi mot ngay tot lanh.
+
+                                <div class="row">
+                                    <div class="col-lg-6 text-left">
+                                        <footer class="sms-status">5/9/2018 14:7:2</footer>
+                                    </div>
+                                    <div class="col-lg-6 text-right">
+                                        <footer class="sms-status">gửi thành công</footer>
+                                    </div>
+                                </div>
+
+                            </p>
+
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="input-group add">
+                                <textarea class="form-control sms-nd" rows="5" ng-model="nd_sms_mau"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <button type="button" class="btn btn-primary btn-block" style="padding-left: 18px" ng-click="GetMau()">SMS
+                            Mẫu</button>
+                    </div>
+                    <div class="col-lg-6">
+                        <button type="button" class="btn btn-info btn-block" ng-click="send(data)">Gửi Tin</button>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="button" class="btn btn-warning btn-block" ng-click="clear_sms()">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal SMS Mẫu -->
+<!-- Modal -->
+<div class="modal fade" id="smsmau" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tin Nhắn Mẫu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table cellpadding="0" class="table cell-border table-hover" style="font-size: 14px">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Chủ Đề</th>
+                            <th>Nội Dung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="content in Mau" style="cursor:pointer" ng-click="chonmau(content)">
+                            <td style="width: 200px">{{content.Title}}</td>
+                            <td>{{content.SMS}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

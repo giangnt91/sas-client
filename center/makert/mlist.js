@@ -18,11 +18,14 @@ sas
                             }];
                             _result.forEach(element => {
                                 if (element.Role[0].id === 2 && element.SheetID !== null) {
-                                    let tmp = {
-                                        id: element.SheetID[0].id,
-                                        name: element.SheetID[0].name
+                                    if (element.SheetID.length > 0) {
+                                        let tmp = {
+                                            id: element.SheetID[0].id,
+                                            name: element.SheetID[0].name
+                                        }
+                                        $scope.Markets.push(tmp);
                                     }
-                                    $scope.Markets.push(tmp);
+
                                 }
                             });
                         }

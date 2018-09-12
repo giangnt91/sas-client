@@ -53,28 +53,36 @@ sas
                 //lấy danh sách các user makerting có sheetid
                 $scope.Sheeter = [];
                 $scope.UsersMK.forEach(element => {
-                    if (element.SheetID !== null && element.SheetID[0].isready === true) {
-                        $scope.Sheeter.push(element);
+                    if (element.SheetID !== null) {
+                        if (element.SheetID.length > 0) {
+                            if (element.SheetID[0].isready === true) {
+                                $scope.Sheeter.push(element);
+                            }
+                        }
                     }
                 });
 
                 // lấy danh sách các group có makerting cho sheetid
                 $scope.Groupter = [];
                 $scope.UsersMK.forEach(element => {
-                    if (element.SheetID !== null && element.SheetID[0].isready === true) {
-                        $scope.AllGroups.forEach(gelement => {
-                            if (gelement._id === element.Zone[0].id) {
-                                if ($scope.Groupter.length > 0) {
-                                    $scope.Groupter.forEach(el => {
-                                        if (el._id !== element.Zone[0].id) {
+                    if (element.SheetID !== null) {
+                        if (element.SheetID.length > 0) {
+                            if (element.SheetID[0].isready === true) {
+                                $scope.AllGroups.forEach(gelement => {
+                                    if (gelement._id === element.Zone[0].id) {
+                                        if ($scope.Groupter.length > 0) {
+                                            $scope.Groupter.forEach(el => {
+                                                if (el._id !== element.Zone[0].id) {
+                                                    $scope.Groupter.push(gelement);
+                                                }
+                                            });
+                                        } else {
                                             $scope.Groupter.push(gelement);
                                         }
-                                    });
-                                } else {
-                                    $scope.Groupter.push(gelement);
-                                }
+                                    }
+                                });
                             }
-                        });
+                        }
                     }
                 });
 
