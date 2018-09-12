@@ -1,5 +1,5 @@
 sas
-    .controller('CalendarCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket) {
+    .controller('CalendarCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket, SMSService) {
         // hiển thị ngày tháng
         function convertshow(x) {
             var parts = x.split("/");
@@ -456,21 +456,6 @@ sas
                 }
             })
         }
-
-        // tạo học viên bình thường
-        function Cstudent(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
-            DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager).then(function (response) {
-                if (response.data.error_code === 0) {
-                    getStudent($rootScope.auth.Username, $rootScope.auth.Role);
-                    Notifi._success('Tạo học viên thành công.');
-                } else if (response.data.error_code === 1) {
-                    Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
-                } else if (response.data.error_code === 2) {
-                    Notifi._error('Số điện thoại đã tồn tại không thể tạo học viên.');
-                }
-            })
-        }
-
 
         // cập nhật thông tin học viên
         function update_student(student) {
@@ -1244,5 +1229,208 @@ sas
                     CstudentF(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
                 }
             }
+
+            // SMS Service
+
+            function change_alias(alias) {
+                var str = alias;
+                str = str.toLowerCase();
+                str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+                str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+                str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+                str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+                str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+                str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+                str = str.replace(/đ/g, "d");
+                str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
+                str = str.replace(/ + /g, " ");
+                str = str.trim();
+                return str;
+            }
+
+            function get_day() {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+
+                if (dd < 10) {
+                    dd = '0' + dd
+                }
+
+                if (mm < 10) {
+                    mm = '0' + mm
+                }
+
+                today = dd + '/' + mm + '/' + yyyy;
+                return today;
+            }
+
+
+            function get_time() {
+                var time = new Date();
+                let tmp = (time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+                return tmp;
+            }
+
+
+            $scope.showsms = function (data) {
+                $scope.content = data;
+                $scope._phone = data.Phone;
+                get_sms();
+                $('#sms').modal('show');
+            }
+
+            $scope.send = function (data) {
+                SMSService.SendSMS($scope._phone, $scope.nd_sms_mau).then(function (resms) {
+                    let _result = parseInt(resms.data);
+                    if (_result > 0) {
+                        h = get_time();
+                        d = get_day();
+                        let _day = h + ' ' + d;
+                        let _sms = {
+                            SendUser: $rootScope.auth.Username,
+                            SendFullname: $rootScope.auth.Fullname,
+                            SMS: $scope.nd_sms_mau,
+                            Time: _day,
+                            _Status: 'gửi thành công'
+                        }
+
+                        if ($scope.content.SMS !== undefined) {
+                            if ($scope.content.SMS !== null) {
+                                $scope.content.SMS.unshift(_sms);
+                                $scope.content.SMS = angular.fromJson(angular.toJson($scope.content.SMS));
+                            } else {
+                                $scope.content.SMS = [_sms];
+                            }
+                        }
+
+                        DataServices.UpStudent($scope.content).then(function (response) {
+                            if (response.data.error_code === 0) {
+                                Notifi._success('Gửi tin nhắn thành công.');
+                                getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+                            }
+                        })
+                    } else {
+                        switch (parseInt(_result)) {
+                            case -1:
+                                Notifi._error('Chưa nhập đầy đủ thông tin các trường');
+                                break;
+                            case -2:
+                                Notifi._error('Không thể kết nối máy chủ trong thời gian này');
+                                break;
+                            case -3:
+                                Notifi._error('Thông tin tài khoản chưa chính xác');
+                                break;
+                            case -4:
+                                Notifi._error('Tài khoản đang bị khoá');
+                                break;
+                            case -5:
+                                Notifi._error('Thông tin xác thực tài khoản chưa chính xác (mã lập trình)');
+                                break;
+                            case -6:
+                                Notifi._error('Chức năng gửi API chưa được kích hoạt');
+                                break;
+                            case -7:
+                                Notifi._error('IP bị giới hạn truy cập');
+                                break;
+                            case -8:
+                                Notifi._error('Tên người gửi (from) chưa được khai báo.)');
+                                break;
+                            case -9:
+                                Notifi._error('Tài khoản hết credits gửi tin (dành cho trả trước)');
+                                break;
+                            case -10:
+                                Notifi._error('Số điện thoại không đúng');
+                                break;
+                            case -11:
+                                Notifi._error('Số điện thoại nằm trong danh sách từ chối nhận tin');
+                                break;
+                            case -14:
+                                Notifi._error('Tin nhắn có chứa nội dung quảng cáo');
+                                break;
+                            case -16:
+                                Notifi._error('Không được gửi liên tục số ĐT này');
+                                break;
+                            case -18:
+                                Notifi._error('Nội dung có chứa quảng cáo');
+                                break;
+                        }
+
+                    }
+                })
+            }
+
+            $scope.clear_sms = function () {
+                $scope.nd_sms_mau = '';
+            }
+
+            // định nghĩa thay từ khóa trong tin nhắn mẫu
+            let gioi_tinh = '#@gioitinh';
+            let _name = '#@name';
+            let thoigiantest = '#@thoigiantest';
+            let coso = '#@coso';
+            let thoigiantest2 = '#@thoigiantest2';
+
+            function replace_sms_string(nd) {
+                for (let i = 0; i < nd.length; i++) {
+                    nd = nd.replace(_name, change_alias($scope._details.Fullname));
+
+                    if ($scope._details.Sex !== null) {
+                        if ($scope._details.Sex[0].id === 1) {
+                            nd = nd.replace(gioi_tinh, 'Anh')
+                        }
+                        if ($scope._details.Sex[0].id === 2) {
+                            nd = nd.replace(gioi_tinh, 'Chi')
+                        } if ($scope._details.Sex[0].id === null) {
+                            nd = nd.replace(gioi_tinh, 'A/C')
+                        }
+
+                    } else {
+                        nd = nd.replace(gioi_tinh, 'A/C');
+                    }
+
+                    if ($scope._details.Appointment_time !== null) {
+                        nd = nd.replace(thoigiantest, $scope._details.Appointment_time[0].name)
+                    } else {
+                        nd = nd.replace(thoigiantest, 'thoi gian thich hop')
+                    }
+
+                    if ($scope._details.Appointment_day !== null) {
+                        nd = nd.replace(thoigiantest2, $scope._details.Appointment_day)
+                    } else {
+                        nd = nd.replace(thoigiantest2, 'thoi gian thich hop')
+                    }
+
+                    if ($scope._details.Center !== null) {
+                        nd = nd.replace(coso, change_alias($scope._details.Center[0].name))
+                    } else {
+                        nd = nd.replace(coso, 'trung tam SAS gan nhat')
+                    }
+                }
+
+                return nd;
+            }
+
+            function get_sms() {
+                DataServices.GetSMSDemo().then(function (response) {
+                    if (response.data.error_code === 0) {
+                        $scope.Mau = response.data.sms;
+                        $scope.nd_sms_mau = replace_sms_string($scope.Mau[0].SMS);
+                    }
+                })
+            }
+
+
+            $scope.GetMau = function () {
+                $('#smsmau').modal('show');
+            }
+
+            $scope.chonmau = function (data) {
+                let tmp_nd = data.SMS;
+                $scope.nd_sms_mau = replace_sms_string(tmp_nd);
+                $('#smsmau').modal('hide');
+            }
+
         }
     })
