@@ -483,8 +483,10 @@ sas
                     $scope.friendId = response.data._id;
                     update_student($scope._details);
                     Notifi._success('Tạo học viên thành công.');
-                } else {
+                } else if (response.data.error_code === 1) {
                     Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
+                } else if (response.data.error_code === 2) {
+                    Notifi._error('Số điện thoại đã tồn tại không thể tạo học viên.');
                 }
             })
         }

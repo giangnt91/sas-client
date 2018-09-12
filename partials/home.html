@@ -720,22 +720,15 @@
                             </div>
                         </div>
                         <div class="col-lg-12 pre-scrollable sms-scroll" style="margin-top:10px; margin-bottom: 10px; height: 300px">
-                            <p class="sms-send">
-                                SAS xin moi chi DAO den tham gia kiem tra trinh do va nhan tu van chi tiet ve khoa hoc
-                                vao luc 19h ngay 06/09/2018 tai dia chi 84 Tay Thanh,p Tay Thanh, Q.Tan Phu. Neu gap
-                                kho khan trong viec tim duong, vui long lien he hotline 0903622994 - 0906322995. Tham
-                                khao dia chi trung tam tai https://goo.gl/4yQceW. Chuc chi mot ngay tot lanh.
-
-                                <div class="row">
-                                    <div class="col-lg-6 text-left">
-                                        <footer class="sms-status">5/9/2018 14:7:2</footer>
-                                    </div>
-                                    <div class="col-lg-6 text-right">
-                                        <footer class="sms-status">gửi thành công</footer>
-                                    </div>
-                                </div>
-
+                            <p class="sms-send" ng-repeat="dt in content.SMS">
+                               <span style="display: block; border-bottom: 1px solid rgba(240, 240, 240, .9)">{{dt.SMS}}</span> 
+                                <span class="sms-status text-left">{{dt.Time}}</span>
+                                <span class="sms-status text-right" style="float:right">{{dt._Status}}</span>
                             </p>
+
+                            <h4 class="text-center" style="color: rgba(240, 240, 240, .9);" ng-if="content.SMS === null">Chưa
+                                có tin nhắn nào
+                                được gửi cho học viên này</h4>
 
                         </div>
                         <div class="col-lg-12">
@@ -764,7 +757,6 @@
 
 
 <!-- Modal SMS Mẫu -->
-<!-- Modal -->
 <div class="modal fade" id="smsmau" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">

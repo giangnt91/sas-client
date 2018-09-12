@@ -38,7 +38,7 @@
 }
 
 .sms-status {
-    display: block;
+    /* display: block; */
     font-size: 80%;
     color: #6c757d;
 }
