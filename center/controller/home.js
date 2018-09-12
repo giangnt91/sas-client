@@ -1224,7 +1224,10 @@ sas
                 var _tmpdayhen = $('#addngayhen').val();
                 var _manager = [{
                     id: $scope.auth.Username,
-                    name: $scope.auth.Fullname
+                    name: $scope.auth.Fullname,
+                    sheetId: null,
+                    mid: null,
+                    mname: null
                 }]
                 if (data === undefined ||
                     data.fullname === undefined ||
@@ -1313,7 +1316,10 @@ sas
                 var _tmpdayhen = $('#maddngayhen').val();
                 var _manager = [{
                     id: $scope.auth.Username,
-                    name: $scope.auth.Fullname
+                    name: $scope.auth.Fullname,
+                    sheetId: null,
+                    mid: null,
+                    mname: null
                 }]
                 if (data === undefined ||
                     data.fullname === undefined ||
