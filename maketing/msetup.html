@@ -185,7 +185,11 @@
                                                 </div>
                                                 <input type="text" class="form-control" ng-model="_sheet.id">
                                             </div>
-
+                                            <div class="input-group add">
+                                                    <label for="urlads">Trạng thái</label>
+                                                    <input type="text" class="form-control" ng-show="_sheet.isready === true" value="Hoạt động" disabled>
+                                                    <input type="text" class="form-control" ng-show="_sheet.isready === false" value="Ngưng hoạt động" disabled>
+                                                </div>
                                             <div class="input-group add">
                                                 <label for="urlads">Url ads</label>
                                                 <input type="text" class="form-control" ng-model="_sheet.urlads">

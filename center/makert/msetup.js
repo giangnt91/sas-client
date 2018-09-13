@@ -5,6 +5,17 @@ sas
         if (!$rootScope.auth) {
             $location.path('/login');
         } else {
+
+            // lấy tất cả các group
+            function Getallgroup() {
+                DataServices.GetallGgroup().then(function (response) {
+                    if (response.data.error_code === 0) {
+                        $scope.AllGroups = response.data.groups;
+                    }
+                })
+            }
+            Getallgroup();
+
             // lấy danh sách form từ danh sách user
             function getUsers() {
                 DataServices.GetallUSerforGroup().then(function (repsonse) {
@@ -111,8 +122,49 @@ sas
                 });
 
                 $scope._detail = angular.fromJson(angular.toJson(_detail));
+
+                $scope.AllGroups.forEach(element => {
+                    if (element.Sheet !== null) {
+                        element.Sheet.forEach(el => {
+                            if (el.muser === $scope._detail.Username) {
+                                $scope._detail_group = element;
+                            }
+                        });
+                    }
+                });
+
+                var _notexit = false;
+                if ($scope._detail_group !== undefined) {
+                    $scope._detail_group.Sheet.forEach(function (sheet, index) {
+                        if (sheet.muser === $scope._detail.Username && sheet.sheetname === data.name) {
+                            if (check === false) {
+                                $scope._detail_group.Sheet.splice(index, 1);
+                            } else {
+                                sheet.id = data.id
+                            }
+                        } else {
+                            _notexit = true;
+                        }
+                    });
+                }
+
+                if (_notexit === true) {
+                    if (check === true) {
+                        let tmp = {
+                            name: $scope._detail.Fullname,
+                            muser: $scope._detail.Username,
+                            id: data.id,
+                            sheetname: data.name,
+                            isready: check,
+                            group: $scope._detail_group.Name
+                        }
+                        $scope._detail_group.Sheet.push(tmp);
+                    }
+                }
+
                 DataServices.UpdateUser($scope._detail).then(function (response) {
                     if (response.data.error_code === 0) {
+                        DataServices.UpGroup($scope._detail_group).then(function (repsonse) { });
                         getUsers();
                         Notifi._success('Cập nhật trạng thái thành công');
                         $('#upform').modal('hide');
@@ -137,8 +189,27 @@ sas
                 });
                 $scope._detail = angular.fromJson(angular.toJson($scope._detail));
 
+                $scope.AllGroups.forEach(element => {
+                    if (element.Sheet !== null) {
+                        element.Sheet.forEach(el => {
+                            if (el.muser === $scope._detail.Username) {
+                                $scope._detail_group = element;
+                            }
+                        });
+                    }
+                });
+
+                if ($scope._detail_group !== undefined) {
+                    $scope._detail_group.Sheet.forEach(function (sheet, index) {
+                        if (sheet.muser === $scope._detail.Username && sheet.sheetname === data.name) {
+                            sheet.id = data.id
+                        }
+                    });
+                }
+
                 DataServices.UpdateUser($scope._detail).then(function (response) {
                     if (response.data.error_code === 0) {
+                        DataServices.UpGroup($scope._detail_group).then(function (repsonse) { });
                         getUsers();
                         Notifi._success('Cập nhật Form thành công');
                         $('#upform').modal('hide');

@@ -1398,6 +1398,10 @@ sas
             }
 
             // thay đổi mật khẩu
+            $scope._close = function(){
+                window.history.back();
+                window.location.reload(true);
+            }
             $scope.update = function () {
 
                 if ($scope.oldpass == undefined || $scope.oldpass === '') {

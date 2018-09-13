@@ -55,9 +55,9 @@ sas
                 $scope.UsersMK.forEach(element => {
                     if (element.SheetID !== null) {
                         if (element.SheetID.length > 0) {
-                            if (element.SheetID[0].isready === true) {
-                                $scope.Sheeter.push(element);
-                            }
+                            // if (element.SheetID[0].isready === true) {
+                            $scope.Sheeter.push(element);
+                            // }
                         }
                     }
                 });
@@ -125,13 +125,20 @@ sas
                 let Sheet_list = [];
                 if ($scope.Makerts.length > 0) {
                     $scope.Makerts.forEach(element => {
-                        let tmp = {
-                            name: element.Fullname,
-                            muser: element.Username,
-                            id: element.SheetID[0].id,
-                            group: null
-                        }
-                        Sheet_list.push(tmp);
+                        element.SheetID.forEach(sheet => {
+                            if (sheet.isready === true) {
+                                let tmp = {
+                                    name: element.Fullname,
+                                    muser: element.Username,
+                                    id: sheet.id,
+                                    sheetname: sheet.name,
+                                    isready: sheet.isready,
+                                    group: null
+                                }
+                                Sheet_list.push(tmp);
+                            }
+
+                        });
                     });
                 }
 
@@ -139,13 +146,19 @@ sas
                     $scope.Groupmk.forEach(g => {
                         $scope.Sheeter.forEach(s => {
                             if (s.Zone[0].id === g._id) {
-                                let tmp = {
-                                    name: s.Fullname,
-                                    muser: s.Username,
-                                    id: s.SheetID[0].id,
-                                    group: g.Name
-                                }
-                                Sheet_list.push(tmp);
+                                s.SheetID.forEach(element => {
+                                    if (element.isready === true) {
+                                        let tmp = {
+                                            name: s.Fullname,
+                                            muser: s.Username,
+                                            id: element.id,
+                                            sheetname: element.name,
+                                            isready: element.isready,
+                                            group: g.Name
+                                        }
+                                        Sheet_list.push(tmp);
+                                    }
+                                });
                             }
                         });
                     });
@@ -674,7 +687,7 @@ sas
         $scope.Delg = function (_id) {
             DataServices.DelGroup(_id).then(function (response) {
                 if (response.data.error_code === 0) {
-                    DataServices.Rmgroupofuser(_id).then(function(res){
+                    DataServices.Rmgroupofuser(_id).then(function (res) {
                         console.log(response.data)
                     })
                     Getallgroup();
