@@ -28,7 +28,7 @@ sas
                             align: align
                         }
                     });
-                $.playSound('assets/sound/circles.m4r');
+                // $.playSound('assets/sound/circles.m4r');
             },
             _notifi: function (sms, from, align) {
                 $.notify({

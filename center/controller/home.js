@@ -1509,11 +1509,9 @@ sas
                 left = left > 0 ? left / 2 : 0;
 
                 let url = 'http://sascall.slk.vn/?phone=' + $rootScope.auth.Phone + '&user=' + $rootScope.auth.Username + '&pass=' + $rootScope.auth.Password
-                var uploadWin = window.open(url, "Upload Chapter content", "width=540,height=540" + ",top=" + top + ",left=" + left);
-                uploadWin.moveTo(left, top);
-                uploadWin.focus();
-
-                // window.open(url, '_blank', 'height=440,width=540');
+                var ThePhone = window.open(url, "Upload Chapter content", "width=540,height=540" + ",top=" + top + ",left=" + left);
+                ThePhone.moveTo(left, top);
+                ThePhone.focus();
             }
 
             // SMS Service
