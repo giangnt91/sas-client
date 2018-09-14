@@ -394,7 +394,11 @@ angular.module('SASService', [])
     })
     .factory('SMSService', function ($http) {
         var parameter;
-        var header = { header: { 'X-Requested-With': 'XMLHttpRequest' } };
+        // var header = { header: { 'X-Requested-With': 'XMLHttpRequest' } };
+        var header = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
         return {
             SendSMS: function (sdt, noidung) {
                 url = 'center/getsms.php';
