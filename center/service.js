@@ -392,7 +392,7 @@ angular.module('SASService', [])
             }
         }
     })
-    .factory('SMSService', function ($http, $resource) {
+    .factory('SMSService', function ($http) {
         var api_gateway_url = 'http://35.240.165.98:191';
         // var api_gateway_url = 'http://localhost:191';
         var parameter;
