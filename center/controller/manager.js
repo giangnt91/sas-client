@@ -607,17 +607,31 @@ sas
                                 $scope.Users.push(user);
                             }
                         });
+
+                        $scope.UsersMK = [];
+                        _result.forEach(element => {
+                            if (element.Role[0].id === 2) {
+                                $scope.UsersMK.push(element);
+                            }
+                        });
                     }
                 }
             })
         }
         getUsers();
 
+
         // lấy tất cả các group
         function Getallgroup() {
             DataServices.GetallGgroup().then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.AllGroups = response.data.groups;
+                    $scope.AllTele = [];
+                    $scope.AllGroups.forEach(element => {
+                        if (element.Gtype[0].id === 1) {
+                            $scope.AllTele.push(element);
+                        }
+                    });
                 }
             })
         }
@@ -720,6 +734,30 @@ sas
 
         // cập nhật group
 
+        $scope.Grouptl = [];
+        $scope.ChangeCheckGTL = function (data, check) {
+            if (check === undefined) {
+                check = false;
+            }
+            $scope.rmlist = [];
+            if (check === true) {
+                $scope.Grouptl.push(data)
+            } else {
+                $scope.Grouptl.forEach(function (element, index) {
+                    if (element._id === data._id) {
+                        $scope.Grouptl.splice(index, 1);
+                    }
+                });
+
+                $scope.Mygroup.Tele.forEach(function (element, index) {
+                    if (element.id === data._id) {
+                        $scope.Mygroup.Tele.splice(index, 1)
+                        $scope.rmlist.push(element.id);
+                    }
+                });
+            }
+        }
+
         $scope.getUserforupchange = function () {
             $scope.upLeaders = [];
             if ($scope.upgroup.id !== null) {
@@ -745,6 +783,18 @@ sas
         }
 
         $scope.OpeneditGroup = function (_detail) {
+            $scope.Mygroup = _detail;
+            $scope.Sheeter = [];
+            $scope.UsersMK.forEach(element => {
+                if (element.SheetID !== null) {
+                    if (element.SheetID.length > 0) {
+                        // if (element.SheetID[0].isready === true) {
+                        $scope.Sheeter.push(element);
+                        // }
+                    }
+                }
+            });
+
             $scope.update_g = _detail;
             $scope.Groups.forEach(element => {
                 if (_detail.Gtype[0].id === element.id) {
@@ -788,6 +838,172 @@ sas
         }
 
         $scope.UpdateGroup = function () {
+            if ($scope.upgroup.id === 2) {
+                if ($scope.Grouptl.length > 0) {
+
+                    let Sheet_list = [];
+                    $scope.Sheeter.forEach(s => {
+                        if (s.Zone[0].id === $scope.Mygroup._id) {
+                            s.SheetID.forEach(element => {
+                                if (element.isready === true) {
+                                    let tmp = {
+                                        name: s.Fullname,
+                                        muser: s.Username,
+                                        id: element.id,
+                                        sheetname: element.name,
+                                        isready: element.isready,
+                                        group: $scope.Mygroup.Name
+                                    }
+                                    Sheet_list.push(tmp);
+                                }
+                            });
+                        }
+                    });
+
+                    if ($scope.Mygroup.Tele === null) {
+                        let tmp = [];
+                        $scope.Grouptl.forEach(element => {
+                            _ab = {
+                                id: element._id,
+                                name: element.Name
+                            }
+                            tmp.push(_ab);
+                        });
+                        $scope.Mygroup.Tele = tmp;
+                    } else {
+                        let tmp = [];
+                        $scope.Grouptl.forEach(element => {
+                            _ab = {
+                                id: element._id,
+                                name: element.Name
+                            }
+                            tmp.push(_ab);
+                        })
+                        $scope.Mygroup.Tele = tmp;
+                    }
+
+                    if (Sheet_list.length > 0) {
+                        $scope.Grouptl.forEach(element => {
+                            element.Sheet = Sheet_list;
+                        });
+                    }
+
+                    //update group sale is remove
+                    if ($scope.rmlist.length > 0) {
+                        $scope.rmlist.forEach(el => {
+                            $scope.AllGroups.forEach(element => {
+                                if (el === element._id) {
+                                    element.Sheet = null;
+                                    element.Tele = null;
+                                    DataServices.UpGroup(element).then(function (response) {
+                                        if (response.data.error_code === 0) {
+                                            // Getallgroup();
+                                        }
+                                    })
+                                }
+                            });
+                        });
+                    }
+
+                    // update group market
+                    DataServices.UpGroup($scope.Mygroup).then(function (response) {
+                        if (response.data.error_code === 0) {
+                            // Getallgroup();
+                        }
+                    })
+
+                    // update group telesale
+                    $scope.Grouptl.forEach(element => {
+                        let _tmp = {
+                            id: $scope.Mygroup._id,
+                            name: $scope.Mygroup.Name
+                        }
+                        element.Tele = [_tmp];
+                        localStorage.removeItem('id');
+                        DataServices.UpGroup(element).then(function (response) {
+                            if (response.data.error_code === 0) {
+                                // Getallgroup();
+                                // $scope.Grouptl = [];
+                                // a = localStorage.getItem('id');
+                                // if (a !== '1') {
+                                //     localStorage.setItem('id', 1);
+                                //     Notifi._success('Cập nhật thông tin thành công');
+                                // }
+
+                            } else {
+                                Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại sau');
+                            }
+                        })
+                    });
+                } else {
+                    //update group sale is remove
+                    if ($scope.Mygroup.Tele !== null) {
+                        if ($scope.Mygroup.Tele.length > 0) {
+                            $scope.Mygroup.Tele.forEach(el => {
+                                $scope.AllGroups.forEach(element => {
+                                    if (el.id === element._id) {
+                                        element.Sheet = null;
+                                        element.Tele = null;
+                                        DataServices.UpGroup(element).then(function (response) {
+                                            if (response.data.error_code === 0) {
+                                                // Getallgroup();
+                                            }
+                                        })
+                                    }
+                                });
+                            });
+                        } else {
+                            if ($scope.rmlist !== undefined) {
+                                $scope.rmlist.forEach(el => {
+                                    $scope.AllGroups.forEach(element => {
+                                        if (el === element._id) {
+                                            element.Sheet = null;
+                                            element.Tele = null;
+                                            DataServices.UpGroup(element).then(function (response) {
+                                                if (response.data.error_code === 0) {
+                                                    // Getallgroup();
+                                                }
+                                            })
+                                        }
+                                    });
+                                });
+                            }
+
+                        }
+
+                    } else {
+                        if ($scope.rmlist !== undefined) {
+                            $scope.rmlist.forEach(el => {
+                                $scope.AllGroups.forEach(element => {
+                                    if (el === element._id) {
+                                        element.Sheet = null;
+                                        element.Tele = null;
+                                        DataServices.UpGroup(element).then(function (response) {
+                                            if (response.data.error_code === 0) {
+                                                // Getallgroup();
+                                            }
+                                        })
+                                    }
+                                });
+                            });
+                        }
+                    }
+
+                    // update group market
+                    $scope.Mygroup.Tele = null;
+                    DataServices.UpGroup($scope.Mygroup).then(function (response) {
+                        if (response.data.error_code === 0) {
+                            // $scope.Grouptl = [];
+                            // Getallgroup();
+                            // $scope.cn = false;
+                            // Notifi._success('Cập nhật thông tin thành công');
+                        } else {
+                            // Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại sau');
+                        }
+                    })
+                }
+            }
+
             if ($scope.upgroup.id !== $scope.update_g.Gtype[0].id) {
                 if ($scope.upgroup.id !== null) {
                     $scope.update_g.Gtype[0] = {
@@ -838,6 +1054,7 @@ sas
                         DataServices.Updatermleader(pre_leader).then(function (response) { })
                     }
                     Getallgroup();
+                    $scope.Grouptl = [];
                     Notifi._success('Cập nhật thông tin thành công');
                     $('#upgroup').modal('hide');
                 } else {

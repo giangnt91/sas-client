@@ -157,7 +157,7 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="mfullname">Chọn Loại Group</label>
                                                 </div>
-                                                <select id="upgroup" class="form-control" ng-disabled="show !== true"
+                                                <select id="upgroup" class="form-control"
                                                     ng-model="upgroup" ng-change="getUserforupchange()" ng-options="option.name for option in Groups">
                                                 </select>
                                             </div>
@@ -165,7 +165,7 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="upgroupname">Tên Group</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-disabled="show !== true"
+                                                <input type="text" class="form-control"
                                                     ng-model="upgroupname" id="upgroupname" required>
                                             </div>
 
@@ -173,7 +173,7 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="Leader">Chọn Leader</label>
                                                 </div>
-                                                <select id="upLeader" class="form-control" ng-disabled="upgroup.id === null || show !== true"
+                                                <select id="upLeader" class="form-control" ng-disabled="upgroup.id === null"
                                                     ng-model="upLeader" ng-options="option.name for option in upLeaders">
                                                 </select>
                                             </div>
@@ -190,6 +190,21 @@
 
                                             <div class="input-group add" ng-show="upgroup.id === 2">
                                                 <label>Chọn Group Telesale để kết nối</label>
+                                            </div>
+
+                                            <div class="row" ng-show="upgroup.id === 2">
+                                                <div class="col-lg-4" ng-repeat="content in AllTele">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" ng-model="check" ng-change="ChangeCheckGTL(content, check)"
+                                                                type="checkbox" value="">
+                                                            {{content.Name}}
+                                                            <span class="form-check-sign">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
