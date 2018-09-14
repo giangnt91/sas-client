@@ -392,20 +392,24 @@ angular.module('SASService', [])
             }
         }
     })
-    .factory('SMSService', function ($http) {
+    .factory('SMSService', function ($http, $resource) {
+        var api_gateway_url = 'http://35.240.165.98:191';
+        // var api_gateway_url = 'http://localhost:191';
         var parameter;
-        // var header = { header: { 'X-Requested-With': 'XMLHttpRequest' } };
-        var header = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
+        var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
         return {
             SendSMS: function (sdt, noidung) {
-                url = 'center/getsms.php';
+                // url = 'center/getsms.php';
+                // parameter = {
+                //     smsurl: 'http://cloudsms.vietguys.biz:8088/api/?u=SAS-Center&pwd=wcs8z&from=SAS.edu.vn&phone=' + sdt + '&sms=' + noidung
+                // }
+                // return $http.post(url, parameter, header);
                 parameter = {
-                    smsurl: 'http://cloudsms.vietguys.biz:8088/api/?u=SAS-Center&pwd=wcs8z&from=SAS.edu.vn&phone=' + sdt + '&sms=' + noidung
+                    Phone: sdt,
+                    SMS: noidung
                 }
-                return $http.post(url, parameter, header);
+                url = api_gateway_url + '/checksms';
+                return $http.post(url, parameter, header)
             }
         }
     })
