@@ -785,15 +785,18 @@ sas
         $scope.OpeneditGroup = function (_detail) {
             $scope.Mygroup = _detail;
             $scope.Sheeter = [];
-            $scope.UsersMK.forEach(element => {
-                if (element.SheetID !== null) {
-                    if (element.SheetID.length > 0) {
-                        // if (element.SheetID[0].isready === true) {
-                        $scope.Sheeter.push(element);
-                        // }
+            if ($scope.UsersMK !== undefined) {
+                $scope.UsersMK.forEach(element => {
+                    if (element.SheetID !== null) {
+                        if (element.SheetID.length > 0) {
+                            // if (element.SheetID[0].isready === true) {
+                            $scope.Sheeter.push(element);
+                            // }
+                        }
                     }
-                }
-            });
+                });
+            }
+
 
             $scope.update_g = _detail;
             $scope.Groups.forEach(element => {
