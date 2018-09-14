@@ -231,9 +231,13 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg btn-update"
+                                            <button class="btn btn-warning btn-block btn-lg btn-update" ng-show="auth.Role[0].id !== 0"
                                                 ng-disabled="_details.Status_student[0].id === 3 || auth.Username !== _details.Manager[0].id"
                                                 ng-click="up_detail()">Cập Nhật
+                                            </button>
+                                            <button class="btn btn-warning btn-block btn-lg btn-update" ng-show="auth.Role[0].id === 0"
+                                                ng-disabled="_details.Status_student[0].id === 3" ng-click="up_detail()">Cập
+                                                Nhật
                                             </button>
                                             <button class="btn btn-info btn-block" ng-click="showsms(_details)">SMS</button>
                                             <!-- <button class="btn btn-info btn-block">Email</button> -->
@@ -248,17 +252,26 @@
             </div>
             <div class="modal-footer" style="border-top: none; padding-top: 0">
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-disabled="auth.Username !== _details.Manager[0].id"
+                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-show="auth.Role[0].id !== 0"
+                        ng-disabled="auth.Username !== _details.Manager[0].id" ng-click="addfriend(_details._id)">Thêm
+                        bạn
+                    </button>
+                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-show="auth.Role[0].id === 0"
                         ng-click="addfriend(_details._id)">Thêm
                         bạn
                     </button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-success" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3"
+                    <button type="button" class="btn btn-block btn-lg btn-success" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3"
+                        data-toggle="modal" data-target="#time">Gọi lại thời gian</button>
+
+                    <button type="button" class="btn btn-block btn-lg btn-success" ng-show="auth.Role[0].id === 0"
                         data-toggle="modal" data-target="#time">Gọi lại thời gian</button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3"
+                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3"
+                        ng-click="recall()">Gọi lại sau</button>
+                        <button type="button" class="btn btn-block btn-lg btn-warning" ng-show="auth.Role[0].id -== 0"
                         ng-click="recall()">Gọi lại sau</button>
                 </div>
             </div>
@@ -721,7 +734,7 @@
                         </div>
                         <div class="col-lg-12 pre-scrollable sms-scroll" style="margin-top:10px; margin-bottom: 10px; height: 300px">
                             <p class="sms-send" ng-repeat="dt in content.SMS">
-                               <span style="display: block; border-bottom: 1px solid rgba(240, 240, 240, .9);">{{dt.SMS}}</span> 
+                                <span style="display: block; border-bottom: 1px solid rgba(240, 240, 240, .9);">{{dt.SMS}}</span>
                                 <span class="sms-status text-left">{{dt.Time}}</span>
                                 <span class="sms-status text-right" style="float:right">{{dt._Status}}</span>
                             </p>
