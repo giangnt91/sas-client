@@ -78,10 +78,10 @@ sas
                 $scope.choosepage = function (id) {
                     if (id === 1) {
                         $location.path('/home');
-                        location.reload(true);
+                       window.location.reload(true);
                     } else {
                         $location.path('/marketing');
-                        location.reload(true);
+                        window.location.reload(true);
                     }
                 }
             }

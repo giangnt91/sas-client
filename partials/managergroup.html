@@ -43,9 +43,9 @@
                                         <td>{{content.Leader[0].name}}</td>
                                         <td ng-if="content.Sheet !== null">
                                             <a href="" ng-repeat="s in content.Sheet">
-                                              <span ng-if="s.group === null">{{s.name}}</span>  
-                                              <span ng-if="s.group !== null">{{s.name}} - {{s.group}}</span>
-                                              <br>
+                                                <span ng-if="s.group === null">{{s.name}}</span>
+                                                <span ng-if="s.group !== null">{{s.name}} - {{s.group}}</span>
+                                                <br>
                                             </a>
                                         </td>
                                         <td ng-if="content.Sheet === null"></td>
@@ -134,10 +134,11 @@
 <!-- modal cập nhật group -->
 <div class="modal fade" id="upgroup" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Cập Nhật
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Cập
+                    Nhật
                     Group
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -156,39 +157,54 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="mfullname">Chọn Loại Group</label>
                                                 </div>
-                                                <select id="upgroup" class="form-control" ng-model="upgroup" ng-change="getUserforupchange()"
-                                                    ng-options="option.name for option in Groups">
+                                                <select id="upgroup" class="form-control" ng-disabled="show !== true"
+                                                    ng-model="upgroup" ng-change="getUserforupchange()" ng-options="option.name for option in Groups">
                                                 </select>
                                             </div>
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
                                                     <label for="upgroupname">Tên Group</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="upgroupname" id="upgroupname"
-                                                    required>
+                                                <input type="text" class="form-control" ng-disabled="show !== true"
+                                                    ng-model="upgroupname" id="upgroupname" required>
                                             </div>
 
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
                                                     <label for="Leader">Chọn Leader</label>
                                                 </div>
-                                                <select id="upLeader" class="form-control" ng-disabled="upgroup.id === null"
+                                                <select id="upLeader" class="form-control" ng-disabled="upgroup.id === null || show !== true"
                                                     ng-model="upLeader" ng-options="option.name for option in upLeaders">
                                                 </select>
+                                            </div>
+
+                                            <div class="input-group add" ng-show="upgroup.id === 2">
+                                                <label>Các Group Telesale đang kết nối hiện tại</label>
+                                            </div>
+
+                                            <div class="row" ng-show="upgroup.id === 2">
+                                                <div class="col-lg-4" ng-repeat="content in upGroup.Tele">
+                                                    <p>{{content.name}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="input-group add" ng-show="upgroup.id === 2">
+                                                <label>Chọn Group Telesale để kết nối</label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="UpdateGroup()">
-                                    <i class="material-icons">send</i> Cập nhật</button>
-                            </form>
                         </div>
+
+                        <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="UpdateGroup()">
+                            <i class="material-icons">send</i> Cập nhật</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- modal comfirm xóa -->

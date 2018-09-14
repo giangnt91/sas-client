@@ -66,7 +66,8 @@
                                         <td ng-bind="content.Name"></td>
                                         <td ng-bind="content.On"></td>
                                         <td ng-bind="content.Reg.length"></td>
-                                        <td>{{content.Reg.length / content.On *100}} %</td>
+                                        <td ng-if="content.On > 0">{{content.Reg.length / content.On *100}} %</td>
+                                        <td ng-if="content.On === 0">0 %</td>
                                         <td ng-bind="content.Dup.length"></td>
                                         <td ng-bind="content.Ktn.length"></td>
                                     </tr>

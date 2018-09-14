@@ -72,7 +72,7 @@
 <!-- modal thông tin group telesale-->
 <div class="modal fade" id="gdetail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
@@ -112,73 +112,16 @@
                                                     disabled>
                                             </div>
                                             <div class="input-group add">
-                                                <label>Các liên kết Sheet hiện tại</label>
+                                                <label>Các liên kết với Marketing hiện tại</label>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-4" ng-repeat="content in _detailGroup.Sheet">
-                                                    <p ng-if="content.group !== null">{{content.name}} -
-                                                        {{content.group}}</p>
-                                                    <p ng-if="content.group === null">{{content.name}}</p>
+                                                <div class="col-lg-4" ng-repeat="content in _detailGroup.Tele">
+                                                    <p>{{content.name}}</p>
                                                 </div>
                                             </div>
-
-
-
-                                            <div class="collapse" id="collapseExample">
-                                                <form>
-                                                    <h6>Chọn Sheet Của Group</h6>
-
-                                                    <div class="row">
-                                                        <div class="col-lg-4" ng-repeat="content in Groupter">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" ng-disabled="Makerts.length > 0"
-                                                                        ng-model="check" ng-change="ChangeCheckGMk(content, check)"
-                                                                        type="checkbox" value="">
-                                                                    {{content.Name}}
-                                                                    <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </form>
-                                                <br />
-                                                <form>
-                                                    <h6>Hoặc chọn Sheet Của Makerter</h6>
-
-                                                    <div class="row">
-                                                        <div class="col-lg-4" ng-repeat="content in Sheeter">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" ng-disabled="Groupmk.length > 0"
-                                                                        ng-model="check" ng-change="ChangeCheckMk(content, check)"
-                                                                        type="checkbox" value="">
-                                                                    {{content.Fullname}}
-                                                                    <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
-
-                                <button ng-if="!cn" class="btn btn-lg btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample"
-                                    aria-expanded="false" aria-controls="collapseExample" ng-click="hide()">
-                                    Cập Nhật Google Sheet ID
-                                </button>
-
-                                <button ng-if="cn" type="button" class="btn btn-lg btn-info btn-block" ng-click="UpdateSheetForGroup()">
-                                    <i class="material-icons">send</i> Gửi</button>
-
                             </form>
                         </div>
                     </div>
@@ -191,7 +134,7 @@
 <!-- modal thông tin group gdetailmakerting-->
 <div class="modal fade" id="gdetailmakerting" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
@@ -227,16 +170,56 @@
 
                                             <div class="input-group add">
                                                 <label for="_lead">Leader</label>
-                                                <input type="text" class="form-control" ng-model="_lead" id="_lead"
+                                                <input type="text" class="form-control" ng-model="Mygroup.Leader[0].name" id="_lead"
                                                     disabled>
                                             </div>
+
+                                            <div class="input-group add">
+                                                <label>Các Group Telesale đang được liên kết</label>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-4" ng-repeat="content in Mygroup.Tele">
+                                                    <p>{{content.name}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="collapse" id="collapseExample2">
+                                                <form>
+                                                    <h6>Chọn Group Telesale</h6>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-4" ng-repeat="content in AllTele">
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" ng-model="check"
+                                                                        ng-change="ChangeCheckGTL(content, check)" type="checkbox"
+                                                                        value="">
+                                                                    {{content.Name}}
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+
+                                            <button ng-if="!cn" class="btn btn-lg btn-info btn-block" type="button"
+                                                data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false"
+                                                aria-controls="collapseExample2" ng-click="hide()">
+                                                Cập Nhật Liên Kết Telesale
+                                            </button>
+
+                                            <button ng-if="cn" type="button" class="btn btn-lg btn-info btn-block"
+                                                ng-click="UpdateSheetForGroup();">
+                                                <i class="material-icons">send</i> Gửi</button>
+
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 
-                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)">
-                                    <i class="material-icons">send</i> Cập Nhật</button> -->
-
                             </form>
                         </div>
                     </div>
@@ -336,7 +319,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Cập Nhật
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Cập
+                    Nhật
                     User
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
