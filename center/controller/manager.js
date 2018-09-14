@@ -805,11 +805,13 @@ sas
                     $scope.upLeaders = [];
                     if ($scope.upgroup.id !== null) {
                         if ($scope.upgroup.id === 1) {
-                            $scope.Users.forEach(element => {
-                                if (element.role === 1) {
-                                    $scope.upLeaders.push(element);
-                                }
-                            });
+                            if ($scope.Users !== undefined) {
+                                $scope.Users.forEach(element => {
+                                    if (element.role === 1) {
+                                        $scope.upLeaders.push(element);
+                                    }
+                                });
+                            }
                         } else {
                             if ($scope.Users !== undefined) {
                                 $scope.Users.forEach(element => {
