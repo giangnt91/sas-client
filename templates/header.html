@@ -1,46 +1,50 @@
 <div id="he" class="main-panel" ng-controller="HomeCtrl">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-brand navbar-absolute fixed-top ">
-            <div class="container-fluid">
-                <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="" ng-click="addheader()" ng-if="auth.Role[0].id !== 2">
-                        <i class="material-icons">person_add</i>
-                        <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm học viên</h4>
-                    </a>
-                    <a class="navbar-brand" href="" ng-click="go_manageruser()" ng-if="auth.Role[0].id === 0 || auth.Leader === true">
-                        <i class="material-icons">face</i>
-                        <h4 class="title" style="display:inline-block; vertical-align: text-top;">Quản lý Users</h4>
-                    </a>
-                    <a class="navbar-brand" href="" ng-click="go_managergroup()" ng-if="auth.Role[0].id === 0">
-                        <i class="material-icons">group</i>
-                        <h4 class="title" style="display:inline-block; vertical-align: text-top;">Quản lý Groups</h4>
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse justify-content-end">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="" ng-click="updateheaderUser()">
-                                <i class="material-icons">person</i>
-                                <p class="d-lg-none d-md-block">
-                                    Account
-                                </p>
-                                {{auth.Fullname}}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="" ng-click="logout()">
-                                <i class="material-icons">exit_to_app</i>
-                                Thoát
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-brand navbar-absolute fixed-top ">
+        <div class="container-fluid">
+            <div class="navbar-wrapper">
+                <a class="navbar-brand" href="" ng-click="addheader()" ng-if="auth.Role[0].id !== 2">
+                    <i class="material-icons">person_add</i>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm học viên</h4>
+                </a>
+                <a class="navbar-brand" href="" ng-click="go_manageruser()" ng-if="auth.Role[0].id === 0 || auth.Leader === true">
+                    <i class="material-icons">face</i>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Quản lý Users</h4>
+                </a>
+                <a class="navbar-brand" href="" ng-click="go_managergroup()" ng-if="auth.Role[0].id === 0">
+                    <i class="material-icons">group</i>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Quản lý Groups</h4>
+                </a>
+                <a class="navbar-brand" href="" ng-click="go_connectgroup()" ng-if="auth.Role[0].id === 2">
+                    <i class="material-icons">cast_connected</i>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Kết Nối Groups Telesale</h4>
+                </a>
             </div>
-        </nav>
-        <!-- End Navbar -->
-    
-    </div>
-    <!-- modal -->
-    <!-- <div ng-include='"templates/update.html"'></div> -->
-    <!-- <div ng-include='"templates/add.html"'></div> -->
-    <!-- <div ng-include='"templates/user.html"'></div> -->
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="" ng-click="updateheaderUser()">
+                            <i class="material-icons">person</i>
+                            <p class="d-lg-none d-md-block">
+                                Account
+                            </p>
+                            {{auth.Fullname}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="" ng-click="logout()">
+                            <i class="material-icons">exit_to_app</i>
+                            Thoát
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+</div>
+<!-- modal -->
+<!-- <div ng-include='"templates/update.html"'></div> -->
+<!-- <div ng-include='"templates/add.html"'></div> -->
+<!-- <div ng-include='"templates/user.html"'></div> -->

@@ -23,6 +23,7 @@ angular.module('SAScrm', ['ngRoute', 'SASController', 'SASService'])
             .when("/doc", { templateUrl: "maketing/doc.html" })
             .when("/tutorial", { templateUrl: "maketing/tutorial.html" })
             .when("/msetup", { templateUrl: "maketing/msetup.html", controller: "MsetupCtrl" })
+            .when("/connectgroup", { templateUrl: "partials/ConnectSale.html", controller: "MakertingCtrl" })
 
             // else 404
             .otherwise({ redirectTo: '/login' });

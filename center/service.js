@@ -8,6 +8,13 @@ angular.module('SASService', [])
 
         return {
             // Api Auth
+            withOut: function (_id) {
+                parameter = JSON.stringify({
+                    _id: _id
+                })
+                url = api_gateway_url + '/withoutlogin';
+                return $http.post(url, parameter, header);
+            },
             signIn: function (Username, Password) {
                 parameter = JSON.stringify({
                     Username: Username,

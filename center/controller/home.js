@@ -9,6 +9,10 @@ sas
             $location.path('/managergroup');
         }
 
+        $scope.go_connectgroup = function () {
+            $location.path('/connectgroup');
+        }
+
 
         // hiển thị ngày tháng
         function convertshow(x) {

@@ -29,13 +29,14 @@
 
                         <div class="material-datatables top-10">
                             <table datatable="ng" dt-options="newdtOptions" dt-instance="dtInstance" cellpadding="0"
-                                class="table table-striped cell-border table-hover">
+                                class="table table-striped cell-border table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th>STT</th>
                                         <th>Họ Tên</th>
                                         <th>Chức Vụ</th>
                                         <th>Group</th>
+                                        <th ng-show="auth.Role[0].id === 2 || auth.Role[0].id === 0">Group Tele Liên Kết</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -44,16 +45,24 @@
                                         <td class="text-center">{{$index +1}}</td>
                                         <td>{{content.Fullname}}</td>
                                         <td ng-if="content.Leader === false">{{content.Role[0].name}}</td>
-                                        <td ng-if="content.Leader === true">Leader</td>
+                                        <td ng-if="content.Leader === true">Leader {{content.Role[0].name}}</td>
                                         <td>{{content.Zone[0].name}}</td>
+                                        <td class="text-center" ng-show="auth.Role[0].id === 2 || auth.Role[0].id === 0">
+                                            <a href="" ng-show="content.GroupSheet !== null" ng-repeat="g in content.GroupSheet">
+                                                {{g.name}}
+                                            </a>
+                                        </td>
                                         <td class="td-actions text-center">
-                                            <button type="button" rel="tooltip" class="btn btn-success" ng-click="OpeneditUser(content)">
+                                            <button type="button" class="btn btn-success" ng-click="OpeneditUser(content)">
                                                 <i class="material-icons">edit</i>
                                             </button>
-                                            <button type="button" rel="tooltip" class="btn btn-info" ng-click="OpenReset(content)">
+                                            <button type="button" class="btn" ng-click="OpenConnect(content)" ng-show="auth.Role[0].id === 0 && content.Role[0].id === 2">
+                                                <i class="material-icons">cast_connected</i>
+                                            </button>
+                                            <button type="button" class="btn btn-info" ng-click="OpenReset(content)">
                                                 <i class="material-icons">autorenew</i>
                                             </button>
-                                            <button type="button" rel="tooltip" class="btn btn-danger" ng-click="Opendel(content)">
+                                            <button type="button" class="btn btn-danger" ng-click="Opendel(content)">
                                                 <i class="material-icons">close</i>
                                             </button>
                                         </td>
@@ -112,10 +121,10 @@
                                                     disabled>
                                             </div>
                                             <div class="input-group add">
-                                                <label>Các liên kết với Marketing hiện tại</label>
+                                                <label>Các Marketing đang liên kết</label>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-4" ng-repeat="content in _detailGroup.Tele">
+                                                <div class="col-lg-4" ng-show="_detailGroup.Sheet !== null" ng-repeat="content in _detailGroup.Sheet">
                                                     <p>{{content.name}}</p>
                                                 </div>
                                             </div>
@@ -134,7 +143,7 @@
 <!-- modal thông tin group gdetailmakerting-->
 <div class="modal fade" id="gdetailmakerting" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
@@ -170,11 +179,11 @@
 
                                             <div class="input-group add">
                                                 <label for="_lead">Leader</label>
-                                                <input type="text" class="form-control" ng-model="Mygroup.Leader[0].name" id="_lead"
-                                                    disabled>
+                                                <input type="text" class="form-control" ng-model="Mygroup.Leader[0].name"
+                                                    id="_lead" disabled>
                                             </div>
 
-                                            <div class="input-group add">
+                                            <!-- <div class="input-group add">
                                                 <label>Các Group Telesale đang được liên kết</label>
                                             </div>
 
@@ -182,9 +191,9 @@
                                                 <div class="col-lg-4" ng-repeat="content in Mygroup.Tele">
                                                     <p>{{content.name}}</p>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
-                                            <div class="collapse" id="collapseExample2">
+                                            <!-- <div class="collapse" id="collapseExample2">
                                                 <form>
                                                     <h6>Chọn Group Telesale</h6>
 
@@ -211,11 +220,11 @@
                                                 data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false"
                                                 aria-controls="collapseExample2" ng-click="hide()">
                                                 Cập Nhật Liên Kết Telesale
-                                            </button>
+                                            </button> -->
 
-                                            <button ng-if="cn" type="button" class="btn btn-lg btn-info btn-block"
+                                            <!-- <button ng-if="cn" type="button" class="btn btn-lg btn-info btn-block"
                                                 ng-click="UpdateSheetForGroup();">
-                                                <i class="material-icons">send</i> Gửi</button>
+                                                <i class="material-icons">send</i> Gửi</button> -->
 
                                         </div>
                                     </div>
@@ -316,7 +325,7 @@
 <!-- modal cập nhật user -->
 <div class="modal fade" id="updateuser" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Cập
@@ -335,49 +344,72 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend add">
-                                                    <label for="upusername">Username</label>
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend add">
+                                                            <label for="upusername">Username</label>
+                                                        </div>
+                                                        <input type="text" class="form-control" ng-model="_detail.Username"
+                                                            id="upusername">
+                                                    </div>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="_detail.Username" id="upusername">
-                                            </div>
-
-                                            <div class="input-group">
-                                                <div class="input-group-prepend add">
-                                                    <label for="upfullname">Họ tên</label>
+                                                <div class="col-lg-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend add">
+                                                            <label for="upfullname">Họ tên</label>
+                                                        </div>
+                                                        <input type="text" class="form-control" ng-model="_detail.Fullname"
+                                                            id="upfullname">
+                                                    </div>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="_detail.Fullname" id="upfullname">
                                             </div>
 
-                                            <div class="input-group add">
-                                                <label for="upemail">Email</label>
-                                                <input type="text" class="form-control" ng-model="_detail.Email" id="upemail">
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="input-group add">
+                                                        <label for="upemail">Email</label>
+                                                        <input type="text" class="form-control" ng-model="_detail.Email"
+                                                            id="upemail">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-group add">
+                                                        <label for="upphone">Số DT</label>
+                                                        <input type="text" class="form-control" ng-model="_detail.Phone"
+                                                            id="upphone">
+                                                    </div>
+                                                </div>
                                             </div>
 
-                                            <div class="input-group add">
-                                                <label for="upphone">Số DT</label>
-                                                <input type="text" class="form-control" ng-model="_detail.Phone" id="upphone">
-                                            </div>
 
-                                            <div class="input-group add">
-                                                <label for="upday">Ngày Sinh</label>
-                                                <input type="date" class="form-control" id="upday">
-                                            </div>
 
-                                            <div class="input-group add" ng-show="auth.Role[0].id === 0">
-                                                <label for="uprole">Phân quyền</label>
-                                                <select id="uprole" class="form-control" ng-model="uprole" ng-change="changeforupdate()"
-                                                    ng-options="option.value for option in _Role">
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="input-group add">
+                                                        <label for="upday">Ngày Sinh</label>
+                                                        <input type="date" class="form-control" id="upday">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="input-group add" ng-show="auth.Role[0].id === 0">
+                                                        <label for="uprole">Phân quyền</label>
+                                                        <select id="uprole" class="form-control" ng-model="uprole"
+                                                            ng-change="changeforupdate()" ng-options="option.value for option in _Role">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="input-group add" ng-show="auth.Role[0].id === 0">
+                                                        <label for="upgroup">Chọn group</label>
+                                                        <select id="upgroup" class="form-control" ng-disabled="uprole.id === null"
+                                                            ng-model="mgroup" ng-options="option.Name for option in GroupUpdate">
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <div class="input-group add" ng-show="auth.Role[0].id === 0">
-                                                <label for="upgroup">Chọn group</label>
-                                                <select id="upgroup" class="form-control" ng-disabled="uprole.id === null"
-                                                    ng-model="mgroup" ng-options="option.Name for option in GroupUpdate">
-                                                </select>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -435,6 +467,51 @@
                 <button type="button" class="btn btn-primary" ng-click="Re(ruser)">Chấp nhận</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
             </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal kết nối group tele -->
+<div class="modal fade" id="connectG" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Liên Kết Telesale Group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="loginform">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend add">
+                                        <label for="choosegroup">Chọn Group</label>
+                                    </div>
+                                    <select id="choosegroup" class="form-control" ng-model="choosegroup"
+                                        ng-options="option.Name for option in _connectTele">
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend add">
+                                        <label for="chooseSheet">Chọn Sheet</label>
+                                    </div>
+                                    <select id="chooseSheet" class="form-control" ng-model="choosesheet" ng-options="option.name for option in list_sheet">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="Join()">
+                        <i class="material-icons">send</i> Liên Kết</button>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

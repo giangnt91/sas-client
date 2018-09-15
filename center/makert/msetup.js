@@ -92,6 +92,12 @@ sas
 
                     DataServices.UpdateUser($rootScope.auth).then(function (response) {
                         if (response.data.error_code === 0) {
+                            DataServices.withOut($rootScope.auth._id).then(function (res) {
+                                if (res.data.error_code === 0) {
+                                    $rootScope.auth = res.data.user;
+                                    localStorage.setItem('Auth', JSON.stringify(res.data.user));
+                                }
+                            });
                             getUsers();
                             Notifi._success('Tạo Form thành công');
                             $('#addform').modal('hide');
@@ -164,7 +170,10 @@ sas
 
                 DataServices.UpdateUser($scope._detail).then(function (response) {
                     if (response.data.error_code === 0) {
-                        DataServices.UpGroup($scope._detail_group).then(function (repsonse) { });
+                        if ($scope._detail_group !== undefined) {
+                            DataServices.UpGroup($scope._detail_group).then(function (repsonse) { });
+                        }
+
                         getUsers();
                         Notifi._success('Cập nhật trạng thái thành công');
                         $('#upform').modal('hide');
