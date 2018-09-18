@@ -19,11 +19,13 @@ sas
                             _result.forEach(element => {
                                 if (element.Role[0].id === 2 && element.SheetID !== null) {
                                     if (element.SheetID.length > 0) {
-                                        let tmp = {
-                                            id: element.SheetID[0].id,
-                                            name: element.SheetID[0].name
-                                        }
-                                        $scope.Markets.push(tmp);
+                                        element.SheetID.forEach(element => {
+                                            let tmp = {
+                                                id: element.id,
+                                                name: element.name
+                                            }
+                                            $scope.Markets.push(tmp);
+                                        });
                                     }
 
                                 }

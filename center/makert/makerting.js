@@ -10,20 +10,50 @@ sas
                     if (response.data.error_code === 0) {
                         $scope.Makertings = response.data.makert;
                         $scope._Makerting = [];
+
+                        // lấy danh sách form
+                        $scope.Markets = [{
+                            id: null,
+                            name: 'Tất cả'
+                        }];
+                        $scope.form = $scope.Markets[0];
                         if ($scope.auth.Role[0].id === 0) {
                             $scope.Makertings.forEach(element => {
-                                DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null).then(function (response) {
+                                DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null, null).then(function (response) {
                                     if (response.data.error_code === 0) {
                                         $scope._Makerting.push(response.data.mkt);
                                     }
                                 })
+
+                                if (element.Role[0].id === 2 && element.SheetID !== null) {
+                                    if (element.SheetID.length > 0) {
+                                        element.SheetID.forEach(element => {
+                                            let tmp = {
+                                                id: element.id,
+                                                name: element.name
+                                            }
+                                            $scope.Markets.push(tmp);
+                                        });
+                                    }
+                                }
                             });
+
                         } else {
-                            DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, null, null).then(function (response) {
+                            DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, null, null, null).then(function (response) {
                                 if (response.data.error_code === 0) {
                                     $scope._Makerting.push(response.data.mkt);
                                 }
                             })
+
+                            if ($rootScope.auth.SheetID !== null) {
+                                $rootScope.auth.SheetID.forEach(element => {
+                                    let tmp = {
+                                        id: element.id,
+                                        name: element.name
+                                    }
+                                    $scope.Markets.push(tmp);
+                                });
+                            }
                         }
 
                         $scope.newdtOptions = DTOptionsBuilder.newOptions()
@@ -33,8 +63,6 @@ sas
                             .withOption('bDestroy', true)
                             .withOption('colReorder', true)
                             .withDOM('Zlfrtip')
-
-
                     }
                 })
             }
@@ -105,6 +133,7 @@ sas
                 let _fromday = $('#mkday').val();
                 let _today = $('#mkday2').val();
                 let list_mk = [];
+                let _form;
                 if ($scope.mgroup.id !== null) {
                     $scope.Makertings.forEach(element => {
                         if ($scope.mgroup._id === element.Zone[0].id) {
@@ -115,6 +144,12 @@ sas
                     list_mk = $scope.Makertings;
                 }
 
+                if ($scope.form.id !== null) {
+                    _form = $scope.form.id;
+                }else{
+                    _form = null
+                }
+
                 if (_fromday === '') {
                     _fromday = null
                 }
@@ -122,18 +157,18 @@ sas
                 if (_today === '') {
                     _today = null
                 }
-
+                
                 $scope._Makerting = [];
                 if ($scope.auth.Role[0].id === 0) {
                     list_mk.forEach(element => {
-                        DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null).then(function (response) {
+                        DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, _fromday, _today, _form).then(function (response) {
                             if (response.data.error_code === 0) {
                                 $scope._Makerting.push(response.data.mkt);
                             }
                         })
                     });
                 } else {
-                    DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, null, null).then(function (response) {
+                    DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, _fromday, _today, _form).then(function (response) {
                         if (response.data.error_code === 0) {
                             $scope._Makerting.push(response.data.mkt);
                         }
