@@ -13,6 +13,91 @@ sas
             $location.path('/connectgroup');
         }
 
+        // thời gian trùng
+        $scope.list_time_dup = [
+            {
+                id: null,
+                name: 'Chọn'
+            },
+            {
+                id: 1,
+                name: '30 Ngày'
+            },
+            {
+                id: 2,
+                name: '60 Ngày'
+            },
+            {
+                id: 3,
+                name: '90 Ngày'
+            }
+        ]
+        $scope.choose_time_dup = $scope.list_time_dup[0];
+        $scope.Time_dupicate = function () {
+            $scope.list_time_dup.forEach(element => {
+                if (element.id === $rootScope.auth.TimeForAdmin.id) {
+                    $scope.choose_time_dup = $rootScope.auth.TimeForAdmin;
+                }
+            });
+
+            $location.path('/home');
+            $timeout(function () {
+                $('#timeduplicate').modal('show');
+            }, 500)
+        }
+
+        $scope.updateTimeDup = function () {
+            a = 0;
+            DataServices.AllUser().then(function (u) {
+                if (u.data.error_code === 0) {
+                    let _result = u.data.users;
+                    if (_result !== undefined) {
+                        _result.forEach(element => {
+                            let _dup = [];
+                            if ($scope.choose_time_dup.id !== null) {
+                                _dup = [{
+                                    id: $scope.choose_time_dup.id,
+                                    name: $scope.choose_time_dup.name
+                                }]
+                            } else {
+                                _dup = [{
+                                    id: element.TimeForAdmin[0].id,
+                                    name: element.TimeForAdmin[0].name
+                                }]
+                            }
+                            element.TimeForAdmin = _dup;
+
+                            DataServices.UpdateUser(element).then(function (repsonse) {
+                                if (repsonse.data.error_code === 0) {
+                                    DataServices.withOut($rootScope.auth._id).then(function (res) {
+                                        if (res.data.error_code === 0) {
+                                            $rootScope.auth = res.data.user;
+                                            localStorage.setItem('Auth', JSON.stringify(res.data.user));
+                                            $('#timeduplicate').modal('hide');
+                                            $timeout(function () {
+                                                window.history.back();
+                                            }, 300)
+                                        }
+                                    })
+                                    if (a !== 1) {
+                                        Notifi._success('Cập nhật thành công');
+                                        a = 1;
+                                    }
+
+                                } else {
+                                    if (a !== 1) {
+                                        Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại sau');
+                                        a = 1;
+                                    }
+                                }
+                            })
+                        });
+                    }
+                }
+            })
+
+        }
+
 
         // hiển thị ngày tháng
         function convertshow(x) {
@@ -1118,7 +1203,7 @@ sas
                     $scope._details.Appointment_time = tmpTime;
                 }
 
-                
+
                 // kiểm tra sale
                 //  if($scope.selectedManager !== null){
                 //     var tmpManager = [
@@ -1402,7 +1487,7 @@ sas
             }
 
             // thay đổi mật khẩu
-            $scope._close = function(){
+            $scope._close = function () {
                 window.history.back();
                 window.location.reload(true);
             }

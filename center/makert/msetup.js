@@ -198,27 +198,44 @@ sas
                 });
                 $scope._detail = angular.fromJson(angular.toJson($scope._detail));
 
+                $scope._detail_group = [];
                 $scope.AllGroups.forEach(element => {
                     if (element.Sheet !== null) {
                         element.Sheet.forEach(el => {
                             if (el.muser === $scope._detail.Username) {
-                                $scope._detail_group = element;
+                                $scope._detail_group.push(element);
                             }
                         });
                     }
                 });
 
                 if ($scope._detail_group !== undefined) {
-                    $scope._detail_group.Sheet.forEach(function (sheet, index) {
-                        if (sheet.muser === $scope._detail.Username && sheet.sheetname === data.name) {
-                            sheet.id = data.id
-                        }
+                    $scope._detail_group.forEach(element => {
+                        element.Sheet.forEach(sheet => {
+                            if (sheet.muser === $scope._detail.Username && sheet.sheetname === data.name) {
+                                sheet.id = data.id
+                            }
+                        });
                     });
+
                 }
 
                 DataServices.UpdateUser($scope._detail).then(function (response) {
                     if (response.data.error_code === 0) {
-                        DataServices.UpGroup($scope._detail_group).then(function (repsonse) { });
+                        if ($scope._detail_group !== undefined) {
+                            if ($scope._detail_group.length > 0) {
+                                $scope._detail_group.forEach(element => {
+                                    DataServices.UpGroup(element).then(function (repsonse) { });
+                                })
+                            }
+                        }
+
+                        DataServices.withOut($rootScope.auth._id).then(function (res) {
+                            if (res.data.error_code === 0) {
+                                $rootScope.auth = res.data.user;
+                                localStorage.setItem('Auth', JSON.stringify(res.data.user));
+                            }
+                        });
                         getUsers();
                         Notifi._success('Cập nhật Form thành công');
                         $('#upform').modal('hide');

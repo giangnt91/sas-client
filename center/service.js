@@ -86,6 +86,10 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/getuserbysup';
                 return $http.post(url, parameter, header);
             },
+            AllUser: function () {
+                url = api_gateway_url + '/alluser';
+                return $http.post(url, parameter, header);
+            },
             GetallUSerforGroup: function () {
                 url = api_gateway_url + '/getallusergroup';
                 return $http.post(url, parameter, header);
