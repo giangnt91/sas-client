@@ -35,8 +35,10 @@ sas
         $scope.choose_time_dup = $scope.list_time_dup[0];
         $scope.Time_dupicate = function () {
             $scope.list_time_dup.forEach(element => {
-                if (element.id === $rootScope.auth.TimeForAdmin.id) {
-                    $scope.choose_time_dup = $rootScope.auth.TimeForAdmin;
+                if ($rootScope.auth.TimeForAdmin !== null) {
+                    if (element.id === $rootScope.auth.TimeForAdmin.id) {
+                        $scope.choose_time_dup = $rootScope.auth.TimeForAdmin;
+                    }
                 }
             });
 
