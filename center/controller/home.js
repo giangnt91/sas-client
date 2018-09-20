@@ -100,6 +100,13 @@ sas
 
         }
 
+        $scope.close_Time = function () {
+            $('#timeduplicate').modal('hide');
+            $timeout(function () {
+                window.history.back();
+            }, 300)
+        }
+
 
         // hiển thị ngày tháng
         function convertshow(x) {
