@@ -16,20 +16,35 @@ sas
                                 id: null,
                                 name: 'Tất cả'
                             }];
-                            _result.forEach(element => {
-                                if (element.Role[0].id === 2 && element.SheetID !== null) {
-                                    if (element.SheetID.length > 0) {
-                                        element.SheetID.forEach(element => {
-                                            let tmp = {
-                                                id: element.id,
-                                                name: element.name
-                                            }
-                                            $scope.Markets.push(tmp);
-                                        });
-                                    }
+                            $scope.mform = $scope.Markets[0];
+                            if ($scope.auth.Role[0].id === 0) {
+                                _result.forEach(element => {
+                                    if (element.Role[0].id === 2 && element.SheetID !== null) {
+                                        if (element.SheetID.length > 0) {
+                                            element.SheetID.forEach(element => {
+                                                let tmp = {
+                                                    id: element.id,
+                                                    name: element.name
+                                                }
+                                                $scope.Markets.push(tmp);
+                                            });
+                                        }
 
+                                    }
+                                });
+                            }
+                            else {
+                                if ($rootScope.auth.SheetID !== null) {
+                                    $rootScope.auth.SheetID.forEach(element => {
+                                        let tmp = {
+                                            id: element.id,
+                                            name: element.name
+                                        }
+                                        $scope.Markets.push(tmp);
+                                    });
                                 }
-                            });
+                            }
+
                         }
                     } else {
                         // Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
@@ -42,7 +57,12 @@ sas
             function get_null_query() {
 
                 if ($rootScope.auth.Role[0].id !== 0) {
-                    _mform = $rootScope.auth.SheetID[0].id;
+                    if ($rootScope.auth.SheetID !== null) {
+                        _mform = $rootScope.auth.SheetID[0].id;
+                    } else {
+                        _mform = null;
+                    }
+
                 } else {
                     _mform = null;
                 }
@@ -86,9 +106,12 @@ sas
                 }
             ]
             $scope.mstatus = $scope._status[0];
-            $timeout(function () {
-                $scope.mform = $scope.Markets[0];
-            }, 500)
+            // $timeout(function () {
+            //     if($scope.Markets !== undefined){
+            //         $scope.mform = $scope.Markets[0];
+            //     }
+
+            // }, 500)
 
 
             $scope.Search_mk = function () {
@@ -104,11 +127,11 @@ sas
                     _today = null
                 }
 
-                if ($rootScope.auth.Role[0].id !== 0) {
-                    _mform = $rootScope.auth.SheetID[0].id;
-                } else {
+                // if ($rootScope.auth.Role[0].id !== 0) {
+                //     _mform = $rootScope.auth.SheetID[0].id;
+                // } else {
                     _mform = $scope.mform.id;
-                }
+                // }
 
                 DataServices.GetallQuery($rootScope.auth.Role, $rootScope.auth.Username, _fromday, _today, $scope.mstatus.id, _mform).then(function (response) {
                     if (response.data.error_code === 0) {
