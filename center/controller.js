@@ -91,25 +91,27 @@ sas
         $rootScope.auth = JSON.parse(localStorage.getItem('Auth'));
         if (!$rootScope.auth) {
             $location.path('/login');
-        }
-        var active = localStorage.getItem('isactive');
-        if (active === null) {
-            if ($rootScope.auth.Role[0].id === 2) {
-                $scope.isactive = 10;
-            } else {
-                $scope.isactive = 1;
-            }
-        } else {
-            $scope.isactive = parseInt(active);
-        }
-
-        if(window.location.href.includes('home')){
-            $scope.pageId = 1;
-            $scope.isactive = 1;
         }else{
-            $scope.pageId = 2;
-            $scope.isactive = 10;
-        }
+			var active = localStorage.getItem('isactive');
+			if (active === null) {
+				if ($rootScope.auth.Role[0].id === 2) {
+					$scope.isactive = 10;
+				} else {
+					$scope.isactive = 1;
+				}
+			} else {
+				$scope.isactive = parseInt(active);
+			}
+
+			if(window.location.href.includes('home')){
+				$scope.pageId = 1;
+				$scope.isactive = 1;
+			}else{
+				$scope.pageId = 2;
+				$scope.isactive = 10;
+			}
+		}
+        
 
 
         // go home
