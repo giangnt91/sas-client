@@ -43,7 +43,7 @@ sas
                             align: 'center'
                         }
                     });
-                $.playSound('assets/sound/circles.m4r');
+                $.playSound('./circles.m4r');
             }
         }
     });
