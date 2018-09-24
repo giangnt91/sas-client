@@ -1,6 +1,6 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        var api_gateway_url = 'http://35.240.165.98:191';
+        var api_gateway_url = 'http://112.78.1.78:191';
         // var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
@@ -405,7 +405,7 @@ angular.module('SASService', [])
         }
     })
     .factory('SMSService', function ($http) {
-        var api_gateway_url = 'http://35.240.165.98:191';
+        var api_gateway_url = 'http://112.78.1.78:191';
         // var api_gateway_url = 'http://localhost:191';
         var parameter;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
@@ -426,7 +426,7 @@ angular.module('SASService', [])
         }
     })
     .factory('Thesocket', function (socketFactory) {
-        var api_gateway_url = 'http://35.240.165.98:191';
+        var api_gateway_url = 'http://112.78.1.78:191';
         // var api_gateway_url = 'http://localhost:191';
         var socketConnection = io.connect(api_gateway_url);
         var socket = socketFactory({
