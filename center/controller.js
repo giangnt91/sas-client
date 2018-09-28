@@ -43,7 +43,7 @@ sas
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
                                 // Notifi._success('Đăng nhập thành công');
                                 Thesocket.emit('connection');
-                                $location.path('/rating');
+                                $location.path('/marketing');
                                 location.reload(true);
                             }
                         }, 1500);
@@ -80,7 +80,7 @@ sas
                         $location.path('/home');
                        window.location.reload(true);
                     } else {
-                        $location.path('/rating');
+                        $location.path('/marketing');
                         window.location.reload(true);
                     }
                 }
@@ -175,6 +175,20 @@ sas
         $scope.go_setup = function () {
             $location.path('/setup');
             $scope.isactive = 9;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+		
+		// go scenter
+        $scope.go_center = function () {
+            $location.path('/scenter');
+            $scope.isactive = 17;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+		
+		// go srating
+        $scope.go_rating = function () {
+            $location.path('/srating');
+            $scope.isactive = 18;
             localStorage.setItem('isactive', $scope.isactive);
         }
 

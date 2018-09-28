@@ -12,6 +12,8 @@ angular.module('SAScrm', ['ngRoute', 'SASController', 'SASService'])
 	.when("/statistics", { templateUrl: "partials/statistics.html", controller: "StatisticsCtrl" })
 	.when("/setup", { templateUrl: "partials/setup.html", controller: "SetupCtrl" })
 	.when("/login", { templateUrl: "partials/login.html", controller: "AuthCtrl" })
+	.when("/scenter", { templateUrl: "partials/scenter.html", controller: "ScenterCtrl" })
+	.when("/srating", { templateUrl: "partials/srating.html" , controller: "SratingCtrl" })
 	
 	// Supadmin
 	.when("/manageruser", { templateUrl: "partials/manageruser.html", controller: "ManagerUserCtrl" })

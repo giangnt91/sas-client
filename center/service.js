@@ -410,6 +410,15 @@ angular.module('SASService', [])
                 })
                 url = api_gateway_url + '/getrating';
                 return $http.post(url, parameter, header);
+			},
+			GetSrating: function(Username, Fromday, Today){
+				 parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/getsrating';
+                return $http.post(url, parameter, header);
 			}
         }
     })

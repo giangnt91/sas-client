@@ -1,0 +1,72 @@
+<div class="main-panel">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="material-datatables">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="input-group add">
+                                                        <label for="sday">Từ Ngày</label>
+                                                        <input type="date" class="form-control" id="sday">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-group add">
+                                                        <label for="sday2">Đến Ngày</label>
+                                                        <input type="date" class="form-control" id="sday2">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="row">
+                                                <div class="col-lg-11">
+                                                    <a href="#" class="btn btn-info btn-block" style="margin-left: 20px"
+                                                        ng-click="Search_mk()">
+                                                        <i class="material-icons">search</i> Xem
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Stt</th>
+                                        <th>Team</th>
+                                        <th>Họ Tên</th>
+                                        <th>Online</th>
+                                        <th>Đăng ký học</th>
+                                        <th>Phần trăm</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="content in _User" style="cursor:pointer">
+                                        <td class="text-center">{{$index +1}}</td>
+                                        <td ng-bind="content.Team"></td>
+                                        <td ng-bind="content.Name"></td>
+                                        <td ng-bind="content.On"></td>
+                                        <td ng-bind="content.Reg.length"></td>
+                                        <td ng-if="content.On > 0">{{content.Reg.length / content.On *100}} %</td>
+                                        <td ng-if="content.On === 0">0 %</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
