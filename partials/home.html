@@ -149,7 +149,7 @@
                                                 <input type="text" class="form-control" ng-model="_details.Phone" id="dphone">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
-                                                        <a href="" ng-click="openPhoneTab()">
+                                                        <a href="" ng-click="openPhoneTab(_details.Phone)">
                                                             <i class="material-icons" style="color:#00BCD4; margin-top: -20px;border: 1px solid; border-radius: 5px;">call</i>
                                                         </a>
                                                     </span>
@@ -421,7 +421,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="trangthai">Trạng thái</label>
-                                                <select class="form-control" ng-model="maddselectedStatus" ng-options="option.name for option in Status">
+                                                <select class="form-control" ng-model="maddselectedStatus" ng-options="option.name for option in Status2">
                                                 </select>
                                             </div>
                                         </div>

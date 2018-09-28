@@ -217,14 +217,6 @@ sas
 		{
 			name: 'Đến chưa đăng ký',
 			value: 2
-		},
-		{
-			name: 'Đã đăng ký',
-			value: 3
-		},
-		{
-			name: 'Hủy',
-			value: 4
 		}
 	]
 	
@@ -773,14 +765,6 @@ sas
 				{
 					name: 'Đến chưa đăng ký',
 					value: 2
-				},
-				{
-					name: 'Đã đăng ký',
-					value: 3
-				},
-				{
-					name: 'Hủy',
-					value: 4
 				}
 			]
 			
@@ -946,12 +930,43 @@ sas
 					
 					// kiểm tra trạng thái
 					if (element.Status_student !== null) {
-						for (let i = 0; i < $scope.Status.length; i++) {
-							if ($scope.Status[i].value === element.Status_student[0].id) {
-								$scope.selectedStatus = $scope.Status[i];
+						if(element.Status_student[0].id !== 3){
+							for (let i = 0; i < $scope.Status.length; i++) {
+								if ($scope.Status[i].value === element.Status_student[0].id) {
+									$scope.selectedStatus = $scope.Status[i];
+								}
+							}
+						}else if(element.Status_student[0].id === 3){
+							// trạng thái
+							$scope.Status = [
+								{
+									name: 'Chọn',
+									value: null
+								},
+								{
+									name: 'Chưa đăng ký',
+									value: 0
+								},
+								{
+									name: 'Không tiềm năng',
+									value: 1
+								},
+								{
+									name: 'Đến chưa đăng ký',
+									value: 2
+								},
+								{
+									name: 'Đã đăng ký',
+									value: 3
+								}
+							]
+							for (let i = 0; i < $scope.Status.length; i++) {
+								if ($scope.Status[i].value === element.Status_student[0].id) {
+									$scope.selectedStatus = $scope.Status[i];
+								}
 							}
 						}
-                        } else {
+                    } else {
 						$scope.selectedStatus = $scope.Status[0];
 					}
 					
@@ -1282,14 +1297,14 @@ sas
 		}
 		
 		// Điện thoại
-		$scope.openPhoneTab = function () {
+		$scope.openPhoneTab = function (Phone) {
 			var top = window.screen.height - 300;
 			top = top > 0 ? top / 2 : 0;
 			
 			var left = window.screen.width - 400;
 			left = left > 0 ? left / 2 : 0;
 			
-			let url = 'http://sascall.slk.vn/?phone=' + $rootScope.auth.Phone + '&user=' + $rootScope.auth.Username + '&pass=' + $rootScope.auth.Password
+			let url = 'http://sascall.slk.vn/?phone=' + Phone + '&user=' + $rootScope.auth.Username + '&pass=' + $rootScope.auth.Password
 			var ThePhone = window.open(url, "Upload Chapter content", "width=540,height=540" + ",top=" + top + ",left=" + left);
 			ThePhone.moveTo(left, top);
 			ThePhone.focus();

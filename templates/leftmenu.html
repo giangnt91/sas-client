@@ -14,11 +14,23 @@
         </a>
     </div>
     <div class="sidebar-wrapper" style="padding-bottom: 0px" ng-if="auth.Role[0].id === 1 || pageId === 1">
-        <ul class="nav" style="margin-top:0px">
+        <ul class="nav pre-scrollable-2 sms-scroll" style="margin-top:0px">
+			<li class="nav-item" ng-click="go_rating()" ng-class="{'active': isactive === 17}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">bar_chart</i>
+                    <p>Xếp Hạng</p>
+                </a>
+            </li>
             <li class="nav-item" ng-click="go_home()" ng-class="{'active': isactive === 1}">
                 <a class="nav-link" href="">
                     <i class="material-icons">dashboard</i>
                     <p>Tất cả</p>
+                </a>
+            </li>
+			<li class="nav-item" ng-click="go_center()" ng-class="{'active': isactive === 18}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">format_align_center</i>
+                    <p>Thống Kê Cơ Sở</p>
                 </a>
             </li>
             <li class="nav-item" ng-click="go_notcalled()" ng-class="{'active': isactive === 2}">
@@ -63,7 +75,7 @@
                     <p>Thống kê</p>
                 </a>
             </li>
-            <li class="nav-item" ng-click="go_setup()" ng-if="auth.Role[0].id === 0" ng-class="{'active': isactive === 9}">
+            <li class="nav-item" ng-click="go_setup()" ng-if="auth.Role[0].id === 0" style="margin-bottom: 20px" ng-class="{'active': isactive === 9}">
                 <a class="nav-link" href="">
                     <i class="material-icons">settings</i>
                     <p>Setup</p>
