@@ -396,9 +396,18 @@ sas
                 if (response.data.error_code === 0) {
                     $scope.list_student = [];
                     response.data.student.forEach(element => {
-                        if (element.Isupdate === false) {
-                            $scope.list_student.push(element);
-                        }
+                        // if (element.Isupdate === false) {
+                            // $scope.list_student.push(element);
+                        // }
+						if(element.Recall === false && element.Time_recall === null){
+							if(element.Center === null){
+								$scope.list_student.push(element);
+							}else{
+								if(element.Center[0].id === null){
+									$scope.list_student.push(element);
+								}
+							}
+						}
                     });
 
                     $scope.newdtOptions = DTOptionsBuilder.newOptions()

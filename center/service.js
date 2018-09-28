@@ -401,7 +401,16 @@ angular.module('SASService', [])
             GetSMSDemo: function () {
                 url = api_gateway_url + '/getsms';
                 return $http.post(url, parameter, header);
-            }
+            },
+			Getrating: function(Username, Fromday, Today){
+				 parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/getrating';
+                return $http.post(url, parameter, header);
+			}
         }
     })
     .factory('SMSService', function ($http) {

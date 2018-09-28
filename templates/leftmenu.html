@@ -75,10 +75,22 @@
 
     <div class="sidebar-wrapper" style="padding-bottom: 0px" ng-if="auth.Role[0].id === 2 || pageId === 2">
         <ul class="nav" style="margin-top:0px">
-            <li class="nav-item" ng-click="go_thongke()" ng-class="{'active': isactive === 10}">
+			<li class="nav-item" ng-click="go_mrating()" ng-class="{'active': isactive === 15}">
                 <a class="nav-link" href="">
                     <i class="material-icons">bar_chart</i>
+                    <p>Xếp Hạng</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_thongke()" ng-class="{'active': isactive === 10}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">dashboard</i>
                     <p>Thống Kê</p>
+                </a>
+            </li>
+			<li class="nav-item" ng-click="go_mcenter()" ng-class="{'active': isactive === 16}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">format_align_center</i>
+                    <p>Thống Kê Cơ Sở</p>
                 </a>
             </li>
             <li class="nav-item" ng-click="go_danhsach()" ng-class="{'active': isactive === 11}">

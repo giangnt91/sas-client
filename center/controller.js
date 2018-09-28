@@ -43,7 +43,7 @@ sas
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
                                 // Notifi._success('Đăng nhập thành công');
                                 Thesocket.emit('connection');
-                                $location.path('/marketing');
+                                $location.path('/rating');
                                 location.reload(true);
                             }
                         }, 1500);
@@ -80,7 +80,7 @@ sas
                         $location.path('/home');
                        window.location.reload(true);
                     } else {
-                        $location.path('/marketing');
+                        $location.path('/rating');
                         window.location.reload(true);
                     }
                 }
@@ -95,7 +95,7 @@ sas
 			var active = localStorage.getItem('isactive');
 			if (active === null) {
 				if ($rootScope.auth.Role[0].id === 2) {
-					$scope.isactive = 10;
+					$scope.isactive = 15;
 				} else {
 					$scope.isactive = 1;
 				}
@@ -108,7 +108,7 @@ sas
 				$scope.isactive = 1;
 			}else{
 				$scope.pageId = 2;
-				$scope.isactive = 10;
+				$scope.isactive = 15;
 			}
 		}
         
@@ -208,6 +208,18 @@ sas
         $scope.go_msetup = function () {
             $location.path('/msetup');
             $scope.isactive = 14;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+		
+		$scope.go_mrating = function () {
+            $location.path('/rating');
+            $scope.isactive = 15;
+            localStorage.setItem('isactive', $scope.isactive);
+        }
+		
+		$scope.go_mcenter = function () {
+            $location.path('/centers');
+            $scope.isactive = 16;
             localStorage.setItem('isactive', $scope.isactive);
         }
     })
