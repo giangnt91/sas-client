@@ -93,23 +93,37 @@ sas
             $location.path('/login');
         }else{
 			var active = localStorage.getItem('isactive');
+			var pid = localStorage.getItem('pid');
 			if (active === null) {
 				if ($rootScope.auth.Role[0].id === 2) {
 					$scope.isactive = 15;
-				} else {
+				} else if($rootScope.auth.Role[0].id === 1) {
 					$scope.isactive = 1;
+				} else if($rootScope.auth.Role[0].id === 0){
+					if(window.location.href.includes('home')){
+						$scope.pageId = 1;
+						localStorage.setItem('pid', $scope.pageId);
+						$scope.isactive = 1;
+					}else{
+						$scope.pageId = 2;
+						localStorage.setItem('pid', $scope.pageId);
+						$scope.isactive = 15;
+					}
 				}
 			} else {
-				$scope.isactive = parseInt(active);
-			}
-
-			if(window.location.href.includes('home')){
-				$scope.pageId = 1;
-				$scope.isactive = 1;
-			}else{
-				$scope.pageId = 2;
-				$scope.isactive = 15;
-			}
+				
+				if($rootScope.auth.Role[0].id === 0){
+					if(window.location.href.includes('home')){
+						$scope.pageId = parseInt(pid);
+						$scope.isactive = parseInt(active);
+					}else{
+						$scope.pageId = parseInt(pid);;
+						$scope.isactive = parseInt(active);
+					}
+				}else{
+					$scope.isactive = parseInt(active);
+				}
+			}	
 		}
         
 
@@ -124,6 +138,7 @@ sas
         // go notcalled
         $scope.go_notcalled = function () {
             $location.path('/notcall');
+			
             $scope.isactive = 2;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -131,6 +146,7 @@ sas
         // go recall
         $scope.go_recall = function () {
             $location.path('/recall');
+			
             $scope.isactive = 3;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -138,6 +154,7 @@ sas
         // go schedule 
         $scope.go_schedule = function () {
             $location.path('/schedule');
+			
             $scope.isactive = 4;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -145,6 +162,7 @@ sas
         // go unreg
         $scope.go_unreg = function () {
             $location.path('/unreg');
+			
             $scope.isactive = 5;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -152,6 +170,7 @@ sas
         // go send
         $scope.go_send = function () {
             $location.path('/send');
+			
             $scope.isactive = 6;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -159,6 +178,7 @@ sas
         // go calendar
         $scope.go_calendar = function () {
             $location.path('/calendar');
+			
             $scope.isactive = 7;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -167,6 +187,7 @@ sas
         $scope.go_statistics = function () {
             // alert('Trang đang hoàn thiện vui lòng quay lại sau.')
             $location.path('/statistics');
+			
             $scope.isactive = 8;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -174,6 +195,7 @@ sas
         // go setup
         $scope.go_setup = function () {
             $location.path('/setup');
+			
             $scope.isactive = 9;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -181,6 +203,7 @@ sas
 		// go scenter
         $scope.go_center = function () {
             $location.path('/scenter');
+			
             $scope.isactive = 17;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -188,6 +211,7 @@ sas
 		// go srating
         $scope.go_rating = function () {
             $location.path('/srating');
+			
             $scope.isactive = 18;
             localStorage.setItem('isactive', $scope.isactive);
         }
@@ -197,42 +221,49 @@ sas
 
         $scope.go_thongke = function () {
             $location.path('/marketing');
+			
             $scope.isactive = 10;
             localStorage.setItem('isactive', $scope.isactive);
         }
 
         $scope.go_danhsach = function () {
             $location.path('/list');
+			
             $scope.isactive = 11;
             localStorage.setItem('isactive', $scope.isactive);
         }
 
         $scope.go_doc = function () {
             $location.path('/doc');
+			
             $scope.isactive = 12;
             localStorage.setItem('isactive', $scope.isactive);
         }
 
         $scope.go_hd = function () {
             $location.path('/tutorial');
+			
             $scope.isactive = 13;
             localStorage.setItem('isactive', $scope.isactive);
         }
 
         $scope.go_msetup = function () {
             $location.path('/msetup');
+			
             $scope.isactive = 14;
             localStorage.setItem('isactive', $scope.isactive);
         }
 		
 		$scope.go_mrating = function () {
             $location.path('/rating');
-            $scope.isactive = 15;
+
+			$scope.isactive = 15;
             localStorage.setItem('isactive', $scope.isactive);
         }
 		
 		$scope.go_mcenter = function () {
             $location.path('/centers');
+			
             $scope.isactive = 16;
             localStorage.setItem('isactive', $scope.isactive);
         }
