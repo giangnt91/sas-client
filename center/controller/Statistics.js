@@ -410,7 +410,7 @@ sas
                     $scope.data7 = [
                         cdk
                     ];
-                    $scope.series7 = ['Đến chưa đăng ký'];
+                    $scope.series7 = ['Chưa đăng ký'];
                 }, 500)
             }
 

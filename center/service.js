@@ -177,6 +177,10 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/gettqmakert';
                 return $http.post(url, parameter, header);
             },
+			GetCenter: function(){
+				url = api_gateway_url + '/getcenter';
+				return $http.post(url, parameter, header);
+			},
             //Api Student
             CstudentF: function (Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
                 parameter = {

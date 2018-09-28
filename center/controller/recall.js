@@ -121,84 +121,20 @@ sas
 	]
 	
 	// cơ sở
-	$scope.Center = [
-		{
-			name: 'Chọn',
-			value: null
-            }, {
-			name: 'Bạch Đằng',
-			value: 1
-            }, {
-			name: 'Lạc Long Quân',
-			value: 2
-            }, {
-			name: 'Bác Ái',
-			value: 3
-            }, {
-			name: 'Lê Hồng Phong',
-			value: 4
-            }, {
-			name: 'Trần Thị Nghỉ',
-			value: 5
-            }, {
-			name: 'Trần Bình Trọng',
-			value: 6
-            }, {
-			name: '79 DIS 7',
-			value: 7
-            }, {
-			name: 'Tây Thạnh',
-			value: 8
-            }, {
-			name: 'Trần Khánh Dư',
-			value: 9
-            }, {
-			name: 'Bàu Cát',
-			value: 10
-            }, {
-			name: 'Lý Chiêu Hoàng',
-			value: 11
-            }, {
-			name: 'Hoa Lan',
-			value: 12
-            }, {
-			name: 'Lê Văn Việt',
-			value: 13
-            }, {
-			name: 'Phạm Thị Tánh',
-			value: 14
-            }, {
-			name: 'Đại Lộ Bình Dương',
-			value: 15
-            }, {
-			name: 'Chánh Nghĩa',
-			value: 16
-            }, {
-			name: 'Biên Hòa',
-			value: 17
-            }, {
-			name: 'Đà Nẵng',
-			value: 18
-            }, {
-			name: 'Thanh Khê',
-			value: 19
-            }, {
-			name: 'Hà Huy Giáp',
-			value: 20
-            }, {
-			name: 'Điện Biên Phủ',
-			value: 21
-            }, {
-			name: 'Trần Văn Hoài CT',
-			value: 22
-            }, {
-			name: '30/4 CT',
-			value: 23
-            }, {
-			name: 'Tân Sơn Nhì',
-			value: 24
-		}
-	]
+	function getCenter(){
+		DataServices.GetCenter().then(function(response){
+			if(response.data.error_code === 0){
+				$scope.Center = [{
+					Name: 'Chọn',
+					Id: null
+				}]
+				response.data.center.forEach( element => {
+					$scope.Center.push(element);
+				})
+			}
+		});
+	}
+	getCenter();
 	
 	// trạng thái
 	$scope.Status = [
@@ -560,330 +496,6 @@ sas
 		// thông tin chi tiết của học viên
 		$scope.detail = function detailStudent(id) {
 			
-			// giới tính
-			$scope.Sex = [
-				{
-					name: 'Chọn',
-					value: null
-				},
-				{
-					name: 'Nam',
-					value: 1
-				},
-				{
-					name: 'Nữ',
-					value: 0
-				}
-			];
-			
-			// địa chỉ
-			$scope.Address = [
-				{
-					name: 'Chọn',
-					value: null
-                    }, {
-					name: 'Quận 1',
-					value: 1
-                    }, {
-					name: 'Quận 2',
-					value: 2
-                    }, {
-					name: 'Quận 3',
-					value: 3
-                    }, {
-					name: 'Quận 4',
-					value: 4
-                    }, {
-					name: 'Quận 5',
-					value: 5
-                    }, {
-					name: 'Quận 6',
-					value: 6
-                    }, {
-					name: 'Quận 7',
-					value: 7
-                    }, {
-					name: 'Quận 8',
-					value: 8
-                    }, {
-					name: 'Quận 9',
-					value: 9
-                    }, {
-					name: 'Quận 10',
-					value: 10
-                    }, {
-					name: 'Quận 11',
-					value: 11
-                    }, {
-					name: 'Quận 12',
-					value: 12
-                    }, {
-					name: 'Quận Thủ Đức',
-					value: 13
-                    }, {
-					name: 'Quận Gò Vấp',
-					value: 14
-                    }, {
-					name: 'Quận Bình Thạnh',
-					value: 15
-                    }, {
-					name: 'Quận Tân Bình',
-					value: 16
-                    }, {
-					name: 'Quận Tân Phú',
-					value: 17
-                    }, {
-					name: 'Quận Phú Nhuận',
-					value: 18
-                    }, {
-					name: 'Quận Bình Tân',
-					value: 19
-                    }, {
-					name: 'Huyện Củ Chi',
-					value: 20
-                    }, {
-					name: 'Huyện Hóc Môn',
-					value: 21
-                    }, {
-					name: 'Huyện Bình Chánh',
-					value: 22
-                    }, {
-					name: 'Huyện Nhà Bè',
-					value: 23
-                    }, {
-					name: 'Huyện Cần Giờ',
-					value: 24
-                    }, {
-					name: 'Đồng Nai',
-					value: 25
-                    }, {
-					name: 'Bình Dương',
-					value: 26
-                    }, {
-					name: 'Đà Nẵng',
-					value: 27
-                    }, {
-					name: 'Khác',
-					value: 28
-				}
-			]
-			
-			// cơ sở
-			$scope.Center = [
-				{
-					name: 'Chọn',
-					value: null
-                    }, {
-					name: 'Bạch Đằng',
-					value: 1
-                    }, {
-					name: 'Lạc Long Quân',
-					value: 2
-                    }, {
-					name: 'Bác Ái',
-					value: 3
-                    }, {
-					name: 'Lê Hồng Phong',
-					value: 4
-                    }, {
-					name: 'Trần Thị Nghỉ',
-					value: 5
-                    }, {
-					name: 'Trần Bình Trọng',
-					value: 6
-                    }, {
-					name: '79 DIS 7',
-					value: 7
-                    }, {
-					name: 'Tây Thạnh',
-					value: 8
-                    }, {
-					name: 'Trần Khánh Dư',
-					value: 9
-                    }, {
-					name: 'Bàu Cát',
-					value: 10
-                    }, {
-					name: 'Lý Chiêu Hoàng',
-					value: 11
-                    }, {
-					name: 'Hoa Lan',
-					value: 12
-                    }, {
-					name: 'Lê Văn Việt',
-					value: 13
-                    }, {
-					name: 'Phạm Thị Tánh',
-					value: 14
-                    }, {
-					name: 'Đại Lộ Bình Dương',
-					value: 15
-                    }, {
-					name: 'Chánh Nghĩa',
-					value: 16
-                    }, {
-					name: 'Biên Hòa',
-					value: 17
-                    }, {
-					name: 'Đà Nẵng',
-					value: 18
-                    }, {
-					name: 'Thanh Khê',
-					value: 19
-                    }, {
-					name: 'Hà Huy Giáp',
-					value: 20
-                    }, {
-					name: 'Điện Biên Phủ',
-					value: 21
-                    }, {
-					name: 'Trần Văn Hoài CT',
-					value: 22
-                    }, {
-					name: '30/4 CT',
-					value: 23
-                    }, {
-					name: 'Tân Sơn Nhì',
-					value: 24
-				}
-			]
-			
-			// trạng thái
-			$scope.Status = [
-				{
-					name: 'Chọn',
-					value: null
-				},
-				{
-					name: 'Chưa đăng ký',
-					value: 0
-				},
-				{
-					name: 'Không tiềm năng',
-					value: 1
-				},
-				{
-					name: 'Đến chưa đăng ký',
-					value: 2
-				}
-			]
-			
-			// giờ hẹn
-			$scope.Appointment_time = [
-				{
-					name: 'Chọn',
-					value: null
-				},
-				{
-					name: '8:00',
-					value: 1
-				},
-				{
-					name: '8:30',
-					value: 2
-				},
-				{
-					name: '9:00',
-					value: 3
-				},
-				{
-					name: '9:30',
-					value: 4
-				},
-				{
-					name: '10:00',
-					value: 5
-				},
-				{
-					name: '10:30',
-					value: 6
-				},
-				{
-					name: '11:00',
-					value: 7
-				},
-				{
-					name: '11:30',
-					value: 8
-				},
-				{
-					name: '12:00',
-					value: 9
-				},
-				{
-					name: '12:30',
-					value: 10
-				},
-				{
-					name: '13:00',
-					value: 11
-				},
-				{
-					name: '13:30',
-					value: 12
-				},
-				{
-					name: '14:00',
-					value: 13
-				},
-				{
-					name: '14:30',
-					value: 14
-				},
-				{
-					name: '15:00',
-					value: 15
-				},
-				{
-					name: '15:30',
-					value: 16
-				},
-				{
-					name: '16:00',
-					value: 17
-				},
-				{
-					name: '16:30',
-					value: 18
-				},
-				{
-					name: '17:00',
-					value: 19
-				},
-				{
-					name: '17:30',
-					value: 20
-				},
-				{
-					name: '18:00',
-					value: 21
-				},
-				{
-					name: '18:30',
-					value: 22
-				},
-				{
-					name: '19:00',
-					value: 23
-				},
-				{
-					name: '19:30',
-					value: 24
-				},
-				{
-					name: '20:00',
-					value: 25
-				},
-				{
-					name: '20:30',
-					value: 26
-				},
-				{
-					name: '21:00',
-					value: 27
-				}
-			];
-			
 			$scope.list_student.forEach(element => {
 				if (element._id === id) {
 					$scope._details = element;
@@ -920,7 +532,7 @@ sas
 					// kiểm tra cơ sở
 					if (element.Center !== null) {
 						for (let i = 0; i < $scope.Center.length; i++) {
-							if ($scope.Center[i].value === element.Center[0].id) {
+							if ($scope.Center[i]._id === element.Center[0]._id) {
 								$scope.selectedCenter = $scope.Center[i];
 							}
 						}
@@ -1084,8 +696,11 @@ sas
 			if ($scope.selectedCenter !== null) {
 				var tmpCenter = [
 					{
-						id: $scope.selectedCenter.value,
-						name: $scope.selectedCenter.name
+						_id: $scope.selectedCenter._id,
+						SheetId: $scope.selectedCenter.SheetId,
+						Name: $scope.selectedCenter.Name,
+						Id: $scope.selectedCenter.Id, 
+						Info: $scope.selectedCenter.Info
 					}
 				]
 				$scope._details.Center = tmpCenter;
@@ -1206,6 +821,11 @@ sas
 		
 		// Thêm bạn
 		$scope.addfriend = function (id) {
+			$scope.addselectedCenter = $scope.Center[0];
+			$scope.addselectedStatus = $scope.Status[0];
+			$scope.addselectedTime = $scope.Appointment_time[0];
+			$scope.addselectedAddress = $scope.Address[0];
+			$scope.addselectedSex = $scope.Sex[0];
 			$scope.addNote = "Bạn của học viên " + id;
 			$('#add2').modal('show');
 		}
@@ -1251,8 +871,11 @@ sas
 				
 				if ($scope.addselectedCenter !== undefined) {
 					tmp_center = [{
-						id: $scope.addselectedCenter.value,
-						name: $scope.addselectedCenter.name
+						_id: $scope.addselectedCenter._id,
+						SheetId: $scope.addselectedCenter.SheetId,
+						Name: $scope.addselectedCenter.Name,
+						Id: $scope.addselectedCenter.Id,
+						Info: $scope.addselectedCenter.Info
 					}]
                     } else {
 					tmp_center = null;
