@@ -96,7 +96,7 @@ sas
 			var pid = localStorage.getItem('pid');
 			if (active === null) {
 				if ($rootScope.auth.Role[0].id === 2) {
-					$scope.isactive = 15;
+					$scope.isactive = 10;
 				} else if($rootScope.auth.Role[0].id === 1) {
 					$scope.isactive = 1;
 				} else if($rootScope.auth.Role[0].id === 0){
