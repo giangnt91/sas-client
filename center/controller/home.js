@@ -683,8 +683,8 @@ sas
 					if (element.Status_student !== null) {
 						if(element.Status_student[0].id !== 3){
 							for (let i = 0; i < $scope.Status.length; i++) {
-								if ($scope.Status2[i].value === element.Status_student[0].id) {
-									$scope.selectedStatus = $scope.Status2[i];
+								if ($scope.Status[i].value === element.Status_student[0].id) {
+									$scope.selectedStatus = $scope.Status[i];
 								}
 							}
 						}else if(element.Status_student[0].id === 3){
