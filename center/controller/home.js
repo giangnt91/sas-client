@@ -246,7 +246,7 @@ sas
 	getCenter();
 	
 	// trạng thái
-	$scope.Status = [
+	$scope.Status2 = [
 		{
 			name: 'Chọn',
 			value: null
@@ -270,7 +270,7 @@ sas
 	]
 	
 	// trạng thái
-	$scope.Status2 = [
+	$scope.Status = [
 		{
 			name: 'Chọn',
 			value: null
@@ -421,7 +421,7 @@ sas
 		$scope.HCenter = $scope.Center[0];
 	}, 500)
 	
-	$scope.HStatus = $scope.Status[0];
+	$scope.HStatus = $scope.Status2[0];
 	
 	$scope.Searchwith = function () {
 		var HStatus;
