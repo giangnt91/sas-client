@@ -262,10 +262,6 @@ sas
 		{
 			name: 'Đến chưa đăng ký',
 			value: 2
-		},
-		{
-			name: 'Đã đăng ký',
-			value: 3
 		}
 	]
 	
