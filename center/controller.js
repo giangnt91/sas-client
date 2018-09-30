@@ -107,7 +107,7 @@ sas
 					}else{
 						$scope.pageId = 2;
 						localStorage.setItem('pid', $scope.pageId);
-						$scope.isactive = 15;
+						$scope.isactive = 10;
 					}
 				}
 			} else {
