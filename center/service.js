@@ -1,7 +1,7 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        // var api_gateway_url = 'http://112.78.1.78:191';
-        var api_gateway_url = 'http://localhost:191';
+        var api_gateway_url = 'http://112.78.1.78:191';
+        // var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
