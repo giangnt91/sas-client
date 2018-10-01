@@ -462,8 +462,8 @@ sas
                         }
 
                         // kiểm tra ngày báo danh
-                        if ($scope._details.Regday2 !== null) {
-                            $('#dayreg2').val(convertshow($scope._details.Regday2));
+                        if ($scope._details.Regday !== null) {
+                            $('#dayreg2').val(convertshow($scope._details.Regday));
                         } else {
                             $('#dayreg2').val(null);
                         }
@@ -590,16 +590,19 @@ sas
             $scope.recall = function () {
                 $scope._details.Recall = true;
                 update_student($scope._details);
+				$timeout(function(){
+					$('#detail').modal('hide');
+				}, 500)
             }
 
             // cập nhật thông tin học viên
             $scope.up_detail = function () {
 
                 // kiểm tra ngày báo danh
-                let _tmpdaybd = $('#dayreg2').val();
-                if (_tmpdaybd !== '') {
-                    $scope._details.Regday2 = convertup(_tmpdaybd);
-                }
+                // let _tmpdaybd = $('#dayreg2').val();
+                // if (_tmpdaybd !== '') {
+                    // $scope._details.Regday2 = convertup(_tmpdaybd);
+                // }
 
                 // kiểm tra địa chỉ
                 if ($scope.selectedAddress !== null) {
@@ -730,6 +733,9 @@ sas
                     $scope._details.Time_recall = time_recall;
                 }
                 update_student($scope._details);
+				$timeout(function(){
+					$('#time').modal('hide');
+				}, 500)
             }
 
             // kiểm tra checkbox

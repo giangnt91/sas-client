@@ -55,7 +55,7 @@
                                 </div>
                             </div>
 
-                            <table cellpadding="0" class="table table-striped cell-border table-hover text-center">
+                            <table cellpadding="0" ng-show="_Makerting.length > 0" class="table table-striped cell-border table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th>STT</th>
@@ -69,7 +69,7 @@
                                 <tbody>
                                     <tr ng-repeat="content in _Makerting" style="cursor:pointer">
                                         <td class="text-center">{{$index +1}}</td>
-                                        <td ng-bind="content.User"></td>
+                                        <td ng-bind="content.Team"></td>
                                         <td ng-bind="content.On"></td>
                                         <td ng-bind="content.Reg.length"></td>
                                         <td ng-if="content.On > 0">{{content.Reg.length / content.On *100}} %</td>
@@ -78,7 +78,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-
+							
+							<h4 class="text-center" ng-show="_Makerting.length === 0">Hiện tại không có dữ liệu phù hợp</h4>
+							
                         </div>
                     </div>
                 </div>

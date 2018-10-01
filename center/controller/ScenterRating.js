@@ -31,13 +31,30 @@ sas
 			DataServices.GetallUser().then(function (repsonse) {
 				if (repsonse.data.error_code === 0) {
 					$scope.TheUsers = repsonse.data.users;
+				}
+			});			
+		}
+		getAllsale();
+		
+		// lấy danh sách trung tâm
+		function getCenter(){
+			DataServices.GetCenter().then(function(response){
+				if(response.data.error_code === 0){
+					$scope.Centers = response.data.center;
+					
 					$scope._User = [];
 					
 					if($scope.TheUsers.length > 0){
-						$scope.TheUsers.forEach(element => {
-							DataServices.GetSrating(element.Username, null, null).then(function (response) {
+						$scope.Centers.forEach( c => {
+							DataServices.GetSCenter(c, null, null).then(function (response) {
 								if (response.data.error_code === 0) {
-									$scope._User.push(response.data.user);
+									$scope.TheUsers.forEach(element => {
+										if(response.data.user.User !== undefined){
+											if(element.Username === response.data.user.User){
+												$scope._User.push(response.data.user);
+											}
+										}
+									})
 								}
 							})
 						});
@@ -51,9 +68,9 @@ sas
 					.withOption('colReorder', true)
 					.withDOM('Zlfrtip')
 				}
-			});			
+			});
 		}
-		getAllsale();
+		getCenter();
 		
 		$scope._change = function(){
 			$scope._sale_for_group = [{
@@ -85,7 +102,7 @@ sas
 						list_mk.push(element);
 					}
 				});
-			} else {
+				} else {
 				list_mk = $scope.TheUsers;
 			}
 			
@@ -110,19 +127,33 @@ sas
 			
 			$scope._User = [];
 			if(_us !== null){
-				DataServices.GetSrating(_us, _fromday, _today).then(function(response){
-					if (response.data.error_code === 0) {
-						$scope._User.push(response.data.user);
-					}
-				});
-				}else{
-				list_mk.forEach(element => {
-					DataServices.GetSrating(element.Username, _fromday, _today).then(function (response) {
+				$scope.Centers.forEach( c => {
+					DataServices.GetSCenter(c, _fromday, _today).then(function (response) {
 						if (response.data.error_code === 0) {
-							$scope._User.push(response.data.user);
+							if(response.data.user.User !== undefined){
+								if(_us === response.data.user.User){
+									$scope._User.push(response.data.user);
+								}
+							}
 						}
 					})
 				});
+
+				}else{
+				$scope.Centers.forEach( c => {
+					DataServices.GetSCenter(c, _fromday, _today).then(function (response) {
+						if (response.data.error_code === 0) {
+							list_mk.forEach(element => {
+								if(response.data.user.User !== undefined){
+									if(element.Username === response.data.user.User){
+										$scope._User.push(response.data.user);
+									}
+								}
+							})
+						}
+					})
+				})
+
 			}
 			
 		}
@@ -145,7 +176,7 @@ sas
 					
 					if($scope.TheUsers.length > 0){
 						$scope.TheUsers.forEach(element => {
-							DataServices.GetSrating(element.Username, null, null).then(function (response) {
+							DataServices.GetSrating(element.Username, element.Fullname, null, null).then(function (response) {
 								if (response.data.error_code === 0) {
 									$scope._User.push(response.data.user);
 								}
@@ -201,13 +232,13 @@ sas
 			
 			$scope._User= [];
 			$scope.TheUsers.forEach(element => {
-				DataServices.GetSrating(element.Username, null, null).then(function (response) {
+				DataServices.GetSrating(element.Username, element.Fullname, null, null).then(function (response) {
 					if (response.data.error_code === 0) {
 						$scope._User.push(response.data.user);
 					}
 				})
 			});	
 			
-			}
+		}
 	}
 })

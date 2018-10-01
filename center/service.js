@@ -1,7 +1,7 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        var api_gateway_url = 'http://112.78.1.78:191';
-        // var api_gateway_url = 'http://localhost:191';
+        // var api_gateway_url = 'http://112.78.1.78:191';
+        var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
@@ -406,22 +406,32 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/getsms';
                 return $http.post(url, parameter, header);
             },
-			Getrating: function(Username, Fromday, Today){
+			Getrating: function(Center, Fromday, Today){
 				 parameter = JSON.stringify({
-                    Username: Username,
+                    Center: Center,
                     Fromday: Fromday,
                     Today: Today
                 })
                 url = api_gateway_url + '/getrating';
                 return $http.post(url, parameter, header);
 			},
-			GetSrating: function(Username, Fromday, Today){
+			GetSrating: function(Username, Fullname, Fromday, Today){
 				 parameter = JSON.stringify({
                     Username: Username,
+					Fullname: Fullname,
                     Fromday: Fromday,
                     Today: Today
                 })
                 url = api_gateway_url + '/getsrating';
+                return $http.post(url, parameter, header);
+			},
+			GetSCenter: function(Center, Fromday, Today){
+				parameter = JSON.stringify({
+					Center: Center,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/getscenter';
                 return $http.post(url, parameter, header);
 			}
         }

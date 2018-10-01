@@ -55,7 +55,7 @@
                                 </div>
                             </div>
 
-                            <table cellpadding="0" class="table table-striped cell-border table-hover text-center">
+                            <table cellpadding="0" ng-show="_User.length > 0" class="table table-striped cell-border table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th>STT</th>
@@ -78,6 +78,8 @@
                                     </tr>
                                 </tbody>
                             </table>
+							
+							<h4 class="text-center" ng-show="_User.length === 0">Hiện tại không có dữ liệu phù hợp</h4>
 
                         </div>
                     </div>
