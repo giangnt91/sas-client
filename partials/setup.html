@@ -10,8 +10,8 @@
                                 <th class="text-center">Nhận học viên mới</th>
                                 <th class="text-center">Nhận viên</th>
                                 <th class="text-center">Chuyển chưa gọi</th>
-                            </tr>
-                        </thead>
+							</tr>
+						</thead>
                         <tbody>
                             <tr ng-repeat="content in users">
                                 <td class="text-center">{{$index + 1}}</td>
@@ -20,20 +20,58 @@
                                         <label>
                                             <input type="checkbox" ng-model="check" ng-checked="content.Status_user[0].id === 1" ng-click="ChangeStatus(content, check)">
                                             <span class="toggle"></span>
-                                        </label>
-                                    </div>
-                                </td>
+										</label>
+									</div>
+								</td>
                                 <td class="text-center">{{content.Fullname}}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-info btn-round" ng-click="Share(content)">
-                                        Chuyển tất cả học viên
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+                                    <button class="btn btn-info btn-round" ng-click="OpenShare(content)">
+                                        Chuyển học viên
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal chia học viên-->
+<div class="modal fade" id="share" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Chuyển Học Viên</h4>
+                <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+            <div class="modal-body">
+                <form name="passform">
+					<div class="form-group">
+						<label for="hregday">Chuyển học viên từ</label>
+                        <input type="text" class="form-control" ng-model="_detail.Fullname" disabled>
+					</div>
+                    <div class="form-group">
+						<label for="hregday">Chuyển học viên đến</label>
+                        <select class="form-control" ng-model="chooseu"
+						ng-options="option.Fullname for option in _user">
+						</select>
+					</div>
+                    <div class="form-group">
+						<label for="hregday">Số lượng học viên</label>
+                        <input type="number" class="form-control" ng-model="data.s" placeholder="Không nhập số lượng sẽ chuyển tất cả học viên hiện tại">
+					</div>
+				</form>
+                <button type="button" class="btn btn-info btn-block" ng-click="Share(data)">Xác Nhận</button>
+			</div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                
+			</div> -->
+		</div>
+	</div>
 </div>

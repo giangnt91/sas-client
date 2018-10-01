@@ -8,6 +8,14 @@ sas
             DataServices.GetallUser().then(function (repsonse) {
                 if (repsonse.data.error_code === 0) {
                     $scope.users = repsonse.data.users;
+					$scope._user = [{
+							_id: null,
+							Fullname: 'Chọn' 
+						}]
+					$scope.users.forEach( u => {
+						$scope._user.push(u);
+					})
+					$scope.chooseu = $scope._user[0];
                 } else {
                     Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
                 }
@@ -22,33 +30,58 @@ sas
                     }
                 })
             }
-
+	
+			$scope.OpenShare = function(data){
+				$scope._detail = data;
+				$('#share').modal('show');
+			}
+	
             $scope.Share = function (data) {
-                ngDialog.open({
-                    template: 'templates/loading.html',
-                    className: 'ngdialog-theme-default',
-                    paint: true,
-                    showClose: false,
-                    closeByDocument: false,
-                    closeByEscape: false
-                });
+				let _num = 0;
+				let _all;
+				
 
+				if(data !== undefined){
+					if(data.s !== null){
+						_num = data.s;
+					}
+				}
+				
+				if($scope.chooseu._id !== null){
+					_all = $scope.chooseu.Username;
+				}else{
+					_all = null;
+				}
+				
 
-                DataServices.ShareStudent(data).then(function (repsonse) {
-                    $timeout(function () {
-                        if (repsonse.data.error_code === 0) {
-                            Notifi._success('Học viên đã được chuyển cho các Telesale còn lại');
-                            $scope.enable = false;
-                        } else if (repsonse.data.error_code === 3) {
-                            Notifi._error('Telesale không còn học viên để chuyển');
-                        } else if (repsonse.data.error_code === 2) {
-                            Notifi._error('Hiện chỉ còn 1 telesale nên không thể chuyển học viên');
-                        }
-                        ngDialog.close();
-                    }, 2900);
-                })
+				if(_all !== null){
+				
+					ngDialog.open({
+						template: 'templates/loading.html',
+						className: 'ngdialog-theme-default',
+						paint: true,
+						showClose: false,
+						closeByDocument: false,
+						closeByEscape: false
+					});
 
+					DataServices.ShareStudent($scope._detail.Username, _all, _num).then(function (repsonse) {
+						$timeout(function () {
+							if (repsonse.data.error_code === 0) {
+								Notifi._success('học viên đã được chuyển thành công');
+								$scope.enable = false;
+							} else if (repsonse.data.error_code === 3) {
+								Notifi._error('telesale không còn học viên để chuyển');
+							} else if (repsonse.data.error_code === 2) {
+								Notifi._error('hiện chỉ còn 1 telesale nên không thể chuyển học viên');
+							}
+							ngDialog.close();
+						}, 2900);
+					})
 
+				}else{
+					Notifi._error('Vui lòng chọn user cần chuyển học viên');
+				}
             }
         }
     })

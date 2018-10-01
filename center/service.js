@@ -1,7 +1,7 @@
 angular.module('SASService', [])
     .factory('DataServices', function ($http) {
-        // var api_gateway_url = 'http://112.78.1.78:191';
-        var api_gateway_url = 'http://localhost:191';
+        var api_gateway_url = 'http://112.78.1.78:191';
+        // var api_gateway_url = 'http://localhost:191';
         var parameter;
         var url;
         var header = { header: { 'Conntent-Type': 'application/x-www-form-urlencoded' } };
@@ -118,9 +118,11 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/upsheetstatus';
                 return $http.post(url, parameter, header);
             },
-            ShareStudent: function (detail) {
+            ShareStudent: function (From, Username, TheNum) {
                 parameter = JSON.stringify({
-                    detail: detail
+					From: From,
+                    Username: Username,
+					TheNum: TheNum
                 });
                 url = api_gateway_url + '/sharestudent';
                 return $http.post(url, parameter, header);
