@@ -61,8 +61,8 @@
 						<div class="col-lg-3" ng-show="auth.Role[0].id === 0">
 							<div class="input-group add">
 								<label for="form">Groups</label>
-								<select class="form-control" ng-model="Users" ng-disabled="mgroup._id === null"
-								ng-options="option.Fullname for option in _sale_for_group">
+								<select class="form-control" ng-model="mgroup"
+								ng-options="option.Name for option in AllGroups">
 								</select>
 							</div>
 						</div>
