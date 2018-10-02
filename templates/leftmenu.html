@@ -21,16 +21,16 @@
                     <p>Xếp Hạng</p>
                 </a>
             </li>
-            <li class="nav-item" ng-click="go_home()" ng-class="{'active': isactive === 1}">
-                <a class="nav-link" href="">
-                    <i class="material-icons">dashboard</i>
-                    <p>Tất cả</p>
-                </a>
-            </li>
 			<li class="nav-item" ng-click="go_center()" ng-class="{'active': isactive === 17}">
                 <a class="nav-link" href="">
                     <i class="material-icons">format_align_center</i>
                     <p>Thống Kê Cơ Sở</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_home()" ng-class="{'active': isactive === 1}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">dashboard</i>
+                    <p>Tất cả</p>
                 </a>
             </li>
             <li class="nav-item" ng-click="go_notcalled()" ng-class="{'active': isactive === 2}">
@@ -75,7 +75,7 @@
                     <p>Thống kê</p>
                 </a>
             </li>
-            <li class="nav-item" ng-click="go_setup()" ng-if="auth.Role[0].id === 0" style="margin-bottom: 20px" ng-class="{'active': isactive === 9}">
+            <li class="nav-item" ng-click="go_setup()" ng-if="auth.Role[0].id === 0 || auth.Leader === true" style="margin-bottom: 20px" ng-class="{'active': isactive === 9}">
                 <a class="nav-link" href="">
                     <i class="material-icons">settings</i>
                     <p>Setup</p>
@@ -93,16 +93,16 @@
                     <p>Xếp Hạng</p>
                 </a>
             </li>
-            <li class="nav-item" ng-click="go_thongke()" ng-class="{'active': isactive === 10}">
-                <a class="nav-link" href="">
-                    <i class="material-icons">dashboard</i>
-                    <p>Thống Kê</p>
-                </a>
-            </li>
 			<li class="nav-item" ng-click="go_mcenter()" ng-class="{'active': isactive === 16}">
                 <a class="nav-link" href="">
                     <i class="material-icons">format_align_center</i>
                     <p>Thống Kê Cơ Sở</p>
+                </a>
+            </li>
+            <li class="nav-item" ng-click="go_thongke()" ng-class="{'active': isactive === 10}">
+                <a class="nav-link" href="">
+                    <i class="material-icons">dashboard</i>
+                    <p>Thống Kê</p>
                 </a>
             </li>
             <li class="nav-item" ng-click="go_danhsach()" ng-class="{'active': isactive === 11}">

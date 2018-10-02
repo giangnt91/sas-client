@@ -93,7 +93,7 @@ sas
 									a = 1;
 								}
 							}
-						})
+							})
 					});
 				}
 			}
@@ -682,6 +682,24 @@ sas
 					// kiểm tra trạng thái
 					if (element.Status_student !== null) {
 						if(element.Status_student[0].id !== 3){
+							$scope.Status = [
+								{
+									name: 'Chọn',
+									value: null
+								},
+								{
+									name: 'Chưa đăng ký',
+									value: 0
+								},
+								{
+									name: 'Không tiềm năng',
+									value: 1
+								},
+								{
+									name: 'Đến chưa đăng ký',
+									value: 2
+								}
+							]
 							for (let i = 0; i < $scope.Status.length; i++) {
 								if ($scope.Status[i].value === element.Status_student[0].id) {
 									$scope.selectedStatus = $scope.Status[i];

@@ -7,7 +7,17 @@ sas
         } else {
             DataServices.GetallUser().then(function (repsonse) {
                 if (repsonse.data.error_code === 0) {
-                    $scope.users = repsonse.data.users;
+					if($rootScope.auth.Role[0].id === 0){
+						$scope.users = repsonse.data.users;
+					}else{
+						$scope.users = [];
+						repsonse.data.users.forEach( element => {
+							if($rootScope.auth.Zone[0].id === element.Zone[0].id){
+								$scope.users.push(element);
+							}
+						})
+					}
+					
 					$scope._user = [{
 							_id: null,
 							Fullname: 'Chọn' 
