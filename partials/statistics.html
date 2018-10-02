@@ -95,7 +95,7 @@
 					
 					<!-- Tỷ lệ -->
 					<div class="material-datatables" ng-show="isactive === 4">
-					<table cellpadding="0" class="table table-striped cell-border table-hover text-center">
+					<table cellpadding="0" ng-show="tl.length > 0" class="table table-striped cell-border table-hover text-center">
 					<thead>
 					<tr>
 					<th>STT</th>
@@ -126,6 +126,9 @@
 					</tr>
 					</tbody>
 					</table>
+					
+					<h4 class="text-center" ng-show="tl.length === 0">Hiện tại không có dữ liệu phù hợp</h4>
+					
 					</div>
 					
 					<!-- Hẹn chưa đến -->
@@ -158,7 +161,7 @@
 					
 					<!-- Lịch hẹn -->
 					<div class="material-datatables" ng-show="isactive === 9">
-					<table cellpadding="0" class="table table-striped cell-border table-hover text-center">
+					<table cellpadding="0"  ng-show="lh.length > 0" class="table table-striped cell-border table-hover text-center">
 					<thead>
 					<tr>
 					<th>STT</th>
@@ -178,6 +181,7 @@
 					</tr>
 					</tbody>
 					</table>
+					<h4 class="text-center" ng-show="lh.length === 0">Hiện tại không có dữ liệu phù hợp</h4>
 					</div>
 					</div>
 					</div>
