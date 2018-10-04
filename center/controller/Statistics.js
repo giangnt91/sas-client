@@ -3,7 +3,7 @@ sas
 .config(['ChartJsProvider', function (ChartJsProvider) {
 	// Configure all charts
 	ChartJsProvider.setOptions({
-		chartColors: ['#00BCD4', '#F44336', '#9C27B0', '#FF9800'],
+		chartColors: ['#2980C3', '#F44336', '#9C27B0', '#FF9800'],
 		responsive: true,
 		scales: {
 			yAxes: [{

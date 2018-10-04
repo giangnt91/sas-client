@@ -7,7 +7,19 @@
 }
 
 .sas-color {
-    color: #2981C4 !important;
+    color: #2980C3 !important;
+}
+
+.sas-bk{
+	background-color: #2980C3 !important;
+}
+
+.sidebar[data-color="azure"] li.active > a{
+	background-color: #2980C3 !important;
+}
+
+.sidebar .logo{
+	padding: 9px 0px !important;
 }
 
 /*
@@ -21,21 +33,21 @@
 
 .sms-scroll::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(31, 172, 277, 0.3);
-    background-color: #F5F5F5;
+    background-color: #2980C3;
 }
 
 .sms-scroll::-webkit-scrollbar {
     width: 6px;
-    background-color: #F5F5F5;
+    background-color: #2980C3;
 }
 
 .sms-scroll::-webkit-scrollbar-thumb {
-    background-color: #1FACE3;
+    background-color: #2980C3;
 }
 
 .sms-send {
     font-size: 14px;
-    border: 1px solid #1FACE3;
+    border: 1px solid #2980C3;
     padding: 6px;
     border-radius: 11px;
     margin-top: 10px;
@@ -45,7 +57,7 @@
 .sms-status {
     /* display: block; */
     font-size: 80%;
-    color: #6c757d;
+    color: #2980C3;
 }
 
 .btn-add-new {
@@ -143,7 +155,7 @@ thead {
 .modal-header {
     color: #fff;
     padding: 9px 15px;
-    background-color: #00BCD4;
+    background-color: #2980C3;
 }
 
 .modal-header h4 {
@@ -238,7 +250,7 @@ thead {
 .cbtn-left:before {
     top: 3px;
     right: 100%;
-    border-left: 12px solid rgba(156, 39, 176, .9);
+    border-left: 12px solid rgba(41, 128, 195, .9);
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
 }
@@ -248,7 +260,7 @@ thead {
     content: attr(data-tooltip);
     position: absolute;
     width: 0;
-    background: rgba(156, 39, 176, .9);
+    background: rgba(41, 128, 195, .9);
     opacity: 0;
     display: -webkit-box;
     display: -ms-flexbox;

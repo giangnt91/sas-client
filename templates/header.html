@@ -1,19 +1,20 @@
 <div id="he" class="main-panel" ng-controller="HomeCtrl">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-brand navbar-absolute fixed-top ">
+    <nav class="navbar navbar-expand-lg navbar-brand navbar-absolute fixed-top" style="background-color: #2980C3 !important;
+    color: #fff;">
         <div class="container-fluid">
             <div class="navbar-wrapper">
                 <a class="navbar-brand" href="" ng-click="addheader()" ng-if="auth.Role[0].id !== 2">
                     <i class="material-icons">person_add</i>
-                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thêm học viên</h4>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top; color: #fff">Thêm học viên</h4>
                 </a>
                 <a class="navbar-brand" href="" ng-click="go_manageruser()" ng-if="auth.Role[0].id === 0 || auth.Leader === true">
                     <i class="material-icons">face</i>
-                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Quản lý Users</h4>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top; color: #fff">Quản lý Users</h4>
                 </a>
                 <a class="navbar-brand" href="" ng-click="go_managergroup()" ng-if="auth.Role[0].id === 0">
                     <i class="material-icons">group</i>
-                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Quản lý Groups</h4>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top; color: #fff">Quản lý Groups</h4>
                 </a>
                 <a class="navbar-brand" href="" ng-click="go_connectgroup()" ng-if="auth.Role[0].id === 2">
                     <i class="material-icons">cast_connected</i>
@@ -21,7 +22,7 @@
                 </a>
                 <a class="navbar-brand" href="" ng-click="Time_dupicate()" ng-if="auth.Role[0].id === 0">
                     <i class="material-icons">access_time</i>
-                    <h4 class="title" style="display:inline-block; vertical-align: text-top;">Thời Gian</h4>
+                    <h4 class="title" style="display:inline-block; vertical-align: text-top; color: #fff">Thời Gian</h4>
                 </a>
             </div>
             <div class="collapse navbar-collapse justify-content-end">

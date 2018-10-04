@@ -168,17 +168,19 @@ sas
 		function Getallgroup() {
 			DataServices.GetallGgroup().then(function (response) {
 				if (response.data.error_code === 0) {
-					$scope.AllGroups = [{
-						_id: null,
-						Name: 'Tất cả'
-					}];
-					
-					$scope.mgroup = $scope.AllGroups[0];
-					response.data.groups.forEach(element => {
-						if (element.Gtype[0].id === 2) {
-							$scope.AllGroups.push(element);
-						}
-					});	
+					if(response.data.groups.length > 0){
+						$scope.AllGroups = [{
+							_id: null,
+							Name: 'Tất cả'
+						}];
+						
+						$scope.mgroup = $scope.AllGroups[0];
+						response.data.groups.forEach(element => {
+							if (element.Gtype[0].id === 2) {
+								$scope.AllGroups.push(element);
+							}
+						});	
+					}
 				}
 			})
 		}
@@ -237,13 +239,15 @@ sas
 			$scope.Users = $scope._sale_for_group[0];
 			
 			if($scope.mgroup._id !== null){
-				$scope.Makertings.forEach(element =>{
-					if(element.id !== null){
-						if(element.Zone[0].id === $scope.mgroup._id){
-							$scope._sale_for_group.push(element);
+				if($scope.Makertings.length > 0){
+					$scope.Makertings.forEach(element =>{
+						if(element.id !== null){
+							if(element.Zone[0].id === $scope.mgroup._id){
+								$scope._sale_for_group.push(element);
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 		}
 		
@@ -254,11 +258,13 @@ sas
 			let list_mk = [];
 			let _mk;
 			if ($scope.mgroup._id !== null) {
-				$scope.Makertings.forEach(element => {
-					if ($scope.mgroup._id === element.Zone[0].id) {
-						list_mk.push(element);
+					if($scope.Makertings.length > 0){
+						$scope.Makertings.forEach(element => {
+							if ($scope.mgroup._id === element.Zone[0].id) {
+								list_mk.push(element);
+							}
+						});
 					}
-				});
 				} else {
 				list_mk = $scope.Makertings;
 			}
@@ -283,34 +289,35 @@ sas
 			
 			
 			$scope._Makerting = [];
-			if(_mk !== null){
-				$scope.Centers.forEach( c => {
-					DataServices.Getrating(c, _fromday, _today).then(function (response) {
-						if (response.data.error_code === 0) {
-							if(response.data.mkt.User !== undefined){
-								if(_mk === response.data.mkt.User){
-									$scope._Makerting.push(response.data.mkt);
-								}
-							}
-						}
-					})
-				});
-				}else{
-				$scope.Centers.forEach( c => {
-					DataServices.Getrating(c, _fromday, _today).then(function (response) {
-						if (response.data.error_code === 0) {
-							list_mk.forEach(element => {
-								if(response.data.mkt.User !== undefined){
-									if(element.Username === response.data.mkt.User){
-										$scope._Makerting.push(response.data.mkt);
+			if($scope.Centers.length > 0){
+				if(_mk !== null){
+						$scope.Centers.forEach( c => {
+							DataServices.Getrating(c, _fromday, _today).then(function (response) {
+								if (response.data.error_code === 0) {
+									if(response.data.mkt.User !== undefined){
+										if(_mk === response.data.mkt.User){
+											$scope._Makerting.push(response.data.mkt);
+										}
 									}
 								}
 							})
-						}
+						});
+					}else{
+					$scope.Centers.forEach( c => {
+						DataServices.Getrating(c, _fromday, _today).then(function (response) {
+							if (response.data.error_code === 0) {
+								list_mk.forEach(element => {
+									if(response.data.mkt.User !== undefined){
+										if(element.Username === response.data.mkt.User){
+											$scope._Makerting.push(response.data.mkt);
+										}
+									}
+								})
+							}
+						})
 					})
-				})
+				}
 			}
-			
 		}
 		
 	}

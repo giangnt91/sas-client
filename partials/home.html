@@ -44,7 +44,7 @@
                                         <div class="col-lg-4">
                                             <div class="row top-10">
                                                 <div class="col-lg-11">
-                                                    <a href="#" class="btn btn-info btn-block" style="margin-left: 20px"
+                                                    <a href="#" class="btn sas-bk btn-block" style="margin-left: 20px"
                                                         ng-click="Searchwith()">
                                                         <i class="material-icons">search</i> Tìm Kiếm
                                                     </a>
@@ -90,8 +90,8 @@
                                         <td>{{content.Phone}}</td>
                                         <td>{{content.Address[0].name}}</td>
                                         <td>{{content.Status_student[0].name}}</td>
-                                        <td>
-                                            <a href="" class="btn cbtn cbtn-left btn-primary btn-sm" data-tooltip="{{content.Manager[0].name}}">{{content.Manager[0].id}}</a>
+                                        <td class="text-center">
+                                            <a href="" class="btn cbtn cbtn-left sas-bk btn-sm" data-tooltip="{{content.Manager[0].name}}">{{content.Manager[0].id}}</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -150,7 +150,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <a href="" ng-click="openPhoneTab(_details.Phone)">
-                                                            <i class="material-icons" style="color:#00BCD4; margin-top: -20px;border: 1px solid; border-radius: 5px;">call</i>
+                                                            <i class="material-icons sas-color" style="margin-top: -20px;border: 1px solid; border-radius: 5px;">call</i>
                                                         </a>
                                                     </span>
                                                 </div>
@@ -238,7 +238,7 @@
                                                 ng-disabled="_details.Status_student[0].id === 3" ng-click="up_detail()">Cập
                                                 Nhật
                                             </button>
-                                            <button class="btn btn-info btn-block" ng-click="showsms(_details)">SMS</button>
+                                            <button class="btn sas-bk btn-block" ng-click="showsms(_details)">SMS</button>
                                             <!-- <button class="btn btn-info btn-block">Email</button> -->
                                         </div>
                                     </div>
@@ -308,7 +308,7 @@
                         </div>
                     </div>
                 </form>
-                <button type="button" class="btn btn-info btn-block" ng-click="up_detail_2()">Xác Nhận</button>
+                <button type="button" class="btn sas-bk btn-block" ng-click="up_detail_2()">Xác Nhận</button>
             </div>
         </div>
     </div>
@@ -317,7 +317,7 @@
 <!-- Modal Thêm Học Viên header-->
 <div class="modal fade" id="add" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-add m-3-top" role="document">
+    <div class="modal-dialog modal-add" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
@@ -359,7 +359,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <a href="" ng-click="openPhoneTab()">
-                                                            <i class="material-icons" style="color:#00BCD4; margin-top: -20px;border: 1px solid; border-radius: 5px;">call</i>
+                                                            <i class="material-icons sas-color" style="margin-top: -20px;border: 1px solid; border-radius: 5px;">call</i>
                                                         </a>
                                                     </span>
                                                 </div>
@@ -391,7 +391,7 @@
                                     </div>
                                     <div class="col-lg-1 p-0">
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg btn-add-new" style="padding-left: 17px;"
+                                            <button class="btn sas-bk btn-block btn-lg btn-add-new" style="padding-left: 17px;"
                                                 ng-click="AddStudent(data)">Thêm
                                                 mới
                                             </button>
@@ -535,7 +535,7 @@
                                     </div>
                                     <div class="col-lg-1 p-0">
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg btn-add-new" style="padding-left: 17px;"
+                                            <button class="btn sas-bk btn-block btn-lg btn-add-new" style="padding-left: 17px;"
                                                 ng-click="addnewfromaddFriend(data)">Thêm
                                                 mới
                                             </button>
@@ -701,7 +701,7 @@
                             required>
                     </div>
                 </form>
-                <button type="button" class="btn btn-info btn-block" ng-click="update()">Xác Nhận</button>
+                <button type="button" class="btn sas-bk btn-block" ng-click="update()">Xác Nhận</button>
             </div>
             <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -756,7 +756,7 @@
                             Mẫu</button>
                     </div>
                     <div class="col-lg-6">
-                        <button type="button" class="btn btn-info btn-block" ng-click="send(data)">Gửi Tin</button>
+                        <button type="button" class="btn sas-bk btn-block" ng-click="send(data)">Gửi Tin</button>
                     </div>
                     <div class="col-lg-3">
                         <button type="button" class="btn btn-warning btn-block" ng-click="clear_sms()">Xóa</button>
