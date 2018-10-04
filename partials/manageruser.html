@@ -14,10 +14,10 @@
                                                 <button class="btn btn-warning" data-toggle="modal" data-target="#user">
                                                     <i class="material-icons">border_color</i> Tạo User
                                                 </button>
-                                                <button class="btn btn-info" ng-click="getdetailtele()" ng-if="auth.Role[0].id === 1">
+                                                <button class="btn sas-bk" ng-click="getdetailtele()" ng-if="auth.Role[0].id === 1">
                                                     <i class="material-icons">border_color</i> Thông Tin Group
                                                 </button>
-                                                <button class="btn btn-info" ng-click="getdetailmakert()" ng-if="auth.Role[0].id === 2">
+                                                <button class="btn sas-bk" ng-click="getdetailmakert()" ng-if="auth.Role[0].id === 2">
                                                     <i class="material-icons">search</i> Thông Tin Group
                                                 </button>
                                             </div>
@@ -59,7 +59,7 @@
                                             <button type="button" class="btn" ng-click="OpenConnect(content)" ng-show="auth.Role[0].id === 0 && content.Role[0].id === 2">
                                                 <i class="material-icons">cast_connected</i>
                                             </button>
-                                            <button type="button" class="btn btn-info" ng-click="OpenReset(content)">
+                                            <button type="button" class="btn sas-bk" ng-click="OpenReset(content)">
                                                 <i class="material-icons">autorenew</i>
                                             </button>
                                             <button type="button" class="btn btn-danger" ng-click="Opendel(content)">
@@ -310,7 +310,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="signup(data)">
+                                <button type="button" class="btn btn-lg sas-bk btn-block" ng-click="signup(data)">
                                     <i class="material-icons">send</i> Tạo User</button>
 
                             </form>
@@ -414,7 +414,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="UpdateUser(_detail)">
+                                <button type="button" class="btn btn-lg sas-bk btn-block" ng-click="UpdateUser(_detail)">
                                     <i class="material-icons">send</i> Cập nhật</button>
                             </form>
                         </div>
@@ -440,7 +440,7 @@
                     <b style="text-decoration: underline;">{{deluser.Username}}</b> khỏi cơ sở dữ liệu của hệ thống ?</p>
             </div>
             <div class="modal-footer" style="padding: 5px">
-                <button type="button" class="btn btn-primary" ng-click="Del(deluser._id)">Chấp nhận</button>
+                <button type="button" class="btn sas-bk" ng-click="Del(deluser._id)">Chấp nhận</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -464,7 +464,7 @@
                     ?</p>
             </div>
             <div class="modal-footer" style="padding: 5px">
-                <button type="button" class="btn btn-primary" ng-click="Re(ruser)">Chấp nhận</button>
+                <button type="button" class="btn sas-bk" ng-click="Re(ruser)">Chấp nhận</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -507,7 +507,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-lg btn-primary btn-block" ng-click="Join()">
+                    <button type="button" class="btn btn-lg sas-bk btn-block" ng-click="Join()">
                         <i class="material-icons">send</i> Liên Kết</button>
                 </form>
             </div>
