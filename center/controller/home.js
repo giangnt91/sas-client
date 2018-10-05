@@ -13,6 +13,12 @@ sas
 		$location.path('/connectgroup');
 	}
 	
+	// rút gọn id
+	function rutgon(_id){
+	 let new_id = _id.slice(0, 7);
+	 return new_id;
+	}
+	
 	// thời gian trùng
 	$scope.list_time_dup = [
 		{

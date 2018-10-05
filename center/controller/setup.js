@@ -76,17 +76,19 @@ sas
 					});
 
 					DataServices.ShareStudent($scope._detail.Username, _all, _num).then(function (repsonse) {
-						$timeout(function () {
+						// $timeout(function () {
 							if (repsonse.data.error_code === 0) {
+								ngDialog.close();
 								Notifi._success('học viên đã được chuyển thành công');
 								$scope.enable = false;
 							} else if (repsonse.data.error_code === 3) {
+								ngDialog.close();
 								Notifi._error('telesale không còn học viên để chuyển');
 							} else if (repsonse.data.error_code === 2) {
+								ngDialog.close();
 								Notifi._error('hiện chỉ còn 1 telesale nên không thể chuyển học viên');
 							}
-							ngDialog.close();
-						}, 2900);
+						// }, 2900);
 					})
 
 				}else{
