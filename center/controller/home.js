@@ -533,7 +533,7 @@ sas
 						$timeout(function(){
 							$scope.list_student = response.data.student;
 							// Notifi._close();
-						}, 3000);
+						}, 1500);
 						
 						if(_list_student.length > 0 && $scope._details !== undefined){
 							_list_student.forEach(element => {
