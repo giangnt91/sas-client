@@ -55,7 +55,10 @@
                                 <tbody>
                                     <tr ng-repeat="content in _User" style="cursor:pointer">
                                         <td class="text-center">{{$index +1}}</td>
-                                        <td ng-bind="content.Team"></td>
+                                        <td>
+											<span ng-repeat="t in content.Team" ng-show="content.Team.length > 1">{{t.name}}<span ng-hide="$last">,</span> </span>
+											<span ng-bind="content.Team[0].name" ng-show="content.Team.length === 1"></span>
+										</td>
                                         <td ng-bind="content.Name"></td>
                                         <td ng-bind="content.On"></td>
                                         <td ng-bind="content.Reg.length"></td>

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-
+						
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row top-10">
@@ -13,23 +13,26 @@
                                             <div class="col-lg-8">
                                                 <button class="btn btn-warning" data-toggle="modal" data-target="#user">
                                                     <i class="material-icons">border_color</i> Tạo User
-                                                </button>
+												</button>
+												<button class="btn btn-default" data-toggle="modal" data-target="#role" ng-if="auth.Role[0].id === 0">
+                                                    <i class="material-icons">perm_data_setting</i> Phân Quyền User
+												</button>
                                                 <button class="btn sas-bk" ng-click="getdetailtele()" ng-if="auth.Role[0].id === 1">
                                                     <i class="material-icons">border_color</i> Thông Tin Group
-                                                </button>
+												</button>
                                                 <button class="btn sas-bk" ng-click="getdetailmakert()" ng-if="auth.Role[0].id === 2">
                                                     <i class="material-icons">search</i> Thông Tin Group
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
                         <div class="material-datatables top-10">
                             <table datatable="ng" dt-options="newdtOptions" dt-instance="dtInstance" cellpadding="0"
-                                class="table table-striped cell-border table-hover text-center">
+							class="table table-striped cell-border table-hover text-center">
                                 <thead>
                                     <tr>
                                         <th>STT</th>
@@ -38,8 +41,8 @@
                                         <th>Group</th>
                                         <th ng-show="auth.Role[0].id === 2 || auth.Role[0].id === 0">Group Tele Liên Kết</th>
                                         <th>Action</th>
-                                    </tr>
-                                </thead>
+									</tr>
+								</thead>
                                 <tbody>
                                     <tr ng-repeat="content in Users" style="cursor:pointer" ng-click="detail(content._id)">
                                         <td class="text-center">{{$index +1}}</td>
@@ -50,47 +53,157 @@
                                         <td class="text-center" ng-show="auth.Role[0].id === 2 || auth.Role[0].id === 0">
                                             <a href="" ng-show="content.GroupSheet !== null" ng-repeat="g in content.GroupSheet">
                                                 {{g.name}}
-                                            </a>
-                                        </td>
+											</a>
+										</td>
                                         <td class="td-actions text-center">
                                             <button type="button" class="btn btn-success" ng-click="OpeneditUser(content)">
                                                 <i class="material-icons">edit</i>
-                                            </button>
+											</button>
                                             <button type="button" class="btn" ng-click="OpenConnect(content)" ng-show="auth.Role[0].id === 0 && content.Role[0].id === 2">
                                                 <i class="material-icons">cast_connected</i>
-                                            </button>
+											</button>
                                             <button type="button" class="btn sas-bk" ng-click="OpenReset(content)">
                                                 <i class="material-icons">autorenew</i>
-                                            </button>
+											</button>
                                             <button type="button" class="btn btn-danger" ng-click="Opendel(content)">
                                                 <i class="material-icons">close</i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<!-- Modal phân quyền-->
+<div class="modal fade" id="role" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Phân Quyền User</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+            <div class="modal-body">
+                <form name="passform">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group add">
+								<label for="_choose_role">Loại User</label>
+								<select id="_choose_role" class="form-control" ng-model="_choose_role" ng-change="changerole()"
+								ng-options="option.name for option in _role">
+								</select>
+							</div>
+						</div>
+                        <div class="col-6">
+                            <div class="form-check">
+								<label class="form-check-label">
+									<input id="thv" class="form-check-input" type="checkbox" value="1">Thêm Học Viên
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+                            <div class="form-check">
+								<label class="form-check-label">
+									<input id="cn" class="form-check-input" type="checkbox" value="1">Cập Nhật
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+                            <div class="form-check">
+								<label class="form-check-label">
+									<input id="sms" class="form-check-input" type="checkbox" value="1">Gửi SMS
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+                            <div class="form-check">
+								<label class="form-check-label">
+									<input id="gls" class="form-check-input" type="checkbox" value="1">Gọi Lại Sau
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+                            <div class="form-check">
+								<label class="form-check-label">
+									<input id="gltg" class="form-check-input" type="checkbox" value="1">Gọi Lại Thời Gian
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+                            <div class="form-check">
+								<label class="form-check-label">
+									<input id="tb" class="form-check-input" type="checkbox" value="1">Thêm Bạn
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+                            <div class="form-check">
+								<label class="form-check-label">
+									<input id="lscs" class="form-check-input" type="checkbox" value="1">Lịch Sử Chỉnh Sửa
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-6">
+                            <div class="form-check">
+								<label class="form-check-label">
+									<input id="chv" class="form-check-input" type="checkbox" value="1"> Chuyển Học Viên
+									<span class="form-check-sign">
+										<span class="check"></span>
+									</span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</form>
+                <button type="button" class="btn sas-bk btn-block" ng-click="xacnhan()">Xác Nhận</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- modal thông tin group telesale-->
 <div class="modal fade" id="gdetail" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
                     Tin Group
-                </h4>
+				</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+				</button>
+			</div>
             <div class="modal-body" style="padding-top: 5px">
                 <div class="row">
                     <div class="card m-10">
@@ -102,57 +215,57 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
                                                     <label for="musername">Tên</label>
-                                                </div>
+												</div>
                                                 <input type="text" class="form-control" ng-model="auth.Zone[0].name"
-                                                    disabled>
-                                            </div>
-
+												disabled>
+											</div>
+											
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
                                                     <label for="mfullname">Loại</label>
-                                                </div>
+												</div>
                                                 <input type="text" class="form-control" ng-model="auth.Zone[0].Gtype[0].name"
-                                                    disabled>
-                                            </div>
-
+												disabled>
+											</div>
+											
                                             <div class="input-group add">
                                                 <label for="memail">Leader</label>
                                                 <input type="text" class="form-control" ng-model="_detailGroup.Leader[0].name"
-                                                    disabled>
-                                            </div>
+												disabled>
+											</div>
                                             <div class="input-group add">
                                                 <label>Các Marketing đang liên kết</label>
-                                            </div>
+											</div>
                                             <div class="row">
                                                 <div class="col-lg-4" ng-show="_detailGroup.Sheet !== null" ng-repeat="content in _detailGroup.Sheet">
                                                     <p>{{content.name}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- modal thông tin group gdetailmakerting-->
 <div class="modal fade" id="gdetailmakerting" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thông
                     Tin Group
-                </h4>
+				</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+				</button>
+			</div>
             <div class="modal-body" style="padding-top: 5px">
                 <div class="row">
                     <div class="card m-10">
@@ -164,178 +277,222 @@
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
                                                     <label for="gtelename">Tên</label>
-                                                </div>
+												</div>
                                                 <input type="text" class="form-control" ng-model="auth.Zone[0].name" id="gtelename"
-                                                    disabled>
-                                            </div>
-
+												disabled>
+											</div>
+											
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
                                                     <label for="gtype">Loại</label>
-                                                </div>
+												</div>
                                                 <input type="text" class="form-control" ng-model="auth.Zone[0].Gtype[0].name"
-                                                    id="gtype" disabled>
-                                            </div>
-
+												id="gtype" disabled>
+											</div>
+											
                                             <div class="input-group add">
                                                 <label for="_lead">Leader</label>
                                                 <input type="text" class="form-control" ng-model="Mygroup.Leader[0].name"
-                                                    id="_lead" disabled>
-                                            </div>
-
+												id="_lead" disabled>
+											</div>
+											
                                             <!-- <div class="input-group add">
                                                 <label>Các Group Telesale đang được liên kết</label>
-                                            </div>
-
-                                            <div class="row">
+												</div>
+												
+												<div class="row">
                                                 <div class="col-lg-4" ng-repeat="content in Mygroup.Tele">
-                                                    <p>{{content.name}}</p>
+												<p>{{content.name}}</p>
                                                 </div>
-                                            </div> -->
-
+											</div> -->
+											
                                             <!-- <div class="collapse" id="collapseExample2">
                                                 <form>
-                                                    <h6>Chọn Group Telesale</h6>
-
-                                                    <div class="row">
-                                                        <div class="col-lg-4" ng-repeat="content in AllTele">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" ng-model="check"
-                                                                        ng-change="ChangeCheckGTL(content, check)" type="checkbox"
-                                                                        value="">
-                                                                    {{content.Name}}
-                                                                    <span class="form-check-sign">
-                                                                        <span class="check"></span>
-                                                                    </span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+												<h6>Chọn Group Telesale</h6>
+												
+												<div class="row">
+												<div class="col-lg-4" ng-repeat="content in AllTele">
+												<div class="form-check">
+												<label class="form-check-label">
+												<input class="form-check-input" ng-model="check"
+												ng-change="ChangeCheckGTL(content, check)" type="checkbox"
+												value="">
+												{{content.Name}}
+												<span class="form-check-sign">
+												<span class="check"></span>
+												</span>
+												</label>
+												</div>
+												</div>
+												</div>
                                                 </form>
-
-                                            </div>
-
-                                            <button ng-if="!cn" class="btn btn-lg btn-info btn-block" type="button"
+												
+												</div>
+												
+												<button ng-if="!cn" class="btn btn-lg btn-info btn-block" type="button"
                                                 data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false"
                                                 aria-controls="collapseExample2" ng-click="hide()">
                                                 Cập Nhật Liên Kết Telesale
-                                            </button> -->
-
+											</button> -->
+											
                                             <!-- <button ng-if="cn" type="button" class="btn btn-lg btn-info btn-block"
                                                 ng-click="UpdateSheetForGroup();">
-                                                <i class="material-icons">send</i> Gửi</button> -->
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+											<i class="material-icons">send</i> Gửi</button> -->
+											
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- modal tạo user -->
 <div class="modal fade" id="user" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
+aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Thêm
                     User
-                </h4>
+				</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+				</button>
+			</div>
             <div class="modal-body" style="padding-top: 5px">
                 <div class="row">
                     <div class="card m-10">
                         <div class="card-body card-add">
                             <form name="loginform">
                                 <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend add">
-                                                    <label for="musername">Username</label>
-                                                </div>
-                                                <input type="text" class="form-control" ng-model="data.musername" id="musername"
-                                                    required>
-                                            </div>
-
-                                            <div class="input-group">
-                                                <div class="input-group-prepend add">
-                                                    <label for="mfullname">Họ tên</label>
-                                                </div>
-                                                <input type="text" class="form-control" ng-model="data.mfullname" id="mfullname"
-                                                    required>
-                                            </div>
-
-                                            <div class="input-group add">
-                                                <label for="memail">Email</label>
-                                                <input type="text" class="form-control" ng-model="data.memail" id="memail"
-                                                    required>
-                                            </div>
-
-                                            <div class="input-group add">
-                                                <label for="mphone">Số DT</label>
-                                                <input type="number" class="form-control" ng-model="data.mphone" id="mphone"
-                                                    required>
-                                            </div>
-
-                                            <div class="input-group add">
-                                                <label for="mday">Ngày Sinh</label>
-                                                <input type="date" class="form-control" id="mday">
-                                            </div>
-
-                                            <div class="input-group add" ng-show="auth.Role[0].id === 0">
-                                                <label for="mrole">Phân quyền</label>
-                                                <select id="mrole" class="form-control" ng-model="mrole" ng-change="getgroupforrole()"
-                                                    ng-options="option.value for option in _Role">
-                                                </select>
-                                            </div>
-
-                                            <div class="input-group add" ng-show="auth.Role[0].id === 0">
-                                                <label for="mgroup">Chọn group</label>
-                                                <select id="mgroup" class="form-control" ng-disabled="mrole.id === null"
-                                                    ng-model="mgroup" ng-options="option.Name for option in GroupSignup">
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button type="button" class="btn btn-lg sas-bk btn-block" ng-click="signup(data)">
-                                    <i class="material-icons">send</i> Tạo User</button>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                                    <div class="col-lg-6">
+										
+										<div class="input-group">
+											<div class="input-group-prepend add">
+												<label for="musername">Username</label>
+											</div>
+											<input type="text" class="form-control" ng-model="data.musername" id="musername"
+											required>
+										</div>
+									</div>	
+									
+									<div class="col-lg-6">
+										<div class="input-group">
+											<div class="input-group-prepend add">
+												<label for="mfullname">Họ tên</label>
+											</div>
+											<input type="text" class="form-control" ng-model="data.mfullname" id="mfullname"
+											required>
+										</div>
+									</div>
+									
+									<div class="col-lg-6">
+										<div class="input-group add">
+											<label for="memail">Email</label>
+											<input type="text" class="form-control" ng-model="data.memail" id="memail"
+											required>
+										</div>
+									</div>
+									
+									<div class="col-lg-6">
+										<div class="input-group add">
+											<label for="mphone">Số DT</label>
+											<input type="number" class="form-control" ng-model="data.mphone" id="mphone"
+											required>
+										</div>
+									</div>
+									
+									<div class="col-lg-6">
+										<div class="input-group add">
+											<label for="mday">Ngày Sinh</label>
+											<input type="date" class="form-control" id="mday">
+										</div>
+									</div>
+									
+									<div class="col-lg-6">
+										<div class="input-group add" ng-show="auth.Role[0].id === 0">
+											<label for="mrole">Phân quyền</label>
+											<select id="mrole" class="form-control" ng-model="mrole" ng-change="getgroupforrole()"
+											ng-options="option.value for option in _Role">
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-4" ng-show="mrole.id === 1">
+										<div class="form-check">
+											<label class="form-check-label">
+												<input id="pb" class="form-check-input" type="checkbox" value="1"> Phòng ban
+												<span class="form-check-sign">
+													<span class="check"></span>
+												</span>
+											</label>
+										</div>
+									</div>
+									<div class="col-lg-4" ng-show="mrole.id === 1">
+										<div class="form-check">
+											<label class="form-check-label">
+												<input id="cs" class="form-check-input" type="checkbox" value="2"> Cơ sở
+												<span class="form-check-sign">
+													<span class="check"></span>
+												</span>
+											</label>
+										</div>
+									</div>
+									<div class="col-lg-4" ng-show="mrole.id === 1">
+										<div class="form-check">
+											<label class="form-check-label">
+												<input id="tt" class="form-check-input" type="checkbox" value="0">Thanh tra
+												<span class="form-check-sign">
+													<span class="check"></span>
+												</span>
+											</label>
+										</div>
+									</div>
+									
+									<div class="col-lg-12">
+										<div class="input-group add" ng-show="auth.Role[0].id === 0">
+											<label for="mgroup">Chọn group</label>
+											<!-- <select id="mgroup" class="form-control" ng-disabled="mrole.id === null" -->
+											<!-- ng-model="mgroup" ng-options="option.Name for option in GroupSignup"> -->
+											<!-- </select> -->
+											<select id="mgroup" ng-model="mgroup" class="js-example-basic-multiple" ng-options="option.Name for option in GroupSignup" multiple="multiple"> 
+											</select>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<button type="button" class="btn btn-lg sas-bk btn-block top-10" ng-click="signup(data)">
+							<i class="material-icons">send</i> Tạo User</button>
+							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </div>
 
 <!-- modal cập nhật user -->
 <div class="modal fade" id="updateuser" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">Cập
                     Nhật
                     User
-                </h4>
+				</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+				</button>
+			</div>
             <div class="modal-body" style="padding-top: 5px">
                 <div class="row">
                     <div class="card m-10">
@@ -344,85 +501,124 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-
+											
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend add">
                                                             <label for="upusername">Username</label>
-                                                        </div>
+														</div>
                                                         <input type="text" class="form-control" ng-model="_detail.Username"
-                                                            id="upusername">
-                                                    </div>
-                                                </div>
+														id="upusername">
+													</div>
+												</div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend add">
                                                             <label for="upfullname">Họ tên</label>
-                                                        </div>
+														</div>
                                                         <input type="text" class="form-control" ng-model="_detail.Fullname"
-                                                            id="upfullname">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
+														id="upfullname">
+													</div>
+												</div>
+											</div>
+											
+											
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="input-group add">
                                                         <label for="upemail">Email</label>
                                                         <input type="text" class="form-control" ng-model="_detail.Email"
-                                                            id="upemail">
-                                                    </div>
-                                                </div>
+														id="upemail">
+													</div>
+												</div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group add">
                                                         <label for="upphone">Số DT</label>
                                                         <input type="text" class="form-control" ng-model="_detail.Phone"
-                                                            id="upphone">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
+														id="upphone">
+													</div>
+												</div>
+											</div>
+											
+											
+											
                                             <div class="row">
-                                                <div class="col-lg-4">
+                                                <div class="col-lg-6">
                                                     <div class="input-group add">
                                                         <label for="upday">Ngày Sinh</label>
                                                         <input type="date" class="form-control" id="upday">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
+													</div>
+												</div>
+                                                <div class="col-lg-6">
                                                     <div class="input-group add" ng-show="auth.Role[0].id === 0">
                                                         <label for="uprole">Phân quyền</label>
                                                         <select id="uprole" class="form-control" ng-model="uprole"
-                                                            ng-change="changeforupdate()" ng-options="option.value for option in _Role">
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
+														ng-change="changeforupdate()" ng-options="option.value for option in _Role">
+														</select>
+													</div>
+												</div>                                              
+											</div>
+											
+											<div class="row">
+												<div class="col-lg-4" ng-show="uprole.id === 1">
+													<div class="form-check">
+														<label class="form-check-label">
+															<input id="upb" class="form-check-input" type="checkbox" value="1" ng-checked="_detail.Role[1].id === 11"> Phòng ban
+															<span class="form-check-sign">
+																<span class="check"></span>
+															</span>
+														</label>
+													</div>
+												</div>
+												<div class="col-lg-4" ng-show="uprole.id === 1">
+													<div class="form-check">
+														<label class="form-check-label">
+															<input id="ucs" class="form-check-input" type="checkbox" value="2" ng-checked="_detail.Role[1].id === 12">Cơ sở
+															<span class="form-check-sign">
+																<span class="check"></span>
+															</span>
+														</label>
+													</div>
+												</div>
+												<div class="col-lg-4" ng-show="uprole.id === 1">
+													<div class="form-check">
+														<label class="form-check-label">
+															<input id="utt" class="form-check-input" type="checkbox" value="0">Thanh tra
+															<span class="form-check-sign">
+																<span class="check"></span>
+															</span>
+														</label>
+													</div>
+												</div>
+											</div>
+											
+											<div class="row">
+												<div class="col-lg-12">
                                                     <div class="input-group add" ng-show="auth.Role[0].id === 0">
                                                         <label for="upgroup">Chọn group</label>
-                                                        <select id="upgroup" class="form-control" ng-disabled="uprole.id === null"
-                                                            ng-model="mgroup" ng-options="option.Name for option in GroupUpdate">
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                                        <!-- <select id="upgroup" class="form-control" ng-disabled="uprole.id === null" -->
+														<!-- ng-model="mgroup" ng-options="option.Name for option in GroupUpdate"> -->
+                                                        <!-- </select> -->
+														<select id="upgroup" ng-model="ugroup" ng-disabled="uprole.id === null" class="js-example-basic-multiple" ng-options="option.Name for option in GroupUpdate" multiple="multiple"> 
+														</select>
+													</div>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								
                                 <button type="button" class="btn btn-lg sas-bk btn-block" ng-click="UpdateUser(_detail)">
-                                    <i class="material-icons">send</i> Cập nhật</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								<i class="material-icons">send</i> Cập nhật</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- modal comfirm xóa -->
@@ -433,18 +629,18 @@
                 <h5 class="modal-title">Xóa User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+				</button>
+			</div>
             <div class="modal-body">
                 <p>Bạn có chắc chắn xóa <b style="text-decoration: underline;">{{deluser.Fullname}}</b> có Username là
-                    <b style="text-decoration: underline;">{{deluser.Username}}</b> khỏi cơ sở dữ liệu của hệ thống ?</p>
-            </div>
+				<b style="text-decoration: underline;">{{deluser.Username}}</b> khỏi cơ sở dữ liệu của hệ thống ?</p>
+			</div>
             <div class="modal-footer" style="padding: 5px">
                 <button type="button" class="btn sas-bk" ng-click="Del(deluser._id)">Chấp nhận</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!-- modal comfirm reset password -->
@@ -455,20 +651,20 @@
                 <h5 class="modal-title">Reset mật khẩu</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+				</button>
+			</div>
             <div class="modal-body">
                 <p>Bạn có chắc chắn reset mật khẩu cho <b style="text-decoration: underline;">{{ruser.Fullname}}</b> có
                     Username là
                     <b style="text-decoration: underline;">{{ruser.Username}}</b> về mặc định là: <b style="text-decoration: underline;">12345678</b>
-                    ?</p>
-            </div>
+				?</p>
+			</div>
             <div class="modal-footer" style="padding: 5px">
                 <button type="button" class="btn sas-bk" ng-click="Re(ruser)">Chấp nhận</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
@@ -480,8 +676,8 @@
                 <h5 class="modal-title">Liên Kết Telesale Group</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+				</button>
+			</div>
             <div class="modal-body">
                 <form name="loginform">
                     <div class="row">
@@ -490,28 +686,34 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend add">
                                         <label for="choosegroup">Chọn Group</label>
-                                    </div>
+									</div>
                                     <select id="choosegroup" class="form-control" ng-model="choosegroup"
-                                        ng-options="option.Name for option in _connectTele">
-                                    </select>
-                                </div>
-
+									ng-options="option.Name for option in _connectTele">
+									</select>
+								</div>
+								
                                 <div class="input-group">
                                     <div class="input-group-prepend add">
                                         <label for="chooseSheet">Chọn Sheet</label>
-                                    </div>
+									</div>
                                     <select id="chooseSheet" class="form-control" ng-model="choosesheet" ng-options="option.name for option in list_sheet">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					
                     <button type="button" class="btn btn-lg sas-bk btn-block" ng-click="Join()">
-                        <i class="material-icons">send</i> Liên Kết</button>
-                </form>
-            </div>
-
-        </div>
-    </div>
+					<i class="material-icons">send</i> Liên Kết</button>
+				</form>
+			</div>
+			
+		</div>
+	</div>
 </div>
+
+<script>
+	$(document).ready(function() {
+		$('.js-example-basic-multiple').select2();
+	});
+	</script>	

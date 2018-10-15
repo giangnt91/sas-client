@@ -5,11 +5,13 @@ sas
 	if (!$rootScope.auth) {
 		$location.path('/login');
         } else {
+		Notifi._loading();
+		
 		function getAllmakert() {
 			DataServices.GetallMakerting().then(function (response) {
 				if (response.data.error_code === 0) {
 					$scope.Makertings = response.data.makert;
-					$scope._Makerting = [];
+					var _makerting = [];
 					
 					// lấy danh sách form
 					$scope.Markets = [{
@@ -21,7 +23,7 @@ sas
 						$scope.Makertings.forEach(element => {
 							DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null, null).then(function (response) {
 								if (response.data.error_code === 0) {
-									$scope._Makerting.push(response.data.mkt);
+									_makerting.push(response.data.mkt);
 								}
 							})
 							
@@ -38,12 +40,22 @@ sas
 							}
 						});
 						
+						$timeout(function(){
+							Notifi._close();
+							$scope._Makerting = _makerting;
+						}, $scope.Makertings.length * 100);
+						
                         } else {
 						DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, null, null, null).then(function (response) {
 							if (response.data.error_code === 0) {
-								$scope._Makerting.push(response.data.mkt);
+								_makerting.push(response.data.mkt);
 							}
 						})
+						
+						$timeout(function(){
+							Notifi._close();
+							$scope._Makerting = _makerting;
+						});
 						
 						if ($rootScope.auth.SheetID !== null) {
 							$rootScope.auth.SheetID.forEach(element => {
@@ -144,15 +156,22 @@ sas
 		
 		//filter theo ngày tháng và group
 		$scope.Search_mk = function () {
+			Notifi._loading();
+			
 			let _fromday = $('#mkday').val();
 			let _today = $('#mkday2').val();
 			let list_mk = [];
 			let _form;
 			if ($scope.mgroup.id !== null) {
 				$scope.Makertings.forEach(element => {
-					if ($scope.mgroup._id === element.Zone[0].id) {
-						list_mk.push(element);
-					}
+					// if ($scope.mgroup._id === element.Zone[0].id) {
+						// list_mk.push(element);
+					// }
+					element.Zone.forEach( elz => {
+						if($scope.mgroup._id === elz.id){
+							list_mk.push(element);
+						}
+					})
 				});
 				} else {
 				list_mk = $scope.Makertings;
@@ -172,21 +191,31 @@ sas
 				_today = null
 			}
 			
-			$scope._Makerting = [];
+			var _makerting = [];
 			if ($scope.auth.Role[0].id === 0) {
 				list_mk.forEach(element => {
 					DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, _fromday, _today, _form).then(function (response) {
 						if (response.data.error_code === 0) {
-							$scope._Makerting.push(response.data.mkt);
+							_makerting.push(response.data.mkt);
 						}
 					})
 				});
+				
+				$timeout(function(){
+					Notifi._close();
+					$scope._Makerting = _makerting;
+				}, list_mk.length * 100);
 				} else {
 				DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, _fromday, _today, _form).then(function (response) {
 					if (response.data.error_code === 0) {
-						$scope._Makerting.push(response.data.mkt);
+						_makerting.push(response.data.mkt);
 					}
 				})
+				
+				$timeout(function(){
+					Notifi._close();
+					$scope._Makerting = _makerting;
+				});
 			}
 			
 		}
@@ -389,11 +418,13 @@ sas
 	if (!$rootScope.auth) {
 		$location.path('/login');
 		} else {
+		Notifi._loading();
+		
 		function getAllmakert() {
 			DataServices.GetallMakerting().then(function (response) {
 				if (response.data.error_code === 0) {
 					$scope.Makertings = response.data.makert;
-					$scope._Makerting = [];
+					var _makerting = [];
 					
 					// lấy danh sách form
 					$scope.Markets = [{
@@ -405,7 +436,7 @@ sas
 					$scope.Makertings.forEach(element => {
 						DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null, null).then(function (response) {
 							if (response.data.error_code === 0) {
-								$scope._Makerting.push(response.data.mkt);
+								_makerting.push(response.data.mkt);
 							}
 						})
 						
@@ -421,6 +452,11 @@ sas
 							}
 						}
 					});
+					
+					$timeout(function(){
+						$scope._Makerting = _makerting;
+						Notifi._close();
+					}, $scope.Makertings.length * 100);
 					
 					
 					$scope.newdtOptions = DTOptionsBuilder.newOptions()
@@ -494,6 +530,8 @@ sas
 		
 		//filter theo ngày tháng và group
 		$scope.Search_mk = function () {
+			Notifi._loading();
+			
 			let _fromday = $('#mkday').val();
 			let _today = $('#mkday2').val();
 			let list_mk = [];
@@ -516,15 +554,20 @@ sas
 				_today = null
 			}
 			
-			$scope._Makerting = [];
+			var _makerting = [];
 			list_mk.forEach(element => {
 				DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, _fromday, _today, null).then(function (response) {
 					if (response.data.error_code === 0) {
-						$scope._Makerting.push(response.data.mkt);
+						_makerting.push(response.data.mkt);
 					}
 				})
 			});	
 			
-			}
+			$timeout(function(){
+				$scope._Makerting = _makerting;
+				Notifi._close();
+			}, list_mk.length * 100);
+			
+		}
 	}
 })

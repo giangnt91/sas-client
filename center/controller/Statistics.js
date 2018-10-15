@@ -69,16 +69,23 @@ sas
 		var dataIn = [];
 		var dataFriend = [];
 		
+		Notifi._loading();
 		// lấy thành viên trong group cho user thường
 		if($rootScope.auth.Role[0].id !== 0){
 			$timeout(function () {
 				$scope.users.forEach( u => {
-					if(u.Zone[0].id === $rootScope.auth.Zone[0].id){
-						list_friend_user.push(u);
-					}
+						u.Zone.forEach( elz => {
+							if(elz.id === $rootScope.auth.Zone[0].id){
+								list_friend_user.push(u);
+							}
+						})
+					// if(u.Zone[0].id === $rootScope.auth.Zone[0].id){
+						// list_friend_user.push(u);
+					// }
 				})
 				
-				list_friend_user.forEach(element => {
+				list_friend_user.forEach( function(element, index){
+					$timeout(function(){
 					DataServices.GetforchartDefault(element.Username, null, null).then(function (res) {
 						if (res.data.error_code === 0) {
 							var _result = res.data.student;
@@ -91,14 +98,19 @@ sas
 						}
 					})
 					$scope.labels1.push(element.Fullname);
+					}, 100 * index);
 				});
 				
-				$scope.data = [
-					dataOn,
-					dataOut,
-					dataIn,
-					dataFriend
-				];
+				$timeout(function(){
+					Notifi._close();
+					$scope.data = [
+						dataOn,
+						dataOut,
+						dataIn,
+						dataFriend
+					];
+				}, list_friend_user.length * 100);
+
 				$scope.series = ['Online', 'Out', 'In', 'Friend'];
 			}, 500)
 			
@@ -107,7 +119,8 @@ sas
 			if ($scope.isactive === 1) {
 				
 				$timeout(function () {
-					$scope.users.forEach(element => {
+					$scope.users.forEach(function(element, index) {
+						$timeout(function(){
 						DataServices.GetforchartDefault(element.Username, null, null).then(function (res) {
 							if (res.data.error_code === 0) {
 								var _result = res.data.student;
@@ -120,14 +133,19 @@ sas
 							}
 						})
 						$scope.labels1.push(element.Fullname);
+						}, 100 * index);
 					});
 					
-					$scope.data = [
-						dataOn,
-						dataOut,
-						dataIn,
-						dataFriend
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data = [
+							dataOn,
+							dataOut,
+							dataIn,
+							dataFriend
+						];
+					}, $scope.users.length * 100);
+						
 					$scope.series = ['Online', 'Out', 'In', 'Friend'];
 				}, 500)
 				
@@ -137,24 +155,36 @@ sas
 		
 		// lọc theo ngày
 		$scope.fillbyday = function () {
+			Notifi._loading();
+			
 			getUsers();
 			var list_friend_user = [];
 			
 			if($rootScope.auth.Role[0].id === 0){
 				if($scope.mgroup._id !== null){
 					$scope.users.forEach( u => {
-						if(u.Zone[0].id === $scope.mgroup._id){
-							list_friend_user.push(u);
-						}
+						u.Zone.forEach( elz => {
+							if(elz.id === $scope.mgroup._id){
+								list_friend_user.push(u);
+							}
+						})
+						// if(u.Zone[0].id === $scope.mgroup._id){
+							// list_friend_user.push(u);
+						// }
 					})
 					}else{
 					list_friend_user = $scope.users;
 				}
 				}else{
 				$scope.users.forEach( u => {
-					if(u.Zone[0].id === $rootScope.auth.Zone[0].id){
-						list_friend_user.push(u);
-					}
+						u.Zone.forEach( elz => {
+							if(elz.id === $scope.mgroup._id){
+								list_friend_user.push(u);
+							}
+						})
+					// if(u.Zone[0].id === $rootScope.auth.Zone[0].id){
+						// list_friend_user.push(u);
+					// }
 				})
 			}
 			
@@ -175,167 +205,244 @@ sas
 				case 2:
 				$scope.labels2 = [];
 				var notcall = [];
+				$scope.data2 = [];
 				
-				list_friend_user.forEach(element => {					
-					DataServices.GetforchartNotcall(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.notcall;
-							notcall.push(_result.length);
-						}
-					})
-					$scope.labels2.push(element.Fullname);
+				list_friend_user.forEach( function(element, index){	
+					$timeout(function(){
+						DataServices.GetforchartNotcall(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.notcall;
+								notcall.push(_result.length);
+							}
+						})
+						$scope.labels2.push(element.Fullname);
+					}, 100 * index);
 				});
 				
-				$scope.data2 = [
-					notcall
-				];
+				$timeout(function(){
+					Notifi._close();
+					$scope.data2 = [
+						notcall
+					];
+				}, list_friend_user.length * 100);
+				
 				$scope.series2 = ['Chưa gọi'];
 				break;
+				
 				case 3:
 				$scope.labels3 = [];
 				var relcall = [];
-				list_friend_user.forEach(element => {
-					
-					DataServices.GetforchartRecall(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.recall;
-							relcall.push(_result.length);
-						}
-					})
-					$scope.labels3.push(element.Fullname);
+				$scope.data3 = [];
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.GetforchartRecall(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.recall;
+								relcall.push(_result.length);
+							}
+						})
+						$scope.labels3.push(element.Fullname);
+					}, 100 * index);
 				});
 				
-				$scope.data3 = [
-					relcall
-				];
+				$timeout(function(){
+					Notifi._close();
+					$scope.data3 = [
+						relcall
+					];
+				}, list_friend_user.length * 100);
+				
 				$scope.series3 = ['Gọi lại'];
 				break;
+				
 				case 4:
+				var _tl = [];
 				$scope.tl = [];
-				list_friend_user.forEach(element => {
-					DataServices.Gettl(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.tl;
-							$scope.tl.push(_result);
-						}
-					})
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.Gettl(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.tl;
+								_tl.push(_result);
+							}
+						})
+					}, 100 * index);
 				});
 				
+				$timeout(function(){
+					Notifi._close();
+					$scope.tl = _tl;
+				}, list_friend_user.length * 100);
+				
 				break;
+				
 				case 5:
 				var hcd = [];
+				$scope.data5 = [];
 				$scope.labels5 = [];
-				list_friend_user.forEach(element => {
-					
-					DataServices.GetforchartHcd(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.hcd;
-							hcd.push(_result.length);
-						}
-					})
-					$scope.labels5.push(element.Fullname);
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.GetforchartHcd(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.hcd;
+								hcd.push(_result.length);
+							}
+						})
+						$scope.labels5.push(element.Fullname);
+					}, 100 * index);
 				});
 				
-				$scope.data5 = [
-					hcd
-				];
+				$timeout(function(){
+					Notifi._close();
+					$scope.data5 = [
+						hcd
+					];
+				}, list_friend_user.length * 100);
+							
 				$scope.series5 = ['Hẹn chưa đến'];
 				break;
+				
 				case 6:
 				var dcdk = [];
 				$scope.labels6 = [];
-				list_friend_user.forEach(element => {
-					
-					DataServices.GetforchartDcdk(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.dcdk;
-							dcdk.push(_result.length);
-						}
-					})
-					$scope.labels6.push(element.Fullname);
+				$scope.data6 = [];
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.GetforchartDcdk(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.dcdk;
+								dcdk.push(_result.length);
+							}
+						})
+						$scope.labels6.push(element.Fullname);
+					}, 100 * index);
 				});
 				
-				$scope.data6 = [
-					dcdk
-				];
+				$timeout(function(){
+					Notifi._close();
+					$scope.data6 = [
+						dcdk
+					];
+				}, list_friend_user.length * 100);
+				
 				$scope.series6 = ['Đến chưa đăng ký'];
 				break;
+				
 				case 7:
 				var cdk = [];
 				$scope.labels7 = [];
-				list_friend_user.forEach(element => {
-					
-					DataServices.GetforchartCdk(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.cdk;
-							cdk.push(_result.length);
-						}
-					})
-					$scope.labels7.push(element.Fullname);
+				$scope.data7 = [];
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.GetforchartCdk(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.cdk;
+								cdk.push(_result.length);
+							}
+						})
+						$scope.labels7.push(element.Fullname);
+					}, 100 * index);
 				});
 				
-				$scope.data7 = [
-					cdk
-				];
+				$timeout(function(){
+					Notifi._close();
+					$scope.data7 = [
+						cdk
+					];
+				}, list_friend_user.length * 100);
+					
 				$scope.series7 = ['Chưa đăng ký'];
 				break;
+				
 				case 8:
 				var ktn = [];
 				$scope.labels8 = [];
-				list_friend_user.forEach(element => {
-					
-					DataServices.GetforchartKtn(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.ktn;
-							ktn.push(_result.length);
-						}
-					})
-					$scope.labels8.push(element.Fullname);
+				$scope.data8 = [];
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.GetforchartKtn(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.ktn;
+								ktn.push(_result.length);
+							}
+						})
+						$scope.labels8.push(element.Fullname);
+					}, 100 * index);
 				});
 				
-				$scope.data8 = [
-					ktn
-				];
+				$timeout(function(){
+					Notifi._close();
+					$scope.data8 = [
+						ktn
+					];
+				}, list_friend_user.length * 100);
+	
 				$scope.series8 = ['Không tiềm năng'];
 				break;
+				
 				case 9:
+				var _lh = [];
 				$scope.lh = [];
-				list_friend_user.forEach(element => {
-					DataServices.Getlh(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.lh;
-							$scope.lh.push(_result);
-						}
-					})
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.Getlh(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.lh;
+								_lh.push(_result);
+							}
+						})
+					}, 100 * index);
 				});
+				
+				$timeout(function(){
+					Notifi._close();
+					$scope.lh = _lh;
+				}, list_friend_user.length * 100);
+				
 				break;
+				
 				default:
 				$scope.labels1 = [];
 				var dataOn = [];
 				var dataOut = [];
 				var dataIn = [];
 				var dataFriend = [];
-				list_friend_user.forEach(element => {
-					DataServices.GetforchartDefault(element.Username, _fromday, _today).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.student;
-							if (_result.length > 0) {
-								dataOn.push(_result[0].On.length);
-								dataIn.push(_result[0].In.length);
-								dataOut.push(_result[0].Out.length);
-								dataFriend.push(_result[0].Fri.length);
+				$scope.data = [];
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.GetforchartDefault(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.student;
+								if (_result.length > 0) {
+									dataOn.push(_result[0].On.length);
+									dataIn.push(_result[0].In.length);
+									dataOut.push(_result[0].Out.length);
+									dataFriend.push(_result[0].Fri.length);
+								}
 							}
-						}
-					})
-					$scope.labels1.push(element.Fullname);
+						})
+						$scope.labels1.push(element.Fullname);
+					}, 100 * index);
 				});
 				
-				$scope.data = [
-					dataOn,
-					dataOut,
-					dataIn,
-					dataFriend
-				];
+				$timeout(function(){
+					Notifi._close();
+					$scope.data = [
+						dataOn,
+						dataOut,
+						dataIn,
+						dataFriend
+					];
+				}, list_friend_user.length * 100);
+
 				$scope.series = ['Online', 'Out', 'In', 'Friend'];
 			}
 			
@@ -348,6 +455,8 @@ sas
 		
 		// chưa gọi
 		$scope.cg = function () {
+			Notifi._loading();
+			
 			getUsers();
 			$scope.isactive = 2;
 			
@@ -363,41 +472,54 @@ sas
 						}
 					})
 					
-					list_friend_user.forEach(element => {
-						DataServices.GetforchartNotcall(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.notcall;
-								if (_result.length > 0) {
-									notcall.push(_result.length);
+					list_friend_user.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartNotcall(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.notcall;
+									if (_result.length > 0) {
+										notcall.push(_result.length);
+									}
 								}
-							}
-						})
-						$scope.labels2.push(element.Fullname);
+							})
+							$scope.labels2.push(element.Fullname);
+						}, index * 100);
+						
 					});
 					
-					$scope.data2 = [
-						notcall
-					];
+					
+					$timeout(function(){
+						Notifi._close();
+						$scope.data2 = [
+							notcall
+						];
+					}, list_friend_user.length * 100);
+						
 					$scope.series2 = ['Chưa gọi'];
 					
 					}else{
 					
-					$scope.users.forEach(element => {
-						
-						DataServices.GetforchartNotcall(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.notcall;
-								if (_result.length > 0) {
-									notcall.push(_result.length);
+					$scope.users.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartNotcall(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.notcall;
+									if (_result.length > 0) {
+										notcall.push(_result.length);
+									}
 								}
-							}
-						})
-						$scope.labels2.push(element.Fullname);
+							})
+							$scope.labels2.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data2 = [
-						notcall
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data2 = [
+							notcall
+						];
+					}, $scope.users.length * 100);
+
 					$scope.series2 = ['Chưa gọi'];
 					
 				}
@@ -406,6 +528,7 @@ sas
 		
 		// gọi lại
 		$scope.gl = function () {
+			Notifi._loading();
 			getUsers();
 			$scope.isactive = 3;
 			$scope.labels3 = [];
@@ -420,39 +543,50 @@ sas
 						}
 					})
 					
-					list_friend_user.forEach(element => {
-						DataServices.GetforchartNotcall(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.recall;
-								if (_result.length > 0) {
-									relcall.push(_result.length);
+					list_friend_user.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartNotcall(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.recall;
+									if (_result.length > 0) {
+										relcall.push(_result.length);
+									}
 								}
-							}
-						})
-						$scope.labels3.push(element.Fullname);
+							})
+							$scope.labels3.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data3 = [
-						relcall
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data3 = [
+							relcall
+						];
+					}, list_friend_user.length * 100);
+					
 					$scope.series3 = ['Gọi lại'];
 					
 					}else{
 					
-					$scope.users.forEach(element => {
-						
-						DataServices.GetforchartRecall(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.recall;
-								relcall.push(_result.length);
-							}
-						})
-						$scope.labels3.push(element.Fullname);
+					$scope.users.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartRecall(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.recall;
+									relcall.push(_result.length);
+								}
+							})
+							$scope.labels3.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data3 = [
-						relcall
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data3 = [
+							relcall
+						];
+					}, $scope.users.length * 100);
+					
 					$scope.series3 = ['Gọi lại'];
 					
 				}
@@ -462,10 +596,13 @@ sas
 		
 		// tỷ lệ
 		$scope._tl = function () {
-			$scope.isactive = 4;
+			Notifi._loading();
 			
-			$scope.tl = [];
+			$scope.isactive = 4;
+
 			var list_friend_user = [];
+			var _tl = [];
+			$scope.tl = [];
 			
 			if($rootScope.auth.Role[0].id !== 0){
 				$scope.users.forEach( u => {
@@ -473,28 +610,45 @@ sas
 						list_friend_user.push(u);
 					}
 				})
-				list_friend_user.forEach(element => {
-					DataServices.Gettl(element.Username, null, null).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.tl;
-							$scope.tl.push(_result);
-						}
-					})
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.Gettl(element.Username, null, null).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.tl;
+								_tl.push(_result);
+							}
+						})
+					}, index * 100);	
 				});	
+				
+				$timeout(function(){
+					Notifi._close();
+					$scope.tl = _tl;
+				}, list_friend_user.length * 100);
+				
 				}else{
-				$scope.users.forEach(element => {
-					DataServices.Gettl(element.Username, null, null).then(function (res) {
-						if (res.data.error_code === 0) {
-							var _result = res.data.tl;
-							$scope.tl.push(_result);
-						}
-					})
+				$scope.users.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.Gettl(element.Username, null, null).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.tl;
+								_tl.push(_result);
+							}
+						})
+					}, index * 100);	
 				});
+				
+				$timeout(function(){
+					Notifi._close();
+					$scope.tl = _tl;
+				}, $scope.users.length * 100);
 			}
 		}
 		
 		// hẹn chưa đến
 		$scope.hcd = function () {
+			Notifi._loading();
+			
 			$scope.isactive = 5;
 			getUsers();
 			
@@ -511,39 +665,51 @@ sas
 						}
 					})
 					
-					list_friend_user.forEach(element => {
-						DataServices.GetforchartHcd(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.hcd;
-								if (_result.length > 0) {
-									hcd.push(_result.length);
+					list_friend_user.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartHcd(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.hcd;
+									if (_result.length > 0) {
+										hcd.push(_result.length);
+									}
 								}
-							}
-						})
-						$scope.labels5.push(element.Fullname);
+							})
+							$scope.labels5.push(element.Fullname);
+						}, index * 100);
+						
 					});
 					
-					$scope.data5 = [
-						hcd
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data5 = [
+							hcd
+						];
+					}, list_friend_user.length * 100);
+					
 					$scope.series5 = ['Hẹn chưa đến'];
 					
 					}else{
 					
-					$scope.users.forEach(element => {
-						
-						DataServices.GetforchartHcd(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.hcd;
-								hcd.push(_result.length);
-							}
-						})
-						$scope.labels5.push(element.Fullname);
+					$scope.users.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartHcd(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.hcd;
+									hcd.push(_result.length);
+								}
+							})
+							$scope.labels5.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data5 = [
-						hcd
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data5 = [
+							hcd
+						];
+					}, $scope.users.length * 100);
+					
 					$scope.series5 = ['Hẹn chưa đến'];
 					
 				}
@@ -552,6 +718,7 @@ sas
 		
 		// đến chưa đăng ký
 		$scope.dcdk = function () {
+			Notifi._loading();
 			$scope.isactive = 6;
 			getUsers();
 			
@@ -568,39 +735,50 @@ sas
 						}
 					})
 					
-					list_friend_user.forEach(element => {
-						DataServices.GetforchartDcdk(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.dcdk;
-								if (_result.length > 0) {
-									dcdk.push(_result.length);
+					list_friend_user.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartDcdk(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.dcdk;
+									if (_result.length > 0) {
+										dcdk.push(_result.length);
+									}
 								}
-							}
-						})
-						$scope.labels6.push(element.Fullname);
+							})
+							$scope.labels6.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data6 = [
-						dcdk
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data6 = [
+							dcdk
+						];
+					}, list_friend_user.length * 100);
+					
 					$scope.series6 = ['Đến chưa đăng ký'];
 					
 					}else{
 					
-					$scope.users.forEach(element => {
-						
-						DataServices.GetforchartDcdk(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.dcdk;
-								dcdk.push(_result.length);
-							}
-						})
-						$scope.labels6.push(element.Fullname);
+					$scope.users.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartDcdk(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.dcdk;
+									dcdk.push(_result.length);
+								}
+							})
+							$scope.labels6.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data6 = [
-						dcdk
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data6 = [
+							dcdk
+						];
+					}, $scope.users.length * 100);
+					
 					$scope.series6 = ['Đến chưa đăng ký'];
 					
 				}
@@ -609,6 +787,7 @@ sas
 		
 		// chưa đăng ký
 		$scope.cdk = function () {
+			Notifi._loading();
 			$scope.isactive = 7;
 			
 			getUsers();
@@ -626,39 +805,50 @@ sas
 						}
 					})
 					
-					list_friend_user.forEach(element => {
-						DataServices.GetforchartCdk(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.cdk;
-								if (_result.length > 0) {
-									cdk.push(_result.length);
+					list_friend_user.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartCdk(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.cdk;
+									if (_result.length > 0) {
+										cdk.push(_result.length);
+									}
 								}
-							}
-						})
-						$scope.labels7.push(element.Fullname);
+							})
+							$scope.labels7.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data7 = [
-						cdk
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data7 = [
+							cdk
+						];
+					}, list_friend_user.length * 100);
+
 					$scope.series7 = ['Chưa đăng ký'];
 					
 					}else{
 					
-					$scope.users.forEach(element => {
-						
-						DataServices.GetforchartCdk(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.cdk;
-								cdk.push(_result.length);
-							}
-						})
-						$scope.labels7.push(element.Fullname);
+					$scope.users.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartCdk(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.cdk;
+									cdk.push(_result.length);
+								}
+							})
+							$scope.labels7.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data7 = [
-						cdk
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data7 = [
+							cdk
+						];
+					}, $scope.users.length * 100);
+					
 					$scope.series7 = ['Chưa đăng ký'];
 					
 				}
@@ -667,6 +857,8 @@ sas
 		
 		// không tiềm năng
 		$scope.ktn = function () {
+			Notifi._loading();
+			
 			$scope.isactive = 8;
 			
 			getUsers();
@@ -684,39 +876,50 @@ sas
 						}
 					})
 					
-					list_friend_user.forEach(element => {
-						DataServices.GetforchartKtn(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.ktn;
-								if (_result.length > 0) {
-									ktn.push(_result.length);
+					list_friend_user.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartKtn(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.ktn;
+									if (_result.length > 0) {
+										ktn.push(_result.length);
+									}
 								}
-							}
-						})
-						$scope.labels8.push(element.Fullname);
+							})
+							$scope.labels8.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data8 = [
-						ktn
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data8 = [
+							ktn
+						];
+					}, list_friend_user.length * 100);
+
 					$scope.series8 = ['Không tiềm năng'];
 					
 					}else{
 					
-					$scope.users.forEach(element => {
-						
-						DataServices.GetforchartKtn(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.ktn;
-								ktn.push(_result.length);
-							}
-						})
-						$scope.labels8.push(element.Fullname);
+					$scope.users.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartKtn(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.ktn;
+									ktn.push(_result.length);
+								}
+							})
+							$scope.labels8.push(element.Fullname);
+						}, index * 100);
 					});
 					
-					$scope.data8 = [
-						ktn
-					];
+					$timeout(function(){
+						Notifi._close();
+						$scope.data8 = [
+							ktn
+						];
+					}, $scope.users.length * 100);
+					
 					$scope.series8 = ['Không tiềm năng'];
 					
 				}
@@ -725,11 +928,14 @@ sas
 		
 		// lịch hẹn
 		$scope._lh = function () {
+			Notifi._loading();
 			$scope.isactive = 9;
 			
 			getUsers();
 			
+			_lh = [];
 			$scope.lh = [];
+			
 			var list_friend_user = [];
 			
 			$timeout(function () {
@@ -741,26 +947,39 @@ sas
 						}
 					})
 					
-					list_friend_user.forEach(element => {
-						DataServices.Getlh(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.lh;
-								$scope.lh.push(_result);
-							}
-						})
+					list_friend_user.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.Getlh(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.lh;
+									_lh.push(_result);
+								}
+							})
+						}, index * 100);
 					});
+					
+					$timeout(function(){
+						Notifi._close();
+						$scope.lh = _lh;
+					}, list_friend_user.length * 100);
 					
 					}else{
 					
-					$scope.users.forEach(element => {
-						DataServices.Getlh(element.Username, null, null).then(function (res) {
-							if (res.data.error_code === 0) {
-								var _result = res.data.lh;
-								$scope.lh.push(_result);
-							}
-						})
+					$scope.users.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.Getlh(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.lh;
+									_lh.push(_result);
+								}
+							})
+						}, index * 100);
 					});
 					
+					$timeout(function(){
+						Notifi._close();
+						$scope.lh = _lh;
+					}, $scope.users.length * 100);
 				}
 			}, 500)
 		}

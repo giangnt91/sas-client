@@ -6,6 +6,7 @@ sas
 		$location.path('/login');
 		} else {
 		
+		Notifi._loading();
 		// lấy tất cả các group
 		function Getallgroup() {
 			DataServices.GetallGgroup().then(function (response) {
@@ -42,7 +43,7 @@ sas
 				if(response.data.error_code === 0){
 					$scope.Centers = response.data.center;
 					
-					$scope._User = [];
+					var _user = [];
 					
 					if($scope.TheUsers.length > 0){
 						$scope.Centers.forEach( c => {
@@ -51,7 +52,7 @@ sas
 									$scope.TheUsers.forEach(element => {
 										if(response.data.user.User !== undefined){
 											if(element.Username === response.data.user.User){
-												$scope._User.push(response.data.user);
+												_user.push(response.data.user);
 											}
 										}
 									})
@@ -59,6 +60,11 @@ sas
 							})
 						});
 					}
+					
+					$timeout(function(){
+						$scope._User = _user;
+						Notifi._close();
+					}, 3000);
 					
 					$scope.newdtOptions = DTOptionsBuilder.newOptions()
 					.withDisplayLength(10)
@@ -70,7 +76,9 @@ sas
 				}
 			});
 		}
-		getCenter();
+		$timeout(function(){
+			getCenter();
+		}, 1000);
 		
 		$scope._change = function(){
 			$scope._sale_for_group = [{
@@ -82,9 +90,14 @@ sas
 			if($scope.mgroup._id !== null){
 				$scope.TheUsers.forEach(element =>{
 					if(element.id !== null){
-						if(element.Zone[0].id === $scope.mgroup._id){
-							$scope._sale_for_group.push(element);
-						}
+						element.Zone.forEach( elz => {
+							if(elz.id === $scope.mgroup._id){
+								$scope._sale_for_group.push(element);
+							}
+						})
+						// if(element.Zone[0].id === $scope.mgroup._id){
+							// $scope._sale_for_group.push(element);
+						// }
 					}
 				});
 			}
@@ -92,15 +105,22 @@ sas
 		
 		//filter theo ngày tháng và group
 		$scope.Search_mk = function () {
+			Notifi._loading();
+			
 			let _fromday = $('#scday').val();
 			let _today = $('#scday2').val();
 			let list_mk = [];
 			let _us;
 			if ($scope.mgroup._id !== null) {
 				$scope.TheUsers.forEach(element => {
-					if ($scope.mgroup._id === element.Zone[0].id) {
-						list_mk.push(element);
-					}
+						element.Zone.forEach( elz => {
+							if(elz.id === $scope.mgroup._id){
+								list_mk.push(element);
+							}
+						})
+					// if ($scope.mgroup._id === element.Zone[0].id) {
+						// list_mk.push(element);
+					// }
 				});
 				} else {
 				list_mk = $scope.TheUsers;
@@ -125,14 +145,14 @@ sas
 			}
 			
 			
-			$scope._User = [];
+			var _user = [];
 			if(_us !== null){
 				$scope.Centers.forEach( c => {
 					DataServices.GetSCenter(c, _fromday, _today).then(function (response) {
 						if (response.data.error_code === 0) {
 							if(response.data.user.User !== undefined){
 								if(_us === response.data.user.User){
-									$scope._User.push(response.data.user);
+									_user.push(response.data.user);
 								}
 							}
 						}
@@ -146,7 +166,7 @@ sas
 							list_mk.forEach(element => {
 								if(response.data.user.User !== undefined){
 									if(element.Username === response.data.user.User){
-										$scope._User.push(response.data.user);
+										_user.push(response.data.user);
 									}
 								}
 							})
@@ -155,6 +175,11 @@ sas
 				})
 
 			}
+			
+			$timeout(function(){
+						$scope._User = _user;
+						Notifi._close();
+					}, 3000);
 			
 		}
 		
@@ -167,22 +192,28 @@ sas
 		$location.path('/login');
 		} else {
 		
+		Notifi._loading();
 		// lấy danh sách sale
 		function getAllsale() {
 			DataServices.GetallUser().then(function (repsonse) {
 				if (repsonse.data.error_code === 0) {
 					$scope.TheUsers = repsonse.data.users;
-					$scope._User = [];
+					var _user = [];
+					
 					
 					if($scope.TheUsers.length > 0){
 						$scope.TheUsers.forEach(element => {
 							DataServices.GetSrating(element.Username, element.Fullname, null, null).then(function (response) {
 								if (response.data.error_code === 0) {
-									$scope._User.push(response.data.user);
+									_user.push(response.data.user);
 								}
 							})
 						});
 					}
+					$timeout(function(){
+					$scope._User = _user;
+					Notifi._close();
+					}, 3000);
 					
 					$scope.newdtOptions = DTOptionsBuilder.newOptions()
 					.withDisplayLength(10)
@@ -192,6 +223,7 @@ sas
 					.withOption('bDestroy', true)
 					.withOption('colReorder', true)
 					.withDOM('Zlfrtip')
+
 				}
 			});			
 		}
@@ -219,6 +251,7 @@ sas
 		
 		//filter theo ngày tháng và group
 		$scope.Search_mk = function () {
+			Notifi._loading();
 			let _fromday = $('#sday').val();
 			let _today = $('#sday2').val();			
 			
@@ -230,14 +263,19 @@ sas
 				_today = null
 			}
 			
-			$scope._User= [];
+			var _user= [];
 			$scope.TheUsers.forEach(element => {
 				DataServices.GetSrating(element.Username, element.Fullname, null, null).then(function (response) {
 					if (response.data.error_code === 0) {
-						$scope._User.push(response.data.user);
+						_user.push(response.data.user);
 					}
 				})
 			});	
+			
+			$timeout(function(){
+				$scope._User = _user;
+				Notifi._close();
+			}, 3000);
 			
 		}
 	}

@@ -172,7 +172,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="note">Ghi chú</label>
-                                            <textarea class="form-control" rows="5" ng-model="_details.Note" id="dnote"></textarea>
+                                            <textarea class="form-control" rows="5" ng-keyup="check_length_note()" ng-model="_details.Note" id="dnote"></textarea>
                                         </div>
                                     </div>
                                     <!-- <div class="col-lg-1 p-0">
@@ -235,16 +235,21 @@
                                         </div>
                                     </div> -->
                                     <div class="col-lg-2">
-                                        <!-- <button type="button" class="btn btn-lg btn-warning btn-block top-65" ng-click="up_detail_2()">
-                                            Cập nhật
-                                        </button> -->
                                         <div class="form-group">
-                                            <button class="btn btn-warning btn-block btn-lg btn-update"
+                                            <button class="btn btn-warning btn-block btn-lg btn-update" ng-show="auth.Role[0].id !== 0"
+                                                ng-disabled="_details.Status_student[0].id === 3 || auth.Username !== _details.Manager[0].id || auth.Access[0].capnhat === false"
+                                                ng-click="up_detail()">Cập Nhật
+                                            </button>
+                                            <button class="btn btn-warning btn-block btn-lg btn-update" ng-show="auth.Role[0].id === 0"
                                                 ng-disabled="_details.Status_student[0].id === 3" ng-click="up_detail()">Cập
                                                 Nhật
                                             </button>
-                                            <button class="btn sas-bk btn-block"  ng-click="showsms(_details)">SMS</button>
-                                            <!-- <button class="btn btn-info btn-block">Email</button> -->
+											
+											<button class="btn sas-bk btn-block" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Access[0].sms === false" ng-click="showsms(_details)">SMS</button>
+                                            <button class="btn sas-bk btn-block" ng-show="auth.Role[0].id === 0" ng-click="showsms(_details)">SMS</button>
+											
+											<button class="btn btn-info btn-block" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Access[0].lichsuchinhsua === false" ng-click="open_history()">Lịch sử chỉnh sửa (<span ng-show="_details.EditHistory !== null">{{_details.EditHistory.length}}</span><span ng-show="_details.EditHistory === null">0</span>)</button>
+											<button class="btn btn-info btn-block" ng-show="auth.Role[0].id === 0" ng-click="open_history()">Lịch sử chỉnh sửa (<span ng-show="_details.EditHistory !== null">{{_details.EditHistory.length}}</span><span ng-show="_details.EditHistory === null">0</span>)</button>
                                         </div>
                                     </div>
                                 </div>
@@ -256,25 +261,26 @@
             </div>
             <div class="modal-footer" style="border-top: none; padding-top: 0">
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id"
-                        ng-click="addfriend(_details._id)">Thêm
+                    <button type="button" class="btn btn-block btn-lg btn-primary" ng-show="auth.Role[0].id !== 0"
+                        ng-disabled="auth.Username !== _details.Manager[0].id || auth.Access[0].themban === false" ng-click="addfriend(_details._id)">Thêm
                         bạn
                     </button>
                     <button type="button" class="btn btn-block btn-lg btn-primary" ng-show="auth.Role[0].id === 0"
-                    ng-click="addfriend(_details._id)">Thêm
-                    bạn
-                </button>
+                        ng-click="addfriend(_details._id)">Thêm
+                        bạn
+                    </button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-success" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3"
+                    <button type="button" class="btn btn-block btn-lg btn-success" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3 || auth.Access[0].goilaithoigian === false"
                         data-toggle="modal" data-target="#time">Gọi lại thời gian</button>
-                        <button type="button" class="btn btn-block btn-lg btn-success" ng-show="auth.Role[0].id === 0" ng-disabled="_details.Status_student[0].id === 3"
+
+                    <button type="button" class="btn btn-block btn-lg btn-success" ng-show="auth.Role[0].id === 0"
                         data-toggle="modal" data-target="#time">Gọi lại thời gian</button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3"
+                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3 || auth.Access[0].goilaisau === false"
                         ng-click="recall()">Gọi lại sau</button>
-                        <button type="button" class="btn btn-block btn-lg btn-warning"  ng-show="auth.Role[0].id === 0" ng-disabled="_details.Status_student[0].id === 3"
+                        <button type="button" class="btn btn-block btn-lg btn-warning" ng-show="auth.Role[0].id === 0"
                         ng-click="recall()">Gọi lại sau</button>
                 </div>
             </div>
@@ -282,7 +288,51 @@
     </div>
 </div>
 
-
+<!-- Modal lịch sử chỉnh sửa-->
+<div class="modal fade" id="history" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Lịch Sử Chỉnh Sửa</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="passform">
+                    <div class="row">
+                        <div class="col-12">
+                           <table cellpadding="0"
+                                class="table table-striped cell-border table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>SĐT Cũ</th>
+                                        <th>SĐT Mới</th>
+                                        <th>Thời Gian</th>
+                                        <th>Username</th>
+                                        <th>Tên Nhân Viên</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="content in _details.EditHistory">
+                                        <td class="text-center">{{$index +1}}</td>
+                                        <td>{{content.Lastphone}}</td>
+                                        <td>{{content.Newphone}}</td>
+                                        <td>{{content.Daychange}}</td>
+                                        <td>{{content.Username}}</td>
+                                        <td>{{content.Fullname}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal Time-->
 <div class="modal fade top-150" id="time" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
@@ -359,7 +409,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="phone">Số DT</label>
-                                                <input type="number" class="form-control" ng-model="data.phone" id="phone2"
+                                                <input type="number" class="form-control" ng-keyup="checkphone(data.phone)" ng-model="data.phone" id="phone2"
                                                     required>
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">

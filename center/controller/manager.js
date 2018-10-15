@@ -5,6 +5,128 @@ sas
         if (!$rootScope.auth) {
             $location.path('/login');
         } else {
+			
+			// cập nhật phân quyền cho user
+			$scope._role = [
+				{
+					id: null,
+					name: 'Chọn'
+				},
+				{
+					id: 1,
+					name: 'Tele Phòng Ban'
+				},
+				{
+					id: 2,
+					name: 'Tele Cơ Sở'
+				},
+				{
+					id: 3,
+					name: 'Leader'
+				},
+				{
+					id: 4,
+					name: 'Thanh Tra'
+				}
+			]
+			
+			$scope._choose_role = $scope._role[0];
+			
+			$scope.changerole = function(){
+				$('#thv').prop('checked', false);
+				$('#cn').prop('checked', false);
+				$('#sms').prop('checked', false);
+				$('#gls').prop('checked', false);
+				$('#gltg').prop('checked', false);
+				$('#tb').prop('checked', false);
+				$('#lscs').prop('checked', false);
+				$('#chv').prop('checked', false);
+			}
+			
+			$scope.xacnhan = function(){
+				let themhocvien;
+				let capnhat;
+				let sms;
+				let goilaisau;
+				let goilaithoigian;
+				let themban;
+				let lichsuchinhsua;
+				let chuyenhocvien;
+				
+				if($scope._choose_role.id !== null){
+					if ($('#thv').is(":checked")){
+						themhocvien = true;
+					}else{
+						themhocvien = false;
+					}
+					
+					if ($('#cn').is(":checked")){
+						capnhat = true;
+					}else{
+						capnhat = false;
+					}
+					
+					if ($('#sms').is(":checked")){
+						sms = true;
+					}else{
+						sms = false;
+					}
+					
+					if ($('#gls').is(":checked")){
+						goilaisau = true;
+					}else{
+						goilaisau = false;
+					}
+					
+					if ($('#gltg').is(":checked")){
+						goilaithoigian = true;
+					}else{
+						goilaithoigian = false;
+					}
+					
+					if ($('#tb').is(":checked")){
+						themban = true;
+					}else{
+						themban = false;
+					}
+					
+					if ($('#lscs').is(":checked")){
+						lichsuchinhsua = true;
+					}else{
+						lichsuchinhsua = false;
+					}
+					
+					if ($('#chv').is(":checked")){
+						chuyenhocvien = true;
+					}else{
+						chuyenhocvien = false;
+					}
+					
+					var Access = [
+						{
+							themhocvien: themhocvien,
+							capnhat: capnhat,
+							sms: sms,
+							goilaisau: goilaisau,
+							goilaithoigian: goilaithoigian,
+							themban: themban,
+							lichsuchinhsua: lichsuchinhsua,
+							chuyenhocvien: chuyenhocvien
+						}
+					]
+					
+					DataServices.TheAccess($scope._choose_role.id, Access).then(function(response){
+						if(response.data.error_code === 0){
+							Notifi._success('Cập nhật thành công');
+						}else{
+							Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại sau');
+						}
+					})
+					
+				}else{
+					Notifi._error('Vui lòng chọn loại User');
+				}
+			}
 
             // lấy danh user marketing
             function getUsersMK() {
@@ -23,7 +145,7 @@ sas
                 })
             }
             getUsersMK();
-
+			
             // view detail makert
             $scope.getdetailmakert = function () {
                 $scope.Sheeter = [];
@@ -381,7 +503,11 @@ sas
             $scope.mrole = $scope._Role[0];
 
             $scope.getgroupforrole = function () {
-                $scope.GroupSignup = [];
+                
+				$("#mgroup").select2();
+				$('#mgroup').val(null).trigger('change');
+				
+				$scope.GroupSignup = [];
                 if ($scope.mrole.id !== null) {
                     if ($scope.mrole.id === 1) {
                         $scope.AllGroups.forEach(element => {
@@ -398,8 +524,9 @@ sas
                     }
                 }
             }
-
+			
             $scope.signup = function (data) {
+			
                 var mday = $('#mday').val();
                 if ($rootScope.auth.Role[0].id !== 0) {
                     $scope.mrole = $rootScope.auth.Role[0];
@@ -427,30 +554,77 @@ sas
                     Notifi._error('Nhập đầy đủ thông tin để tạo user.')
                     return;
                 } else {
+					
+					// thêm thanh tra
+					let _tt;
+					if ($('#tt').is(":checked")){
+						_tt = true;
+					}else{
+						_tt = false;
+					}
+					
+					
+					// thêm role cho telesale
+					let _r;
+					if ($('#pb').is(":checked"))
+					{
+					  _r = 1;
+					}
+					
+					if ($('#cs').is(":checked"))
+					{
+					  _r = 2;
+					}
+				
+					if($scope.mrole.id === 1){
+						if(_r === undefined){
+							Notifi._error('Nhập đầy đủ thông tin để tạo user.')
+							return;
+						}
+					}
 
                     let pass = md5.createHash(data.musername + '12345678');
                     var role;
-                    let zone;
+                    var zone = [];
 
                     if ($scope.mrole.id === 1) {
-                        role = {
-                            id: 1,
-                            name: 'Telesale'
-                        }
+						if(_r === 1){
+							role = [{
+								id: 1,
+								name: 'Telesale'
+							},{
+								id: 11,
+								name: 'Phòng Ban'
+							}]
+						}else{
+							role = [{
+									id: 1,
+									name: 'Telesale'
+								},{
+									id: 12,
+									name: 'Cơ Sở'
+							}]
+						}                       
                     } else {
-                        role = {
+                        role = [{
                             id: 2,
                             name: 'Makerting'
-                        }
+                        },{
+							id: 0,
+                            name: 'Makerting'
+						}]
                     }
-
-                    zone = {
-                        id: $scope.mgroup._id,
-                        name: $scope.mgroup.Name,
-                        Gtype: $scope.mgroup.Gtype
-                    }
-
-                    DataServices.signUp(data.musername, pass, data.mfullname, data.memail, data.mphone, mday, role, zone).then(function (response) {
+					
+					$scope.mgroup.forEach( element =>{
+					let _zone = {
+							id: element._id,
+							name: element.Name,
+							Gtype: element.Gtype
+						}
+						zone.push(_zone);
+					})
+					
+                    DataServices.signUp(data.musername, pass, data.mfullname, data.memail, data.mphone, mday, role, angular.fromJson(angular.toJson(zone)), _tt).then(function (response) {
                         if (response.data.error_code === 0) {
                             getUsers();
                             Notifi._success('Tài khoản được tạo thành công.')
@@ -473,6 +647,8 @@ sas
 
             $scope.changeforupdate = function () {
                 $scope.GroupUpdate = [];
+				$('#upgroup').select2();
+				$('#upgroup').val(null).trigger('change');
                 if ($scope.uprole.id !== null) {
                     if ($scope.uprole.id === 1) {
                         $scope.AllGroups.forEach(element => {
@@ -492,22 +668,29 @@ sas
 
             // Sửa thông tin user
             $scope.OpeneditUser = function (detail) {
+
                 $('#upday').val(detail.Birthday);
                 $scope._Role.forEach(element => {
                     if (element.id === detail.Role[0].id) {
                         $scope.uprole = element;
-
                         $scope.changeforupdate();
                     }
                 });
+				
+						
+				// var _mgroup = [];
+				$scope.ugroup = [];
                 $scope.GroupUpdate.forEach(element => {
                     if (detail.Zone !== null) {
-                        if (element._id === detail.Zone[0].id) {
-                            $scope.mgroup = element;
-                        }
+						detail.Zone.forEach( elz => {
+							if (element._id === elz.id) {
+								// _mgroup.push(element);
+								$scope.ugroup.push(element);
+							}
+						})      
                     }
-
                 });
+				
                 $scope._detail = detail;
                 $('#updateuser').modal('show');
             }
@@ -518,34 +701,105 @@ sas
                 if (bday !== '') {
                     detail.Birthday = bday;
                 }
-                if ($scope.uprole.id !== detail.Role[0].id) {
+				
+					// update thanh tra
+					if ($('#utt').is(":checked")){
+						detail.Inspect = true;
+					}else{
+						detail.Inspect = false;
+					}
+					
+					// update role
+					let _r;
+					if ($('#upb').is(":checked"))
+					{
+					  _r = 1;
+					}
+					
+					if ($('#ucs').is(":checked"))
+					{
+					  _r = 2;
+					}
+					
+					
+                // if ($scope.uprole.id !== detail.Role[0].id) {
+						
+				
                     if ($scope.uprole.id !== null) {
-                        _role = [{
-                            id: $scope.uprole.id,
-                            name: $scope.uprole.value
-                        }]
+                        // _role = [{
+                            // id: $scope.uprole.id,
+                            // name: $scope.uprole.value
+                        // }]
+						if ($scope.uprole.id === 1) {
+							if(_r !== undefined){
+								if(_r === 1){
+									_role = [{
+										id: 1,
+										name: 'Telesale'
+									},{
+										id: 11,
+										name: 'Phòng Ban'
+									}]
+								}else{
+									_role = [{
+											id: 1,
+											name: 'Telesale'
+										},{
+											id: 12,
+											name: 'Cơ Sở'
+									}]
+								}  
+							}else{
+								_role = [{
+											id: 1,
+											name: 'Telesale'
+										},{
+											id: detail.Role[1].id,
+											name: detail.Role[1].name
+									}]
+							}				                     
+						} else {
+							_role = [{
+								id: 2,
+								name: 'Makerting'
+							},{
+								id: 0,
+								name: 'Makerting'
+							}]
+						}
                         detail.Role = _role;
-                    }
-                }
+					}
+                // }
 
-                if ($scope.mgroup !== null) {
-                    if (detail.Zone !== null) {
-                        if ($scope.mgroup._id !== detail.Zone[0].id) {
-                            detail.Zone = [{
-                                id: $scope.mgroup._id,
-                                name: $scope.mgroup.Name,
-                                Gtype: $scope.mgroup.Gtype
-                            }]
-                        }
-                    } else {
-                        detail.Zone = [{
-                            id: $scope.mgroup._id,
-                            name: $scope.mgroup.Name,
-                            Gtype: $scope.mgroup.Gtype
-                        }]
-                    }
+                if ($scope.ugroup !== null) {
+					var zone = [];
+					$scope.ugroup.forEach( element =>{
+					let _zone = {
+							id: element._id,
+							name: element.Name,
+							Gtype: element.Gtype
+						}
+						zone.push(_zone);
+					})
+					detail.Zone = zone;
+                    // if (detail.Zone !== null) {
+                        // if ($scope.mgroup._id !== detail.Zone[0].id) {
+                            // detail.Zone = [{
+                                // id: $scope.mgroup._id,
+                                // name: $scope.mgroup.Name,
+                                // Gtype: $scope.mgroup.Gtype
+                            // }]
+                        // }
+                    // } else {
+                        // detail.Zone = [{
+                            // id: $scope.mgroup._id,
+                            // name: $scope.mgroup.Name,
+                            // Gtype: $scope.mgroup.Gtype
+                        // }]
+                    // }
                 }
-
+				
+	
                 DataServices.UpdateUser(detail).then(function (response) {
                     if (response.data.error_code === 0) {
                         getUsers();
@@ -917,11 +1171,13 @@ sas
 
             if (_detail.Leader !== null) {
                 $scope.upLeader = _detail.Leader[0];
-                $scope.upLeaders.forEach(element => {
-                    if (element.id === $scope.upLeader.id) {
-                        $scope.upLeader = element;
-                    }
-                });
+				if($scope.upLeader !== null){
+					$scope.upLeaders.forEach(element => {
+						if (element.id === $scope.upLeader.id) {
+							$scope.upLeader = element;
+						}
+					});
+				}
             } else {
                 $scope.upLeader = null;
             }

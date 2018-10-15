@@ -55,7 +55,7 @@ sas
 		
 		// lấy danh sách học viên
 		function get_null_query() {
-			
+			Notifi._loading();
 			// if ($rootScope.auth.Role[0].id !== 0) {
 			// if ($rootScope.auth.SheetID !== null) {
 			// _mform = $rootScope.auth.SheetID[0].id;
@@ -69,8 +69,11 @@ sas
 			
 			DataServices.GetallQuery($rootScope.auth.Role, $rootScope.auth.Username, null, null, null, null).then(function (response) {
 				if (response.data.error_code === 0) {
-					$scope.all_students = response.data.student;
-					
+					$timeout(function(){
+						$scope.all_students = response.data.student;
+						Notifi._close();
+					}, 1500);
+
 					$scope.newdtOptions = DTOptionsBuilder.newOptions()
 					.withDisplayLength(10)
 					.withOption('bLengthChange', true)
@@ -115,6 +118,8 @@ sas
 		
 		
 		$scope.Search_mk = function () {
+			Notifi._loading();
+			
 			let _fromday = $('#mkday').val();
 			let _today = $('#mkday2').val();
 			let _mform;
@@ -135,7 +140,10 @@ sas
 			
 			DataServices.GetallQuery($rootScope.auth.Role, $rootScope.auth.Username, _fromday, _today, $scope.mstatus.id, _mform).then(function (response) {
 				if (response.data.error_code === 0) {
-					$scope.all_students = response.data.student;
+					$timeout(function(){
+						$scope.all_students = response.data.student;
+						Notifi._close();
+					}, 1500);
 					
 					$scope.newdtOptions = DTOptionsBuilder.newOptions()
 					.withDisplayLength(10)
@@ -195,13 +203,14 @@ sas
 		}
 		getAllmakert();
 		
+		Notifi._loading();
 		// lấy danh sách trung tâm
 		function getCenter(){
 			DataServices.GetCenter().then(function(response){
 				if(response.data.error_code === 0){
 					$scope.Centers = response.data.center;
 					
-					$scope._Makerting = [];
+					var _makerting = [];
 					
 					if($scope.Makertings.length > 0){
 						$scope.Centers.forEach( c => {
@@ -210,7 +219,7 @@ sas
 									$scope.Makertings.forEach(element => {
 										if(response.data.mkt.User !== undefined){
 											if(element.Username === response.data.mkt.User){
-												$scope._Makerting.push(response.data.mkt);
+												_makerting.push(response.data.mkt);
 											}
 										}
 									})
@@ -218,6 +227,11 @@ sas
 							})
 						});
 					}
+					
+					$timeout(function(){
+						Notifi._close();
+						$scope._Makerting = _makerting;
+					}, $scope.Makertings.length * 100)
 					
 					$scope.newdtOptions = DTOptionsBuilder.newOptions()
 					.withDisplayLength(10)
@@ -229,8 +243,11 @@ sas
 				}
 			});
 		}
-		getCenter();
 		
+		$timeout(function(){
+			getCenter();
+		}, 1000);
+
 		$scope._change = function(){
 			$scope._sale_for_group = [{
 				id: null,
@@ -242,9 +259,14 @@ sas
 				if($scope.Makertings.length > 0){
 					$scope.Makertings.forEach(element =>{
 						if(element.id !== null){
-							if(element.Zone[0].id === $scope.mgroup._id){
-								$scope._sale_for_group.push(element);
-							}
+							// if(element.Zone[0].id === $scope.mgroup._id){
+								// $scope._sale_for_group.push(element);
+							// }
+							element.Zone.forEach( elz => {
+								if(elz.id === $scope.mgroup._id){
+									$scope._sale_for_group.push(element);
+								}
+							})
 						}
 					});
 				}
@@ -253,6 +275,8 @@ sas
 		
 		//filter theo ngày tháng và group
 		$scope.Search_mk = function () {
+			Notifi._loading();
+			
 			let _fromday = $('#mkcday').val();
 			let _today = $('#mkcday2').val();
 			let list_mk = [];
@@ -288,7 +312,7 @@ sas
 			}
 			
 			
-			$scope._Makerting = [];
+			var _makerting = [];
 			if($scope.Centers.length > 0){
 				if(_mk !== null){
 						$scope.Centers.forEach( c => {
@@ -296,12 +320,18 @@ sas
 								if (response.data.error_code === 0) {
 									if(response.data.mkt.User !== undefined){
 										if(_mk === response.data.mkt.User){
-											$scope._Makerting.push(response.data.mkt);
+											_makerting.push(response.data.mkt);
 										}
 									}
 								}
 							})
 						});
+						
+						$timeout(function(){
+							$scope._Makerting = _makerting;
+							Notifi._close();
+						}, $scope.Centers.length * 100)
+						
 					}else{
 					$scope.Centers.forEach( c => {
 						DataServices.Getrating(c, _fromday, _today).then(function (response) {
@@ -309,13 +339,19 @@ sas
 								list_mk.forEach(element => {
 									if(response.data.mkt.User !== undefined){
 										if(element.Username === response.data.mkt.User){
-											$scope._Makerting.push(response.data.mkt);
+											_makerting.push(response.data.mkt);
 										}
 									}
 								})
 							}
 						})
 					})
+					
+					$timeout(function(){
+						$scope._Makerting = _makerting;
+						Notifi._close();
+					}, $scope.Centers.length * 100)
+						
 				}
 			}
 		}

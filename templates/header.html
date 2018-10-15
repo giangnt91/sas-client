@@ -4,7 +4,7 @@
     color: #fff;">
         <div class="container-fluid">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="" ng-click="addheader()" ng-if="auth.Role[0].id !== 2">
+                <a class="navbar-brand" href="" ng-click="addheader()" ng-if="auth.Role[0].id !== 2 && auth.Access[0].themhocvien === true">
                     <i class="material-icons">person_add</i>
                     <h4 class="title" style="display:inline-block; vertical-align: text-top; color: #fff">Thêm học viên</h4>
                 </a>

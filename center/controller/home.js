@@ -272,6 +272,10 @@ sas
 		{
 			name: 'Đã đăng ký',
 			value: 3
+		},
+		{
+			name: 'Hủy',
+			value: 4
 		}
 	]
 	
@@ -292,6 +296,10 @@ sas
 		{
 			name: 'Đến chưa đăng ký',
 			value: 2
+		},
+		{
+			name: 'Hủy',
+			value: 4
 		}
 	]
 	
@@ -425,7 +433,7 @@ sas
 	// custom tìm kiếm
 	$timeout(function(){
 		$scope.HCenter = $scope.Center[0];
-	}, 500)
+	}, 1000)
 	
 	$scope.HStatus = $scope.Status2[0];
 	
@@ -489,36 +497,100 @@ sas
 	$scope.Clear = function () {
 		$('#hregday').val(null);
 		$('#hregday2').val(null);
+		$scope.crmphone = '';
 		$scope.HCenter = $scope.Center[0];
 		$scope.HStatus = $scope.Status2[0];
-		getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+		getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 	}
 	
+	// tìm trên toàn hệ thống
+	$scope.fillallCrm = function(){
+		if($scope.crmphone === undefined || $scope.crmphone === null){
+			Notifi._error('Vui lòng nhập số điện thoại cần tìm');
+			return;
+		}else{
+			DataServices.SearchByPhone($scope.crmphone).then(function(response){
+				if (response.data.error_code === 0) {
+					$scope.list_student = response.data.students;
+				}else if (response.data.error_code === 1) {
+				Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại')
+                } else if (response.data.error_code === 2) {
+				Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm')
+				}
+			});
+		}
+	}
 	
+	Notifi._loading();
 	// lấy danh sách học viên
-	function getStudent(username, role) {	
-		
-		DataServices.Getall(username, role).then(function (response) {
-			if (response.data.error_code === 0) {
-
-					$scope.list_student = response.data.student;
-					
-					$scope.newdtOptions = DTOptionsBuilder.newOptions()
-					.withDisplayLength(10)
-					.withOption('bLengthChange', true)
-					.withOption('iDisplayLength', 10)
-					.withDOM('Zlfrtip')
-                } else {
-				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
-			}
-		});
+	function getStudent(_id, username, role) {	
+		if($rootScope.auth.Role[0].id === 0){
+			DataServices.Getall(username, role).then(function (response) {
+				if (response.data.error_code === 0) {
+						
+						var _list_student = response.data.student;
+						
+						$timeout(function(){
+							$scope.list_student = response.data.student;
+							Notifi._close();
+						}, 3000);
+						
+						if(_list_student.length > 0 && $scope._details !== undefined){
+							_list_student.forEach(element => {
+								if($scope._details._id === element._id){
+									$scope._details = element;
+									$scope._lastnote = $scope._details.Note;
+									$scope._lastPhone = element.Phone;
+								}
+							})
+						}
+						
+						$scope.newdtOptions = DTOptionsBuilder.newOptions()
+						.withDisplayLength(10)
+						.withOption('bLengthChange', true)
+						.withOption('iDisplayLength', 10)
+						.withDOM('Zlfrtip')
+					} else {
+					Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+				}
+			});
+		}else{
+			DataServices.GetByGroup(_id).then(function(response){
+				if (response.data.error_code === 0) {
+						var _list_student = response.data.student;
+						
+						if(_list_student.length > 0 && $scope._details !== undefined){
+							_list_student.forEach(element => {
+								if($scope._details._id === element._id){
+									$scope._details = element;
+									$scope._lastnote = $scope._details.Note;
+									$scope._lastPhone = element.Phone;
+								}
+							})
+						}
+						
+						$timeout(function(){
+							$scope.list_student = response.data.student;
+							Notifi._close();
+						}, 3000);
+						
+						$scope.newdtOptions = DTOptionsBuilder.newOptions()
+						.withDisplayLength(10)
+						.withOption('bLengthChange', true)
+						.withOption('iDisplayLength', 10)
+						.withDOM('Zlfrtip')
+					} else {
+					Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+				}
+			})
+		}
 	}
 	
 	// tạo học viên mới từ thêm bạn
 	function CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
 		DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
-				getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+				getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				$scope.friendId = response.data._id;
 				update_student($scope._details);
 				Notifi._success('Tạo học viên thành công.');
@@ -534,7 +606,7 @@ sas
 	function Cstudent(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
 		DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
-				getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+				getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				Notifi._success('Tạo học viên thành công.');
                 } else if (response.data.error_code === 1) {
 				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
@@ -542,6 +614,19 @@ sas
 				Notifi._error('Số điện thoại đã tồn tại không thể tạo học viên.');
 			}
 		})
+	}
+	
+	// kiểm tra số điện thoại khi nhập
+	$scope.checkphone = function(sdt){
+		if(sdt.toString().length > 8){
+			DataServices.SearchByPhone(sdt).then(function(response){
+				if (response.data.error_code === 0) {
+					response.data.students.forEach(element =>{
+						Notifi._error('Số điện thoại đã được nhập ngày '+ element.Regday +'<br/> cho học viên '+ element.Fullname +'<br/> bởi '+ element.Manager[0].name + ' - '+ element.Manager[0].id);
+					})
+				}
+			});
+		}
 	}
 	
 	
@@ -566,7 +651,7 @@ sas
 		
 		DataServices.UpStudent(student).then(function (response) {
 			if (response.data.error_code === 0) {
-				getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+				getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				Notifi._success('Cập nhật thông tin thành công.');
                 } else {
 				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
@@ -629,7 +714,7 @@ sas
 		})
 		// end
 		
-		getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+		getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 		// getSale($rootScope.auth.Username);
 		// thông tin chi tiết của học viên
 		$scope.detail = function detailStudent(id) {
@@ -637,6 +722,8 @@ sas
 			$scope.list_student.forEach(element => {
 				if (element._id === id) {
 					$scope._details = element;
+					$scope._lastPhone = element.Phone;
+					$scope._lastnote = element.Note;
 					
 					// kiểm tra telesale
 					// for (let i = 0; i < $scope.users.length; i++) {
@@ -704,6 +791,10 @@ sas
 								{
 									name: 'Đến chưa đăng ký',
 									value: 2
+								},
+								{
+									name: 'Hủy',
+									value: 4
 								}
 							]
 							for (let i = 0; i < $scope.Status.length; i++) {
@@ -733,6 +824,10 @@ sas
 								{
 									name: 'Đã đăng ký',
 									value: 3
+								},
+								{
+									name: 'Hủy',
+									value: 4
 								}
 							]
 							for (let i = 0; i < $scope.Status.length; i++) {
@@ -819,9 +914,37 @@ sas
 			}, 500)
 		}
 		
+		
 		// cập nhật thông tin học viên
 		$scope.up_detail = function () {
 			
+			// kiểm tra thay đổi số điện thoại
+			if($scope._details.Phone !== $scope._lastPhone){
+					let d = new Date();
+					let _day = d.getDate();
+					let _month = d.getMonth() + 1;
+					let _year = d.getFullYear();
+					let _h = d.getHours();
+					let _m = d.getMinutes();
+					let _s = d.getSeconds();
+					let today = _h +':'+ _m +':'+_s +' '+ _day+'/'+_month+'/' + _year;
+					
+					var _edit = {
+						Username: $rootScope.auth.Username,
+						Fullname: $rootScope.auth.Fullname,
+						Lastphone: $scope._lastPhone,
+						Newphone: $scope._details.Phone,
+						Daychange: today
+					}
+					
+				if($scope._details.EditHistory !== null){	
+					var tmphistory = $scope._details.EditHistory;
+					tmphistory.unshift(_edit);		
+					$scope._details.EditHistory = tmphistory;
+				}else{
+					$scope._details.EditHistory = _edit;
+				}
+			}
 			// kiểm tra ngày báo danh
 			// let _tmpdaybd = $('#dayreg2').val();
 			// if (_tmpdaybd !== '') {
@@ -920,7 +1043,7 @@ sas
 			//     $scope._details.Manager = tmpManager;
 			// }
 			
-			update_student($scope._details);
+			update_student(angular.fromJson(angular.toJson($scope._details)));
 		}
 		
 		// cập nhật thông tin học viên 2
@@ -1026,9 +1149,10 @@ sas
 			var _tmpregday = $('#adddayreg').val();
 			var _tmpdayhen = $('#addngayhen').val();
 			var _manager = [{
-				id: $scope.auth.Username,
-				name: $scope.auth.Fullname,
+				id: $rootScope.auth.Username,
+				name: $rootScope.auth.Fullname,
 				sheetId: null,
+				gtele: $rootScope.auth.Zone[0].id,
 				mid: null,
 				mname: null
 			}]
@@ -1116,7 +1240,7 @@ sas
 		$scope.maddselectedAddress = $scope.Address[0];
 		$timeout(function(){
 			$scope.maddselectedCenter = $scope.Center[0];
-		}, 500)
+		}, 1000)
 		
 		$scope.maddselectedStatus = $scope.Status2[0];
 		$scope.maddselectedTime = $scope.Appointment_time[0];
@@ -1125,9 +1249,10 @@ sas
 			var _tmpregday = $('#madddayreg').val();
 			var _tmpdayhen = $('#maddngayhen').val();
 			var _manager = [{
-				id: $scope.auth.Username,
-				name: $scope.auth.Fullname,
+				id: $rootScope.auth.Username,
+				name: $rootScope.auth.Fullname,
 				sheetId: null,
+				gtele: $rootScope.auth.Zone[0].id,
 				mid: null,
 				mname: null
 			}]
@@ -1220,14 +1345,14 @@ sas
 				Notifi._error('Vui lòng nhập đúng mật khẩu cũ.');
 				return;
 				} else {
-				let _oldpass = md5.createHash($scope.auth.Username + $scope.oldpass);
-				if ($scope.auth.Password === _oldpass) {
+				let _oldpass = md5.createHash($rootScope.auth.Username + $scope.oldpass);
+				if ($rootScope.auth.Password === _oldpass) {
 					if ($scope.newpass === undefined || $scope.newpass === '') {
 						Notifi._error('Nhập mật khẩu mới để cập nhật mật khẩu.');
 						return;
                         } else {
-						let _newpass = md5.createHash($scope.auth.Username + $scope.newpass);
-						DataServices.Update($scope.auth.Username, _newpass).then(function (response) {
+						let _newpass = md5.createHash($rootScope.auth.Username + $scope.newpass);
+						DataServices.Update($rootScope.auth.Username, _newpass).then(function (response) {
 							let data_result = response.data;
 							if (data_result.error_code === 0) {
 								Notifi._success('Cập nhật thành công');
@@ -1314,6 +1439,20 @@ sas
 		$scope.logout = function () {
 			localStorage.clear();
 			$location.path('/login');
+		}
+		
+		// không cho xóa note chỉ cho update
+		$scope.check_length_note = function(){
+			let min_length = $scope._lastnote.length;
+
+			if($scope._details.Note.length < min_length){
+				$scope._details.Note = $scope._lastnote;
+			}
+		}
+		
+		// lịch sử chỉnh sửa
+		$scope.open_history = function(){
+			$('#history').modal('show');
 		}
 		
 		// Điện thoại
@@ -1407,7 +1546,7 @@ sas
 					DataServices.UpStudent($scope.content).then(function (response) {
 						if (response.data.error_code === 0) {
 							Notifi._success('Gửi tin nhắn thành công.');
-							getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+							getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 						}
 					})
 					} else {

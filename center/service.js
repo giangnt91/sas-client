@@ -8,6 +8,14 @@ angular.module('SASService', [])
 
         return {
             // Api Auth
+			TheAccess: function(_id, Access){
+				parameter = JSON.stringify({
+					_id: _id,
+					Access: Access
+				});
+				url = api_gateway_url + '/access';
+				return $http.post(url, parameter, header);
+			},
             withOut: function (_id) {
                 parameter = JSON.stringify({
                     _id: _id
@@ -23,7 +31,7 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/signin';
                 return $http.post(url, parameter, header);
             },
-            signUp: function (Username, Password, Fullname, Email, Phone, Birthday, Role, Zone) {
+            signUp: function (Username, Password, Fullname, Email, Phone, Birthday, Role, Zone, Inspect) {
                 parameter = JSON.stringify({
                     Username: Username,
                     Password: Password,
@@ -32,7 +40,8 @@ angular.module('SASService', [])
                     Phone: Phone,
                     Birthday: Birthday,
                     Role: Role,
-                    Zone: Zone
+                    Zone: Zone,
+					Inspect: Inspect
                 });
                 url = api_gateway_url + '/signup';
                 return $http.post(url, parameter, header);
@@ -203,6 +212,13 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/cstudent';
                 return $http.post(url, parameter, header);
             },
+			GetByGroup: function(_id){
+				parameter = JSON.stringify({
+					_id: _id
+				});
+				url = api_gateway_url + '/getbygroup';
+				return $http.post(url, parameter, header);
+			},
             Getall: function (Username, Role) {
                 parameter = JSON.stringify({
                     Username: Username,
@@ -242,6 +258,13 @@ angular.module('SASService', [])
             },
 
             // Tìm kiếm
+			SearchByPhone: function(Phone){
+				parameter = JSON.stringify({
+					Phone: Phone
+				});
+				url = api_gateway_url + '/searchbyphone';
+				return $http.post(url, parameter, header);
+			},
             SearchH: function (Role, Username, Regday, Regday2, Center, Status) {
                 parameter = JSON.stringify({
                     Role: Role,

@@ -1,5 +1,5 @@
 sas
-    .factory('Notifi', function () {
+    .factory('Notifi', function (ngDialog) {
         return {
             _error: function (sms, from, align) {
                 $.notify({
@@ -44,6 +44,19 @@ sas
                         }
                     });
                 $.playSound('assets/sound/circles.m4r');
-            }
+            },
+			_loading: function(){
+				ngDialog.open({
+                    template: 'templates/loading.html',
+                    className: 'ngdialog-theme-default',
+                    paint: true,
+                    showClose: false,
+                    closeByDocument: false,
+                    closeByEscape: false
+                });	
+			},
+			_close: function(){
+				ngDialog.close();
+			}
         }
     });

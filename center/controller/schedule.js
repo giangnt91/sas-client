@@ -159,6 +159,10 @@ sas
 		{
 			name: 'Đến chưa đăng ký',
 			value: 2
+		},
+		{
+			name: 'Hủy',
+			value: 4
 		}
 	]
 	
@@ -322,9 +326,11 @@ sas
 		if($scope.Users !== undefined){
             $scope.Ssale = $scope.Users[0];
 		}
-	}, 500)
+	}, 1000)
 	
 	$scope.Searchwith = function () {
+		Notifi._loading();
+	
 		var Sregday;
 		var Sregday2;
 		var Ssale;
@@ -357,13 +363,23 @@ sas
 		
 		DataServices.SearchSch($rootScope.auth.Role, $rootScope.auth.Username, Sregday, Sregday2, Ssale).then(function (response) {
 			if (response.data.error_code === 0) {
-				$scope.list_student = response.data.students;
-				Notifi._success('Lọc dữ liệu thành công');
+				$timeout(function(){
+					$scope.list_student = response.data.students;
+					Notifi._success('Lọc dữ liệu thành công');
+					Notifi._close();
+				}, 3000);
+				
                 } else if (response.data.error_code === 1) {
-				Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại')
+					$timeout(function(){
+						Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
+						Notifi._close();
+					}, 3000);
                 } else if (response.data.error_code === 2) {
-				Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm')
-			}
+					$timeout(function(){
+						Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
+						Notifi._close();
+					}, 3000);	
+				}
 		})
 		
 	}
@@ -375,22 +391,38 @@ sas
 		getStudent($rootScope.auth.Username, $rootScope.auth.Role);
 	}
 	
+	Notifi._loading();
 	// lấy danh sách học viên
 	function getStudent(username, role) {
 		DataServices.Getall(username, role).then(function (response) {
 			if (response.data.error_code === 0) {
-				$scope.list_student = [];
+				var _list_student = [];
 				response.data.student.forEach(element => {
 					if (element.Appointment_day !== null) {
 						_day = parseInt(compareDay(element.Appointment_day));
 						if (parseInt(today) - _day > 0) {
 							if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
-								$scope.list_student.push(element);
+								_list_student.push(element);
 							}
 						}
 						
 					}
 				});
+				
+				if(_list_student.length > 0 && $scope._details !== undefined){
+							_list_student.forEach(element => {
+								if($scope._details._id === element._id){
+									$scope._details = element;
+									$scope._lastnote = $scope._details.Note;
+									$scope._lastPhone = element.Phone;
+								}
+							})
+						}
+				
+				$timeout(function(){
+					$scope.list_student = _list_student;
+					Notifi._close();
+				}, 3000);
 				
 				$scope.newdtOptions = DTOptionsBuilder.newOptions()
 				.withDisplayLength(10)
@@ -398,7 +430,8 @@ sas
 				.withOption('iDisplayLength', 10)
 				.withDOM('Zlfrtip')
                 } else {
-				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
+				Notifi._close();
 			}
 		});
 	}
@@ -419,13 +452,26 @@ sas
 		})
 	}
 	
+	// kiểm tra số điện thoại khi nhập
+	$scope.checkphone = function(sdt){
+		if(sdt.toString().length > 8){
+			DataServices.SearchByPhone(sdt).then(function(response){
+				if (response.data.error_code === 0) {
+					response.data.students.forEach(element =>{
+						Notifi._error('Số điện thoại đã được nhập ngày '+ element.Regday +'<br/> cho học viên '+ element.Fullname +'<br/> bởi '+ element.Manager[0].name + ' - '+ element.Manager[0].id);
+					})
+				}
+			});
+		}
+	}
+	
 	// cập nhật thông tin học viên
 	function update_student(student) {
 		if ($scope.friendId !== undefined) {
 			let new_friend = {
 				id: $scope.friendId,
 				name: $scope._fullname
-			}
+				}
 			
 			if (student.ListFriend !== null) {
 				var listfriend = student.ListFriend;
@@ -492,6 +538,8 @@ sas
 			$scope.list_student.forEach(element => {
 				if (element._id === id) {
 					$scope._details = element;
+					$scope._lastPhone = element.Phone;
+					$scope._lastnote = element.Note;
 					
 					// kiểm tra giới tính
 					if (element.Sex !== null) {
@@ -563,6 +611,10 @@ sas
 								{
 									name: 'Đã đăng ký',
 									value: 3
+								},
+								{
+									name: 'Hủy',
+									value: 4
 								}
 							]
 							for (let i = 0; i < $scope.Status.length; i++) {
@@ -651,6 +703,34 @@ sas
 		
 		// cập nhật thông tin học viên
 		$scope.up_detail = function () {
+		
+			// kiểm tra thay đổi số điện thoại
+			if($scope._details.Phone !== $scope._lastPhone){
+					let d = new Date();
+					let _day = d.getDate();
+					let _month = d.getMonth() + 1;
+					let _year = d.getFullYear();
+					let _h = d.getHours();
+					let _m = d.getMinutes();
+					let _s = d.getSeconds();
+					let today = _h +':'+ _m +':'+_s +' '+ _day+'/'+_month+'/' + _year;
+					
+					var _edit = {
+						Username: $rootScope.auth.Username,
+						Fullname: $rootScope.auth.Fullname,
+						Lastphone: $scope._lastPhone,
+						Newphone: $scope._details.Phone,
+						Daychange: today
+					}
+					
+				if($scope._details.EditHistory !== null){	
+					var tmphistory = $scope._details.EditHistory;
+					tmphistory.unshift(_edit);		
+					$scope._details.EditHistory = tmphistory;
+				}else{
+					$scope._details.EditHistory = _edit;
+				}
+			}
 			
 			// kiểm tra ngày báo danh
 			// let _tmpdaybd = $('#dayreg2').val();
@@ -749,7 +829,7 @@ sas
 			//     $scope._details.Manager = tmpManager;
 			// }
 			
-			update_student($scope._details);
+			update_student(angular.fromJson(angular.toJson($scope._details)));
 		}
 		
 		// cập nhật thông tin học viên 2
@@ -836,6 +916,7 @@ sas
 				id: $scope.auth.Username,
 				name: $scope.auth.Fullname,
 				sheetId: null,
+				gtele: $rootScope.auth.Zone[0].id,
 				mid: null,
 				mname: null
 			}]
@@ -918,6 +999,19 @@ sas
 			}
 		}
 		
+		// lịch sử chỉnh sửa
+		$scope.open_history = function(){
+			$('#history').modal('show');
+		}
+		
+		// không cho xóa note chỉ cho update
+			$scope.check_length_note = function(){
+				let min_length = $scope._lastnote.length;
+
+				if($scope._details.Note.length < min_length){
+					$scope._details.Note = $scope._lastnote;
+				}
+			}
 		
 		// Điện thoại
 		$scope.openPhoneTab = function (Phone) {
