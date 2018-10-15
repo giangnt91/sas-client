@@ -521,7 +521,7 @@ sas
 		}
 	}
 	
-	Notifi._loading();
+	// Notifi._loading();
 	// lấy danh sách học viên
 	function getStudent(_id, username, role) {	
 		if($rootScope.auth.Role[0].id === 0){
@@ -532,7 +532,7 @@ sas
 						
 						$timeout(function(){
 							$scope.list_student = response.data.student;
-							Notifi._close();
+							// Notifi._close();
 						}, 3000);
 						
 						if(_list_student.length > 0 && $scope._details !== undefined){
