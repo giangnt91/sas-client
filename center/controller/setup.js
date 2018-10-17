@@ -40,6 +40,28 @@ sas
                     }
                 })
             }
+			
+			// trạng thái
+			$scope.Status = [
+				{
+					name: 'Chọn',
+					value: null
+				},
+				{
+					name: 'Chưa Gọi',
+					value: 0
+				},
+				{
+					name: 'Gọi Lại',
+					value: 1
+				},
+				{
+					name: 'Tất cả',
+					value: 2
+				}
+			]
+			
+			$scope.choosestatus = $scope.Status[0];
 	
 			$scope.OpenShare = function(data){
 				$scope._detail = data;
@@ -49,7 +71,7 @@ sas
             $scope.Share = function (data) {
 				let _num = 0;
 				let _all;
-				
+				let _status;
 
 				if(data !== undefined){
 					if(data.s !== null){
@@ -61,6 +83,13 @@ sas
 					_all = $scope.chooseu.Username;
 				}else{
 					_all = null;
+				}
+				
+				if($scope.choosestatus.value !== null){
+					_status = $scope.choosestatus.value;
+				}else{
+					Notifi._error('Vui lòng chọn trạng thái học viên');
+					return;
 				}
 				
 
@@ -75,7 +104,7 @@ sas
 						closeByEscape: false
 					});
 
-					DataServices.ShareStudent($scope._detail.Username, _all, _num).then(function (repsonse) {
+					DataServices.ShareStudent($scope._detail.Username, _all, _num, _status).then(function (repsonse) {
 						// $timeout(function () {
 							if (repsonse.data.error_code === 0) {
 								ngDialog.close();

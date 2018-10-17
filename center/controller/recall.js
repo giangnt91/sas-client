@@ -379,7 +379,7 @@ sas
 						Notifi._close();
 					}, 3000);
                 } else if (response.data.error_code === 2) {
-					timeout(function(){
+					$timeout(function(){
 						Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
 						Notifi._close();
 					}, 3000);	

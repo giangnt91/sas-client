@@ -16,7 +16,14 @@
                             <tr ng-repeat="content in users">
                                 <td class="text-center">{{$index + 1}}</td>
                                 <td class="text-center">
-                                    <div class="togglebutton">
+                                    <div class="togglebutton" ng-show="auth.Role[0].id !== 0 && auth.Leader === false">
+                                        <label>
+                                            <input type="checkbox" ng-disabled="content.Username !== auth.Username" ng-model="check" ng-checked="content.Status_user[0].id === 1" ng-click="ChangeStatus(content, check)">
+                                            <span class="toggle"></span>
+										</label>
+									</div>
+									
+									<div class="togglebutton" ng-show="auth.Role[0].id === 0 || auth.Leader === true">
                                         <label>
                                             <input type="checkbox" ng-model="check" ng-checked="content.Status_user[0].id === 1" ng-click="ChangeStatus(content, check)">
                                             <span class="toggle"></span>
@@ -25,7 +32,11 @@
 								</td>
                                 <td class="text-center">{{content.Fullname}}</td>
                                 <td class="text-center">
-                                    <button class="btn sas-bk btn-round" ng-disabled="auth.Access[0].chuyenhocvien === false" ng-click="OpenShare(content)">
+                                    <button class="btn sas-bk btn-round" ng-show="auth.Role[0].id !== 0 && auth.Leader === false" ng-disabled="auth.Access[0].chuyenhocvien === false || content.Username !== auth.Username" ng-click="OpenShare(content)">
+                                        Chuyển học viên
+									</button>
+									
+									<button class="btn sas-bk btn-round" ng-show="auth.Role[0].id === 0 || auth.Leader === true" ng-click="OpenShare(content)">
                                         Chuyển học viên
 									</button>
 								</td>
@@ -59,6 +70,12 @@ aria-hidden="true">
 						<label for="hregday">Chuyển học viên đến</label>
                         <select class="form-control" ng-model="chooseu"
 						ng-options="option.Fullname for option in _user">
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="hregday">Trạng thái học viên</label>
+                        <select class="form-control" ng-model="choosestatus"
+						ng-options="option.name for option in Status">
 						</select>
 					</div>
                     <div class="form-group">

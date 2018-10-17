@@ -127,11 +127,12 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/upsheetstatus';
                 return $http.post(url, parameter, header);
             },
-            ShareStudent: function (From, Username, TheNum) {
+            ShareStudent: function (From, Username, TheNum, _Status) {
                 parameter = JSON.stringify({
 					From: From,
                     Username: Username,
-					TheNum: TheNum
+					TheNum: TheNum,
+					_Status: _Status
                 });
                 url = api_gateway_url + '/sharestudent';
                 return $http.post(url, parameter, header);
