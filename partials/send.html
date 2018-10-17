@@ -243,7 +243,7 @@
                                                 Nhật
                                             </button>
 											
-											<button class="btn sas-bk btn-block" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Access[0].sms === false" ng-click="showsms(_details)">SMS</button>
+											<button class="btn sas-bk btn-block" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Access[0].sms === false || auth.Username !== _details.Manager[0].id" ng-click="showsms(_details)">SMS</button>
                                             <button class="btn sas-bk btn-block" ng-show="auth.Role[0].id === 0" ng-click="showsms(_details)">SMS</button>
 											
 											<button class="btn btn-info btn-block" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Access[0].lichsuchinhsua === false" ng-click="open_history()">Lịch sử chỉnh sửa (<span ng-show="_details.EditHistory !== null">{{_details.EditHistory.length}}</span><span ng-show="_details.EditHistory === null">0</span>)</button>
