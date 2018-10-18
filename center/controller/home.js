@@ -481,7 +481,7 @@ sas
 			HStatus = null;
 		}
 		
-		DataServices.SearchH($rootScope.auth.Role, $rootScope.auth.Username, hregday, hregday2, HCenter, HStatus).then(function (response) {
+		DataServices.SearchH($rootScope.auth.Role, $rootScope.auth.Zone[0].id, hregday, hregday2, HCenter, HStatus).then(function (response) {
 			if (response.data.error_code === 0) {
 				$scope.list_student = response.data.students;
 				Notifi._success('Lọc dữ liệu thành công');

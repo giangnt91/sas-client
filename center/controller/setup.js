@@ -70,7 +70,8 @@ sas
 	
             $scope.Share = function (data) {
 				let _num = 0;
-				let _all;
+				let _touser;
+				let _toGroup;
 				let _status;
 
 				if(data !== undefined){
@@ -80,9 +81,11 @@ sas
 				}
 				
 				if($scope.chooseu._id !== null){
-					_all = $scope.chooseu.Username;
+					_touser = $scope.chooseu.Username;
+					_toGroup = $scope.chooseu.Zone[0].id;
 				}else{
-					_all = null;
+					Notifi._error('Vui lòng chọn trạng thái học viên');
+					return;
 				}
 				
 				if($scope.choosestatus.value !== null){
@@ -93,7 +96,7 @@ sas
 				}
 				
 
-				if(_all !== null){
+				if(_touser !== null){
 				
 					ngDialog.open({
 						template: 'templates/loading.html',
@@ -104,7 +107,7 @@ sas
 						closeByEscape: false
 					});
 
-					DataServices.ShareStudent($scope._detail.Username, _all, _num, _status).then(function (repsonse) {
+					DataServices.ShareStudent($scope._detail.Username, _touser, _num, _status, _toGroup).then(function (repsonse) {
 						// $timeout(function () {
 							if (repsonse.data.error_code === 0) {
 								ngDialog.close();
