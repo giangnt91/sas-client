@@ -109,7 +109,7 @@ sas
 						dataIn,
 						dataFriend
 					];
-				}, list_friend_user.length * 100);
+				}, list_friend_user.length * 50);
 
 				$scope.series = ['Online', 'Out', 'In', 'Friend'];
 			}, 500)
@@ -144,7 +144,7 @@ sas
 							dataIn,
 							dataFriend
 						];
-					}, $scope.users.length * 100);
+					}, $scope.users.length * 50);
 						
 					$scope.series = ['Online', 'Out', 'In', 'Friend'];
 				}, 500)
@@ -224,7 +224,7 @@ sas
 					$scope.data2 = [
 						notcall
 					];
-				}, list_friend_user.length * 100);
+				}, list_friend_user.length * 50);
 				
 				$scope.series2 = ['Chưa gọi'];
 				break;
@@ -243,7 +243,7 @@ sas
 							}
 						})
 						$scope.labels3.push(element.Fullname);
-					}, 100 * index);
+					}, 50 * index);
 				});
 				
 				$timeout(function(){
@@ -251,7 +251,7 @@ sas
 					$scope.data3 = [
 						relcall
 					];
-				}, list_friend_user.length * 100);
+				}, list_friend_user.length * 50);
 				
 				$scope.series3 = ['Gọi lại'];
 				break;
@@ -483,7 +483,7 @@ sas
 								}
 							})
 							$scope.labels2.push(element.Fullname);
-						}, index * 100);
+						}, index * 200);
 						
 					});
 					
@@ -504,9 +504,9 @@ sas
 							DataServices.GetforchartNotcall(element.Username, null, null).then(function (res) {
 								if (res.data.error_code === 0) {
 									var _result = res.data.notcall;
-									if (_result.length > 0) {
+									// if (_result.length > 0) {
 										notcall.push(_result.length);
-									}
+									// }
 								}
 							})
 							$scope.labels2.push(element.Fullname);
@@ -545,12 +545,12 @@ sas
 					
 					list_friend_user.forEach(function(element, index){
 						$timeout(function(){
-							DataServices.GetforchartNotcall(element.Username, null, null).then(function (res) {
+							DataServices.GetforchartRecall(element.Username, null, null).then(function (res) {
 								if (res.data.error_code === 0) {
 									var _result = res.data.recall;
-									if (_result.length > 0) {
+									// if (_result.length > 0) {
 										relcall.push(_result.length);
-									}
+									// }
 								}
 							})
 							$scope.labels3.push(element.Fullname);
@@ -670,9 +670,9 @@ sas
 							DataServices.GetforchartHcd(element.Username, null, null).then(function (res) {
 								if (res.data.error_code === 0) {
 									var _result = res.data.hcd;
-									if (_result.length > 0) {
+									// if (_result.length > 0) {
 										hcd.push(_result.length);
-									}
+									// }
 								}
 							})
 							$scope.labels5.push(element.Fullname);

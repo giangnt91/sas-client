@@ -371,18 +371,18 @@ sas
 					$scope.list_student = response.data.students;
 					Notifi._success('Lọc dữ liệu thành công');
 					Notifi._close();
-				}, 3000);
+				}, 500);
 				
                 } else if (response.data.error_code === 1) {
 					$timeout(function(){
 						Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
 						Notifi._close();
-					}, 3000);
+					}, 500);
                 } else if (response.data.error_code === 2) {
 					$timeout(function(){
 						Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
 						Notifi._close();
-					}, 3000);	
+					}, 500);	
 			}
 		})
 		
@@ -405,13 +405,25 @@ sas
 				var _list_student = [];
 				response.data.student.forEach(element => {
 					if (element.Recall === true || element.Time_recall !== null) {
+						
 						if(element.Center === null){
 							_list_student.push(element);
-						}else{
+						}
+						
+						if(element.Center !== null){
 							if(element.Center[0].id === null){
 								_list_student.push(element);
 							}
 						}
+						
+						if(element.Status_student[0].id === 0){
+							_list_student.push(element);
+						}
+						
+						if(element.Isupdate === false){
+							_list_student.push(element);
+						}
+						
 					}
 				});
 				
@@ -428,7 +440,7 @@ sas
 				$timeout(function(){
 					$scope.list_student = _list_student;
 					Notifi._close();
-				}, 3000);
+				}, 500);
 				
 				$scope.newdtOptions = DTOptionsBuilder.newOptions()
 				.withDisplayLength(10)

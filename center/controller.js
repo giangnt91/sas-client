@@ -7,14 +7,14 @@ sas
                 Notifi._error('Please enter Username and Password');
                 return;
             } else {
-                Notifi._loading();
+                // Notifi._loading();
                 let pass = md5.createHash($scope.username + $scope.password);
                 DataServices.signIn($scope.username, pass).then(function (repsonse) {
                     var data_result = repsonse.data;
                     if (data_result.error_code === 0) {
-                        $timeout(function () {
+                        // $timeout(function () {
                             if (data_result.auth.Role[0].id === 0) {
-                                Notifi._close();
+                                // Notifi._close();
                                 $rootScope.auth = data_result.auth;
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
                                 // Notifi._success('Đăng nhập thành công');
@@ -22,7 +22,7 @@ sas
                                 $('#choose').modal('show');
                             }
                             if (data_result.auth.Role[0].id === 1) {
-                                Notifi._close();
+                                // Notifi._close();
                                 $rootScope.auth = data_result.auth;
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
                                 // Notifi._success('Đăng nhập thành công');
@@ -31,7 +31,7 @@ sas
                                 $location.path('/home');
                                 location.reload(true);
                             } else if (data_result.auth.Role[0].id === 2) {
-                                Notifi._close();
+                                // Notifi._close();
                                 $rootScope.auth = data_result.auth;
                                 localStorage.setItem('Auth', JSON.stringify(data_result.auth));
                                 // Notifi._success('Đăng nhập thành công');
@@ -39,31 +39,31 @@ sas
                                 $location.path('/marketing');
                                 location.reload(true);
                             }
-                        }, 1500);
+                        // }, 1500);
                     } if (data_result.error_code === 1) {
-                        $timeout(function () {
-                            Notifi._close();
+                        // $timeout(function () {
+                            // Notifi._close();
                             Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại.');
                             return;
-                        }, 1500)
+                        // }, 1500)
                     } if (data_result.error_code === 2) {
-                        $timeout(function () {
-                            Notifi._close();
+                        // $timeout(function () {
+                            // Notifi._close();
                             Notifi._error('Username hoặc Password không chính xác.');
                             return;
-                        }, 1500)
+                        // }, 1500)
                     } if (data_result.error_code === 3) {
-                        $timeout(function () {
-                            Notifi._close();
+                        // $timeout(function () {
+                            // Notifi._close();
                             Notifi._error('Tài khoản chưa được đăng ký.');
                             return;
-                        }, 1500)
+                        // }, 1500)
                     } if (data_result.error_code === 4) {
-                        $timeout(function () {
-                            Notifi._close();
+                        // $timeout(function () {
+                            // Notifi._close();
                             Notifi._error('Tài khoản đang tạm khóa liên hệ Admin để kích hoạt.');
                             return;
-                        }, 1500)
+                        // }, 1500)
                     }
                 })
 

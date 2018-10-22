@@ -11,6 +11,12 @@ sas
             var parts = x.split("-");
             return parts[2] + '/' + parts[1] + '/' + parts[0];
         }
+		
+		// so sánh ngày tháng
+		function compareDay(x) {
+			var parts = x.split("/");
+			return parts[2] + '' + parts[1] + '' + parts[0];
+		}
 
         // giới tính
         $scope.Sex = [
@@ -344,17 +350,17 @@ sas
 						$scope.list_student = response.data.students;
 						Notifi._success('Lọc dữ liệu thành công');
 						Notifi._close();
-					}, 3000);
+					}, 500);
                 } else if (response.data.error_code === 1) {
                     $timeout(function(){
 						Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
 						Notifi._close();
-					}, 3000);
+					}, 500);
                 } else if (response.data.error_code === 2) {
                     $timeout(function(){
 						Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
 						Notifi._close();
-					}, 3000);
+					}, 500);
                 }
             })
 
@@ -367,17 +373,97 @@ sas
             getStudent($rootScope.auth.Username, $rootScope.auth.Role);
         }
 		
+		
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
+		var yyyy = today.getFullYear();
+		
+		if (dd < 10) {
+			dd = '0' + dd
+		}
+		
+		if (mm < 10) {
+			mm = '0' + mm
+		}
+		
+		today = yyyy + '' + mm + '' + dd;
+		
+		Array.prototype.contains = function(obj) {
+			var i = this.length;
+			while (i--) {
+				if (this[i]._id === obj) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
 		Notifi._loading();
         // lấy danh sách học viên
         function getStudent(username, role) {
             DataServices.Getall(username, role).then(function (response) {
                 if (response.data.error_code === 0) {
                     _list_student = [];
-                    response.data.student.forEach(element => {
-                        if (element.Center !== null && element.Center[0].id !== null) {
-                            _list_student.push(element);
-                        }
-                    });
+                    // response.data.student.forEach(element => {
+                        // if (element.Center !== null && element.Center[0].id !== null) {
+                            // _list_student.push(element);
+                        // }
+                    // });
+					
+					response.data.student.forEach(element => {
+					
+						// trạng thái hẹn chưa đến
+						if (element.Appointment_day !== null) {
+							_day = parseInt(compareDay(element.Appointment_day));
+							if (parseInt(today) - _day > 0) {
+								if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
+									if(_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+								}
+							}
+							
+						}
+						
+						// trạng thái đến chưa đăng ký
+						if(element.Status_student[0].id === 2){
+							if(_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+						}
+						
+						// trạng thái hủy
+						if(element.Status_student[0].id === 4){
+							if(_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+						}
+						
+						// trạng thái không tìm năng
+						if(element.Status_student[0].id === 1){
+							if(_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+						}
+						
+						// trạng thái đã đăng ký
+						if(element.Status_student[0].id === 3){
+							if(_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+						}
+						
+						// trạng thái chưa đăng ký
+						if(element.Status_student[0].id === 0 && ( element.Isupdate === true || element.Center !== null) ){
+							if(element.Center[0].id !== null){
+								if(_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+							}
+						}
+						
+					});
 					
 					if(_list_student.length > 0 && $scope._details !== undefined){
 							_list_student.forEach(element => {
@@ -392,7 +478,7 @@ sas
 					$timeout(function(){
 						$scope.list_student = _list_student;
 						Notifi._close();
-					}, 3000);
+					}, 500);
 
                     $scope.newdtOptions = DTOptionsBuilder.newOptions()
                         .withDisplayLength(10)
