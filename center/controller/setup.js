@@ -56,8 +56,20 @@ sas
 					value: 1
 				},
 				{
-					name: 'Tất cả',
+					name: 'Hẹn Chưa Đến',
 					value: 2
+				},
+				{
+					name: 'Đến Chưa Đăng Ký',
+					value: 3
+				},
+				{
+					name: 'Chưa Đăng Ký',
+					value: 4
+				},
+				{
+					name: 'Tất cả',
+					value: 5
 				}
 			]
 			
