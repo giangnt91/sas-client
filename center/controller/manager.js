@@ -32,15 +32,56 @@ sas
 			
 			$scope._choose_role = $scope._role[0];
 			
-			$scope.changerole = function(){
-				$('#thv').prop('checked', false);
-				$('#cn').prop('checked', false);
-				$('#sms').prop('checked', false);
-				$('#gls').prop('checked', false);
-				$('#gltg').prop('checked', false);
-				$('#tb').prop('checked', false);
-				$('#lscs').prop('checked', false);
-				$('#chv').prop('checked', false);
+			$scope.changerole = function(id){
+				DataServices.AllUser().then(function (u) {
+					if(u.data.error_code === 0){
+						if( id === 1 ){
+							$scope.AccessChecked = '';
+							u.data.users.forEach( element => {
+								if(element.Role[1] !== undefined){
+									if(element.Role[1].id === 11 && element.Access !== null){
+										$scope.AccessChecked =  element.Access;
+									}
+								}
+							})
+						}else if( id === 2 ){
+							$scope.AccessChecked = '';
+							u.data.users.forEach( element => {
+								if(element.Role[1] !== undefined){
+									if(element.Role[1].id === 12 && element.Access !== null){
+										$scope.AccessChecked =  element.Access;
+									}
+								}
+							})
+						}else if(id === 3){
+							$scope.AccessChecked = '';
+							u.data.users.forEach( element => {
+								if(element.Leader === true && element.Access !== null){
+									$scope.AccessChecked =  element.Access;
+								}
+							})
+						}else if(id === 4){
+							$scope.AccessChecked = '';
+							u.data.users.forEach( element => {
+								if(element.Inspect === true && element.Access !== null){
+									$scope.AccessChecked =  element.Access;
+								}
+							})
+						}else if(id === null){
+							$scope.AccessChecked = '';
+							$('#thv').prop('checked', false);
+							$('#cn').prop('checked', false);
+							$('#sms').prop('checked', false);
+							$('#gls').prop('checked', false);
+							$('#gltg').prop('checked', false);
+							$('#tb').prop('checked', false);
+							$('#lscs').prop('checked', false);
+							$('#chv').prop('checked', false);
+						}
+					}
+
+				})
+				
 			}
 			
 			$scope.xacnhan = function(){
