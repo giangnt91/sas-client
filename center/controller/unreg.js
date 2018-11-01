@@ -659,7 +659,7 @@ sas
 				if($scope._details.EditHistory !== null){	
 					var tmphistory = $scope._details.EditHistory;
 					tmphistory.unshift(_edit);		
-					$scope._details.EditHistory = tmphistory;
+					$scope._details.EditHistory = angular.fromJson(angular.toJson(tmphistory));
 				}else{
 					$scope._details.EditHistory = _edit;
 				}
