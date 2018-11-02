@@ -416,8 +416,8 @@ sas
 						// trạng thái hẹn chưa đến
 						if (element.Appointment_day !== null) {
 							_day = parseInt(compareDay(element.Appointment_day));
-							if (parseInt(today) - _day > 0) {
-								if (element.Status_student[0].id !== 3 && element.Status_student[0].id !== 4) {
+							if (parseInt(today) > _day) {
+								if (element.Status_student[0].id !== 3) {
 									if(_list_student.contains(element._id.toString()) === false) {
 										_list_student.push(element);
 									}
