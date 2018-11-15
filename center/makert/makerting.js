@@ -193,29 +193,29 @@ sas
 			
 			var _makerting = [];
 			if ($scope.auth.Role[0].id === 0) {
-				list_mk.forEach(element => {
-					DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, _fromday, _today, _form).then(function (response) {
+					list_mk.forEach(element => {
+						DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, _fromday, _today, _form).then(function (response) {
+							if (response.data.error_code === 0) {
+								_makerting.push(response.data.mkt);
+							}
+						})
+					});
+					
+					$timeout(function(){
+						Notifi._close();
+						$scope._Makerting = _makerting;
+					}, list_mk.length * 100);
+				} else {
+					DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, _fromday, _today, _form).then(function (response) {
 						if (response.data.error_code === 0) {
 							_makerting.push(response.data.mkt);
 						}
 					})
-				});
-				
-				$timeout(function(){
-					Notifi._close();
-					$scope._Makerting = _makerting;
-				}, list_mk.length * 100);
-				} else {
-				DataServices.GettqMakert($rootScope.auth.Role, $rootScope.auth.Username, $rootScope.auth.Fullname, _fromday, _today, _form).then(function (response) {
-					if (response.data.error_code === 0) {
-						_makerting.push(response.data.mkt);
-					}
-				})
-				
-				$timeout(function(){
-					Notifi._close();
-					$scope._Makerting = _makerting;
-				});
+					
+					$timeout(function(){
+						Notifi._close();
+						$scope._Makerting = _makerting;
+					}, 500);
 			}
 			
 		}

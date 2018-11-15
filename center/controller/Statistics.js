@@ -408,6 +408,33 @@ sas
 				
 				break;
 				
+				case 10:
+				var huy = [];
+				$scope.labels9 = [];
+				$scope.data9 = [];
+				
+				list_friend_user.forEach(function(element, index){
+					$timeout(function(){
+						DataServices.GetforchartH(element.Username, _fromday, _today).then(function (res) {
+							if (res.data.error_code === 0) {
+								var _result = res.data.h;
+								huy.push(_result.length);
+							}
+						})
+						$scope.labels9.push(element.Fullname);
+					}, 100 * index);
+				});
+				
+				$timeout(function(){
+					Notifi._close();
+					$scope.data9 = [
+						huy
+					];
+				}, list_friend_user.length * 100);
+	
+				$scope.series8 = ['Hủy'];
+				break;
+				
 				default:
 				$scope.labels1 = [];
 				var dataOn = [];
@@ -924,6 +951,75 @@ sas
 					
 				}
 			}, 500)
+		}
+		
+		$scope.h = function(){
+			Notifi._loading();
+			$scope.isactive = 10;
+			
+			getUsers();
+			
+			var huy = [];
+			$scope.labels9 = [];
+			var list_friend_user = [];
+			
+			$timeout(function () {
+				
+				if($rootScope.auth.Role[0].id !== 0){
+					$scope.users.forEach( u => {
+						if(u.Zone[0].id === $rootScope.auth.Zone[0].id){
+							list_friend_user.push(u);
+						}
+					})
+					
+					list_friend_user.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartH(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.h;
+									if (_result.length > 0) {
+										huy.push(_result.length);
+									}
+								}
+							})
+							$scope.labels9.push(element.Fullname);
+						}, index * 100);
+					});
+					
+					$timeout(function(){
+						Notifi._close();
+						$scope.data9 = [
+							ktn
+						];
+					}, list_friend_user.length * 100);
+
+					$scope.series9 = ['Hủy'];
+					
+					}else{
+					
+					$scope.users.forEach(function(element, index){
+						$timeout(function(){
+							DataServices.GetforchartH(element.Username, null, null).then(function (res) {
+								if (res.data.error_code === 0) {
+									var _result = res.data.h;
+									huy.push(_result.length);
+								}
+							})
+							$scope.labels9.push(element.Fullname);
+						}, index * 100);
+					});
+					
+					$timeout(function(){
+						Notifi._close();
+						$scope.data9 = [
+							huy
+						];
+					}, $scope.users.length * 100);
+					
+					$scope.series9 = ['Hủy'];
+					
+				}
+			}, 500)					
 		}
 		
 		// lịch hẹn

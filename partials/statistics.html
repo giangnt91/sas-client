@@ -28,9 +28,9 @@
                         <li class="nav-item" ng-class="{'active': isactive === 8}" ng-click="ktn()">
                             <a class="nav-link padlr-14" href="#">Không tiềm năng</a>
 						</li>
-                        <!-- <li class="nav-item" ng-class="{'active': isactive === 9}" ng-click="h()">
+                        <li class="nav-item" ng-class="{'active': isactive === 10}" ng-click="h()">
                             <a class="nav-link padlr-14" href="#">Hủy</a>
-						</li> -->
+						</li>
                         <li class="nav-item" ng-class="{'active': isactive === 9}" ng-click="_lh()">
                             <a class="nav-link padlr-14" href="#">Lịch hẹn</a>
 						</li>
@@ -156,6 +156,13 @@
 					<center>
 					<canvas id="bar" chart-series="series8" ng-show="isactive === 8" height="400" chart-s width="1000" class="chart chart-bar"
 					chart-data="data8" chart-labels="labels8">
+					</canvas>
+					</center>
+					
+					<!-- Hủy -->
+					<center>
+					<canvas id="bar" chart-series="series9" ng-show="isactive === 10" height="400" chart-s width="1000" class="chart chart-bar"
+					chart-data="data9" chart-labels="labels9">
 					</canvas>
 					</center>
 					

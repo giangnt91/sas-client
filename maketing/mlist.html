@@ -61,6 +61,7 @@
                                         <th>Stt</th>
                                         <th>Time</th>
                                         <th>Họ Tên</th>
+										<th>Số Điện Thoại</th>
                                         <th>Ghi chú</th>
                                         <th>Tele</th>
                                     </tr>
@@ -70,6 +71,7 @@
                                         <td class="text-center">{{$index +1}}</td>
                                         <td>{{content.Regtime}} {{content.Regday}}</td>
                                         <td ng-bind="content.Fullname"></td>
+										<td ng-bind="content.Phone"></td>
                                         <td ng-bind="content.Note"></td>
                                         <td ng-bind="content.Manager[0].id"></td>
                                     </tr>

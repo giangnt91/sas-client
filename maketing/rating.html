@@ -11,16 +11,24 @@
                                     <div class="row">
                                         <div class="col-lg-10">
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="input-group add">
                                                         <label for="mkday">Từ Ngày</label>
                                                         <input type="date" class="form-control" id="mkday">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="input-group add">
                                                         <label for="mkday2">Đến Ngày</label>
                                                         <input type="date" class="form-control" id="mkday2">
+                                                    </div>
+                                                </div>
+												<div class="col-lg-4">
+                                                    <div class="input-group add">
+                                                        <label for="mgroup">Groups</label>
+                                                        <select class="form-control" ng-model="mgroup"
+                                                            ng-options="option.Name for option in AllGroups">
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -47,7 +55,9 @@
                                         <th>Họ Tên</th>
                                         <th>Online</th>
                                         <th>Đăng ký học</th>
-                                        <th>Phần trăm</th>
+										<th>Phần trăm</th>
+										<th>Không tìm năng</th>
+										<th>Hủy</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,8 +70,10 @@
                                         <td ng-bind="content.Name"></td>
                                         <td ng-bind="content.On"></td>
                                         <td ng-bind="content.Reg.length"></td>
-                                        <td ng-if="content.On > 0">{{content.Reg.length / content.On *100}} %</td>
+										<td ng-if="content.On > 0">{{content.Reg.length / content.On *100}} %</td>
                                         <td ng-if="content.On === 0">0 %</td>
+										<td ng-bind="content.Ktn.length"></td>
+										<td ng-bind="content.Can.length"></td>
                                     </tr>
                                 </tbody>
                             </table>

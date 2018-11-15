@@ -66,6 +66,7 @@
                                         <th>Phần trăm</th>
                                         <th>Trùng</th>
                                         <th>Không tiềm năng</th>
+										<th>Hủy</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,6 +80,7 @@
                                         <td ng-if="content.On === 0">0 %</td>
                                         <td ng-bind="content.Dup.length"></td>
                                         <td ng-bind="content.Ktn.length"></td>
+										<td ng-bind="content.Can.length"></td>
                                     </tr>
                                 </tbody>
                             </table>

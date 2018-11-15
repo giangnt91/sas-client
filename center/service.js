@@ -195,8 +195,9 @@ angular.module('SASService', [])
 				return $http.post(url, parameter, header);
 			},
             //Api Student
-            CstudentF: function (Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
+            CstudentF: function (Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
                 parameter = {
+					Fistname: Fistname,
                     Fullname: Fullname,
                     Email: Email,
                     Phone: Phone,
@@ -258,8 +259,25 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/upstudent';
                 return $http.post(url, parameter, header);
             },
+			SendStudentById: function(detail){
+				parameter = JSON.stringify({
+					detail: detail
+				});
+				url = api_gateway_url + '/sendstudent';
+				return $http.post(url, parameter, header);
+			},
 
             // Tìm kiếm
+			SearchPro: function(proName, proCenter, proAddress, proSale){
+				parameter = JSON.stringify({
+					proName: proName,
+					proCenter: proCenter,
+					proAddress: proAddress,
+					proSale: proSale
+				});
+				url = api_gateway_url + '/searchpro';
+				return $http.post(url, parameter, header);
+			},
 			SearchByPhone: function(Phone){
 				parameter = JSON.stringify({
 					Phone: Phone
@@ -420,6 +438,15 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/chartktn';
                 return $http.post(url, parameter, header);
             },
+			GetforchartH: function (Username, Fromday, Today) {
+				parameter = JSON.stringify({
+                    Username: Username,
+                    Fromday: Fromday,
+                    Today: Today
+                })
+                url = api_gateway_url + '/charthuy';
+                return $http.post(url, parameter, header);
+			},
             Getlh: function (Username, Fromday, Today) {
                 parameter = JSON.stringify({
                     Username: Username,

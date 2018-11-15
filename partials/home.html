@@ -6,7 +6,7 @@
                     <div class="card-body">
                         <div class="material-datatables">
 
-                            <div class="row">
+                            <div class="row bottom-10">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-lg-8">
@@ -52,9 +52,52 @@
                                                 </div>
 										
 											</div>
+											
+												<div class="collapse" id="collapseExample">
+													<div class="card card-body" style="margin-top: -15px;">
+														<div class="row">
+															<div class="col-lg-4">
+															   <div class="input-group add">
+																	<label for="musername">Tên</label>
+																	<input id="proname" type="text" class="form-control" placeholder="2ichi" ng-model="proName">
+															   </div>
+															</div>
+															<div class="col-lg-4">
+															   <div class="input-group add">
+																	<label for="musername">Địa chỉ</label>
+																	<select class="form-control" ng-model="proAddress" ng-options="option.name for option in Address">
+																	</select>
+															   </div>
+															</div>
+															<div class="col-lg-4">
+															   <div class="input-group add">
+																	<label for="musername">Cơ sở</label>
+																	<select class="form-control" ng-model="proCenter" ng-options="option.Name for option in Center">
+																	</select>
+															   </div>
+															</div>
+															<div class="col-lg-6">
+															   <div class="input-group add">
+																	<label for="musername">Nhân viên</label>
+																	<select class="form-control" ng-model="proSale"
+																		ng-options="option.name for option in Users">
+																	</select>
+															   </div>
+															</div>
+															 <div class="col-lg-6">
+																<div class="input-group add">
+																	<a href="" class="btn btn-primary btn-block" ng-click="proSearch()">
+																		<i class="material-icons">search</i> Tìm Kiếm
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
                                         </div>
                                         <div class="col-lg-4">
-                                            <div class="row top-10">
+                                            <div class="row">
                                                 <div class="col-lg-11">
                                                     <a href="#" class="btn sas-bk btn-block" style="margin-left: 20px"
                                                         ng-click="Searchwith()">
@@ -62,7 +105,7 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row top-10">
                                                 <div class="col-lg-11">
                                                     <a href="#" class="btn btn-default btn-block" style="margin-left: 20px"
                                                         ng-click="Clear()">
@@ -82,14 +125,21 @@
 												
 											</div>
 											
+											<div class="row top-10">
+												<div class="col-lg-11">
+													<a href="" data-toggle="collapse" data-target="#collapseExample" class="btn btn-info btn-block" style="margin-left: 20px">
+														<i class="material-icons">zoom_in</i> Tìm Kiếm Nâng Cao
+													</a>
+												</div>
+											</div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
 
-
-                            <table datatable="ng" dt-options="newdtOptions" dt-instance="dtInstance" cellpadding="0"
+                            <table datatable="ng" dt-options="newdtOptions" cellpadding="0"
                                 class="table table-striped cell-border table-hover">
                                 <thead>
                                     <tr>
@@ -105,7 +155,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="content in list_student" style="cursor:pointer" ng-click="detail(content._id)">
+                                    <tr ng-repeat="content in list_student" style="cursor:pointer" ng-click="detail(content._id); checkDuplicator(content, 1)">
                                         <td class="text-center">{{$index +1}}</td>
                                         <td>{{content.Regday +' '+ content.Regtime}}</td>
                                         <td>{{content._id}}</td>
@@ -137,8 +187,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">
-                    Thông Tin Chi Tiết Học Viên {{_details._id}} <span class="badge  badge-danger" ng-if="_details.Duplicate !== null">Học
-                        Viên bị trùng và đã được đăng ký vào {{_details.Duplicate[0].pretime}}</span></h4>
+                    Thông Tin Chi Tiết Học Viên {{_details._id}}</h4>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -150,13 +199,17 @@
                         <div class="card-body card-add">
                             <form name="loginform">
                                 <div class="row">
-                                    <div class="col-lg-2 p-0">
+                                    <div class="col-lg-3 p-0">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <div class="input-group-prepend add">
-                                                    <label for="fullname">Họ tên</label>
+                                                    <label for="dfname">Họ tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="_details.Fullname" id="dname">
+												<input type="text" class="form-control name" ng-model="_details.Fullname" id="dname">
+                                                <input type="text" class="form-control" ng-model="_details.Fistname" id="dfname">
+												<!-- <div class="input-group-prepend add"> -->
+                                                    <!-- <label for="dname">Tên</label> -->
+                                                <!-- </div> -->
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -170,7 +223,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="phone">Số DT</label>
-                                                <input type="text" class="form-control" ng-model="_details.Phone" id="dphone">
+                                                <input type="text" class="form-control" ng-keyup="checkDuplicator(_details, 2)" ng-model="_details.Phone" id="dphone">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <a href="" ng-click="openPhoneTab(_details.Phone)">
@@ -203,7 +256,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="note">Ghi chú</label>
                                             <textarea ng-keyup="check_length_note()" class="form-control" rows="5" ng-model="_details.Note" id="dnote"></textarea>
@@ -296,10 +349,10 @@
                         data-toggle="modal" data-target="#time">Gọi lại thời gian</button>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id  || _details.Status_student[0].id === 3 || auth.Access[0].goilaisau === false"
+                    <button type="button" class="btn btn-block btn-lg btn-warning" ng-show="auth.Role[0].id !== 0" ng-disabled="auth.Username !== _details.Manager[0].id  || auth.Access[0].goilaisau === false || _details.Status_student[0].id !== 0 || (_details.Center !== null && _details.Center[0].Id !== null) || selectedCenter.Id !== null || (selectedStatus.value !== null && selectedStatus.value !== 0)"
                         ng-click="recall()">Gọi lại sau</button>
                         <button type="button" class="btn btn-block btn-lg btn-warning" ng-show="auth.Role[0].id === 0"
-                        ng-click="recall()">Gọi lại sau</button>
+                        ng-click="recall()" ng-disabled="_details.Status_student[0].id !== 0 || (_details.Center !== null && _details.Center[0].Id !== null) || selectedCenter.Id !== null || (selectedStatus.value !== null && selectedStatus.value !== 0)">Gọi lại sau</button>
                 </div>
             </div>
         </div>
@@ -409,11 +462,16 @@
                                     <div class="col-lg-3 p-0">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <div class="input-group-prepend add">
-                                                    <label for="fullname">Họ tên</label>
+												<div class="input-group-prepend add">
+                                                    <label for="fname">Họ tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.fullname" id="name"
-                                                    required>
+												<input type="text" class="form-control name" ng-model="data.fullname" id="name">
+                                                <input type="text" class="form-control" ng-model="data.fistname" id="fname">
+													
+                                                <!-- <div class="input-group-prepend add"> -->
+                                                    <!-- <label for="name">Tên</label> -->
+                                                <!-- </div> -->
+                                                
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -556,15 +614,15 @@
                                                 <div class="input-group-prepend add">
                                                     <label for="fullname">Họ tên</label>
                                                 </div>
-                                                <input type="text" class="form-control" ng-model="data.fullname" id="name2"
+                                                <input type="text" class="form-control name" ng-model="data.fullname" id="name2"
                                                     required>
+												<input type="text" class="form-control" ng-model="data.fistname" id="fname2">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="email">Email</label>
-                                                <input type="text" class="form-control" ng-model="data.email" id="email2"
-                                                    required>
+                                                <input type="text" class="form-control" ng-model="data.email" id="email2">
                                             </div>
                                         </div>
                                     </div>
@@ -599,13 +657,13 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="input-group add">
-                                                <label for="dayreg">Ngày đăng ký</label>
-                                                <input type="date" class="form-control datetimepicker" id="adddayreg"
-                                                    required>
-                                            </div>
-                                        </div>
+                                        <!-- <div class="form-group"> -->
+                                            <!-- <div class="input-group add"> -->
+                                                <!-- <label for="dayreg">Ngày đăng ký</label> -->
+                                                <!-- <input type="date" class="form-control datetimepicker" id="adddayreg" -->
+                                                    <!-- required> -->
+                                            <!-- </div> -->
+                                        <!-- </div> -->
                                     </div>
                                     <div class="col-lg-1 p-0">
                                         <div class="form-group">
@@ -907,3 +965,111 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Chi Tiết Học Viên trùng-->
+<div class="modal fade" id="duplicator" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-add" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">
+                    Danh Sách Chi Tiết Các Học Viên Trùng</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="text-center">#</th>
+							<th>Time</th>
+							<th>ID</th>
+							<th>Họ tên</th>
+							<th>SĐT</th>
+							<th>Ghi chú</th>
+							<th>Telesale</th>
+							<th>Trạng thái</th>
+							<th>Chuyển</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="content in Duplicator">
+							<td class="text-center">{{$index + 1}}</td>
+							<td>{{content.Regtime}} {{content.Regday}}</td>
+							<td ng-bind="content._id"></td>
+							<td>{{content.Fullname}} {{content.Fistname}}</td>
+							<td>{{content.Phone}}</td>
+							<td>{{content.Note}}</td>
+							<td>{{content.Manager[0].id}}</td>
+							<td>{{content.Status_student[0].name}}</td>
+							<td>
+								<button type="button" rel="tooltip" class="btn btn-info sas-bk" ng-click="sendStudent(content)">
+									<i class="material-icons">send</i>
+								</button>
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Chi Tiết Học Viên trùng khi thêm-->
+<div class="modal fade" id="addduplicator" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-add" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" style="font-family:'Times New Roman', Times, serif; font-weight: 900">
+                    Danh Sách Chi Tiết Các Học Viên Trùng</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 5px">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="text-center">#</th>
+							<th>Time</th>
+							<th>ID</th>
+							<th>Họ tên</th>
+							<th>SĐT</th>
+							<th>Ghi chú</th>
+							<th>Telesale</th>
+							<th>Trạng thái</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="content in Duplicator">
+							<td class="text-center">{{$index + 1}}</td>
+							<td>{{content.Regtime}} {{content.Regday}}</td>
+							<td ng-bind="content._id"></td>
+							<td>{{content.Fullname}} {{content.Fistname}}</td>
+							<td>{{content.Phone}}</td>
+							<td>{{content.Note}}</td>
+							<td>{{content.Manager[0].id}}</td>
+							<td>{{content.Status_student[0].name}}</td>
+						</tr>						
+					</tbody>
+				</table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script> -->
+	<!-- var table = $('#hometb').DataTable(); -->
+ 
+	<!-- regExSearch = '^\\s' + myValue +'\\s*$'; -->
+	<!-- table.column(columnNo).search(regExSearch, true, false).draw(); -->
+<!-- </script> -->
+
+<!-- <script> -->
+        <!-- document.getElementById("proname").style.textTransform = "capitalize"; -->
+    <!-- </script> -->

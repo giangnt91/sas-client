@@ -1,5 +1,5 @@
 sas
-.controller('HomeCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket, SMSService, $http) {
+.controller('HomeCtrl', function ($location, $filter, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket, SMSService, $http) {
 	// go manager
 	$scope.go_manageruser = function () {
 		$location.path('/manageruser');
@@ -500,7 +500,12 @@ sas
 		$scope.crmphone = '';
 		$scope.HCenter = $scope.Center[0];
 		$scope.HStatus = $scope.Status2[0];
-		getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
+		$scope.proAddress = $scope.Address[0];
+		$scope.proCenter = $scope.Center[0];
+		$scope.proName = '';
+		$scope.proSale = $scope.Users[0];
+		$scope.list_student = $scope.clearList;
+		// getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 	}
 	
 	// tìm trên toàn hệ thống
@@ -521,6 +526,72 @@ sas
 		}
 	}
 	
+	
+	// tìm kiếm nâng cao
+	function getUsers() {
+		DataServices.GetallUser().then(function (response) {
+			if (response.data.error_code === 0) {
+				var _result = response.data.users;
+				if (_result.length > 0) {
+					$scope.Users = [{
+						id: null,
+						name: 'Chọn'
+					}];
+					_result.forEach(element => {
+						if (element.Role[0].id === 1) {
+							let user = {
+								id: element.Username,
+								name: element.Fullname
+							}
+							$scope.Users.push(user);
+						}
+					});
+				}
+			}
+		})
+	}
+	getUsers();	
+	
+	$timeout(function(){
+		$scope.proCenter = $scope.Center[0];
+		$scope.proSale = $scope.Users[0];
+	}, 1000)
+	$scope.proAddress = $scope.Address[0];
+	
+	$scope.proSearch = function(){
+		let proname;
+		let procenter;
+		let prosale;
+		let proadress;
+		
+		if($scope.proName !== undefined && $scope.proName !== ''){
+			proname = $scope.proName;
+		}else{
+			proname = '';
+		}
+		
+		if($scope.proCenter.Id !== null){
+			procenter = $scope.proCenter._id;
+		}else{
+			procenter = null;
+		}
+		
+		proadress = $scope.proAddress.value;
+
+		prosale = $scope.proSale.id;
+		
+		DataServices.SearchPro(proname, procenter, proadress, prosale).then(function(response){
+			if(response.data.error_code === 0){
+				$scope.list_student = response.data.students;
+				Notifi._success('Lọc dữ liệu thành công');
+			}else if(response.data.error_code === 1){
+				Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
+			}else if(response.data.error_code === 2){
+				Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
+			}
+		})
+	}
+	
 	// Notifi._loading();
 	// lấy danh sách học viên
 	function getStudent(_id, username, role) {	
@@ -532,6 +603,7 @@ sas
 						
 						$timeout(function(){
 							$scope.list_student = response.data.student;
+							$scope.clearList =  response.data.student;
 							// Notifi._close();
 						}, 100);
 						
@@ -545,11 +617,17 @@ sas
 							})
 						}
 						
+						
 						$scope.newdtOptions = DTOptionsBuilder.newOptions()
 						.withDisplayLength(10)
 						.withOption('bLengthChange', true)
 						.withOption('iDisplayLength', 10)
+						// .withOption('bInfo', false)
+						// .withOption('bFilter', false)
 						.withDOM('Zlfrtip')
+					
+        
+						
 					} else {
 					Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
 				}
@@ -585,10 +663,10 @@ sas
 			})
 		}
 	}
-	
+
 	// tạo học viên mới từ thêm bạn
-	function CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
-		DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
+	function CstudentF(Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
+		DataServices.CstudentF(Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
 				getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				$scope.friendId = response.data._id;
@@ -603,8 +681,8 @@ sas
 	}
 	
 	// tạo học viên bình thường
-	function Cstudent(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
-		DataServices.CstudentF(Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
+	function Cstudent(Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
+		DataServices.CstudentF(Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
 				getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				Notifi._success('Tạo học viên thành công.');
@@ -616,18 +694,93 @@ sas
 		})
 	}
 	
+	
 	// kiểm tra số điện thoại khi nhập
 	$scope.checkphone = function(sdt){
 		if(sdt.toString().length > 8){
 			DataServices.SearchByPhone(sdt).then(function(response){
 				if (response.data.error_code === 0) {
-					response.data.students.forEach(element =>{
-						Notifi._error('Số điện thoại đã được nhập ngày '+ element.Regday +'<br/> cho học viên '+ element.Fullname +'<br/> bởi '+ element.Manager[0].name + ' - '+ element.Manager[0].id);
-					})
+					var list = [];
+							response.data.students.forEach( element => {
+								if(element.Duplicate === null){
+									list.push(element);
+								}
+							})
+							$scope.Duplicator = list;
+							$timeout(function(){
+								$('#addduplicator').modal('show');
+							}, 300);
+					// response.data.students.forEach(element =>{
+						// Notifi._error('Số điện thoại đã được nhập ngày '+ element.Regday +'<br/> cho học viên '+ element.Fullname +'<br/> bởi '+ element.Manager[0].name + ' - '+ element.Manager[0].id);
+					// })
 				}
 			});
 		}
 	}
+	
+	// kiểm tra học viên trùng khi mở xem chi tiết
+		$scope.checkDuplicator = function(data, id){
+			if(id === 1){
+				if(data.Duplicate !== null){
+					DataServices.SearchByPhone(data.Phone).then(function(response){
+						if(response.data.error_code === 0){
+							if(response.data.students.length > 0){
+								var list = [];
+								response.data.students.forEach( element => {
+									if(element.Duplicate === null){
+										list.push(element);
+									}
+								})
+								$scope.Duplicator = list;
+								$timeout(function(){
+									$('#duplicator').modal('show');
+								}, 300);
+							}
+						}
+					})
+				}
+			}else{
+					DataServices.SearchByPhone(data.Phone).then(function(response){
+						if(response.data.error_code === 0){
+							if(response.data.students.length > 0){
+								var list = [];
+								response.data.students.forEach( element => {
+									if(element.Duplicate === null){
+										list.push(element);
+									}
+								})
+								$scope.Duplicator = list;
+								$timeout(function(){
+									$('#duplicator').modal('show');
+								}, 300);
+							}
+						}
+					})
+			}
+		}
+		
+		
+		
+		// chuyển học viên cho sale cũ quản lý
+		$scope.sendStudent = function(data){
+			let manager = [{
+				mname: $scope._details.Manager[0].mname,
+				mid: $scope._details.Manager[0].mid,
+				sheetId: $scope._details.Manager[0].sheetId,
+				gtele:$scope._details.Manager[0].gtele,
+				name: data.Manager[0].name,
+				id: data.Manager[0].id
+			}]
+			
+			$scope._details.Manager = manager;
+			DataServices.SendStudentById(angular.fromJson(angular.toJson($scope._details))).then(function(response){
+				if(response.data.error_code === 0){
+					Notifi._success('Chuyển học viên thành công');
+				}else{
+					Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
+				}
+			});
+		}
 	
 	
 	// cập nhật thông tin học viên
@@ -698,7 +851,7 @@ sas
 		
 		// auto duplicate
 		Thesocket.on('duplicate', function (list_duplicate) {
-			var last_id = localStorage.getItem('last_id');;
+			var last_id = localStorage.getItem('last_id');
 			if (list_duplicate.length > 0) {
 				list_duplicate.forEach(element => {
 					if (element.teleid === $rootScope.auth.Username) {
@@ -716,6 +869,7 @@ sas
 		
 		getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 		// getSale($rootScope.auth.Username);
+		
 		// thông tin chi tiết của học viên
 		$scope.detail = function detailStudent(id) {
 			
@@ -980,6 +1134,9 @@ sas
 			if (_tmpday !== '') {
 				$scope._details.Appointment_day = convertup(_tmpday);
 				$scope._details.Appointment_dayiso = _tmpday;
+			}else{
+				$scope._details.Appointment_day = null;
+				$scope._details.Appointment_dayiso = null;
 			}
 			
 			// kiểm tra cơ sở
@@ -1147,7 +1304,19 @@ sas
 		}
 		
 		$scope.addnewfromaddFriend = function (data) {
-			var _tmpregday = $('#adddayreg').val();
+			// var _tmpregday = $('#adddayreg').val();
+			var today = new Date();
+			let dd = today.getDate();
+			let mm = today.getMonth() + 1;
+			let yyyy = today.getFullYear();
+			if (dd < 10) {
+				dd = '0' + dd
+			}
+			if (mm < 10) {
+				mm = '0' + mm
+			}
+			let regday = dd + '/' + mm + '/' + yyyy;
+					
 			var _tmpdayhen = $('#addngayhen').val();
 			var _manager = [{
 				id: $rootScope.auth.Username,
@@ -1159,11 +1328,9 @@ sas
 			}]
 			if (data === undefined ||
 			data.fullname === undefined ||
-			data.email === undefined ||
 			data.phone === undefined ||
 			$scope.addselectedSex === undefined ||
-			$scope.addselectedAddress === undefined ||
-			_tmpregday === ''
+			$scope.addselectedAddress === undefined
 			) {
 				Notifi._error('Nhập đầy đủ thông tin để tạo user.')
 				return;
@@ -1174,8 +1341,22 @@ sas
 				var tmp_center;
 				var tmp_status;
 				var tmp_time;
+				var tmp_email;
+				var tmp_fistname;
 				
-				let regday = convertup(_tmpregday);
+				if(data.fistname !== undefined){
+					tmp_fistname = data.fistname;
+				}else{
+					tmp_fistname = '';
+				}
+				
+				if(data.email !== undefined){
+					tmp_email = data.email;
+				}else{
+					tmp_email = '';
+				}
+				
+				// let regday = convertup(_tmpregday);
 				
 				let tmp_sex = [{
 					id: $scope.addselectedSex.value,
@@ -1232,7 +1413,7 @@ sas
 					$scope.addNote = null;
 				}
 				
-				CstudentF(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, hendayiso, tmp_time, tmp_status, _manager);
+				CstudentF(tmp_fistname, data.fullname, tmp_email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, hendayiso, tmp_time, tmp_status, _manager);
 			}
 		}
 		
@@ -1276,6 +1457,13 @@ sas
 				var henday;
 				var hendayiso;
 				var tmp_time;
+				var tmp_fistname;
+				
+				if(data.fistname !== undefined){
+					tmp_fistname = data.fistname;
+				}else{
+					tmp_fistname = '';
+				}
 				
 				let tmp_sex = [{
 					id: $scope.maddselectedSex.value,
@@ -1331,7 +1519,7 @@ sas
 					$scope.maddNote = null;
 				}
 				
-				Cstudent(data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.maddNote, tmp_center, henday, hendayiso, tmp_time, tmp_status, _manager);
+				Cstudent(tmp_fistname, data.fullname, data.email, data.phone, tmp_sex, tmp_address, regday, $scope.maddNote, tmp_center, henday, hendayiso, tmp_time, tmp_status, _manager);
 			}
 		}
 		
