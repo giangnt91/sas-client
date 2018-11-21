@@ -572,10 +572,12 @@ sas
 						
 						// trạng thái chưa đăng ký
 						if(element.Status_student[0].id === 0 && ( element.Isupdate === true || element.Center !== null) ){
-							if(element.Center[0].id !== null){
-								if(_list_student.contains(element._id.toString()) === false) {
-										_list_student.push(element);
-									}
+							if(element.Center !== null){
+								if(element.Center[0].id !== null){
+									if(_list_student.contains(element._id.toString()) === false) {
+											_list_student.push(element);
+										}
+								}
 							}
 						}
 						
@@ -610,8 +612,8 @@ sas
         }
 
         // tạo học viên mới từ thêm bạn
-        function CstudentF(Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
-            DataServices.CstudentF(Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
+        function CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
+            DataServices.CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
                 if (response.data.error_code === 0) {
                     getStudent($rootScope.auth.Username, $rootScope.auth.Role);
                     $scope.friendId = response.data._id;
@@ -1200,11 +1202,18 @@ sas
                     var tmp_time;
 					var tmp_email;
 					var tmp_fistname;
+					var tmp_lastname;
 				
 					if(data.fistname !== undefined){
 						tmp_fistname = data.fistname;
 					}else{
 						tmp_fistname = '';
+					}
+					
+					if(data.lastname !== undefined){
+						tmp_lastname = data.lastname;
+					}else{
+						tmp_lastname = '';
 					}
 				
 					if(data.email !== undefined){
@@ -1270,7 +1279,7 @@ sas
                         $scope.addNote = null;
                     }
 
-                    CstudentF(data.fullname, tmp_email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, hendayiso, tmp_time, tmp_status, _manager);
+                    CstudentF(tmp_fistname, tmp_lastname, data.fullname, tmp_email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, hendayiso, tmp_time, tmp_status, _manager);
                 }
             }
 			

@@ -116,7 +116,7 @@
                                         <td class="text-center">{{$index +1}}</td>
                                         <td>{{content.Regday +' '+ content.Regtime}}</td>
                                         <td>{{content._id}}</td>
-                                        <td>{{content.Fullname}}</td>
+                                        <td>{{content.Fistname}} {{content.Lastname}}</td>
                                         <td>{{content.Sex[0].name}}</td>
                                         <td>{{content.Phone}}</td>
                                         <td>{{content.Note}}</td>
@@ -159,12 +159,13 @@
                                 <div class="row">
                                     <div class="col-lg-3 p-0">
                                         <div class="form-group">
-                                            <div class="input-group">
+                                            <div class="input-group" style="margin-bottom: 37px">
                                                 <div class="input-group-prepend add">
-                                                    <label for="fullname">Họ tên</label>
+                                                    <!-- <label for="fullname">Họ tên</label> -->
                                                 </div>
                                                 <input type="text" class="form-control name" ng-model="_details.Fullname" id="dname">
-												<input type="text" class="form-control" ng-model="_details.Fistname" id="dfname">
+												<input type="text" class="form-control fname" ng-model="_details.Fistname" id="dfname">
+												<input type="text" class="form-control lname" ng-model="_details.Lastname" id="dlname">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -431,15 +432,16 @@
                         <div class="card-body card-add">
                             <form name="loginform">
                                 <div class="row">
-                                    <div class="col-lg-3 p-0">
+                                    <div class="col-lg-4 p-0">
                                         <div class="form-group">
-                                            <div class="input-group">
+                                            <div class="input-group" style="margin-bottom: 37px">
                                                 <div class="input-group-prepend add">
-                                                    <label for="fullname">Họ tên</label>
+                                                    <!-- <label for="fullname">Họ tên</label> -->
                                                 </div>
-                                                <input type="text" class="form-control name" ng-model="data.fullname" id="name2"
+                                                <input type="text" class="form-control name" placeholder="Full Name" ng-model="data.fullname" id="name2"
                                                     required>
-												<input type="text" class="form-control" ng-model="data.fistname" id="fname2">
+												<input type="text" class="form-control fname" placeholder="First Name" ng-model="data.fistname" id="fname2">
+												<input type="text" class="form-control lname" placeholder="Last Name" ng-model="data.lastname" id="lname2">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -449,7 +451,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="phone">Số DT</label>

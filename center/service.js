@@ -195,9 +195,10 @@ angular.module('SASService', [])
 				return $http.post(url, parameter, header);
 			},
             //Api Student
-            CstudentF: function (Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
+            CstudentF: function (Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
                 parameter = {
 					Fistname: Fistname,
+					Lastname: Lastname,
                     Fullname: Fullname,
                     Email: Email,
                     Phone: Phone,

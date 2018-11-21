@@ -7,6 +7,17 @@
 	width: 30% !important; 
 	margin-right: 10px;
 }
+
+.fname{
+	width: 20% !important; 
+	margin-right: 10px;
+}
+
+.lname{
+	width: 10% !important; 
+	margin-right: 10px;
+}
+
 .spinner > div {
   width: 18px;
   height: 18px;

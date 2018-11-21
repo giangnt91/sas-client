@@ -481,8 +481,8 @@ sas
         }
 
         // tạo học viên mới từ thêm bạn
-        function CstudentF(Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
-            DataServices.CstudentF(Fistname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager).then(function (response) {
+        function CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager) {
+            DataServices.CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_time, Status_student, Manager).then(function (response) {
                 if (response.data.error_code === 0) {
                     getStudent($rootScope.auth.Username, $rootScope.auth.Role);
                     $scope.friendId = response.data._id;
@@ -1069,11 +1069,18 @@ sas
                     var tmp_time;
 					var tmp_email;
 					var tmp_fistname;
+					var tmp_lastname;
 				
 					if(data.fistname !== undefined){
 						tmp_fistname = data.fistname;
 					}else{
 						tmp_fistname = '';
+					}
+					
+					if(data.lastname !== undefined){
+						tmp_lastname = data.lastname;
+					}else{
+						tmp_lastname = '';
 					}
 					
 					if(data.email !== undefined){
@@ -1137,7 +1144,7 @@ sas
                         $scope.addNote = null;
                     }
 
-                    CstudentF(tmp_fistname, data.fullname, tmp_email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
+                    CstudentF(tmp_fistname, tmp_lastname, data.fullname, tmp_email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
                 }
             }
 			
