@@ -112,6 +112,7 @@
                                         <th>Time</th>
                                         <th>ID</th>
                                         <th>Họ Tên</th>
+										<th>Tên</th>
                                         <th>Giới tính</th>
                                         <th>Số điện thoại</th>
                                         <th>Ngày hẹn</th>
@@ -127,7 +128,8 @@
                                         <td class="text-center">{{$index +1}}</td>
                                         <td>{{content.Regday +' '+ content.Regtime}}</td>
                                         <td>{{content._id}}</td>
-                                        <td>{{content.Fistname}} {{content.Lastname}}</td>
+                                        <td>{{content.Fistname}}</td>
+										<td>{{content.Lastname}}</td>
                                         <td>{{content.Sex[0].name}}</td>
                                         <td>{{content.Phone}}</td>
                                         <td>{{content.Appointment_day}}</td>
