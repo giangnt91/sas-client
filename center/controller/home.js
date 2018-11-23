@@ -619,8 +619,12 @@ sas
 	function CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
 		DataServices.CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
-				getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
+				$timeout(function(){
+					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
+				}, 1000)
+				
 				$scope.friendId = response.data._id;
+				
 				update_student($scope._details);
 				Notifi._success('Tạo học viên thành công.');
 			} else if (response.data.error_code === 1) {
@@ -635,7 +639,11 @@ sas
 	function Cstudent(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
 		DataServices.CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
-				getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
+				
+				$timeout(function(){
+					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
+				}, 1000)
+				
 				Notifi._success('Tạo học viên thành công.');
 			} else if (response.data.error_code === 1) {
 				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
@@ -752,7 +760,10 @@ sas
 
 		DataServices.UpStudent(student).then(function (response) {
 			if (response.data.error_code === 0) {
-				getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
+				$timeout(function(){
+					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
+				}, 1000);
+				
 				Notifi._success('Cập nhật thông tin thành công.');
 			} else {
 				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
