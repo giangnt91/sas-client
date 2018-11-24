@@ -1469,7 +1469,7 @@ sas
                         if ($scope._details.Sex[0].id === 1) {
                             nd = nd.replace(gioi_tinh, 'Anh')
                         }
-                        if ($scope._details.Sex[0].id === 2) {
+                        if ($scope._details.Sex[0].id === 0) {
                             nd = nd.replace(gioi_tinh, 'Chi')
                         } if ($scope._details.Sex[0].id === null) {
                             nd = nd.replace(gioi_tinh, 'A/C')
