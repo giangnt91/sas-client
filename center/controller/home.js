@@ -21,17 +21,17 @@ sas
 
 	// thời gian trùng
 	$scope.list_time_dup = [{
-			id : null,
-			name : 'Chọn'
+			id: null,
+			name: 'Chọn'
 		}, {
-			id : 1,
-			name : '30 Ngày'
+			id: 1,
+			name: '30 Ngày'
 		}, {
-			id : 2,
-			name : '60 Ngày'
+			id: 2,
+			name: '60 Ngày'
 		}, {
-			id : 3,
-			name : '90 Ngày'
+			id: 3,
+			name: '90 Ngày'
 		}
 	]
 
@@ -61,14 +61,14 @@ sas
 						let _dup = [];
 						if ($scope.choose_time_dup.id !== null) {
 							_dup = [{
-									id : $scope.choose_time_dup.id,
-									name : $scope.choose_time_dup.name
+									id: $scope.choose_time_dup.id,
+									name: $scope.choose_time_dup.name
 								}
 							]
 						} else {
 							_dup = [{
-									id : element.TimeForAdmin[0].id,
-									name : element.TimeForAdmin[0].name
+									id: element.TimeForAdmin[0].id,
+									name: element.TimeForAdmin[0].name
 								}
 							]
 						}
@@ -126,105 +126,105 @@ sas
 
 	// giới tính
 	$scope.Sex = [{
-			name : 'Chọn',
-			value : null
+			name: 'Chọn',
+			value: null
 		}, {
-			name : 'Nam',
-			value : 1
+			name: 'Nam',
+			value: 1
 		}, {
-			name : 'Nữ',
-			value : 0
+			name: 'Nữ',
+			value: 0
 		}
 	];
 
 	// địa chỉ
 	$scope.Address = [{
-			name : 'Chọn',
-			value : null
+			name: 'Chọn',
+			value: null
 		}, {
-			name : 'Quận 1',
-			value : 1
+			name: 'Quận 1',
+			value: 1
 		}, {
-			name : 'Quận 2',
-			value : 2
+			name: 'Quận 2',
+			value: 2
 		}, {
-			name : 'Quận 3',
-			value : 3
+			name: 'Quận 3',
+			value: 3
 		}, {
-			name : 'Quận 4',
-			value : 4
+			name: 'Quận 4',
+			value: 4
 		}, {
-			name : 'Quận 5',
-			value : 5
+			name: 'Quận 5',
+			value: 5
 		}, {
-			name : 'Quận 6',
-			value : 6
+			name: 'Quận 6',
+			value: 6
 		}, {
-			name : 'Quận 7',
-			value : 7
+			name: 'Quận 7',
+			value: 7
 		}, {
-			name : 'Quận 8',
-			value : 8
+			name: 'Quận 8',
+			value: 8
 		}, {
-			name : 'Quận 9',
-			value : 9
+			name: 'Quận 9',
+			value: 9
 		}, {
-			name : 'Quận 10',
-			value : 10
+			name: 'Quận 10',
+			value: 10
 		}, {
-			name : 'Quận 11',
-			value : 11
+			name: 'Quận 11',
+			value: 11
 		}, {
-			name : 'Quận 12',
-			value : 12
+			name: 'Quận 12',
+			value: 12
 		}, {
-			name : 'Quận Thủ Đức',
-			value : 13
+			name: 'Quận Thủ Đức',
+			value: 13
 		}, {
-			name : 'Quận Gò Vấp',
-			value : 14
+			name: 'Quận Gò Vấp',
+			value: 14
 		}, {
-			name : 'Quận Bình Thạnh',
-			value : 15
+			name: 'Quận Bình Thạnh',
+			value: 15
 		}, {
-			name : 'Quận Tân Bình',
-			value : 16
+			name: 'Quận Tân Bình',
+			value: 16
 		}, {
-			name : 'Quận Tân Phú',
-			value : 17
+			name: 'Quận Tân Phú',
+			value: 17
 		}, {
-			name : 'Quận Phú Nhuận',
-			value : 18
+			name: 'Quận Phú Nhuận',
+			value: 18
 		}, {
-			name : 'Quận Bình Tân',
-			value : 19
+			name: 'Quận Bình Tân',
+			value: 19
 		}, {
-			name : 'Huyện Củ Chi',
-			value : 20
+			name: 'Huyện Củ Chi',
+			value: 20
 		}, {
-			name : 'Huyện Hóc Môn',
-			value : 21
+			name: 'Huyện Hóc Môn',
+			value: 21
 		}, {
-			name : 'Huyện Bình Chánh',
-			value : 22
+			name: 'Huyện Bình Chánh',
+			value: 22
 		}, {
-			name : 'Huyện Nhà Bè',
-			value : 23
+			name: 'Huyện Nhà Bè',
+			value: 23
 		}, {
-			name : 'Huyện Cần Giờ',
-			value : 24
+			name: 'Huyện Cần Giờ',
+			value: 24
 		}, {
-			name : 'Đồng Nai',
-			value : 25
+			name: 'Đồng Nai',
+			value: 25
 		}, {
-			name : 'Bình Dương',
-			value : 26
+			name: 'Bình Dương',
+			value: 26
 		}, {
-			name : 'Đà Nẵng',
-			value : 27
+			name: 'Đà Nẵng',
+			value: 27
 		}, {
-			name : 'Khác',
-			value : 28
+			name: 'Khác',
+			value: 28
 		}
 	]
 
@@ -233,8 +233,8 @@ sas
 		DataServices.GetCenter().then(function (response) {
 			if (response.data.error_code === 0) {
 				$scope.Center = [{
-						Name : 'Chọn',
-						Id : null
+						Name: 'Chọn',
+						Id: null
 					}
 				]
 				response.data.center.forEach(element => {
@@ -247,130 +247,130 @@ sas
 
 	// trạng thái
 	$scope.Status2 = [{
-			name : 'Chọn',
-			value : null
+			name: 'Chọn',
+			value: null
 		}, {
-			name : 'Chưa đăng ký',
-			value : 0
+			name: 'Chưa đăng ký',
+			value: 0
 		}, {
-			name : 'Không tiềm năng',
-			value : 1
+			name: 'Không tiềm năng',
+			value: 1
 		}, {
-			name : 'Đến chưa đăng ký',
-			value : 2
+			name: 'Đến chưa đăng ký',
+			value: 2
 		}, {
-			name : 'Đã đăng ký',
-			value : 3
+			name: 'Đã đăng ký',
+			value: 3
 		}, {
-			name : 'Hủy',
-			value : 4
+			name: 'Hủy',
+			value: 4
 		}
 	]
 
 	// trạng thái
 	$scope.Status = [{
-			name : 'Chọn',
-			value : null
+			name: 'Chọn',
+			value: null
 		}, {
-			name : 'Chưa đăng ký',
-			value : 0
+			name: 'Chưa đăng ký',
+			value: 0
 		}, {
-			name : 'Không tiềm năng',
-			value : 1
+			name: 'Không tiềm năng',
+			value: 1
 		}, {
-			name : 'Đến chưa đăng ký',
-			value : 2
+			name: 'Đến chưa đăng ký',
+			value: 2
 		}, {
-			name : 'Hủy',
-			value : 4
+			name: 'Hủy',
+			value: 4
 		}
 	]
 
 	// giờ hẹn
 	$scope.Appointment_time = [{
-			name : 'Chọn',
-			value : null
+			name: 'Chọn',
+			value: null
 		}, {
-			name : '8:00',
-			value : 1
+			name: '8:00',
+			value: 1
 		}, {
-			name : '8:30',
-			value : 2
+			name: '8:30',
+			value: 2
 		}, {
-			name : '9:00',
-			value : 3
+			name: '9:00',
+			value: 3
 		}, {
-			name : '9:30',
-			value : 4
+			name: '9:30',
+			value: 4
 		}, {
-			name : '10:00',
-			value : 5
+			name: '10:00',
+			value: 5
 		}, {
-			name : '10:30',
-			value : 6
+			name: '10:30',
+			value: 6
 		}, {
-			name : '11:00',
-			value : 7
+			name: '11:00',
+			value: 7
 		}, {
-			name : '11:30',
-			value : 8
+			name: '11:30',
+			value: 8
 		}, {
-			name : '12:00',
-			value : 9
+			name: '12:00',
+			value: 9
 		}, {
-			name : '12:30',
-			value : 10
+			name: '12:30',
+			value: 10
 		}, {
-			name : '13:00',
-			value : 11
+			name: '13:00',
+			value: 11
 		}, {
-			name : '13:30',
-			value : 12
+			name: '13:30',
+			value: 12
 		}, {
-			name : '14:00',
-			value : 13
+			name: '14:00',
+			value: 13
 		}, {
-			name : '14:30',
-			value : 14
+			name: '14:30',
+			value: 14
 		}, {
-			name : '15:00',
-			value : 15
+			name: '15:00',
+			value: 15
 		}, {
-			name : '15:30',
-			value : 16
+			name: '15:30',
+			value: 16
 		}, {
-			name : '16:00',
-			value : 17
+			name: '16:00',
+			value: 17
 		}, {
-			name : '16:30',
-			value : 18
+			name: '16:30',
+			value: 18
 		}, {
-			name : '17:00',
-			value : 19
+			name: '17:00',
+			value: 19
 		}, {
-			name : '17:30',
-			value : 20
+			name: '17:30',
+			value: 20
 		}, {
-			name : '18:00',
-			value : 21
+			name: '18:00',
+			value: 21
 		}, {
-			name : '18:30',
-			value : 22
+			name: '18:30',
+			value: 22
 		}, {
-			name : '19:00',
-			value : 23
+			name: '19:00',
+			value: 23
 		}, {
-			name : '19:30',
-			value : 24
+			name: '19:30',
+			value: 24
 		}, {
-			name : '20:00',
-			value : 25
+			name: '20:00',
+			value: 25
 		}, {
-			name : '20:30',
-			value : 26
+			name: '20:30',
+			value: 26
 		}, {
-			name : '21:00',
-			value : 27
+			name: '21:00',
+			value: 27
 		}
 	];
 
@@ -487,15 +487,15 @@ sas
 				var _result = response.data.users;
 				if (_result.length > 0) {
 					$scope.Users = [{
-							id : null,
-							name : 'Chọn'
+							id: null,
+							name: 'Chọn'
 						}
 					];
 					_result.forEach(element => {
 						if (element.Role[0].id === 1) {
 							let user = {
-								id : element.Username,
-								name : element.Fullname
+								id: element.Username,
+								name: element.Fullname
 							}
 							$scope.Users.push(user);
 						}
@@ -508,7 +508,9 @@ sas
 
 	$timeout(function () {
 		$scope.proCenter = $scope.Center[0];
-		$scope.proSale = $scope.Users[0];
+		if ($scope.Users !== undefined) {
+			$scope.proSale = $scope.Users[0];
+		}
 	}, 1000)
 	$scope.proAddress = $scope.Address[0];
 
@@ -532,7 +534,9 @@ sas
 
 		proadress = $scope.proAddress.value;
 
-		prosale = $scope.proSale.id;
+		if ($scope.proSale !== undefined) {
+			prosale = $scope.proSale.id;
+		}
 
 		DataServices.SearchPro(proname, procenter, proadress, prosale).then(function (response) {
 			if (response.data.error_code === 0) {
@@ -619,12 +623,12 @@ sas
 	function CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
 		DataServices.CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
-				$timeout(function(){
+				$timeout(function () {
 					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				}, 1000)
-				
+
 				$scope.friendId = response.data._id;
-				
+
 				update_student($scope._details);
 				Notifi._success('Tạo học viên thành công.');
 			} else if (response.data.error_code === 1) {
@@ -639,11 +643,11 @@ sas
 	function Cstudent(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager) {
 		DataServices.CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
-				
-				$timeout(function(){
+
+				$timeout(function () {
 					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				}, 1000)
-				
+
 				Notifi._success('Tạo học viên thành công.');
 			} else if (response.data.error_code === 1) {
 				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
@@ -720,12 +724,12 @@ sas
 	// chuyển học viên cho sale cũ quản lý
 	$scope.sendStudent = function (data) {
 		let manager = [{
-				mname : $scope._details.Manager[0].mname,
-				mid : $scope._details.Manager[0].mid,
-				sheetId : $scope._details.Manager[0].sheetId,
-				gtele : $scope._details.Manager[0].gtele,
-				name : data.Manager[0].name,
-				id : data.Manager[0].id
+				mname: $scope._details.Manager[0].mname,
+				mid: $scope._details.Manager[0].mid,
+				sheetId: $scope._details.Manager[0].sheetId,
+				gtele: $scope._details.Manager[0].gtele,
+				name: data.Manager[0].name,
+				id: data.Manager[0].id
 			}
 		]
 
@@ -743,8 +747,8 @@ sas
 	function update_student(student) {
 		if ($scope.friendId !== undefined) {
 			let new_friend = {
-				id : $scope.friendId,
-				name : $scope._fullname
+				id: $scope.friendId,
+				name: $scope._fullname
 			}
 
 			if (student.ListFriend !== null) {
@@ -760,10 +764,10 @@ sas
 
 		DataServices.UpStudent(student).then(function (response) {
 			if (response.data.error_code === 0) {
-				$timeout(function(){
+				$timeout(function () {
 					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				}, 1000);
-				
+
 				Notifi._success('Cập nhật thông tin thành công.');
 			} else {
 				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
@@ -886,20 +890,20 @@ sas
 					if (element.Status_student !== null) {
 						if (element.Status_student[0].id !== 3) {
 							$scope.Status = [{
-									name : 'Chọn',
-									value : null
+									name: 'Chọn',
+									value: null
 								}, {
-									name : 'Chưa đăng ký',
-									value : 0
+									name: 'Chưa đăng ký',
+									value: 0
 								}, {
-									name : 'Không tiềm năng',
-									value : 1
+									name: 'Không tiềm năng',
+									value: 1
 								}, {
-									name : 'Đến chưa đăng ký',
-									value : 2
+									name: 'Đến chưa đăng ký',
+									value: 2
 								}, {
-									name : 'Hủy',
-									value : 4
+									name: 'Hủy',
+									value: 4
 								}
 							]
 							for (let i = 0; i < $scope.Status.length; i++) {
@@ -910,23 +914,23 @@ sas
 						} else if (element.Status_student[0].id === 3) {
 							// trạng thái
 							$scope.Status = [{
-									name : 'Chọn',
-									value : null
+									name: 'Chọn',
+									value: null
 								}, {
-									name : 'Chưa đăng ký',
-									value : 0
+									name: 'Chưa đăng ký',
+									value: 0
 								}, {
-									name : 'Không tiềm năng',
-									value : 1
+									name: 'Không tiềm năng',
+									value: 1
 								}, {
-									name : 'Đến chưa đăng ký',
-									value : 2
+									name: 'Đến chưa đăng ký',
+									value: 2
 								}, {
-									name : 'Đã đăng ký',
-									value : 3
+									name: 'Đã đăng ký',
+									value: 3
 								}, {
-									name : 'Hủy',
-									value : 4
+									name: 'Hủy',
+									value: 4
 								}
 							]
 							for (let i = 0; i < $scope.Status.length; i++) {
@@ -1027,11 +1031,11 @@ sas
 				let today = _h + ':' + _m + ':' + _s + ' ' + _day + '/' + _month + '/' + _year;
 
 				var _edit = {
-					Username : $rootScope.auth.Username,
-					Fullname : $rootScope.auth.Fullname,
-					Lastphone : $scope._lastPhone,
-					Newphone : $scope._details.Phone,
-					Daychange : today
+					Username: $rootScope.auth.Username,
+					Fullname: $rootScope.auth.Fullname,
+					Lastphone: $scope._lastPhone,
+					Newphone: $scope._details.Phone,
+					Daychange: today
 				}
 
 				if ($scope._details.EditHistory !== null) {
@@ -1052,8 +1056,8 @@ sas
 			// kiểm tra địa chỉ
 			if ($scope.selectedAddress !== null) {
 				var tmpAddress = [{
-						id : $scope.selectedAddress.value,
-						name : $scope.selectedAddress.name
+						id: $scope.selectedAddress.value,
+						name: $scope.selectedAddress.name
 					}
 				]
 				$scope._details.Address = tmpAddress;
@@ -1062,8 +1066,8 @@ sas
 			// kiểm tra giới tính
 			if ($scope.selectedSex !== null) {
 				var tmpSex = [{
-						id : $scope.selectedSex.value,
-						name : $scope.selectedSex.name
+						id: $scope.selectedSex.value,
+						name: $scope.selectedSex.name
 					}
 				]
 				$scope._details.Sex = tmpSex;
@@ -1082,11 +1086,11 @@ sas
 			// kiểm tra cơ sở
 			if ($scope.selectedCenter !== null) {
 				var tmpCenter = [{
-						_id : $scope.selectedCenter._id,
-						SheetId : $scope.selectedCenter.SheetId,
-						Name : $scope.selectedCenter.Name,
-						Id : $scope.selectedCenter.Id,
-						Info : $scope.selectedCenter.Info
+						_id: $scope.selectedCenter._id,
+						SheetId: $scope.selectedCenter.SheetId,
+						Name: $scope.selectedCenter.Name,
+						Id: $scope.selectedCenter.Id,
+						Info: $scope.selectedCenter.Info
 					}
 				]
 				$scope._details.Center = tmpCenter;
@@ -1095,8 +1099,8 @@ sas
 			// kiểm tra trạng thái
 			if ($scope.selectedStatus !== null) {
 				var tmpStatus = [{
-						id : $scope.selectedStatus.value,
-						name : $scope.selectedStatus.name
+						id: $scope.selectedStatus.value,
+						name: $scope.selectedStatus.name
 					}
 				]
 				if ($scope.selectedStatus.value === 3) {
@@ -1119,8 +1123,8 @@ sas
 			// kiểm tra giờ hẹn
 			if ($scope.selectedTime !== null) {
 				var tmpTime = [{
-						id : $scope.selectedTime.value,
-						name : $scope.selectedTime.name
+						id: $scope.selectedTime.value,
+						name: $scope.selectedTime.name
 					}
 				]
 				$scope._details.Appointment_time = tmpTime;
@@ -1154,8 +1158,8 @@ sas
 				// kiểm tra giờ hẹn
 				if ($scope.selectedTime2 !== null) {
 					tmpTime = [{
-							id : $scope.selectedTime2.value,
-							name : $scope.selectedTime2.name
+							id: $scope.selectedTime2.value,
+							name: $scope.selectedTime2.name
 						}
 					]
 					$scope._details.Time_recall[0].time = tmpTime;
@@ -1167,15 +1171,15 @@ sas
 
 				if ($scope.selectedTime2 !== null) {
 					tmpTime = [{
-							id : $scope.selectedTime2.value,
-							name : $scope.selectedTime2.name
+							id: $scope.selectedTime2.value,
+							name: $scope.selectedTime2.name
 						}
 					]
 				}
 
 				var time_recall = [{
-						day : _day,
-						time : tmpTime
+						day: _day,
+						time: tmpTime
 					}
 				]
 
@@ -1252,12 +1256,12 @@ sas
 
 			var _tmpdayhen = $('#addngayhen').val();
 			var _manager = [{
-					id : $rootScope.auth.Username,
-					name : $rootScope.auth.Fullname,
-					sheetId : null,
-					gtele : $rootScope.auth.Zone[0].id,
-					mid : null,
-					mname : null
+					id: $rootScope.auth.Username,
+					name: $rootScope.auth.Fullname,
+					sheetId: null,
+					gtele: $rootScope.auth.Zone[0].id,
+					mid: null,
+					mname: null
 				}
 			]
 			if (data === undefined ||
@@ -1283,7 +1287,7 @@ sas
 				} else {
 					tmp_fistname = '';
 				}
-				
+
 				if (data.lastname !== undefined) {
 					tmp_lastname = data.lastname;
 				} else {
@@ -1299,23 +1303,23 @@ sas
 				// let regday = convertup(_tmpregday);
 
 				let tmp_sex = [{
-						id : $scope.addselectedSex.value,
-						name : $scope.addselectedSex.name
+						id: $scope.addselectedSex.value,
+						name: $scope.addselectedSex.name
 					}
 				]
 				let tmp_address = [{
-						id : $scope.addselectedAddress.value,
-						name : $scope.addselectedAddress.name
+						id: $scope.addselectedAddress.value,
+						name: $scope.addselectedAddress.name
 					}
 				]
 
 				if ($scope.addselectedCenter !== undefined) {
 					tmp_center = [{
-							_id : $scope.addselectedCenter._id,
-							SheetId : $scope.addselectedCenter.SheetId,
-							Name : $scope.addselectedCenter.Name,
-							Id : $scope.addselectedCenter.Id,
-							Info : $scope.addselectedCenter.Info
+							_id: $scope.addselectedCenter._id,
+							SheetId: $scope.addselectedCenter.SheetId,
+							Name: $scope.addselectedCenter.Name,
+							Id: $scope.addselectedCenter.Id,
+							Info: $scope.addselectedCenter.Info
 						}
 					]
 				} else {
@@ -1324,14 +1328,14 @@ sas
 
 				if ($scope.addselectedStatus !== undefined) {
 					tmp_status = [{
-							id : $scope.addselectedStatus.value,
-							name : $scope.addselectedStatus.name
+							id: $scope.addselectedStatus.value,
+							name: $scope.addselectedStatus.name
 						}
 					]
 				} else {
 					tmp_status = {
-						id : 0,
-						name : 'Chưa đăng ký'
+						id: 0,
+						name: 'Chưa đăng ký'
 					}
 				}
 
@@ -1345,8 +1349,8 @@ sas
 
 				if ($scope.addselectedTime !== undefined) {
 					tmp_time = [{
-							id : $scope.addselectedTime.value,
-							name : $scope.addselectedTime.name
+							id: $scope.addselectedTime.value,
+							name: $scope.addselectedTime.name
 						}
 					]
 				} else {
@@ -1375,12 +1379,12 @@ sas
 			var _tmpregday = $('#madddayreg').val();
 			var _tmpdayhen = $('#maddngayhen').val();
 			var _manager = [{
-					id : $rootScope.auth.Username,
-					name : $rootScope.auth.Fullname,
-					sheetId : null,
-					gtele : $rootScope.auth.Zone[0].id,
-					mid : null,
-					mname : null
+					id: $rootScope.auth.Username,
+					name: $rootScope.auth.Fullname,
+					sheetId: null,
+					gtele: $rootScope.auth.Zone[0].id,
+					mid: null,
+					mname: null
 				}
 			]
 			if (data === undefined ||
@@ -1409,7 +1413,7 @@ sas
 				} else {
 					tmp_fistname = '';
 				}
-				
+
 				if (data.lastname !== undefined) {
 					tmp_lastname = data.lastname;
 				} else {
@@ -1417,23 +1421,23 @@ sas
 				}
 
 				let tmp_sex = [{
-						id : $scope.maddselectedSex.value,
-						name : $scope.maddselectedSex.name
+						id: $scope.maddselectedSex.value,
+						name: $scope.maddselectedSex.name
 					}
 				]
 				let tmp_address = [{
-						id : $scope.maddselectedAddress.value,
-						name : $scope.maddselectedAddress.name
+						id: $scope.maddselectedAddress.value,
+						name: $scope.maddselectedAddress.name
 					}
 				]
 
 				if ($scope.maddselectedCenter !== undefined) {
 					tmp_center = [{
-							_id : $scope.maddselectedCenter._id,
-							SheetId : $scope.maddselectedCenter.SheetId,
-							Name : $scope.maddselectedCenter.Name,
-							Id : $scope.maddselectedCenter.Id,
-							Info : $scope.maddselectedCenter.Info
+							_id: $scope.maddselectedCenter._id,
+							SheetId: $scope.maddselectedCenter.SheetId,
+							Name: $scope.maddselectedCenter.Name,
+							Id: $scope.maddselectedCenter.Id,
+							Info: $scope.maddselectedCenter.Info
 						}
 					]
 				} else {
@@ -1442,21 +1446,21 @@ sas
 
 				if ($scope.maddselectedStatus !== undefined) {
 					tmp_status = [{
-							id : $scope.maddselectedStatus.value,
-							name : $scope.maddselectedStatus.name
+							id: $scope.maddselectedStatus.value,
+							name: $scope.maddselectedStatus.name
 						}
 					]
 				} else {
 					tmp_status = {
-						id : 0,
-						name : 'Chưa đăng ký'
+						id: 0,
+						name: 'Chưa đăng ký'
 					}
 				}
 
 				if ($scope.maddselectedTime !== undefined) {
 					tmp_time = [{
-							id : $scope.maddselectedTime.value,
-							name : $scope.maddselectedTime.name
+							id: $scope.maddselectedTime.value,
+							name: $scope.maddselectedTime.name
 						}
 					]
 				} else {
@@ -1552,13 +1556,13 @@ sas
 				var role;
 				if (data.urole === '1') {
 					role = {
-						id : 1,
-						name : 'Telesale'
+						id: 1,
+						name: 'Telesale'
 					}
 				} else {
 					role = {
-						id : 2,
-						name : 'Makerting'
+						id: 2,
+						name: 'Makerting'
 					}
 				}
 				DataServices.signUp(data.uname, pass, data.ufullname, data.uemail, data.uphone, role).then(function (response) {
@@ -1673,11 +1677,11 @@ sas
 					d = get_day();
 					let _day = h + ' ' + d;
 					let _sms = {
-						SendUser : $rootScope.auth.Username,
-						SendFullname : $rootScope.auth.Fullname,
-						SMS : $scope.nd_sms_mau,
-						Time : _day,
-						_Status : 'gửi thành công'
+						SendUser: $rootScope.auth.Username,
+						SendFullname: $rootScope.auth.Fullname,
+						SMS: $scope.nd_sms_mau,
+						Time: _day,
+						_Status: 'gửi thành công'
 					}
 
 					if ($scope.content.SMS !== undefined) {
