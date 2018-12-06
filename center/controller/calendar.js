@@ -268,7 +268,10 @@ sas
 	getUsers();
 
 	$timeout(function () {
-		$scope.proCenter = $scope.Center[0];
+		if($scope.Center !== undefined){
+			$scope.proCenter = $scope.Center[0];
+		}
+		
 		if ($scope.Users !== undefined) {
 			$scope.proSale = $scope.Users[0];
 		}

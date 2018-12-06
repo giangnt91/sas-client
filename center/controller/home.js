@@ -387,7 +387,9 @@ sas
 
 	// custom tìm kiếm
 	$timeout(function () {
-		$scope.HCenter = $scope.Center[0];
+		if ($scope.Center !== undefined) {
+			$scope.HCenter = $scope.Center[0];
+		}
 	}, 1000)
 
 	$scope.HStatus = $scope.Status2[0];

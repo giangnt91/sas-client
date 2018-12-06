@@ -247,6 +247,9 @@ sas
 
 	$scope.Searchwith = function () {
 		Notifi._loading();
+		$timeout(function () {
+			Notifi._close();
+		}, 500);
 
 		var nregday;
 		var nregday2;
@@ -271,18 +274,18 @@ sas
 				$timeout(function () {
 					$scope.list_student = response.data.students;
 					Notifi._success('Lọc dữ liệu thành công');
-					Notifi._close();
+					// Notifi._close();
 				}, 500);
 
 			} else if (response.data.error_code === 1) {
 				$timeout(function () {
 					Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
-					Notifi._close();
+					// Notifi._close();
 				}, 500);
 			} else if (response.data.error_code === 2) {
 				$timeout(function () {
 					Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
-					Notifi._close();
+					// Notifi._close();
 				}, 500);
 			}
 		})
@@ -331,7 +334,9 @@ sas
 	getUsers();
 
 	$timeout(function () {
-		$scope.proCenter = $scope.Center[0];
+		if($scope.Center !== undefined){
+			$scope.proCenter = $scope.Center[0];
+		}
 		if ($scope.Users !== undefined) {
 			$scope.proSale = $scope.Users[0];
 		}
