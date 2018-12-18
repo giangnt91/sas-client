@@ -194,7 +194,7 @@ sas
 
 			var _makerting = [];
 			if ($scope.auth.Role[0].id === 0) {
-				if (list_mk !== undefined) {
+				if (list_mk !== undefined && list_mk.length > 0) {
 					list_mk.forEach(element => {
 						DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, _fromday, _today, _form).then(function (response) {
 							if (response.data.error_code === 0) {
@@ -204,7 +204,7 @@ sas
 					});
 				}
 
-				if (list_mk !== undefined) {
+				if (list_mk !== undefined && list_mk.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope._Makerting = _makerting;
