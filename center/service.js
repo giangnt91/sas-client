@@ -216,29 +216,38 @@ angular.module('SASService', [])
                 url = api_gateway_url + '/cstudent';
                 return $http.post(url, parameter, header);
             },
-			GetByGroup: function(_id){
+			GetByGroup: function(_id, Start, Length, Search){
 				parameter = JSON.stringify({
-					_id: _id
+					_id: _id,
+					Start: Start,
+					Length: Length,
+					Search: Search
 				});
 				url = api_gateway_url + '/getbygroup';
 				return $http.post(url, parameter, header);
 			},
-            Getall: function (Username, Role) {
+            Getall: function (Username, Role, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Username: Username,
-                    Role: Role
+                    Role: Role,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 });
                 url = api_gateway_url + '/getall';
                 return $http.post(url, parameter, header);
             },
-            GetallQuery: function (Role, Username, Fromday, Today, _status, form) {
+            GetallQuery: function (Role, Username, Fromday, Today, _status, form, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Role: Role,
                     Username: Username,
                     Fromday: Fromday,
                     Today: Today,
                     _status: _status,
-                    form: form
+                    form: form,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 });
                 url = api_gateway_url + '/getallquery';
                 return $http.post(url, parameter, header)
@@ -269,46 +278,58 @@ angular.module('SASService', [])
 			},
 
             // Tìm kiếm
-			SearchPro: function(proName, proCenter, proAddress, proSale){
+			SearchPro: function(proName, proCenter, proAddress, proSale, Start, Length, Search){
 				parameter = JSON.stringify({
 					proName: proName,
 					proCenter: proCenter,
 					proAddress: proAddress,
-					proSale: proSale
+					proSale: proSale,
+					Start: Start,
+					Length: Length,
+					Search: Search
 				});
 				url = api_gateway_url + '/searchpro';
 				return $http.post(url, parameter, header);
 			},
-			SearchByPhone: function(Phone){
+			SearchByPhone: function(Phone, Start, Length, Search){
 				parameter = JSON.stringify({
-					Phone: Phone
+					Phone: Phone,
+					Start: Start,
+					Length: Length,
+					Search: Search
 				});
 				url = api_gateway_url + '/searchbyphone';
 				return $http.post(url, parameter, header);
 			},
-            SearchH: function (Role, Username, Regday, Regday2, Center, Status) {
+            SearchH: function (Role, Username, Regday, Regday2, Center, Status, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Role: Role,
                     Username: Username,
                     Regday: Regday,
                     Regday2: Regday2,
                     Center: Center,
-                    Status: Status
+                    Status: Status,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 });
                 url = api_gateway_url + '/searchhome';
                 return $http.post(url, parameter, header);
             },
-            SearchN: function (Role, Regday, Regday2, Username) {
+            SearchN: function (Role, Regday, Regday2, Username, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Role: Role,
                     Regday: Regday,
                     Regday2: Regday2,
-                    Username: Username
+                    Username: Username,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 });
                 url = api_gateway_url + '/searchnotcall';
                 return $http.post(url, parameter, header);
             },
-            SearchR: function (Role, Username, Retime, Retime2, Reday, Reday2, Sale) {
+            SearchR: function (Role, Username, Retime, Retime2, Reday, Reday2, Sale, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Role: Role,
                     Username: Username,
@@ -316,50 +337,65 @@ angular.module('SASService', [])
                     Retime2: Retime2,
                     Reday: Reday,
                     Reday2: Reday2,
-                    Sale: Sale
+                    Sale: Sale,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 });
                 url = api_gateway_url + '/searchrecall';
                 return $http.post(url, parameter, header);
             },
-            SearchSch: function (Role, Username, Regday, Regday2, Sale) {
+            SearchSch: function (Role, Username, Regday, Regday2, Sale, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Role: Role,
                     Username: Username,
                     Regday: Regday,
                     Regday2: Regday2,
-                    Sale: Sale
+                    Sale: Sale,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 })
                 url = api_gateway_url + '/searchschedule';
                 return $http.post(url, parameter, header);
             },
-            SearchUn: function (Role, Regday, Regday2, Username) {
+            SearchUn: function (Role, Regday, Regday2, Username, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Role: Role,
                     Regday: Regday,
                     Regday2: Regday2,
-                    Username: Username
+                    Username: Username,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 })
                 url = api_gateway_url + '/searchunreg';
                 return $http.post(url, parameter, header);
             },
-            SearchS: function (Role, Username, Regday, Regday2, Sale) {
+            SearchS: function (Role, Username, Regday, Regday2, Sale, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Role: Role,
                     Username: Username,
                     Regday: Regday,
                     Regday2: Regday2,
-                    Sale: Sale
+                    Sale: Sale,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 })
                 url = api_gateway_url + '/searchsend';
                 return $http.post(url, parameter, header);
             },
-            SearchC: function (Role, Username, Cday, Cday2, Sale) {
+            SearchC: function (Role, Username, Cday, Cday2, Sale, Start, Length, Search) {
                 parameter = JSON.stringify({
                     Role: Role,
                     Username: Username,
                     Cday: Cday,
                     Cday2: Cday2,
-                    Sale: Sale
+                    Sale: Sale,
+					Start: Start,
+					Length: Length,
+					Search: Search
                 })
                 url = api_gateway_url + '/searchcalendar';
                 return $http.post(url, parameter, header);

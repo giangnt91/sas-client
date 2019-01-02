@@ -99,42 +99,44 @@
                                     </div>
                                 </div>
                             </div>
+							
+							<table datatable dt-options="newdtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="table table-striped cell-border table-hover"></table>
 
-                            <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Time</th>
-                                        <th>ID</th>
-                                        <th>Họ</th>
-										<th>Tên</th>
-                                        <th>Giới tính</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Ghi chú</th>
-                                        <th hidden>Địa chỉ</th>
-                                        <th hidden>Trạng thái</th>
-                                        <th hidden>Nhân viên</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="content in list_student" style="cursor:pointer" ng-click="detail(content._id); checkDuplicator(content, 1)">
-                                        <td class="text-center">{{$index +1}}</td>
-                                        <td>{{content.Regday +' '+ content.Regtime}}</td>
-                                        <td>{{content._id}}</td>
-                                        <td>{{content.Fistname}}</td>
-										<td>{{content.Lastname}}</td>
-                                        <td>{{content.Sex[0].name}}</td>
-                                        <td>{{content.Phone}}</td>
-                                        <td>{{content.Note}}</td>
-                                        <td hidden>{{content.Address[0].name}}</td>
-                                        <td hidden>{{content.Status_student[0].name}}</td>
-                                        <td hidden>
-                                            <a href="" class="btn cbtn cbtn-left btn-primary btn-sm" data-tooltip="{{content.Manager[0].name}}">{{content.Manager[0].id}}</a>
-                                        </td>
+                            <!-- <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover"> -->
+                                <!-- <thead> -->
+                                    <!-- <tr> -->
+                                        <!-- <th>STT</th> -->
+                                        <!-- <th>Time</th> -->
+                                        <!-- <th>ID</th> -->
+                                        <!-- <th>Họ</th> -->
+										<!-- <th>Tên</th> -->
+                                        <!-- <th>Giới tính</th> -->
+                                        <!-- <th>Số điện thoại</th> -->
+                                        <!-- <th>Ghi chú</th> -->
+                                        <!-- <th hidden>Địa chỉ</th> -->
+                                        <!-- <th hidden>Trạng thái</th> -->
+                                        <!-- <th hidden>Nhân viên</th> -->
+                                    <!-- </tr> -->
+                                <!-- </thead> -->
+                                <!-- <tbody> -->
+                                    <!-- <tr ng-repeat="content in list_student" style="cursor:pointer" ng-click="detail(content._id); checkDuplicator(content, 1)"> -->
+                                        <!-- <td class="text-center">{{$index +1}}</td> -->
+                                        <!-- <td>{{content.Regday +' '+ content.Regtime}}</td> -->
+                                        <!-- <td>{{content._id}}</td> -->
+                                        <!-- <td>{{content.Fistname}}</td> -->
+										<!-- <td>{{content.Lastname}}</td> -->
+                                        <!-- <td>{{content.Sex[0].name}}</td> -->
+                                        <!-- <td>{{content.Phone}}</td> -->
+                                        <!-- <td>{{content.Note}}</td> -->
+                                        <!-- <td hidden>{{content.Address[0].name}}</td> -->
+                                        <!-- <td hidden>{{content.Status_student[0].name}}</td> -->
+                                        <!-- <td hidden> -->
+                                            <!-- <a href="" class="btn cbtn cbtn-left btn-primary btn-sm" data-tooltip="{{content.Manager[0].name}}">{{content.Manager[0].id}}</a> -->
+                                        <!-- </td> -->
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <!-- </tr> -->
+                                <!-- </tbody> -->
+                            <!-- </table> -->
                         </div>
                     </div>
                 </div>

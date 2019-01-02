@@ -54,29 +54,31 @@
                                     </div>
                                 </div>
                             </div>
+							
+							<table datatable dt-options="newdtOptions" dt-columns="dtColumns" dt-instance="dtInstance" class="table table-striped cell-border table-hover"></table>
 
-                            <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover text-center">
-                                <thead>
-                                    <tr>
-                                        <th>Stt</th>
-                                        <th>Time</th>
-                                        <th>Họ Tên</th>
-										<th>Số Điện Thoại</th>
-                                        <th>Ghi chú</th>
-                                        <th>Tele</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="content in all_students" style="cursor:pointer" ng-click="view(content)">
-                                        <td class="text-center">{{$index +1}}</td>
-                                        <td>{{content.Regtime}} {{content.Regday}}</td>
-                                        <td ng-bind="content.Fullname"></td>
-										<td ng-bind="content.Phone"></td>
-                                        <td ng-bind="content.Note"></td>
-                                        <td ng-bind="content.Manager[0].id"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <!-- <table datatable="ng" dt-options="newdtOptions" cellpadding="0" class="table table-striped cell-border table-hover text-center"> -->
+                                <!-- <thead> -->
+                                    <!-- <tr> -->
+                                        <!-- <th>Stt</th> -->
+                                        <!-- <th>Time</th> -->
+                                        <!-- <th>Họ Tên</th> -->
+										<!-- <th>Số Điện Thoại</th> -->
+                                        <!-- <th>Ghi chú</th> -->
+                                        <!-- <th>Tele</th> -->
+                                    <!-- </tr> -->
+                                <!-- </thead> -->
+                                <!-- <tbody> -->
+                                    <!-- <tr ng-repeat="content in all_students" style="cursor:pointer" ng-click="view(content)"> -->
+                                        <!-- <td class="text-center">{{$index +1}}</td> -->
+                                        <!-- <td>{{content.Regtime}} {{content.Regday}}</td> -->
+                                        <!-- <td ng-bind="content.Fullname"></td> -->
+										<!-- <td ng-bind="content.Phone"></td> -->
+                                        <!-- <td ng-bind="content.Note"></td> -->
+                                        <!-- <td ng-bind="content.Manager[0].id"></td> -->
+                                    <!-- </tr> -->
+                                <!-- </tbody> -->
+                            <!-- </table> -->
 
                         </div>
                     </div>

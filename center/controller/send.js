@@ -1,5 +1,5 @@
 sas
-.controller('SendCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, Thesocket, SMSService) {
+.controller('SendCtrl', function ($location, $scope, $rootScope, Notifi, ngDialog, $timeout, DataServices, md5, DTOptionsBuilder, DTColumnBuilder, Thesocket, SMSService) {
 	// hiển thị ngày tháng
 	function convertshow(x) {
 		var parts = x.split("/");
@@ -279,61 +279,118 @@ sas
 	}, 1000)
 
 	$scope.Searchwith = function () {
-		Notifi._loading();
-		$timeout(function () {
-			Notifi._close();
-		}, 500);
+		
+		let a = 0;
+		$scope.dtInstance.DataTable.ajax.reload();
 
-		var Sesale;
-		var Seregday;
-		var Seregday2;
+		$scope.newdtOptions = DTOptionsBuilder.newOptions()
+			.withFnServerData(serverData)
+			.withDataProp('data')
+			.withOption('processing', true)
+			.withOption('serverSide', true)
+			.withPaginationType('full_numbers')
+			.withDisplayLength(10)
+			.withOption('bLengthChange', true)
+			.withOption('iDisplayLength', 10)
+			.withDOM('Zlfrtip')
+			.withOption('createdRow', function (row, data, dataIndex) {
+				$(row).children(':nth-child(10)').addClass('text-center');
+				$(row).children(':nth-child(1)').addClass('text-center');
+			})
+			.withOption('rowCallback', function (row, data, dataIndex) {
+				$('td', row).unbind('click');
+				$('td', row).bind('click', function () {
+					$scope.$apply(function () {
+						$scope.detail(data._id);
+						$scope.checkDuplicator(data, 1);
+					});
+				});
+				return row;
+			});
+			
+		function serverData(sSource, aoData, fnCallback, oSettings) {
+			
+			var Sesale;
+			var Seregday;
+			var Seregday2;
 
-		var _Seregday = $('#Seregday').val();
-		var _Seregday2 = $('#Seregday2').val();
+			var _Seregday = $('#Seregday').val();
+			var _Seregday2 = $('#Seregday2').val();
 
-		if (_Seregday !== '') {
-			Seregday = _Seregday;
-		} else {
-			Seregday = null;
-		}
+			if (_Seregday !== '') {
+				Seregday = _Seregday;
+			} else {
+				Seregday = null;
+			}
 
-		if (_Seregday2 !== '') {
-			Seregday2 = _Seregday2;
-		} else {
-			Seregday2 = null;
-		}
+			if (_Seregday2 !== '') {
+				Seregday2 = _Seregday2;
+			} else {
+				Seregday2 = null;
+			}
 
-		if ($scope.Sesale !== null && $scope.Sesale !== undefined) {
-			if ($scope.Sesale.id !== null) {
-				Sesale = $scope.Sesale.id;
+			if ($scope.Sesale !== null && $scope.Sesale !== undefined) {
+				if ($scope.Sesale.id !== null) {
+					Sesale = $scope.Sesale.id;
+				} else {
+					Sesale = null;
+				}
+
 			} else {
 				Sesale = null;
 			}
 
-		} else {
-			Sesale = null;
-		}
+			//All the parameters you need is in the aoData variable
+			var draw = aoData[0].value;
+			var order = aoData[2].value;
+			var start = aoData[3].value;
+			var length = aoData[4].value;
+			var search = aoData[5].value;
 
-		DataServices.SearchS($rootScope.auth.Role, $rootScope.auth.Username, Seregday, Seregday2, Sesale).then(function (response) {
-			if (response.data.error_code === 0) {
-				$timeout(function () {
+			DataServices.SearchS($rootScope.auth.Role, $rootScope.auth.Username, Seregday, Seregday2, Sesale, start, length, search).then(function (response) {
+				if (response.data.error_code === 0) {
 					$scope.list_student = response.data.students;
-					Notifi._success('Lọc dữ liệu thành công');
-					// Notifi._close();
-				}, 500);
-			} else if (response.data.error_code === 1) {
-				$timeout(function () {
-					Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
-					// Notifi._close();
-				}, 500);
-			} else if (response.data.error_code === 2) {
-				$timeout(function () {
-					Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
-					// Notifi._close();
-				}, 500);
-			}
-		})
+					if (a === 0) {
+						Notifi._success('Lọc dữ liệu thành công');
+					}
+					a = 1;
 
+					var records = {
+						'draw': draw,
+						'recordsTotal': response.data.total,
+						'recordsFiltered': response.data.filtered,
+						'data': response.data.students
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 1) {
+					if (a === 0) {
+						Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+					}
+					a = 1;
+
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 2) {
+					if (a === 0) {
+						Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm')
+					}
+					a = 1;
+
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
+				}
+			});
+		}
 	}
 
 	$scope.Clear = function () {
@@ -345,8 +402,8 @@ sas
 		$scope.proCenter = $scope.Center[0];
 		$scope.proName = '';
 		$scope.proSale = $scope.Users[0];
-		$scope.list_student = $scope.clearList;
-		// getStudent($rootScope.auth.Username, $rootScope.auth.Role);
+		// $scope.list_student = $scope.clearList;
+		getStudent($rootScope.auth.Username, $rootScope.auth.Role);
 	}
 
 	$timeout(function () {
@@ -361,109 +418,173 @@ sas
 	$scope.proAddress = $scope.Address[0];
 
 	$scope.proSearch = function () {
-		let proname;
-		let procenter;
-		let prosale;
-		let proadress;
 
-		if ($scope.proName !== undefined && $scope.proName !== '') {
-			proname = $scope.proName;
-		} else {
-			proname = '';
-		}
+		let a = 0;
 
-		if ($scope.proCenter.Id !== null) {
-			procenter = $scope.proCenter._id;
-		} else {
-			procenter = null;
-		}
+		// đặt trước mới có thể reload ajax dc
+		$scope.dtInstance.DataTable.ajax.reload();
 
-		proadress = $scope.proAddress.value;
+		$scope.newdtOptions = DTOptionsBuilder.newOptions()
+			.withFnServerData(serverData)
+			.withDataProp('data')
+			.withOption('processing', true)
+			.withOption('serverSide', true)
+			.withPaginationType('full_numbers')
+			.withDisplayLength(10)
+			.withOption('bLengthChange', true)
+			.withOption('iDisplayLength', 10)
+			.withDOM('Zlfrtip')
+			.withOption('createdRow', function (row, data, dataIndex) {
+				$(row).children(':nth-child(10)').addClass('text-center');
+				$(row).children(':nth-child(1)').addClass('text-center');
+			})
+			.withOption('rowCallback', function (row, data, dataIndex) {
+				$('td', row).unbind('click');
+				$('td', row).bind('click', function () {
+					$scope.$apply(function () {
+						$scope.detail(data._id);
+						$scope.checkDuplicator(data, 1);
+					});
+				});
+				return row;
+			});
 
-		if ($scope.proSale !== undefined) {
-			prosale = $scope.proSale.id;
-		}
+		function serverData(sSource, aoData, fnCallback, oSettings) {
 
-		DataServices.SearchPro(proname, procenter, proadress, prosale).then(function (response) {
-			if (response.data.error_code === 0) {
-				_list_student = [];
+			let proname;
+			let procenter;
+			let prosale;
+			let proadress;
 
-				response.data.students.forEach(element => {
+			if ($scope.proName !== undefined && $scope.proName !== '') {
+				proname = $scope.proName;
+			} else {
+				proname = '';
+			}
 
-					// trạng thái hẹn chưa đến
-					if (element.Appointment_day !== null) {
-						_day = parseInt(compareDay(element.Appointment_day));
-						if (parseInt(today) > _day) {
-							if (element.Status_student[0].id !== 3) {
+			if ($scope.proCenter.Id !== null) {
+				procenter = $scope.proCenter._id;
+			} else {
+				procenter = null;
+			}
+
+			proadress = $scope.proAddress.value;
+
+			if ($scope.proSale !== undefined) {
+				prosale = $scope.proSale.id;
+			}
+
+			//All the parameters you need is in the aoData variable
+			var draw = aoData[0].value;
+			var order = aoData[2].value;
+			var start = aoData[3].value;
+			var length = aoData[4].value;
+			var search = aoData[5].value;
+
+			DataServices.SearchPro(proname, procenter, proadress, prosale, start, length, search).then(function (response) {
+				if (response.data.error_code === 0) {
+					var _list_student = [];
+
+					response.data.students.forEach(element => {
+
+						// trạng thái hẹn chưa đến
+						if (element.Appointment_day !== null) {
+							_day = parseInt(compareDay(element.Appointment_day));
+							if (parseInt(today) > _day) {
+								if (element.Status_student[0].id !== 3) {
+									if (_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+								}
+							}
+
+						}
+
+						// trạng thái đến chưa đăng ký
+						if (element.Status_student[0].id === 2) {
+							if (_list_student.contains(element._id.toString()) === false) {
+								_list_student.push(element);
+							}
+						}
+
+						// trạng thái hủy
+						if (element.Status_student[0].id === 4) {
+							if (_list_student.contains(element._id.toString()) === false) {
+								_list_student.push(element);
+							}
+						}
+
+						// trạng thái không tìm năng
+						if (element.Status_student[0].id === 1) {
+							if (_list_student.contains(element._id.toString()) === false) {
+								_list_student.push(element);
+							}
+						}
+
+						// trạng thái đã đăng ký
+						if (element.Status_student[0].id === 3) {
+							if (_list_student.contains(element._id.toString()) === false) {
+								_list_student.push(element);
+							}
+						}
+
+						// trạng thái chưa đăng ký
+						if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
+							if (element.Center[0].id !== null) {
 								if (_list_student.contains(element._id.toString()) === false) {
 									_list_student.push(element);
 								}
 							}
 						}
 
-					}
-
-					// trạng thái đến chưa đăng ký
-					if (element.Status_student[0].id === 2) {
-						if (_list_student.contains(element._id.toString()) === false) {
-							_list_student.push(element);
-						}
-					}
-
-					// trạng thái hủy
-					if (element.Status_student[0].id === 4) {
-						if (_list_student.contains(element._id.toString()) === false) {
-							_list_student.push(element);
-						}
-					}
-
-					// trạng thái không tìm năng
-					if (element.Status_student[0].id === 1) {
-						if (_list_student.contains(element._id.toString()) === false) {
-							_list_student.push(element);
-						}
-					}
-
-					// trạng thái đã đăng ký
-					if (element.Status_student[0].id === 3) {
-						if (_list_student.contains(element._id.toString()) === false) {
-							_list_student.push(element);
-						}
-					}
-
-					// trạng thái chưa đăng ký
-					if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
-						if (element.Center[0].id !== null) {
-							if (_list_student.contains(element._id.toString()) === false) {
-								_list_student.push(element);
+					});
+					
+					if (_list_student.length > 0 && $scope._details !== undefined) {
+						_list_student.forEach(element => {
+							if ($scope._details._id === element._id) {
+								$scope._details = element;
+								$scope._lastnote = $scope._details.Note;
+								$scope._lastPhone = element.Phone;
 							}
-						}
+						})
 					}
 
-				});
-
-				if (_list_student.length > 0 && $scope._details !== undefined) {
-					_list_student.forEach(element => {
-						if ($scope._details._id === element._id) {
-							$scope._details = element;
-							$scope._lastnote = $scope._details.Note;
-							$scope._lastPhone = element.Phone;
-						}
-					})
+					if (a === 0) {
+						Notifi._success('Lọc dữ liệu thành công');
+					}
+					a = 1;
+					
+					if (_list_student.length > 0) {
+						$scope.list_student = _list_student;
+						var records = {
+							'draw': draw,
+							'recordsTotal': response.data.total,
+							'recordsFiltered': response.data.filtered,
+							'data': response.data.students
+						};
+						fnCallback(records);
+					}
+				} else if (response.data.error_code === 1) {
+					Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 2) {
+					Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm')
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
 				}
-
-				if (_list_student.length > 0) {
-					$scope.list_student = _list_student;
-					Notifi._success('Lọc dữ liệu thành công');
-				} else {
-					Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
-				}
-			} else if (response.data.error_code === 1) {
-				Notifi._error('Có lỗi trong quá trình xử lý vui lòng thử lại');
-			} else if (response.data.error_code === 2) {
-				Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm');
-			}
-		})
+			});
+		}
 	}
 
 	var today = new Date();
@@ -491,102 +612,159 @@ sas
 		return false;
 	}
 
-	Notifi._loading();
 	// lấy danh sách học viên
 	function getStudent(username, role) {
-		$timeout(function () {
-			Notifi._close();
-		}, 500);
-		DataServices.Getall(username, role).then(function (response) {
-			if (response.data.error_code === 0) {
-				_list_student = [];
-				// response.data.student.forEach(element => {
-				// if (element.Center !== null && element.Center[0].id !== null) {
-				// _list_student.push(element);
-				// }
-				// });
 
-				response.data.student.forEach(element => {
-
-					// trạng thái hẹn chưa đến
-					if (element.Appointment_day !== null) {
-						_day = parseInt(compareDay(element.Appointment_day));
-						if (parseInt(today) > _day) {
-							if (element.Status_student[0].id !== 3) {
-								if (_list_student.contains(element._id.toString()) === false) {
-									_list_student.push(element);
-								}
-							}
-						}
-
-					}
-
-					// trạng thái đến chưa đăng ký
-					if (element.Status_student[0].id === 2) {
-						if (_list_student.contains(element._id.toString()) === false) {
-							_list_student.push(element);
-						}
-					}
-
-					// trạng thái hủy
-					if (element.Status_student[0].id === 4) {
-						if (_list_student.contains(element._id.toString()) === false) {
-							_list_student.push(element);
-						}
-					}
-
-					// trạng thái không tìm năng
-					if (element.Status_student[0].id === 1) {
-						if (_list_student.contains(element._id.toString()) === false) {
-							_list_student.push(element);
-						}
-					}
-
-					// trạng thái đã đăng ký
-					if (element.Status_student[0].id === 3) {
-						if (_list_student.contains(element._id.toString()) === false) {
-							_list_student.push(element);
-						}
-					}
-
-					// trạng thái chưa đăng ký
-					if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
-						if (element.Center !== null) {
-							if (element.Center[0].id !== null) {
-								if (_list_student.contains(element._id.toString()) === false) {
-									_list_student.push(element);
-								}
-							}
-						}
-					}
-
-				});
-
-				if (_list_student.length > 0 && $scope._details !== undefined) {
-					_list_student.forEach(element => {
-						if ($scope._details._id === element._id) {
-							$scope._details = element;
-							$scope._lastnote = $scope._details.Note;
-							$scope._lastPhone = element.Phone;
-						}
-					})
-				}
-
-				$timeout(function () {
-					$scope.list_student = _list_student;
-					$scope.clearList = _list_student;
-				}, 500);
-
-				$scope.newdtOptions = DTOptionsBuilder.newOptions()
-					.withDisplayLength(10)
-					.withOption('bLengthChange', true)
-					.withOption('iDisplayLength', 10)
-					.withDOM('Zlfrtip')
+		function renderTime(data, type, row, meta) {
+			if (row.Regtime === null) {
+				return row.Regday;
 			} else {
-				Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.');
-				Notifi._close();
+				return row.Regday + ' ' + row.Regtime;
 			}
-		});
+		}
+
+		function index(data, type, row, meta) {
+			return meta.row + 1;
+		}
+
+		function render(data) {
+			return ' <a href="#" class="btn cbtn cbtn-left sas-bk btn-sm" data-tooltip="' + data[0].name + '"> ' + data[0].id + '</a>';
+		}
+
+		$scope.dtInstance = {};
+
+		$scope.dtColumns = [
+			DTColumnBuilder.newColumn('').withTitle('STT').renderWith(index),
+			DTColumnBuilder.newColumn('Regday').withTitle('Time').renderWith(renderTime),
+			DTColumnBuilder.newColumn('_id').withTitle('ID'),
+			DTColumnBuilder.newColumn('Fistname').withTitle('Họ'),
+			DTColumnBuilder.newColumn('Lastname').withTitle('Tên'),
+			DTColumnBuilder.newColumn('Sex[0].name').withTitle('Giới tính'),
+			DTColumnBuilder.newColumn('Phone').withTitle('Số điện thoại'),
+			DTColumnBuilder.newColumn('Note').withTitle('Ghi chú'),
+		];
+
+		$scope.newdtOptions = DTOptionsBuilder.newOptions()
+			.withFnServerData(serverData)
+			.withDataProp('data')
+			.withOption('processing', true)
+			.withOption('serverSide', true)
+			.withPaginationType('full_numbers')
+			.withDisplayLength(10)
+			.withOption('bLengthChange', true)
+			.withOption('iDisplayLength', 10)
+			.withDOM('Zlfrtip')
+			.withOption('Destroy', true)
+			.withOption('createdRow', function (row, data, dataIndex) {
+				$(row).children(':nth-child(10)').addClass('text-center');
+				$(row).children(':nth-child(1)').addClass('text-center');
+			})
+			.withOption('rowCallback', function (row, data, dataIndex) {
+				$('td', row).unbind('click');
+				$('td', row).bind('click', function () {
+					$scope.$apply(function () {
+						$scope.detail(data._id);
+						$scope.checkDuplicator(data, 1);
+					});
+				});
+				return row;
+			});
+
+		function serverData(sSource, aoData, fnCallback, oSettings) {
+
+			//All the parameters you need is in the aoData variable
+			var draw = aoData[0].value;
+			var order = aoData[2].value;
+			var start = aoData[3].value;
+			var length = aoData[4].value;
+			var search = aoData[5].value;
+
+			DataServices.Getall(username, role, start, length, search).then(function (response) {
+				if (response.data.error_code === 0) {
+					var _list_student = [];
+
+					response.data.student.forEach(element => {
+
+						// trạng thái hẹn chưa đến
+						if (element.Appointment_day !== null) {
+							_day = parseInt(compareDay(element.Appointment_day));
+							if (parseInt(today) > _day) {
+								if (element.Status_student[0].id !== 3) {
+									if (_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+								}
+							}
+
+						}
+
+						// trạng thái đến chưa đăng ký
+						if (element.Status_student[0].id === 2) {
+							if (_list_student.contains(element._id.toString()) === false) {
+								_list_student.push(element);
+							}
+						}
+
+						// trạng thái hủy
+						if (element.Status_student[0].id === 4) {
+							if (_list_student.contains(element._id.toString()) === false) {
+								_list_student.push(element);
+							}
+						}
+
+						// trạng thái không tìm năng
+						if (element.Status_student[0].id === 1) {
+							if (_list_student.contains(element._id.toString()) === false) {
+								_list_student.push(element);
+							}
+						}
+
+						// trạng thái đã đăng ký
+						if (element.Status_student[0].id === 3) {
+							if (_list_student.contains(element._id.toString()) === false) {
+								_list_student.push(element);
+							}
+						}
+
+						// trạng thái chưa đăng ký
+						if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
+							if (element.Center !== null) {
+								if (element.Center[0].id !== null) {
+									if (_list_student.contains(element._id.toString()) === false) {
+										_list_student.push(element);
+									}
+								}
+							}
+						}
+
+					});
+
+					if (_list_student.length > 0 && $scope._details !== undefined) {
+						_list_student.forEach(element => {
+							if ($scope._details._id === element._id) {
+								$scope._details = element;
+								$scope._lastnote = $scope._details.Note;
+								$scope._lastPhone = element.Phone;
+							}
+						})
+					}
+
+					$timeout(function () {
+						$scope.list_student = _list_student;
+						var records = {
+							'draw': draw,
+							'recordsTotal': $scope.list_student.length,
+							'recordsFiltered': $scope.list_student.length,
+							'data': $scope.list_student
+						};
+						fnCallback(records);
+					}, 500)
+
+				} else {
+					Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+				}
+			});
+		}
 	}
 
 	// tạo học viên mới từ thêm bạn
