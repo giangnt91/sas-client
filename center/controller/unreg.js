@@ -583,38 +583,35 @@ sas
 			var length = aoData[4].value;
 			var search = aoData[5].value;
 
-			DataServices.Getall(username, role, start, length, search).then(function (response) {
+			DataServices.SearchUn(role, '2016-01-01', null, username, start, length, search).then(function (response) {
 				if (response.data.error_code === 0) {
-					var _list_student = [];
-					response.data.student.forEach(element => {
-						if (element.Status_student[0].id === 2) {
-							_list_student.push(element);
-						}
-					});
+					$scope.list_student = response.data.students;
 
-					if (_list_student.length > 0 && $scope._details !== undefined) {
-						_list_student.forEach(element => {
-							if ($scope._details._id === element._id) {
-								$scope._details = element;
-								$scope._lastnote = $scope._details.Note;
-								$scope._lastPhone = element.Phone;
-							}
-						})
-					}
+					var records = {
+						'draw': draw,
+						'recordsTotal': response.data.total,
+						'recordsFiltered': response.data.filtered,
+						'data': response.data.students
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 1) {
 
-					$timeout(function () {
-						$scope.list_student = _list_student;
-						var records = {
-							'draw': draw,
-							'recordsTotal': $scope.list_student.length,
-							'recordsFiltered': $scope.list_student.length,
-							'data': $scope.list_student
-						};
-						fnCallback(records);
-					}, 400)
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 2) {
 
-				} else {
-					Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
 				}
 			});
 		}

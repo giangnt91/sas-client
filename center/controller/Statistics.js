@@ -211,7 +211,7 @@ sas
 			} else {
 				$scope.users.forEach(u => {
 					u.Zone.forEach(elz => {
-						if (elz.id === $scope.mgroup._id) {
+						if (elz.id === $rootScope.auth.Zone[0].id) {
 							list_friend_user.push(u);
 						}
 					})
@@ -253,7 +253,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.data2 = [
@@ -291,7 +291,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.data3 = [
@@ -327,7 +327,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.tl = _tl;
@@ -360,7 +360,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.data5 = [
@@ -398,7 +398,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.data6 = [
@@ -436,7 +436,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.data7 = [
@@ -474,7 +474,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.data8 = [
@@ -510,7 +510,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.lh = _lh;
@@ -543,7 +543,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.data9 = [
@@ -589,7 +589,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.data = [
@@ -659,7 +659,7 @@ sas
 						});
 					}
 
-					if (list_friend_user !== undefined) {
+					if (list_friend_user !== undefined && list_friend_user.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data2 = [
@@ -695,7 +695,7 @@ sas
 						});
 					}
 
-					if ($scope.users !== undefined) {
+					if ($scope.users !== undefined && $scope.users.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data2 = [
@@ -752,7 +752,7 @@ sas
 						});
 					}
 
-					if (list_friend_user !== undefined) {
+					if (list_friend_user !== undefined && list_friend_user.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data3 = [
@@ -785,7 +785,7 @@ sas
 						});
 					}
 
-					if ($scope.users !== undefined) {
+					if ($scope.users !== undefined && $scope.users.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data3 = [
@@ -840,7 +840,7 @@ sas
 					});
 				}
 
-				if (list_friend_user !== undefined) {
+				if (list_friend_user !== undefined && list_friend_user.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.tl = _tl;
@@ -866,7 +866,7 @@ sas
 					});
 				}
 
-				if ($scope.users !== undefined) {
+				if ($scope.users !== undefined && $scope.users.length > 0) {
 					$timeout(function () {
 						Notifi._close();
 						$scope.tl = _tl;
@@ -919,7 +919,7 @@ sas
 						});
 					}
 
-					if (list_friend_user !== undefined) {
+					if (list_friend_user !== undefined && list_friend_user.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data5 = [
@@ -953,7 +953,7 @@ sas
 						});
 					}
 
-					if ($scope.users !== undefined) {
+					if ($scope.users !== undefined && $scope.users.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data5 = [
@@ -1012,7 +1012,7 @@ sas
 						});
 					}
 
-					if (list_friend_user !== undefined) {
+					if (list_friend_user !== undefined && list_friend_user.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data6 = [
@@ -1045,7 +1045,7 @@ sas
 						});
 					}
 
-					if ($scope.users !== undefined) {
+					if ($scope.users !== undefined && $scope.users.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data6 = [
@@ -1105,7 +1105,7 @@ sas
 						});
 					}
 
-					if (list_friend_user !== undefined) {
+					if (list_friend_user !== undefined && list_friend_user.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data7 = [
@@ -1138,7 +1138,7 @@ sas
 						});
 					}
 
-					if ($scope.users !== undefined) {
+					if ($scope.users !== undefined && $scope.users.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data7 = [
@@ -1199,7 +1199,7 @@ sas
 						});
 					}
 
-					if (list_friend_user !== undefined) {
+					if (list_friend_user !== undefined && list_friend_user.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data8 = [
@@ -1232,7 +1232,7 @@ sas
 						});
 					}
 
-					if ($scope.users !== undefined) {
+					if ($scope.users !== undefined && $scope.users.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data8 = [
@@ -1291,7 +1291,7 @@ sas
 						});
 					}
 
-					if (list_friend_user !== undefined) {
+					if (list_friend_user !== undefined && list_friend_user.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data9 = [
@@ -1324,7 +1324,7 @@ sas
 						});
 					}
 
-					if ($scope.users !== undefined) {
+					if ($scope.users !== undefined && $scope.users.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.data9 = [
@@ -1382,7 +1382,7 @@ sas
 						});
 					}
 
-					if (list_friend_user !== undefined) {
+					if (list_friend_user !== undefined && list_friend_user.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.lh = _lh;
@@ -1408,7 +1408,7 @@ sas
 						});
 					}
 
-					if ($scope.users !== undefined) {
+					if ($scope.users !== undefined && $scope.users.length > 0) {
 						$timeout(function () {
 							Notifi._close();
 							$scope.lh = _lh;

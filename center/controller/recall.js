@@ -430,7 +430,7 @@ sas
 	}
 
 	$timeout(function () {
-		if($scope.Center !== undefined){
+		if ($scope.Center !== undefined) {
 			$scope.proCenter = $scope.Center[0];
 		}
 		if ($scope.Users !== undefined) {
@@ -440,7 +440,7 @@ sas
 	$scope.proAddress = $scope.Address[0];
 
 	$scope.proSearch = function () {
-		
+
 		let a = 0;
 
 		// đặt trước mới có thể reload ajax dc
@@ -521,7 +521,7 @@ sas
 							}
 						})
 					}
-				
+
 					if (a === 0) {
 						Notifi._success('Lọc dữ liệu thành công');
 					}
@@ -556,7 +556,7 @@ sas
 					fnCallback(records);
 				}
 			});
-		}	
+		}
 	}
 
 	// Notifi._loading();
@@ -587,79 +587,75 @@ sas
 			DTColumnBuilder.newColumn('Phone').withTitle('Số điện thoại'),
 			DTColumnBuilder.newColumn('Note').withTitle('Ghi chú'),
 		];
-		
+
 		$scope.newdtOptions = DTOptionsBuilder.newOptions()
-				.withFnServerData(serverData)
-				.withDataProp('data')
-				.withOption('processing', true)
-				.withOption('serverSide', true)
-				.withPaginationType('full_numbers')
-				.withDisplayLength(10)
-				.withOption('bLengthChange', true)
-				.withOption('iDisplayLength', 10)
-				.withDOM('Zlfrtip')
-				.withOption('Destroy', true)
-				.withOption('createdRow', function (row, data, dataIndex) {
-					$(row).children(':nth-child(10)').addClass('text-center');
-					$(row).children(':nth-child(1)').addClass('text-center');
-				})
-				.withOption('rowCallback', function (row, data, dataIndex) {
-					$('td', row).unbind('click');
-					$('td', row).bind('click', function () {
-						$scope.$apply(function () {
-							$scope.detail(data._id);
-							$scope.checkDuplicator(data, 1);
-						});
+			.withFnServerData(serverData)
+			.withDataProp('data')
+			.withOption('processing', true)
+			.withOption('serverSide', true)
+			.withPaginationType('full_numbers')
+			.withDisplayLength(10)
+			.withOption('bLengthChange', true)
+			.withOption('iDisplayLength', 10)
+			.withDOM('Zlfrtip')
+			.withOption('Destroy', true)
+			.withOption('createdRow', function (row, data, dataIndex) {
+				$(row).children(':nth-child(10)').addClass('text-center');
+				$(row).children(':nth-child(1)').addClass('text-center');
+			})
+			.withOption('rowCallback', function (row, data, dataIndex) {
+				$('td', row).unbind('click');
+				$('td', row).bind('click', function () {
+					$scope.$apply(function () {
+						$scope.detail(data._id);
+						$scope.checkDuplicator(data, 1);
 					});
-					return row;
 				});
+				return row;
+			});
 
-			function serverData(sSource, aoData, fnCallback, oSettings) {
+		function serverData(sSource, aoData, fnCallback, oSettings) {
 
-				//All the parameters you need is in the aoData variable
-				var draw = aoData[0].value;
-				var order = aoData[2].value;
-				var start = aoData[3].value;
-				var length = aoData[4].value;
-				var search = aoData[5].value;
+			//All the parameters you need is in the aoData variable
+			var draw = aoData[0].value;
+			var order = aoData[2].value;
+			var start = aoData[3].value;
+			var length = aoData[4].value;
+			var search = aoData[5].value;
 
-				DataServices.Getall(username, role, start, length, search).then(function (response) {
-					if (response.data.error_code === 0) {
-						var _list_student = [];
-						
-						response.data.student.forEach(element => {
-							if (element.Recall === true || element.Time_recall !== null) {
-								_list_student.push(element);
-							}
-						});
+			DataServices.SearchR(role, username, null, null, '2016-01-01', null, null, start, length, search).then(function (response) {
+				if (response.data.error_code === 0) {
+					$scope.list_student = response.data.students;
 
-						if (_list_student.length > 0 && $scope._details !== undefined) {
-							_list_student.forEach(element => {
-								if ($scope._details._id === element._id) {
-									$scope._details = element;
-									$scope._lastnote = $scope._details.Note;
-									$scope._lastPhone = element.Phone;
-								}
-							})
-						}
-						
-						$timeout(function(){
-							$scope.list_student = _list_student;
-							var records = {
-								'draw': draw,
-								'recordsTotal': $scope.list_student.length,
-								'recordsFiltered': $scope.list_student.length,
-								'data': $scope.list_student
-							};
-							fnCallback(records);
-						}, 400)
-						
-					} else {
-						Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
-					}
-				});
-			}			
-		
+					var records = {
+						'draw': draw,
+						'recordsTotal': response.data.total,
+						'recordsFiltered': response.data.filtered,
+						'data': response.data.students
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 1) {
+
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 2) {
+
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
+				}
+			});
+		}
+
 	}
 
 	// tạo học viên mới từ thêm bạn

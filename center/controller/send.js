@@ -678,92 +678,124 @@ sas
 			var start = aoData[3].value;
 			var length = aoData[4].value;
 			var search = aoData[5].value;
-
-			DataServices.Getall(username, role, start, length, search).then(function (response) {
+			
+			DataServices.SearchS(role, username, '2016-01-01', null, null, start, length, search).then(function (response) {
 				if (response.data.error_code === 0) {
-					var _list_student = [];
+					$scope.list_student = response.data.students;
 
-					response.data.student.forEach(element => {
+					var records = {
+						'draw': draw,
+						'recordsTotal': response.data.total,
+						'recordsFiltered': response.data.filtered,
+						'data': response.data.students
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 1) {
 
-						// trạng thái hẹn chưa đến
-						if (element.Appointment_day !== null) {
-							_day = parseInt(compareDay(element.Appointment_day));
-							if (parseInt(today) > _day) {
-								if (element.Status_student[0].id !== 3) {
-									if (_list_student.contains(element._id.toString()) === false) {
-										_list_student.push(element);
-									}
-								}
-							}
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
+				} else if (response.data.error_code === 2) {
 
-						}
-
-						// trạng thái đến chưa đăng ký
-						if (element.Status_student[0].id === 2) {
-							if (_list_student.contains(element._id.toString()) === false) {
-								_list_student.push(element);
-							}
-						}
-
-						// trạng thái hủy
-						if (element.Status_student[0].id === 4) {
-							if (_list_student.contains(element._id.toString()) === false) {
-								_list_student.push(element);
-							}
-						}
-
-						// trạng thái không tìm năng
-						if (element.Status_student[0].id === 1) {
-							if (_list_student.contains(element._id.toString()) === false) {
-								_list_student.push(element);
-							}
-						}
-
-						// trạng thái đã đăng ký
-						if (element.Status_student[0].id === 3) {
-							if (_list_student.contains(element._id.toString()) === false) {
-								_list_student.push(element);
-							}
-						}
-
-						// trạng thái chưa đăng ký
-						if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
-							if (element.Center !== null) {
-								if (element.Center[0].id !== null) {
-									if (_list_student.contains(element._id.toString()) === false) {
-										_list_student.push(element);
-									}
-								}
-							}
-						}
-
-					});
-
-					if (_list_student.length > 0 && $scope._details !== undefined) {
-						_list_student.forEach(element => {
-							if ($scope._details._id === element._id) {
-								$scope._details = element;
-								$scope._lastnote = $scope._details.Note;
-								$scope._lastPhone = element.Phone;
-							}
-						})
-					}
-
-					$timeout(function () {
-						$scope.list_student = _list_student;
-						var records = {
-							'draw': draw,
-							'recordsTotal': $scope.list_student.length,
-							'recordsFiltered': $scope.list_student.length,
-							'data': $scope.list_student
-						};
-						fnCallback(records);
-					}, 500)
-
-				} else {
-					Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+					var records = {
+						'draw': draw,
+						'recordsTotal': 0,
+						'recordsFiltered': 0,
+						'data': 0
+					};
+					fnCallback(records);
 				}
 			});
+
+			// DataServices.Getall(username, role, start, length, search).then(function (response) {
+				// if (response.data.error_code === 0) {
+					// var _list_student = [];
+
+					// response.data.student.forEach(element => {
+
+						// // trạng thái hẹn chưa đến
+						// if (element.Appointment_day !== null) {
+							// _day = parseInt(compareDay(element.Appointment_day));
+							// if (parseInt(today) > _day) {
+								// if (element.Status_student[0].id !== 3) {
+									// if (_list_student.contains(element._id.toString()) === false) {
+										// _list_student.push(element);
+									// }
+								// }
+							// }
+
+						// }
+
+						// // trạng thái đến chưa đăng ký
+						// if (element.Status_student[0].id === 2) {
+							// if (_list_student.contains(element._id.toString()) === false) {
+								// _list_student.push(element);
+							// }
+						// }
+
+						// // trạng thái hủy
+						// if (element.Status_student[0].id === 4) {
+							// if (_list_student.contains(element._id.toString()) === false) {
+								// _list_student.push(element);
+							// }
+						// }
+
+						// // trạng thái không tìm năng
+						// if (element.Status_student[0].id === 1) {
+							// if (_list_student.contains(element._id.toString()) === false) {
+								// _list_student.push(element);
+							// }
+						// }
+
+						// // trạng thái đã đăng ký
+						// if (element.Status_student[0].id === 3) {
+							// if (_list_student.contains(element._id.toString()) === false) {
+								// _list_student.push(element);
+							// }
+						// }
+
+						// // trạng thái chưa đăng ký
+						// if (element.Status_student[0].id === 0 && (element.Isupdate === true || element.Center !== null)) {
+							// if (element.Center !== null) {
+								// if (element.Center[0].id !== null) {
+									// if (_list_student.contains(element._id.toString()) === false) {
+										// _list_student.push(element);
+									// }
+								// }
+							// }
+						// }
+
+					// });
+
+					// if (_list_student.length > 0 && $scope._details !== undefined) {
+						// _list_student.forEach(element => {
+							// if ($scope._details._id === element._id) {
+								// $scope._details = element;
+								// $scope._lastnote = $scope._details.Note;
+								// $scope._lastPhone = element.Phone;
+							// }
+						// })
+					// }
+
+					// $timeout(function () {
+						// $scope.list_student = _list_student;
+						// var records = {
+							// 'draw': draw,
+							// 'recordsTotal': $scope.list_student.length,
+							// 'recordsFiltered': $scope.list_student.length,
+							// 'data': $scope.list_student
+						// };
+						// fnCallback(records);
+					// }, 500)
+
+				// } else {
+					// Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+				// }
+			// });
 		}
 	}
 
