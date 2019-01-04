@@ -99,8 +99,7 @@ sas
 					$('td', row).unbind('click');
 					$('td', row).bind('click', function () {
 						$scope.$apply(function () {
-							$scope.detail(data._id);
-							$scope.checkDuplicator(data, 1);
+							$scope.view(data);
 						});
 					});
 					return row;
@@ -113,27 +112,30 @@ sas
 				var start = aoData[3].value;
 				var length = aoData[4].value;
 				var search = aoData[5].value;
+				
+				if($scope.detect === undefined){
+					DataServices.GetallQuery($rootScope.auth.Role, $rootScope.auth.Username, null, null, null, null, start, length, search).then(function (response) {
+						if (response.data.error_code === 0) {
+							$scope.detect = 1;
+							$scope.all_students = response.data.student;
+							var records = {
+								'draw': draw,
+								'recordsTotal': response.data.total,
+								'recordsFiltered': response.data.filtered,
+								'data': $scope.all_students
+							};
+							fnCallback(records);
 
-				DataServices.GetallQuery($rootScope.auth.Role, $rootScope.auth.Username, null, null, null, null, start, length, search).then(function (response) {
-					if (response.data.error_code === 0) {
-
-						$scope.all_students = response.data.student;
-						var records = {
-							'draw': draw,
-							'recordsTotal': $scope.all_students.length,
-							'recordsFiltered': $scope.all_students.length,
-							'data': $scope.all_students
-						};
-						fnCallback(records);
-
-					} else {
-						Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
-					}
-				});
+						} else {
+							Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
+						}
+					});
+				}
 			}
 		}
-
+		
 		get_null_query();
+		
 
 		//filter theo ngày tháng và trạng thái, form
 		$scope._status = [{
@@ -179,8 +181,7 @@ sas
 					$('td', row).unbind('click');
 					$('td', row).bind('click', function () {
 						$scope.$apply(function () {
-							$scope.detail(data._id);
-							$scope.checkDuplicator(data, 1);
+							$scope.view(data);
 						});
 					});
 					return row;
@@ -211,26 +212,18 @@ sas
 				var length = aoData[4].value;
 				var search = aoData[5].value;
 
-				DataServices.SearchN($rootScope.auth.Role, _fromday, _today, $rootScope.auth.Username, $scope.mstatus.id, _mform, start, length, search).then(function (response) {
+				DataServices.GetallQuery($rootScope.auth.Role, $rootScope.auth.Username, _fromday, _today, $scope.mstatus.id, _mform, start, length, search).then(function (response) {
 					if (response.data.error_code === 0) {
 						$scope.all_students = response.data.student;
-						if (a === 0) {
-							Notifi._success('Lọc dữ liệu thành công');
-						}
-						a = 1;
 
 						var records = {
 							'draw': draw,
 							'recordsTotal': response.data.total,
 							'recordsFiltered': response.data.filtered,
-							'data': response.data.student
+							'data': $scope.all_students
 						};
 						fnCallback(records);
 					} else if (response.data.error_code === 1) {
-						if (a === 0) {
-							Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
-						}
-						a = 1;
 
 						var records = {
 							'draw': draw,
@@ -240,10 +233,6 @@ sas
 						};
 						fnCallback(records);
 					} else if (response.data.error_code === 2) {
-						if (a === 0) {
-							Notifi._error('Không có dữ liệu phù hợp với thông số tìm kiếm')
-						}
-						a = 1;
 
 						var records = {
 							'draw': draw,
