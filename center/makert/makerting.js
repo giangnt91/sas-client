@@ -460,7 +460,7 @@ sas
 					$timeout(function () {
 						$scope._Makerting = _makerting;
 						// Notifi._close();
-					}, $scope.Makertings.length * 100);
+					}, _makerting.length * 100);
 
 					$scope.newdtOptions = DTOptionsBuilder.newOptions()
 						.withDisplayLength(10)
@@ -572,7 +572,7 @@ sas
 				$timeout(function () {
 					$scope._Makerting = _makerting;
 					Notifi._close();
-				}, list_mk.length * 100);
+				}, _makerting.length * 100);
 			} else {
 				$timeout(function () {
 					$scope._Makerting = _makerting;
