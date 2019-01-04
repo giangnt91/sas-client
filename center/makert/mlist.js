@@ -211,7 +211,7 @@ sas
 				var length = aoData[4].value;
 				var search = aoData[5].value;
 
-				DataServices.SearchN($rootScope.auth.Role, $rootScope.auth.Username, _fromday, _today, $scope.mstatus.id, _mform, start, length, search).then(function (response) {
+				DataServices.SearchN($rootScope.auth.Role, _fromday, _today, $rootScope.auth.Username, $scope.mstatus.id, _mform, start, length, search).then(function (response) {
 					if (response.data.error_code === 0) {
 						$scope.all_students = response.data.student;
 						if (a === 0) {
