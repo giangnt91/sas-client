@@ -958,7 +958,7 @@ sas
 	// kiểm tra số điện thoại khi nhập
 	$scope.checkphone = function (sdt) {
 		if (sdt.toString().length > 8) {
-			DataServices.SearchByPhone(sdt).then(function (response) {
+			DataServices.SearchByPhone(sdt, 0, 10, {value: ''}).then(function (response) {
 				if (response.data.error_code === 0) {
 					var list = [];
 					response.data.students.forEach(element => {
@@ -982,7 +982,7 @@ sas
 	$scope.checkDuplicator = function (data, id) {
 		if (id === 1) {
 			if (data.Duplicate !== null) {
-				DataServices.SearchByPhone(data.Phone).then(function (response) {
+				DataServices.SearchByPhone(data.Phone, 0, 10, {value: ''}).then(function (response) {
 					if (response.data.error_code === 0) {
 						if (response.data.students.length > 0) {
 							var list = [];
@@ -1000,7 +1000,7 @@ sas
 				})
 			}
 		} else {
-			DataServices.SearchByPhone(data.Phone).then(function (response) {
+			DataServices.SearchByPhone(data.Phone, 0, 10, {value: ''}).then(function (response) {
 				if (response.data.error_code === 0) {
 					if (response.data.students.length > 0) {
 						var list = [];
