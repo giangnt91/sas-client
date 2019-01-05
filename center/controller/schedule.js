@@ -578,11 +578,12 @@ sas
 		SchDay = yyyy + '-' + mm + '-' + dd;
 
 		function renderTime(data, type, row, meta) {
-			if (row.Regtime === null) {
-				return row.Regday;
-			} else {
-				return row.Regday + ' ' + row.Regtime;
-			}
+			return row.Appointment_day;
+			// if (row.Regtime === null) {
+				// return row.Regday;
+			// } else {
+				// return row.Regday + ' ' + row.Regtime;
+			// }
 		}
 
 		function index(data, type, row, meta) {
