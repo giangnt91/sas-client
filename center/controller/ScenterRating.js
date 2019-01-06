@@ -195,6 +195,12 @@ sas
 		$location.path('/login');
 	} else {
 
+		// hiển thị ngày tháng
+		function convertshow(x) {
+			var parts = x.split("/");
+			return parts[2] + '-' + parts[1] + '-' + parts[0];
+		}
+
 		Notifi._loading();
 		// lấy danh sách sale
 		function getAllsale() {
@@ -217,6 +223,7 @@ sas
 					}
 					$timeout(function () {
 						$scope._User = _user;
+						$scope.isLoading = true;
 						Notifi._close();
 					}, 1500);
 
@@ -263,16 +270,20 @@ sas
 
 			if (_fromday === '') {
 				_fromday = null
+			}else{
+				_fromday = convertshow(_fromday);
 			}
 
 			if (_today === '') {
 				_today = null
+			}else{
+				_today = convertshow(_today);
 			}
 
 			var _user = [];
 			if ($scope.TheUsers !== undefined) {
 				$scope.TheUsers.forEach(element => {
-					DataServices.GetSrating(element.Username, element.Fullname, null, null).then(function (response) {
+					DataServices.GetSrating(element.Username, element.Fullname, _fromday, _today).then(function (response) {
 						if (response.data.error_code === 0) {
 							_user.push(response.data.user);
 						}
@@ -282,8 +293,9 @@ sas
 
 			$timeout(function () {
 				$scope._User = _user;
+				$scope.isLoading = true;
 				Notifi._close();
-			}, 1500);
+			}, $scope.TheUsers.length * 100);
 
 		}
 	}
