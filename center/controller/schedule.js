@@ -333,13 +333,13 @@ sas
 			var _Sregday2 = $('#Sregday2').val();
 
 			if (_Sregday !== '') {
-				Sregday = _Sregday;
+				Sregday = convertshow(_Sregday);
 			} else {
 				Sregday = null;
 			}
 
 			if (_Sregday2 !== '') {
-				Sregday2 = _Sregday2;
+				Sregday2 = convertshow(_Sregday2);
 			} else {
 				Sregday2 = null;
 			}
@@ -410,8 +410,25 @@ sas
 	}
 
 	$scope.Clear = function () {
-		$('#Sregday').val(null);
-		$('#Sregday2').val(null);
+		// $('#Sregday').val(null);
+		// $('#Sregday2').val(null);
+		var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+        $("#Sregday").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        }).datepicker("setDate", startDate);
+
+        $("#Sregday2").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        }).datepicker("setDate", new Date());
+
 		$scope.Ssale = $scope.Users[0];
 
 		$scope.proAddress = $scope.Address[0];
@@ -642,37 +659,47 @@ sas
 			var length = aoData[4].value;
 			var search = aoData[5].value;
 
-			DataServices.SearchSch(role, username, '2016-01-01', SchDay, null, start, length, search).then(function (response) {
-				if (response.data.error_code === 0) {
-					$scope.list_student = response.data.students;
+			let sd = new Date();
+			var currMonth = sd.getMonth();
+			var currYear = sd.getFullYear();
+			var startDate = new Date(currYear, currMonth, 1);
+			
+			if($scope.detect === undefined){
+				DataServices.SearchSch(role, username, startDate, SchDay, null, start, length, search).then(function (response) {
+					if (response.data.error_code === 0) {
+						$scope.list_student = response.data.students;
+						$scope.detect = 1;
 
-					var records = {
-						'draw': draw,
-						'recordsTotal': response.data.total,
-						'recordsFiltered': response.data.filtered,
-						'data': response.data.students
-					};
-					fnCallback(records);
-				} else if (response.data.error_code === 1) {
+						var records = {
+							'draw': draw,
+							'recordsTotal': response.data.total,
+							'recordsFiltered': response.data.filtered,
+							'data': response.data.students
+						};
+						fnCallback(records);
+					} else if (response.data.error_code === 1) {
+						$scope.detect = 1;
 
-					var records = {
-						'draw': draw,
-						'recordsTotal': 0,
-						'recordsFiltered': 0,
-						'data': 0
-					};
-					fnCallback(records);
-				} else if (response.data.error_code === 2) {
+						var records = {
+							'draw': draw,
+							'recordsTotal': 0,
+							'recordsFiltered': 0,
+							'data': 0
+						};
+						fnCallback(records);
+					} else if (response.data.error_code === 2) {
+						$scope.detect = 1;
 
-					var records = {
-						'draw': draw,
-						'recordsTotal': 0,
-						'recordsFiltered': 0,
-						'data': 0
-					};
-					fnCallback(records);
-				}
-			});
+						var records = {
+							'draw': draw,
+							'recordsTotal': 0,
+							'recordsFiltered': 0,
+							'data': 0
+						};
+						fnCallback(records);
+					}
+				});
+			}
 		}
 	}
 

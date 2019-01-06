@@ -432,13 +432,13 @@ sas
 			if (_hregday === '') {
 				hregday = null;
 			} else {
-				hregday = _hregday;
+				hregday = convertshow(_hregday);
 			}
 
 			if (_hregday2 === '') {
 				hregday2 = null;
 			} else {
-				hregday2 = _hregday2;
+				hregday2 = convertshow(_hregday2);
 			}
 
 			if ($scope.HCenter !== null) {
@@ -518,8 +518,25 @@ sas
 	}
 
 	$scope.Clear = function () {
-		$('#hregday').val(null);
-		$('#hregday2').val(null);
+		// $('#hregday').val(null);
+		// $('#hregday2').val(null);
+		var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+        $("#hregday").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        }).datepicker("setDate", startDate);
+
+        $("#hregday2").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        }).datepicker("setDate", new Date());
+
 		$scope.crmphone = '';
 		$scope.HCenter = $scope.Center[0];
 		$scope.HStatus = $scope.Status2[0];

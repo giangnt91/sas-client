@@ -287,13 +287,13 @@ sas
 			if (_nregday === '') {
 				nregday = null;
 			} else {
-				nregday = _nregday;
+				nregday =  convertshow(_nregday);
 			}
 
 			if (_nregday2 === '') {
 				nregday2 = null;
 			} else {
-				nregday2 = _nregday2;
+				nregday2 = convertshow(_nregday2);
 			}
 
 			//All the parameters you need is in the aoData variable
@@ -350,8 +350,25 @@ sas
 	}
 
 	$scope.Clear = function () {
-		$('#nregday').val(null);
-		$('#nregday2').val(null);
+		// $('#nregday').val(null);
+		// $('#nregday2').val(null);
+		var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+        $("#nregday").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        }).datepicker("setDate", startDate);
+
+        $("#nregday2").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        }).datepicker("setDate", new Date());
+
 		// $scope.SselectedCenter = $scope.Center[0];
 		$scope.SselectedTime = $scope.Appointment_time[0];
 		$scope.SselectedTime2 = $scope.Appointment_time[0];
@@ -603,38 +620,47 @@ sas
 			var length = aoData[4].value;
 			var search = aoData[5].value;
 
-			DataServices.SearchN(role, '2016-01-01', null, username, start, length, search).then(function (response) {
-				if (response.data.error_code === 0) {
-					$scope.list_student = response.data.students;
+			var nd = new Date();
+			var currMonth = nd.getMonth();
+			var currYear = nd.getFullYear();
+			var startDate = new Date(currYear, currMonth, 1);
 
-					var records = {
-						'draw': draw,
-						'recordsTotal': response.data.total,
-						'recordsFiltered': response.data.filtered,
-						'data': response.data.students
-					};
-					fnCallback(records);
-				} else if (response.data.error_code === 1) {
+			if($scope.detect === undefined){
+				DataServices.SearchN(role, startDate, null, username, start, length, search).then(function (response) {
+					if (response.data.error_code === 0) {
+						$scope.list_student = response.data.students;
+						$scope.detect = 1;
 
-					var records = {
-						'draw': draw,
-						'recordsTotal': 0,
-						'recordsFiltered': 0,
-						'data': 0
-					};
-					fnCallback(records);
-				} else if (response.data.error_code === 2) {
+						var records = {
+							'draw': draw,
+							'recordsTotal': response.data.total,
+							'recordsFiltered': response.data.filtered,
+							'data': response.data.students
+						};
+						fnCallback(records);
+					} else if (response.data.error_code === 1) {
+						$scope.detect = 1;
 
-					var records = {
-						'draw': draw,
-						'recordsTotal': 0,
-						'recordsFiltered': 0,
-						'data': 0
-					};
-					fnCallback(records);
-				}
-			});
-
+						var records = {
+							'draw': draw,
+							'recordsTotal': 0,
+							'recordsFiltered': 0,
+							'data': 0
+						};
+						fnCallback(records);
+					} else if (response.data.error_code === 2) {
+						$scope.detect = 1;
+						
+						var records = {
+							'draw': draw,
+							'recordsTotal': 0,
+							'recordsFiltered': 0,
+							'data': 0
+						};
+						fnCallback(records);
+					}
+				});
+			}
 		}
 
 	}

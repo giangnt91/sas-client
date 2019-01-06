@@ -14,13 +14,13 @@
                                                 <div class="col-lg-6">
                                                     <div class="input-group add">
                                                         <label for="hregday">Từ Ngày</label>
-                                                        <input type="date" class="form-control" id="hregday">
+                                                        <input type="text" class="form-control" id="hregday">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="input-group add">
                                                         <label for="hregday">Đến Ngày</label>
-                                                        <input type="date" class="form-control" id="hregday2">
+                                                        <input type="text" class="form-control" id="hregday2">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1068,3 +1068,24 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        var d = new Date();
+        var currMonth = d.getMonth();
+        var currYear = d.getFullYear();
+        var startDate = new Date(currYear, currMonth, 1);
+
+        $("#hregday").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        }).datepicker("setDate", startDate);
+
+        $("#hregday2").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        }).datepicker("setDate", new Date());
+    });
+</script>
