@@ -454,13 +454,11 @@ sas
 						$scope.form = $scope.Markets[0];
 
 						$scope.Makertings.forEach(element => {
-							$timeout(function () {
-								DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null, null).then(function (response) {
-									if (response.data.error_code === 0) {
-										_makerting.push(response.data.mkt);
-									}
-								})
-							}, 500)
+							DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, null, null, null).then(function (response) {
+								if (response.data.error_code === 0) {
+									_makerting.push(response.data.mkt);
+								}
+							})
 
 
 							if (element.Role[0].id === 2 && element.SheetID !== null) {
@@ -479,7 +477,12 @@ sas
 						$timeout(function () {
 							$scope._Makerting = _makerting;
 							Notifi._close();
-						}, $scope.Makertings.length * 600);
+						}, 1700);
+
+						$timeout(() =>{
+							$scope.isLoading = true;
+							console.log($scope._Makerting.length)
+						}, 2000)
 
 						$scope.newdtOptions = DTOptionsBuilder.newOptions()
 							.withDisplayLength(10)
@@ -570,24 +573,24 @@ sas
 
 				if (_fromday === '') {
 					_fromday = null
-				}else{
+				} else {
 					_fromday = convertshow(_fromday);
 				}
 
 				if (_today === '') {
 					_today = null
-				}else{
+				} else {
 					_today = convertshow(_today);
 				}
 
 				var _makerting = [];
 				if (list_mk !== undefined) {
 					list_mk.forEach(element => {
-						DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, _fromday, _today, null).then(function (response) {
-							if (response.data.error_code === 0) {
-								_makerting.push(response.data.mkt);
-							}
-						})
+							DataServices.GettqMakert($rootScope.auth.Role, element.Username, element.Fullname, _fromday, _today, null).then(function (response) {
+								if (response.data.error_code === 0) {
+									_makerting.push(response.data.mkt);
+								}
+							})
 					});
 				}
 
@@ -595,12 +598,12 @@ sas
 					$timeout(function () {
 						$scope._Makerting = _makerting;
 						Notifi._close();
-					}, _makerting.length * 100);
+					}, 2000);
 				} else {
 					$timeout(function () {
 						$scope._Makerting = _makerting;
 						Notifi._close();
-					}, 500);
+					}, 2000);
 				}
 
 			}
