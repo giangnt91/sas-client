@@ -39,6 +39,10 @@
   animation-delay: -0.16s;
 }
 
+#ui-datepicker-div{
+    z-index: 1080 !important;
+}
+
 @-webkit-keyframes sk-bouncedelay {
   0%, 80%, 100% { -webkit-transform: scale(0) }
   40% { -webkit-transform: scale(1.0) }

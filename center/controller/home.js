@@ -1260,7 +1260,7 @@ sas
 
 					// kiểm tra ngày hẹn
 					if ($scope._details.Appointment_day !== null) {
-						$('#dngayhen').val(convertshow($scope._details.Appointment_day));
+						$('#dngayhen').val($scope._details.Appointment_day);
 					} else {
 						$('#dngayhen').val(null);
 					}
@@ -1279,7 +1279,7 @@ sas
 					// kiểm tra giờ gọi lại và ngày gọi lại
 					if ($scope._details.Time_recall !== null) {
 						if ($scope._details.Time_recall[0].day !== null) {
-							$('#dngaygoilai').val(convertshow($scope._details.Time_recall[0].day));
+							$('#dngaygoilai').val($scope._details.Time_recall[0].day);
 						} else {
 							$('#dngaygoilai').val(null);
 						}
@@ -1391,8 +1391,8 @@ sas
 			// kiểm tra ngày hẹn
 			let _tmpday = $('#dngayhen').val();
 			if (_tmpday !== '') {
-				$scope._details.Appointment_day = convertup(_tmpday);
-				$scope._details.Appointment_dayiso = _tmpday;
+				$scope._details.Appointment_day = _tmpday;
+				$scope._details.Appointment_dayiso = convertshow(_tmpday);
 			} else {
 				$scope._details.Appointment_day = null;
 				$scope._details.Appointment_dayiso = null;
@@ -1467,7 +1467,7 @@ sas
 			if ($scope._details.Time_recall !== null) {
 				// kiểm tra ngày hẹn
 				if (_tmpday !== '') {
-					$scope._details.Time_recall[0].day = convertup(_tmpday);
+					$scope._details.Time_recall[0].day = _tmpday;
 				}
 
 				// kiểm tra giờ hẹn
@@ -1481,7 +1481,7 @@ sas
 				}
 			} else {
 				if (_tmpday !== '') {
-					_day = convertup(_tmpday);
+					_day = _tmpday;
 				}
 
 				if ($scope.selectedTime2 !== null) {
@@ -1655,8 +1655,8 @@ sas
 				}
 
 				if (_tmpdayhen !== '') {
-					henday = convertup(_tmpdayhen);
-					hendayiso = _tmpdayhen;
+					henday = _tmpdayhen;
+					hendayiso = convertshow(_tmpdayhen);
 				} else {
 					henday = null;
 					hendayiso = null;
@@ -1713,7 +1713,7 @@ sas
 				return;
 			} else {
 
-				let regday = convertup(_tmpregday);
+				let regday = _tmpregday;
 
 				var tmp_center;
 				var tmp_status;
@@ -1783,8 +1783,8 @@ sas
 				}
 
 				if (_tmpdayhen !== '') {
-					henday = convertup(_tmpdayhen);
-					hendayiso = _tmpdayhen;
+					henday = _tmpdayhen;
+					hendayiso = convertshow(_tmpdayhen);
 				} else {
 					henday = null;
 					hendayiso = null;

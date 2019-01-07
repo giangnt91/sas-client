@@ -298,7 +298,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="ngayhen">Ngày hẹn</label>
-                                                <input type="date" class="form-control" id="dngayhen">
+                                                <input type="text" class="form-control" id="dngayhen">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -427,7 +427,7 @@
                         <div class="col-6">
                             <div class="input-group add">
                                 <label for="ngayhen">Ngày</label>
-                                <input type="date" class="form-control" id="dngaygoilai">
+                                <input type="text" class="form-control" id="dngaygoilai">
                             </div>
                         </div>
                         <div class="col-6">
@@ -521,7 +521,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="dayreg">Ngày đăng ký</label>
-                                                <input type="date" class="form-control datetimepicker" id="madddayreg"
+                                                <input type="text" class="form-control datetimepicker" id="madddayreg"
                                                     required>
                                             </div>
                                         </div>
@@ -567,7 +567,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="ngayhen">Ngày hẹn</label>
-                                                <input type="date" class="form-control" id="maddngayhen">
+                                                <input type="text" class="form-control" id="maddngayhen">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -1087,5 +1087,30 @@
             changeMonth: true,
             dateFormat: "dd/mm/yy"
         }).datepicker("setDate", new Date());
+
+        $("#dngayhen").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $("#dngaygoilai").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        })
+
+        $("#maddngayhen").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $("#madddayreg").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        })
+
     });
 </script>

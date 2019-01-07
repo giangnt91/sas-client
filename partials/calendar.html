@@ -275,7 +275,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="ngayhen">Ngày hẹn</label>
-                                                <input type="date" class="form-control" id="dngayhen">
+                                                <input type="text" class="form-control" id="dngayhen">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -412,7 +412,7 @@
                         <div class="col-6">
                             <div class="input-group add">
                                 <label for="ngayhen">Ngày</label>
-                                <input type="date" class="form-control" id="dngaygoilai">
+                                <input type="text" class="form-control" id="dngaygoilai">
                             </div>
                         </div>
                         <div class="col-6">
@@ -547,7 +547,7 @@
                                         <div class="form-group">
                                             <div class="input-group add">
                                                 <label for="ngayhen">Ngày hẹn</label>
-                                                <input type="date" class="form-control" id="addngayhen">
+                                                <input type="text" class="form-control" id="addngayhen">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -762,6 +762,7 @@
 
 <script>
     $(function () {
+
         var d = new Date();
         var currMonth = d.getMonth();
         var currYear = d.getFullYear();
@@ -778,5 +779,24 @@
             changeMonth: true,
             dateFormat: "dd/mm/yy"
         }).datepicker("setDate", new Date());
+
+        $("#dngayhen").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        });
+
+        $("#addngayhen").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        })
+
+        $("#dngaygoilai").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            dateFormat: "dd/mm/yy"
+        });
+        
     });
 </script>

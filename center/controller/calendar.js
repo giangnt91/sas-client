@@ -554,10 +554,6 @@ sas
 			return meta.row + 1;
 		}
 
-		function render(data) {
-			return ' <a href="#" class="btn cbtn cbtn-left sas-bk btn-sm" data-tooltip="' + data[0].name + '"> ' + data[0].id + '</a>';
-		}
-
 		$scope.dtInstance = {};
 
 		$scope.dtColumns = [
@@ -917,7 +913,7 @@ sas
 
 					// kiểm tra ngày hẹn
 					if ($scope._details.Appointment_day !== null) {
-						$('#dngayhen').val(convertshow($scope._details.Appointment_day));
+						$('#dngayhen').val($scope._details.Appointment_day);
 					} else {
 						$('#dngayhen').val(null);
 					}
@@ -936,7 +932,7 @@ sas
 					// kiểm tra giờ gọi lại và ngày gọi lại
 					if ($scope._details.Time_recall !== null) {
 						if ($scope._details.Time_recall[0].day !== null) {
-							$('#dngaygoilai').val(convertshow($scope._details.Time_recall[0].day));
+							$('#dngaygoilai').val($scope._details.Time_recall[0].day);
 						} else {
 							$('#dngaygoilai').val(null);
 						}
@@ -1048,8 +1044,8 @@ sas
 			// kiểm tra ngày hẹn
 			let _tmpday = $('#dngayhen').val();
 			if (_tmpday !== '') {
-				$scope._details.Appointment_day = convertup(_tmpday);
-				$scope._details.Appointment_dayiso = _tmpday;
+				$scope._details.Appointment_day = _tmpday;
+				$scope._details.Appointment_dayiso = convertshow(_tmpday);
 			} else {
 				$scope._details.Appointment_day = null;
 				$scope._details.Appointment_dayiso = null;
@@ -1124,7 +1120,7 @@ sas
 			if ($scope._details.Time_recall !== null) {
 				// kiểm tra ngày hẹn
 				if (_tmpday !== '') {
-					$scope._details.Time_recall[0].day = convertup(_tmpday);
+					$scope._details.Time_recall[0].day = _tmpday;
 				}
 
 				// kiểm tra giờ hẹn
@@ -1138,7 +1134,7 @@ sas
 				}
 			} else {
 				if (_tmpday !== '') {
-					_day = convertup(_tmpday);
+					_day = _tmpday;
 				}
 
 				if ($scope.selectedTime2 !== null) {
@@ -1225,6 +1221,7 @@ sas
 			} else {
 				$scope._fullname = data.fullname;
 				var henday;
+				var hendayiso;
 				var tmp_center;
 				var tmp_status;
 				var tmp_time;
@@ -1290,9 +1287,11 @@ sas
 				}
 
 				if (_tmpdayhen !== '') {
-					henday = convertup(_tmpdayhen);
+					henday = _tmpdayhen;
+					hendayiso = convertshow(_tmpdayhen);
 				} else {
 					henday = null;
+					hendayiso = null;
 				}
 
 				if ($scope.addselectedTime !== undefined) {
@@ -1309,7 +1308,7 @@ sas
 					$scope.addNote = null;
 				}
 
-				CstudentF(tmp_fistname, tmp_lastname, data.fullname, tmp_email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, tmp_time, tmp_status, _manager);
+				CstudentF(tmp_fistname, tmp_lastname, data.fullname, tmp_email, data.phone, tmp_sex, tmp_address, regday, $scope.addNote, tmp_center, henday, hendayiso, tmp_time, tmp_status, _manager);
 			}
 		}
 
