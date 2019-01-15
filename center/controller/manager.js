@@ -986,7 +986,8 @@ sas
                                 let user = {
                                     id: element.Username,
                                     name: element.Fullname,
-                                    role: element.Role[0].id
+                                    role: element.Role[0].id,
+                                    Leader: element.Leader
                                 }
                                 $scope.Users.push(user);
                             }
@@ -1148,7 +1149,7 @@ sas
                 if ($scope.upgroup.id === 1) {
                     if ($scope.Users !== undefined) {
                         $scope.Users.forEach(element => {
-                            if (element.role === 1) {
+                            if (element.role === 1 && element.Leader === false) {
                                 $scope.upLeaders.push(element);
                             }
                         });
@@ -1157,7 +1158,7 @@ sas
                 } else {
                     if ($scope.Users !== undefined) {
                         $scope.Users.forEach(element => {
-                            if (element.role === 2) {
+                            if (element.role === 2 && element.Leader === false) {
                                 $scope.upLeaders.push(element);
                             }
                         });
@@ -1191,7 +1192,7 @@ sas
                         if ($scope.upgroup.id === 1) {
                             if ($scope.Users !== undefined) {
                                 $scope.Users.forEach(element => {
-                                    if (element.role === 1) {
+                                    if (element.role === 1 && element.Leader === false) {
                                         $scope.upLeaders.push(element);
                                     }
                                 });
@@ -1199,7 +1200,7 @@ sas
                         } else {
                             if ($scope.Users !== undefined) {
                                 $scope.Users.forEach(element => {
-                                    if (element.role === 2) {
+                                    if (element.role === 2 && element.Leader === false) {
                                         $scope.upLeaders.push(element);
                                     }
                                 });
