@@ -709,6 +709,7 @@ sas
 			if (response.data.error_code === 0) {
 
 				$timeout(function () {
+					$scope.dtInstance.DataTable.ajax.reload();
 					getStudent($rootScope.auth.Username, $rootScope.auth.Role);
 				}, 1000);
 
@@ -833,6 +834,7 @@ sas
 			if (response.data.error_code === 0) {
 
 				$timeout(function () {
+					$scope.dtInstance.DataTable.ajax.reload();
 					getStudent($rootScope.auth.Username, $rootScope.auth.Role);
 				}, 1000);
 

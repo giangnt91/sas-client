@@ -939,6 +939,7 @@ sas
 		DataServices.CstudentF(Fistname, Lastname, Fullname, Email, Phone, Sex, Address, Regday, Note, Center, Appointment_day, Appointment_dayiso, Appointment_time, Status_student, Manager).then(function (response) {
 			if (response.data.error_code === 0) {
 				$timeout(function () {
+					$scope.dtInstance.DataTable.ajax.reload();
 					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				}, 1000)
 
@@ -960,6 +961,7 @@ sas
 			if (response.data.error_code === 0) {
 
 				$timeout(function () {
+					$scope.dtInstance.DataTable.ajax.reload();
 					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				}, 1000)
 
@@ -1080,6 +1082,7 @@ sas
 		DataServices.UpStudent(student).then(function (response) {
 			if (response.data.error_code === 0) {
 				$timeout(function () {
+					$scope.dtInstance.DataTable.ajax.reload();
 					getStudent($rootScope.auth.Zone[0].id, $rootScope.auth.Username, $rootScope.auth.Role);
 				}, 1000);
 
