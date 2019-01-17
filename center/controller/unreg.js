@@ -1214,8 +1214,7 @@ sas
 				data.fullname === undefined ||
 				data.phone === undefined ||
 				$scope.addselectedSex === undefined ||
-				$scope.addselectedAddress === undefined ||
-				_tmpregday === '') {
+				$scope.addselectedAddress === undefined) {
 				Notifi._error('Nhập đầy đủ thông tin để tạo user.')
 				return;
 			} else {
