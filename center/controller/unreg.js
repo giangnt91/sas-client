@@ -551,7 +551,9 @@ sas
 			return ' <a href="#" class="btn cbtn cbtn-left sas-bk btn-sm" data-tooltip="' + data[0].name + '"> ' + data[0].id + '</a>';
 		}
 
-		$scope.dtInstance = {};
+		if(!$scope.dtInstance){
+			$scope.dtInstance = {};
+		}
 
 		$scope.dtColumns = [
 			DTColumnBuilder.newColumn('').withTitle('STT').renderWith(index),

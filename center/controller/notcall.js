@@ -572,7 +572,9 @@ sas
 			return meta.row + 1;
 		}
 
-		$scope.dtInstance = {};
+		if(!$scope.dtInstance){
+			$scope.dtInstance = {};
+		}
 
 		$scope.dtColumns = [
 			DTColumnBuilder.newColumn('').withTitle('STT').renderWith(index),
