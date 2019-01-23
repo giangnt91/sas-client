@@ -788,6 +788,30 @@ sas
 			}
 		}
 
+		function sex(data){
+			if(data !== null){
+				return data[0].name;
+			}else{
+				return null;
+			}
+		}
+
+		function address(data){
+			if(data !== null){
+				return data[0].name;
+			}else{
+				return null;
+			}
+		}
+
+		function status(data){
+			if(data !== null){
+				return data[0].name;
+			}else{
+				return null;
+			}
+		}
+
 		if(!$scope.dtInstance){
 			$scope.dtInstance = {};
 		}
@@ -798,10 +822,10 @@ sas
 			DTColumnBuilder.newColumn('_id').withTitle('ID'),
 			DTColumnBuilder.newColumn('Fistname').withTitle('Họ'),
 			DTColumnBuilder.newColumn('Lastname').withTitle('Tên'),
-			DTColumnBuilder.newColumn('Sex[0].name').withTitle('Giới tính'),
+			DTColumnBuilder.newColumn('Sex').withTitle('Giới tính').renderWith(sex),
 			DTColumnBuilder.newColumn('Phone').withTitle('Số điện thoại'),
-			DTColumnBuilder.newColumn('Address[0].name').withTitle('Địa chỉ'),
-			DTColumnBuilder.newColumn('Status_student[0].name').withTitle('Trạng thái'),
+			DTColumnBuilder.newColumn('Address').withTitle('Địa chỉ').renderWith(address),
+			DTColumnBuilder.newColumn('Status_student').withTitle('Trạng thái').renderWith(status),
 			DTColumnBuilder.newColumn('Manager').withTitle('Nhân viên').renderWith(render)
 		];
 

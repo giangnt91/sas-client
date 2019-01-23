@@ -554,6 +554,14 @@ sas
 			return meta.row + 1;
 		}
 
+		function sex(data){
+			if(data !== null){
+				return data[0].name;
+			}else{
+				return null;
+			}
+		}
+
 		$scope.dtInstance = {};
 
 		$scope.dtColumns = [
@@ -562,7 +570,7 @@ sas
 			DTColumnBuilder.newColumn('_id').withTitle('ID'),
 			DTColumnBuilder.newColumn('Fistname').withTitle('Họ'),
 			DTColumnBuilder.newColumn('Lastname').withTitle('Tên'),
-			DTColumnBuilder.newColumn('Sex[0].name').withTitle('Giới tính'),
+			DTColumnBuilder.newColumn('Sex').withTitle('Giới tính').renderWith(sex),
 			DTColumnBuilder.newColumn('Phone').withTitle('Số điện thoại'),
 			DTColumnBuilder.newColumn('Note').withTitle('Ghi chú'),
 		];
@@ -601,14 +609,9 @@ sas
 			var start = aoData[3].value;
 			var length = aoData[4].value;
 			var search = aoData[5].value;
-
-			var cd = new Date();
-			var currMonth = cd.getMonth();
-			var currYear = cd.getFullYear();
-			var startDate = new Date(currYear, currMonth, 1);
 			
-			if($scope.detect === undefined){
-				DataServices.SearchC(role, username, startDate, null, null, start, length, search).then(function (response) {
+			// if($scope.detect === undefined){
+				DataServices.SearchC(role, username, null, null, null, start, length, search).then(function (response) {
 					if (response.data.error_code === 0) {
 						$scope.list_student = response.data.students;
 						$scope.detect = 1;
@@ -643,7 +646,7 @@ sas
 					}
 				});
 			}
-		}
+		// }
 	}
 
 	// tạo học viên mới từ thêm bạn

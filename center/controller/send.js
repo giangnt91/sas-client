@@ -648,6 +648,14 @@ sas
 				return ' <a href="#" class="btn cbtn cbtn-left sas-bk btn-sm" data-tooltip="' + data[0].name + '"> ' + data[0].id + '</a>';
 			}
 
+			function sex(data){
+				if(data !== null){
+					return data[0].name;
+				}else{
+					return null;
+				}
+			}
+
 			if(!$scope.dtInstance){
         $scope.dtInstance = {};
       }
@@ -658,7 +666,7 @@ sas
 				DTColumnBuilder.newColumn('_id').withTitle('ID'),
 				DTColumnBuilder.newColumn('Fistname').withTitle('Họ'),
 				DTColumnBuilder.newColumn('Lastname').withTitle('Tên'),
-				DTColumnBuilder.newColumn('Sex[0].name').withTitle('Giới tính'),
+				DTColumnBuilder.newColumn('Sex').withTitle('Giới tính').renderWith(sex),
 				DTColumnBuilder.newColumn('Phone').withTitle('Số điện thoại'),
 				DTColumnBuilder.newColumn('Note').withTitle('Ghi chú'),
 			];
@@ -698,13 +706,8 @@ sas
 				var length = aoData[4].value;
 				var search = aoData[5].value;
 
-				var sd = new Date();
-				var currMonth = sd.getMonth();
-				var currYear = sd.getFullYear();
-				var startDate = new Date(currYear, currMonth, 1);
-
-				if ($scope.detect === undefined) {
-					DataServices.SearchS(role, username, startDate, null, null, start, length, search).then(function (response) {
+				// if ($scope.detect === undefined) {
+					DataServices.SearchS(role, username, null, null, null, start, length, search).then(function (response) {
 						if (response.data.error_code === 0) {
 							$scope.detect = 1;
 							$scope.list_student = response.data.students;
@@ -825,7 +828,7 @@ sas
 				// Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
 				// }
 				// });
-			}
+			// }
 		}
 
 		// tạo học viên mới từ thêm bạn
