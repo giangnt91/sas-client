@@ -781,7 +781,9 @@ sas
 		}
 
 		function render(data) {
-			return ' <a href="#" class="btn cbtn cbtn-left sas-bk btn-sm" data-tooltip="' + data[0].name + '"> ' + data[0].id + '</a>';
+			if(data.length > 0){
+				return ' <a href="#" class="btn cbtn cbtn-left sas-bk btn-sm" data-tooltip="' + data[0].name + '"> ' + data[0].id + '</a>';
+			}	
 		}
 
 		if(!$scope.dtInstance){
