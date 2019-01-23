@@ -783,7 +783,9 @@ sas
 		function render(data) {
 			if(data.length > 0){
 				return ' <a href="#" class="btn cbtn cbtn-left sas-bk btn-sm" data-tooltip="' + data[0].name + '"> ' + data[0].id + '</a>';
-			}	
+			}else{
+				return ' <a href="#" class="btn cbtn cbtn-left sas-bk btn-sm">Không xác định</a>';
+			}
 		}
 
 		if(!$scope.dtInstance){
