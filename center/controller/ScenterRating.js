@@ -6,6 +6,12 @@ sas
 		$location.path('/login');
 	} else {
 
+		// hiển thị ngày tháng
+	function convertshow(x) {
+		var parts = x.split("/");
+		return parts[2] + '-' + parts[1] + '-' + parts[0];
+	}
+
 		Notifi._loading();
 		// lấy tất cả các group
 		function Getallgroup() {
@@ -142,10 +148,14 @@ sas
 
 			if (_fromday === '') {
 				_fromday = null
+			}else{
+				_fromday = convertshow(_fromday);
 			}
 
 			if (_today === '') {
 				_today = null
+			}else{
+				_today = convertshow(_today);
 			}
 
 			var _user = [];
