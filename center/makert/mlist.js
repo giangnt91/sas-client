@@ -6,6 +6,12 @@ sas
 		$location.path('/login');
 	} else {
 
+		// hiển thị ngày tháng
+		function convertshow(x) {
+			var parts = x.split("/");
+			return parts[2] + '-' + parts[1] + '-' + parts[0];
+		}
+
 		// lấy danh sách form từ danh sách user
 		function getUsers() {
 			DataServices.GetallUSerforGroup().then(function (repsonse) {
@@ -112,9 +118,24 @@ sas
 				var start = aoData[3].value;
 				var length = aoData[4].value;
 				var search = aoData[5].value;
+
+				let _fromday = $('#mkday').val();
+				let _today = $('#mkday2').val();
+
+				if (_fromday === '') {
+					_fromday = null
+				} else {
+					_fromday = convertshow(_fromday);
+				}
+
+				if (_today === '') {
+					_today = null
+				} else {
+					_today = convertshow(_today);
+				}
 				
-				if($scope.detect === undefined){
-					DataServices.GetallQuery($rootScope.auth.Role, $rootScope.auth.Username, null, null, null, null, start, length, search).then(function (response) {
+				// if($scope.detect === undefined){
+					DataServices.GetallQuery($rootScope.auth.Role, $rootScope.auth.Username, _fromday, _today, null, null, start, length, search).then(function (response) {
 						if (response.data.error_code === 0) {
 							$scope.detect = 1;
 							$scope.all_students = response.data.student;
@@ -130,7 +151,7 @@ sas
 							Notifi._error('Có lỗi trong quá trình lấy dữ liệu, load lại trang để thử lại.')
 						}
 					});
-				}
+				// }
 			}
 		}
 		
@@ -195,10 +216,14 @@ sas
 
 				if (_fromday === '') {
 					_fromday = null
+				} else {
+					_fromday = convertshow(_fromday);
 				}
 
 				if (_today === '') {
 					_today = null
+				} else {
+					_today = convertshow(_today);
 				}
 
 				if ($scope.mform !== undefined) {
