@@ -30,7 +30,7 @@ sas
 
                             $location.path('/home');
                             $scope.$on('$locationChangeSuccess', () => {
-                                $window.location.reload(true);
+                                window.location.reload(true);
                             });
                         } else if (data_result.auth.Role[0].id === 2) {
                             // Notifi._close();
@@ -40,7 +40,7 @@ sas
                             Thesocket.emit('connection');
                             $location.path('/marketing');
                             $scope.$on('$locationChangeSuccess', () => {
-                                $window.location.reload(true);
+                                window.location.reload(true);
                             });
                         }
                         // }, 1500);
@@ -80,12 +80,12 @@ sas
                     if (id === 1) {
                         $location.path('/home');
                         $scope.$on('$locationChangeSuccess', () => {
-                            $window.location.reload(true);
+                            window.location.reload(true);
                         });
                     } else {
                         $location.path('/marketing');
                         $scope.$on('$locationChangeSuccess', () => {
-                            $window.location.reload(true);
+                            window.location.reload(true);
                         });
                     }
                 }
